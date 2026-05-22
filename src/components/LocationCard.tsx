@@ -7,8 +7,8 @@ import {
 } from "@/lib/locations";
 import type { Dictionary } from "@/lib/dictionary";
 
-// One salon location: embedded Google Map + address, hours, phone and a Booker
-// "Book Now" link. Server component (the map is a plain iframe, no API key).
+// One salon location: embedded Google Map on top + address/hours/phone/landmark
+// and a Booker "Book Now" link. Server component (the map is a keyless iframe).
 export function LocationCard({
   loc,
   dict,
@@ -18,8 +18,8 @@ export function LocationCard({
 }) {
   const l = dict.locations;
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-fog bg-beige shadow-sm">
-      <div className="relative aspect-[16/10] w-full bg-fog">
+    <article className="flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-card">
+      <div className="relative aspect-[16/9] w-full bg-sand">
         <iframe
           src={mapEmbedUrl(loc)}
           title={`Map of Pure Nail Bar — ${loc.name}`}
@@ -29,14 +29,21 @@ export function LocationCard({
         />
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-2xl text-espresso">{loc.name}</h3>
-        {loc.landmark && (
-          <p className="mt-1 text-sm text-tan">{loc.landmark}</p>
-        )}
+        <a
+          href={mapLink(loc)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-2xl text-espresso underline-offset-4 hover:underline"
+        >
+          {loc.name}
+        </a>
+        {loc.landmark && <p className="mt-1 text-sm text-tan">{loc.landmark}</p>}
 
         <dl className="mt-4 space-y-3 text-sm text-mocha">
           <div>
-            <dt className="font-semibold text-espresso">📍 {l.labelAddress}</dt>
+            <dt className="text-xs font-semibold uppercase tracking-wide text-espresso">
+              📍 {l.labelAddress}
+            </dt>
             <dd className="mt-0.5">
               {loc.address.line1}
               <br />
@@ -44,7 +51,9 @@ export function LocationCard({
             </dd>
           </div>
           <div>
-            <dt className="font-semibold text-espresso">🕐 {l.labelHours}</dt>
+            <dt className="text-xs font-semibold uppercase tracking-wide text-espresso">
+              🕐 {l.labelHours}
+            </dt>
             <dd className="mt-0.5">
               {loc.hours.map((h) => (
                 <span key={h.label} className="block">
@@ -54,7 +63,9 @@ export function LocationCard({
             </dd>
           </div>
           <div>
-            <dt className="font-semibold text-espresso">📞 {l.labelPhone}</dt>
+            <dt className="text-xs font-semibold uppercase tracking-wide text-espresso">
+              📞 {l.labelPhone}
+            </dt>
             <dd className="mt-0.5">
               <a href={loc.phoneHref} className="hover:text-espresso">
                 {loc.phone}
@@ -63,16 +74,10 @@ export function LocationCard({
           </div>
         </dl>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Button href={bookerServiceMenu(loc)}>{l.bookNow}</Button>
-          <a
-            href={mapLink(loc)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-semibold text-espresso underline-offset-4 hover:underline"
-          >
-            {l.getDirections}
-          </a>
+        <div className="mt-6">
+          <Button href={bookerServiceMenu(loc)} className="w-full">
+            {l.bookNow}
+          </Button>
         </div>
       </div>
     </article>

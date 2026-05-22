@@ -82,22 +82,22 @@
     "serviceCards": [
       {
         "title": "Gel Manicure",
-        "price": "$45+",
+        "price": "$45",
         "body": "Long-lasting gel polish with a flawless, high-shine finish that stays perfect for weeks."
       },
       {
         "title": "Acrylic Full Set",
-        "price": "$65+",
+        "price": "$65",
         "body": "Custom-sculpted acrylic nails with your choice of shape, length, and design for a stunning look."
       },
       {
         "title": "Nail Art",
-        "price": "$35+",
+        "price": "$35",
         "body": "Express your style with hand-painted designs, intricate patterns, and creative embellishments."
       },
       {
         "title": "Spa Pedicure",
-        "price": "$55+",
+        "price": "$55",
         "body": "A luxurious pedicure experience with exfoliation, massage, and perfectly polished toes."
       }
     ],

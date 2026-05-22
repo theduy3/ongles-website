@@ -15,14 +15,29 @@ import { getDictionary } from "./dictionaries";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 
-// Marketing service-card images live under /images/home (separate from the
-// service-detail photos). Order matches dict.home.serviceCards.
+// Marketing service-card images (live order: Gel, Acrylic, Nail Art, Spa Pedicure).
 const CARD_IMAGES = [
   "/images/home/gel-manicure.png",
   "/images/home/acrylic-full-set.png",
   "/images/home/nail-art.png",
   "/images/home/spa-pedicure.png",
 ];
+
+// Small inline icons for the hero CTAs.
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4" aria-hidden>
+      <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function PhoneIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden>
+      <path d="M6.62 10.79a15.46 15.46 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.21 2.2z" />
+    </svg>
+  );
+}
 
 export async function generateMetadata({
   params,
@@ -56,79 +71,100 @@ export default async function Home({ params }: LangParams) {
 
   return (
     <>
-      {/* Hero */}
-      <section>
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center md:py-28">
+      {/* Hero — two-column (text left, image + floating stats right) */}
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.25em] text-mocha">
-              {dict.hero.subtitle}
-            </p>
-            <h1 className="mx-auto mt-6 max-w-4xl text-4xl leading-tight text-espresso sm:text-5xl md:text-6xl">
-              {dict.hero.taglineLead}{" "}
-              <em className="font-normal not-italic text-mocha">
-                {dict.hero.taglineEmphasis}
-              </em>
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl leading-relaxed text-mocha">
-              {dict.hero.description}
-            </p>
+            <div>
+              <p className="text-xs uppercase tracking-[0.25em] text-gold">
+                {dict.hero.subtitle}
+              </p>
+              <h1 className="mt-6 max-w-xl text-5xl leading-[1.05] text-espresso md:text-6xl">
+                {dict.hero.taglineLead}{" "}
+                <em className="italic text-mocha">{dict.hero.taglineEmphasis}</em>
+              </h1>
+              <p className="mt-6 max-w-md text-lg font-light leading-relaxed text-mocha">
+                {dict.hero.description}
+              </p>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <Button href={site.booker.brand}>
+                  {dict.cta.book}
+                  <ArrowIcon />
+                </Button>
+                <Button href={`/${lang}#location`} variant="ghost">
+                  <PhoneIcon />
+                  {dict.cta.callNow}
+                </Button>
+              </div>
+              <dl className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+                {dict.hero.badges.map((b, i) => (
+                  <div
+                    key={b.label}
+                    className={`flex flex-col ${i > 0 ? "border-l border-espresso/15 pl-8" : ""}`}
+                  >
+                    <dt className="text-2xl text-espresso">{b.value}</dt>
+                    <dd className="text-xs uppercase tracking-wide text-mocha">
+                      {b.label}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </Reveal>
+
           <Reveal delay={0.1}>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href={`/${lang}${site.booking}`}>{dict.cta.book}</Button>
-              <Button href={`/${lang}/locations`} variant="outline">
-                {dict.cta.callNow}
-              </Button>
+            <div className="relative mx-auto w-full max-w-md">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-card">
+                <Image
+                  src="/images/hero.png"
+                  alt={dict.hero.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 448px"
+                  className="object-cover"
+                />
+              </div>
+              {/* Floating stat cards */}
+              <div className="absolute -left-4 top-8 rounded-2xl bg-white px-5 py-3 shadow-card">
+                <p className="text-lg font-semibold text-espresso">
+                  {ratingDisplay} <span className="text-mocha">/ 5.0</span>
+                </p>
+                <p className="text-xs uppercase tracking-wide text-mocha">
+                  {reviewCountDisplay} Reviews
+                </p>
+              </div>
+              <div className="absolute -right-4 bottom-8 rounded-2xl bg-white px-5 py-3 shadow-card">
+                <p className="text-lg font-semibold text-espresso">{dict.hero.badges[1].value}</p>
+                <p className="text-xs uppercase tracking-wide text-mocha">
+                  Happy Clients
+                </p>
+              </div>
             </div>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <div className="relative mx-auto mt-14 aspect-[16/9] w-full max-w-5xl overflow-hidden rounded-3xl">
-              <Image
-                src="/images/hero.png"
-                alt={dict.hero.alt}
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 1024px"
-                className="object-cover"
-              />
-            </div>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <dl className="mx-auto mt-12 grid max-w-2xl grid-cols-3 gap-6">
-              {dict.hero.badges.map((b) => (
-                <div key={b.label}>
-                  <dt className="text-2xl text-espresso md:text-3xl">{b.value}</dt>
-                  <dd className="mt-1 text-xs uppercase tracking-wide text-mocha">
-                    {b.label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
           </Reveal>
         </div>
       </section>
 
-      {/* Services — 4 marketing cards */}
-      <section id="services" className="scroll-mt-24 bg-fog">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+      {/* Services — 4 white cards */}
+      <section id="services" className="scroll-mt-20">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal>
-              <p className="text-xs uppercase tracking-[0.2em] text-mocha">
+              <p className="text-xs uppercase tracking-[0.2em] text-gold">
                 {dict.home.servicesEyebrow}
               </p>
-              <h2 className="mt-3 text-3xl text-espresso md:text-5xl">
+              <h2 className="mt-3 text-4xl text-espresso md:text-5xl">
                 {dict.home.servicesHeading}
               </h2>
-              <p className="mt-5 leading-relaxed text-mocha">
+              <p className="mt-5 font-light leading-relaxed text-mocha">
                 {dict.home.servicesIntro}
               </p>
             </Reveal>
           </div>
-          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {dict.home.serviceCards.map((card, i) => (
               <Reveal key={card.title} delay={i * 0.08}>
-                <article className="flex flex-col overflow-hidden rounded-2xl bg-beige shadow-sm">
-                  <div className="relative aspect-[4/3] w-full bg-tan/30">
+                <article className="flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-card">
+                  <div className="relative aspect-[4/3] w-full">
                     <Image
                       src={CARD_IMAGES[i]}
                       alt={card.title}
@@ -137,19 +173,17 @@ export default async function Home({ params }: LangParams) {
                       className="object-cover"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="flex items-baseline justify-between gap-2">
-                      <h3 className="text-xl text-espresso">{card.title}</h3>
-                      <span className="text-sm font-semibold text-mocha">
-                        {card.price}
-                      </span>
-                    </div>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-mocha">
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="text-xl text-espresso">{card.title}</h3>
+                    <p className="mt-1 text-sm font-medium text-gold">
+                      From {card.price}
+                    </p>
+                    <p className="mt-3 flex-1 text-sm font-light leading-relaxed text-mocha">
                       {card.body}
                     </p>
-                    <div className="mt-6">
+                    <div className="mt-5">
                       <Button
-                        href={`/${lang}${site.booking}`}
+                        href={`/${lang}#booking`}
                         variant="outline"
                         className="w-full"
                       >
@@ -161,11 +195,6 @@ export default async function Home({ params }: LangParams) {
               </Reveal>
             ))}
           </div>
-          <Reveal>
-            <div className="mt-12 text-center">
-              <Button href={`/${lang}/services`}>{dict.cta.services}</Button>
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -173,17 +202,17 @@ export default async function Home({ params }: LangParams) {
       <WhyChooseUs dict={dict} />
 
       {/* Gallery */}
-      <section id="gallery" className="scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+      <section id="gallery" className="scroll-mt-20">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal>
-              <p className="text-xs uppercase tracking-[0.2em] text-mocha">
+              <p className="text-xs uppercase tracking-[0.2em] text-gold">
                 {dict.home.galleryEyebrow}
               </p>
-              <h2 className="mt-3 text-3xl text-espresso md:text-5xl">
+              <h2 className="mt-3 text-4xl text-espresso md:text-5xl">
                 {dict.home.galleryHeading}
               </h2>
-              <p className="mt-5 leading-relaxed text-mocha">
+              <p className="mt-5 font-light leading-relaxed text-mocha">
                 {dict.home.galleryIntro}
               </p>
             </Reveal>
@@ -195,7 +224,7 @@ export default async function Home({ params }: LangParams) {
           </Reveal>
           <Reveal>
             <div className="mt-12 text-center">
-              <Button href={`/${lang}/gallery`} variant="outline">
+              <Button href={`/${lang}/gallery`} variant="ghost">
                 {dict.cta.seeMore}
               </Button>
             </div>
@@ -203,56 +232,57 @@ export default async function Home({ params }: LangParams) {
         </div>
       </section>
 
-      {/* Reviews / testimonials */}
-      <section className="bg-fog">
-        <div className="mx-auto max-w-5xl px-6 py-20 text-center md:py-28">
-          <Reveal>
-            <p className="text-xs uppercase tracking-[0.2em] text-mocha">
-              {dict.reviews.eyebrow}
-            </p>
-            <h2 className="mt-3 text-3xl text-espresso md:text-5xl">
-              {dict.reviews.headlineMain}
-            </h2>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <div
-              className="mt-8 flex flex-col items-center gap-2"
-              aria-label={`${ratingDisplay} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${reviewCountDisplay} ${dict.reviews.reviewsWord}`}
-            >
-              <Stars className="text-espresso" />
-              <p className="text-2xl font-semibold text-espresso">
-                {ratingDisplay}{" "}
-                <span className="text-espresso/40">/ {site.reviews.bestRating}</span>
+      {/* Reviews / testimonials — white band */}
+      <section id="testimonials" className="scroll-mt-20 bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <div className="mx-auto max-w-2xl text-center">
+            <Reveal>
+              <p className="text-xs uppercase tracking-[0.2em] text-gold">
+                {dict.reviews.eyebrow}
               </p>
-              <p className="text-sm uppercase tracking-wide text-mocha">
-                {dict.reviews.basedOn} {reviewCountDisplay} {dict.reviews.reviewsWord}
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
+              <h2 className="mt-3 text-4xl text-espresso md:text-5xl">
+                {dict.reviews.headlineMain}
+              </h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <div
+                className="mt-6 flex flex-col items-center gap-2"
+                aria-label={`${ratingDisplay} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${reviewCountDisplay} ${dict.reviews.reviewsWord}`}
+              >
+                <Stars className="text-gold" />
+                <p className="text-sm uppercase tracking-wide text-mocha">
+                  {ratingDisplay} / {site.reviews.bestRating} · {dict.reviews.basedOn}{" "}
+                  {reviewCountDisplay} {dict.reviews.reviewsWord}
+                </p>
+              </div>
+            </Reveal>
+          </div>
+          <div className="mt-12">
             <Testimonials />
-          </Reveal>
+          </div>
         </div>
       </section>
 
       {/* Gift cards */}
       <GiftCards dict={dict} />
 
-      {/* Booking CTA */}
-      <section id="booking" className="scroll-mt-24 bg-espresso text-cream">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
+      {/* Booking CTA — light band */}
+      <section id="booking" className="scroll-mt-20 bg-sand">
+        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-24">
           <Reveal>
-            <h2 className="text-3xl text-cream md:text-5xl">
+            <h2 className="text-4xl text-espresso md:text-5xl">
               {dict.home.bookingHeading}
             </h2>
-            <p className="mt-5 leading-relaxed text-cream/80">
+            <p className="mx-auto mt-5 max-w-xl font-light leading-relaxed text-mocha">
               {dict.home.bookingIntro}
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href={`/${lang}${site.booking}`} variant="light">
+              <Button href={site.booker.brand}>
                 {dict.cta.book}
+                <ArrowIcon />
               </Button>
-              <Button href={`/${lang}/locations`} variant="outline" className="text-cream">
+              <Button href={`/${lang}#location`} variant="ghost">
+                <PhoneIcon />
                 {dict.cta.callNow}
               </Button>
             </div>

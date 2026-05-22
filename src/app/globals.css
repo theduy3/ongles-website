@@ -1,68 +1,58 @@
 @import "tailwindcss";
 
-/* Warm, earthy luxury palette to match Pure Nail Bar. Token NAMES are kept from
-   the original system (bg-espresso, text-cream, …) so every Tailwind utility
-   restyles without touching components — only the hex values change here.
+/* Exact Pure Nail Bar design system (from purenailbar-style.min.css). Token
+   names kept from the original system so components restyle by class.
    Tailwind v4 is CSS-first: these @theme vars auto-generate utilities. */
 @theme {
-  --color-espresso: #2c2824; /* charcoal-brown: header, footer, buttons, headings */
-  --color-mocha: #6b5e52; /* warm brown: body text, secondary headings */
-  --color-tan: #b8a99a; /* warm mid: accents, placeholders, footer labels */
-  --color-beige: #ffffff; /* white: page background */
-  --color-cream: #faf7f2; /* warm off-white: light text on dark, soft sections */
-  --color-fog: #f4efe9; /* warm sand: alternating section bands */
+  --color-espresso: #2c2824; /* primary text, dark elements, footer */
+  --color-mocha: #6b5e52; /* body copy */
+  --color-tan: #9a8b7a; /* light text, labels, placeholders */
+  --color-beige: #ffffff; /* white card / surface */
+  --color-cream: #faf7f2; /* page background + light text on dark */
+  --color-fog: #ffffff; /* legacy alias → white band on cream */
+  --color-sand: #f0e8dc; /* warm beige band / tile */
+  --color-gold: #c9a96e; /* accent: newsletter Join, highlights */
+  --color-rose: #c9907e; /* secondary accent / gift tiles */
 
   /* Wired to next/font CSS variables declared in layout.tsx */
   --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-body: var(--font-jost), system-ui, sans-serif;
 
   --radius-pill: 300px;
+
+  /* Signature card shadow from the live theme. */
+  --shadow-card: 0 8px 40px rgba(44, 40, 36, 0.08);
 }
 
 @layer base {
   body {
-    background-color: var(--color-beige);
+    /* Cream page canvas with white cards on top (matches the live site). */
+    background-color: var(--color-cream);
     color: var(--color-espresso);
     font-family: var(--font-body);
     font-weight: 400;
   }
 
-  /* Pure Nail Bar headings are elegant light serif (Cormorant Garamond) —
-     NOT uppercase display. Light weight, gentle tracking. */
+  /* Elegant light serif headings (Cormorant Garamond), gentle negative tracking. */
   h1,
   h2,
   h3,
   h4 {
     font-family: var(--font-display);
     font-weight: 300;
-    letter-spacing: 0;
     line-height: 1.1;
   }
+  h1 {
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    letter-spacing: -0.012em;
+  }
 }
 
-/* Reviews ticker: a single row of cards sliding right→left forever. The track
-   holds the list duplicated once, so translating -50% lands copy-2 exactly
-   where copy-1 began → seamless loop. CSS-only (no JS), pauses on hover. */
 @layer utilities {
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-  .animate-marquee {
-    animation: marquee var(--marquee-duration, 60s) linear infinite;
-    will-change: transform;
-  }
-  .marquee-pause:hover .animate-marquee {
-    animation-play-state: paused;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
-    animation: none;
+  /* Signature elevation used on cards/tiles across the site. */
+  .shadow-card {
+    box-shadow: var(--shadow-card);
   }
 }

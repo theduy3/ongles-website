@@ -7,7 +7,11 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 // Footer email-capture form. Posts to /api/newsletter, which persists to
 // Supabase when configured and degrades gracefully otherwise.
-export function NewsletterForm({ dict }: { dict: Pick<Dictionary, "newsletter"> }) {
+export function NewsletterForm({
+  dict,
+}: {
+  dict: Pick<Dictionary, "newsletter">;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const n = dict.newsletter;
 
@@ -36,24 +40,24 @@ export function NewsletterForm({ dict }: { dict: Pick<Dictionary, "newsletter"> 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-3 sm:flex-row">
+    <form onSubmit={handleSubmit} className="mt-4 flex items-stretch">
       <input
         type="email"
         name="email"
         required
         placeholder={n.placeholder}
         aria-label={n.placeholder}
-        className="min-w-0 flex-1 rounded-pill border border-cream/25 bg-transparent px-4 py-2.5 text-sm text-cream outline-none placeholder:text-cream/40 focus:border-cream"
+        className="min-w-0 flex-1 border-b border-cream/25 bg-transparent px-1 py-2.5 text-sm text-cream outline-none placeholder:text-cream/40 focus:border-cream"
       />
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="rounded-pill bg-cream px-6 py-2.5 text-xs font-semibold uppercase tracking-wide text-espresso transition-colors hover:bg-tan disabled:opacity-60"
+        className="ml-3 shrink-0 bg-gold px-6 py-2.5 text-xs font-semibold uppercase tracking-wide text-white transition-opacity hover:opacity-90 disabled:opacity-60"
       >
         {n.button}
       </button>
       {status === "error" && (
-        <p className="text-sm text-red-300 sm:basis-full">{n.error}</p>
+        <p className="mt-2 text-sm text-red-300">{n.error}</p>
       )}
     </form>
   );

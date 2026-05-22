@@ -67,26 +67,33 @@ export const site = {
       country: "CA",
     },
   },
-  // nav hrefs are locale-agnostic base paths; labels come from dict.nav[key].
-  // Pages prefix hrefs with the active /{locale}.
+  // Header nav = ANCHOR links into the homepage (single-page design, like the
+  // live site). hrefs are prefixed with /{locale} by callers, so "#services"
+  // becomes "/en#services" and scrolls from any route. Labels: dict.nav[key].
   nav: [
-    { key: "home", href: "/" },
-    { key: "services", href: "/services" },
-    { key: "gallery", href: "/gallery" },
-    { key: "reviews", href: "/reviews" },
-    { key: "locations", href: "/locations" },
-    { key: "about", href: "/about" },
+    { key: "services", href: "#services" },
+    { key: "gallery", href: "#gallery" },
+    { key: "reviews", href: "#testimonials" },
+    { key: "locations", href: "#location" },
+    { key: "giftcards", href: "#giftcards" },
   ],
-  // Secondary pages — footer + sitemap only, kept out of the primary header nav.
-  secondaryNav: [
-    { key: "giftcards", href: "/#giftcards" },
-    { key: "careers", href: "/careers" },
-    { key: "press", href: "/press" },
-    { key: "pureParties", href: "/pure-parties" },
-    { key: "franchising", href: "/franchising" },
-    { key: "contact", href: "/contact" },
-    { key: "faq", href: "/faq" },
-    { key: "privacy", href: "/privacy" },
-    { key: "terms", href: "/terms" },
+  // Anchor for the "Book Now" CTA (homepage booking band).
+  bookingAnchor: "#booking",
+  // Real indexable page routes (feeds the sitemap; nav is anchors now).
+  routes: [
+    "/services",
+    "/gallery",
+    "/locations",
+    "/about",
+    "/reviews",
+    "/faq",
+    "/contact",
+    "/book-online",
+    "/careers",
+    "/press",
+    "/pure-parties",
+    "/franchising",
+    "/privacy",
+    "/terms",
   ],
 } as const;

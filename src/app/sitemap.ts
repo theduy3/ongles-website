@@ -3,25 +3,29 @@ import { locales } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import { services, servicePath } from "@/lib/services";
 
-// Single-locale sitemap (en). Nav + secondary routes share a path; service pages
-// use their slug. Each entry still declares hreflang alternates for parity with
-// the App Router shape (one locale today).
+// Single-locale sitemap (en). The header nav is now anchor links into the home
+// page, so indexable routes come from site.routes + the service slugs + home.
+// Each entry declares hreflang alternates for App Router parity (one locale).
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-  // Skip in-page anchors (e.g. "/#giftcards") — not standalone documents.
-  const toPath = (href: string) => (href === "/" ? "" : href);
-  const isPage = (href: string) => !href.includes("#");
-
   const altLanguages = (path: string) =>
     Object.fromEntries(locales.map((l) => [l, `${site.url}/${l}${path}`]));
 
-  const navEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
-    site.nav.map((item) => ({
-      url: `${site.url}/${locale}${toPath(item.href)}`,
+  const homeEntries: MetadataRoute.Sitemap = locales.map((locale) => ({
+    url: `${site.url}/${locale}`,
+    lastModified,
+    changeFrequency: "weekly" as const,
+    priority: 1,
+    alternates: { languages: altLanguages("") },
+  }));
+
+  const pageEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    site.routes.map((route) => ({
+      url: `${site.url}/${locale}${route}`,
       lastModified,
       changeFrequency: "monthly" as const,
-      priority: item.href === "/" ? 1 : 0.8,
-      alternates: { languages: altLanguages(toPath(item.href)) },
+      priority: 0.7,
+      alternates: { languages: altLanguages(route) },
     })),
   );
 
@@ -30,22 +34,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${site.url}/${locale}${servicePath(service, locale)}`,
       lastModified,
       changeFrequency: "monthly" as const,
-      priority: 0.7,
+      priority: 0.6,
       alternates: { languages: altLanguages(servicePath(service, locale)) },
     })),
   );
 
-  const secondaryEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
-    site.secondaryNav
-      .filter((item) => isPage(item.href))
-      .map((item) => ({
-        url: `${site.url}/${locale}${toPath(item.href)}`,
-        lastModified,
-        changeFrequency: "monthly" as const,
-        priority: 0.6,
-        alternates: { languages: altLanguages(toPath(item.href)) },
-      })),
-  );
-
-  return [...navEntries, ...secondaryEntries, ...serviceEntries];
+  return [...homeEntries, ...pageEntries, ...serviceEntries];
 }

@@ -1,18 +1,5 @@
 [
   {
-    "id": "promo-active",
-    "version": 1,
-    "type": "rich",
-    "priority": 10,
-    "startsAt": null,
-    "endsAt": "2026-12-31T23:59:59Z",
-    "frequency": "session",
-    "image": null,
-    "title": { "en": "New Client Offer" },
-    "body": { "en": "Enjoy a little extra on your first visit — book online today." },
-    "cta": { "label": { "en": "Book now" }, "href": "/en/book-online" }
-  },
-  {
     "id": "expired",
     "version": 1,
     "type": "rich",
@@ -36,6 +23,6 @@
     "image": null,
     "title": { "en": "Soon" },
     "body": { "en": "x" },
-    "cta": null
+    "cta": { "label": { "en": "Book now" }, "href": "/book-online" }
   }
 ]

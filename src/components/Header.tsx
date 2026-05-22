@@ -8,7 +8,6 @@ import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { Button } from "./Button";
 
-// Instagram glyph. Inherits the link's text colour via currentColor.
 function InstagramIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
@@ -17,42 +16,36 @@ function InstagramIcon({ className = "" }: { className?: string }) {
   );
 }
 
-// Serif wordmark — "Pure" light, "Nail Bar" medium (matches the source logo emphasis).
+// Serif-free wordmark per the live logo (Jost 600, "Nail Bar" emphasized).
 function Wordmark() {
   return (
-    <span className="font-[var(--font-cormorant)] text-2xl tracking-wide text-cream sm:text-3xl">
-      <span className="font-light">Pure </span>
-      <span className="font-medium">Nail Bar</span>
+    <span className="font-[var(--font-jost)] text-xl tracking-tight text-espresso sm:text-2xl">
+      <span className="font-normal">Pure </span>
+      <span className="font-semibold">Nail Bar</span>
     </span>
   );
 }
 
-// Client Component — holds mobile-menu open state and animates it with Framer Motion.
+// Light, translucent sticky header with anchor-scroll nav (single-page design).
 export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
   const [open, setOpen] = useState(false);
 
-  // nav hrefs are locale-agnostic base paths; prefix with the active locale.
-  const localizedHref = (href: string) =>
-    href === "/" ? `/${locale}` : `/${locale}${href}`;
+  // Anchor hrefs prefixed with the active locale so they scroll from any route.
+  const href = (h: string) => (h === "/" ? `/${locale}` : `/${locale}${h}`);
 
   return (
-    <header className="sticky top-0 z-50 bg-espresso text-cream">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link
-          href={`/${locale}`}
-          onClick={() => setOpen(false)}
-          aria-label={site.name}
-          className="flex items-center"
-        >
+    <header className="sticky top-0 z-50 border-b border-espresso/10 bg-cream/90 text-espresso backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <Link href={`/${locale}`} onClick={() => setOpen(false)} aria-label={site.name}>
           <Wordmark />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {site.nav.map((item) => (
             <Link
               key={item.key}
-              href={localizedHref(item.href)}
-              className="text-xs uppercase tracking-[0.15em] transition-colors hover:text-tan"
+              href={href(item.href)}
+              className="text-[13px] uppercase tracking-[0.12em] text-espresso/80 transition-colors hover:text-espresso"
             >
               {dict.nav[item.key]}
             </Link>
@@ -65,11 +58,11 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            className="transition-colors hover:text-tan"
+            className="text-espresso/70 transition-colors hover:text-espresso"
           >
             <InstagramIcon className="h-5 w-5" />
           </a>
-          <Button href={localizedHref(site.booking)} variant="light">
+          <Button href={href(site.bookingAnchor)} variant="solid">
             {dict.nav.bookOnline}
           </Button>
         </div>
@@ -80,9 +73,9 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
           aria-label="Toggle menu"
           aria-expanded={open}
         >
-          <span className={`h-0.5 w-6 bg-cream transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
-          <span className={`h-0.5 w-6 bg-cream transition-opacity ${open ? "opacity-0" : ""}`} />
-          <span className={`h-0.5 w-6 bg-cream transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+          <span className={`h-0.5 w-6 bg-espresso transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
+          <span className={`h-0.5 w-6 bg-espresso transition-opacity ${open ? "opacity-0" : ""}`} />
+          <span className={`h-0.5 w-6 bg-espresso transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
         </button>
       </div>
 
@@ -93,31 +86,22 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-cream/10 lg:hidden"
+            className="overflow-hidden border-t border-espresso/10 lg:hidden"
           >
             <div className="flex flex-col gap-1 px-6 py-4">
               {site.nav.map((item) => (
                 <Link
                   key={item.key}
-                  href={localizedHref(item.href)}
+                  href={href(item.href)}
                   onClick={() => setOpen(false)}
-                  className="py-2 text-sm uppercase tracking-[0.15em] transition-colors hover:text-tan"
+                  className="py-2 text-sm uppercase tracking-[0.12em] text-espresso/80 transition-colors hover:text-espresso"
                 >
                   {dict.nav[item.key]}
                 </Link>
               ))}
-              <a
-                href={site.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="py-2 transition-colors hover:text-tan"
-              >
-                <InstagramIcon className="h-5 w-5" />
-              </a>
               <Button
-                href={localizedHref(site.booking)}
-                variant="light"
+                href={href(site.bookingAnchor)}
+                variant="solid"
                 className="mt-3 w-full"
               >
                 {dict.nav.bookOnline}

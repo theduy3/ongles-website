@@ -9,10 +9,10 @@ export function PageHeader({
   intro?: string;
 }) {
   return (
-    <section className="bg-fog">
-      <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+    <section className="bg-sand">
+      <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
         <Reveal>
-          <h1 className="text-4xl md:text-6xl">{title}</h1>
+          <h1 className="text-4xl text-espresso md:text-6xl">{title}</h1>
           {intro && (
             <p className="mt-6 max-w-2xl leading-relaxed text-mocha">{intro}</p>
           )}
