@@ -1,0 +1,41 @@
+[
+  {
+    "id": "promo-active",
+    "version": 1,
+    "type": "rich",
+    "priority": 10,
+    "startsAt": null,
+    "endsAt": "2026-12-31T23:59:59Z",
+    "frequency": "session",
+    "image": null,
+    "title": { "en": "New Client Offer" },
+    "body": { "en": "Enjoy a little extra on your first visit — book online today." },
+    "cta": { "label": { "en": "Book now" }, "href": "/en/book-online" }
+  },
+  {
+    "id": "expired",
+    "version": 1,
+    "type": "rich",
+    "priority": 99,
+    "startsAt": "2000-01-01T00:00:00Z",
+    "endsAt": "2000-01-02T00:00:00Z",
+    "frequency": "always",
+    "image": null,
+    "title": { "en": "Old" },
+    "body": { "en": "x" },
+    "cta": null
+  },
+  {
+    "id": "future",
+    "version": 1,
+    "type": "rich",
+    "priority": 99,
+    "startsAt": "2999-01-01T00:00:00Z",
+    "endsAt": null,
+    "frequency": "always",
+    "image": null,
+    "title": { "en": "Soon" },
+    "body": { "en": "x" },
+    "cta": null
+  }
+]

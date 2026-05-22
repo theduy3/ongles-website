@@ -1,0 +1,42 @@
+{
+  "name": "purenailbar",
+  "description": "Pure Nail Bar — luxury nail care in Vancouver",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test:e2e": "playwright test",
+    "fetch:reviews": "node --env-file-if-exists=.env.local scripts/fetch-google-reviews.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.106.1",
+    "framer-motion": "^12.39.0",
+    "iron-session": "^8.0.4",
+    "next": "16.2.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "ignoreScripts": [
+    "sharp",
+    "unrs-resolver"
+  ],
+  "trustedDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ]
+}

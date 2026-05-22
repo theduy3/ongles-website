@@ -1,0 +1,718 @@
+{
+  "meta": {
+    "homeTitle": "Pure Nail Bar — Luxury Nail Care in Vancouver",
+    "homeDescription": "Vancouver's premier nail studio. Gel manicures, acrylic full sets, nail art and spa pedicures across 5 locations. Book online — 4.4★, 2,000+ clients.",
+    "servicesTitle": "Services — Pure Nail Bar",
+    "servicesDescription": "Gel nails, feet & pedicures, waxing, lash extensions and hair services at Pure Nail Bar. Premium products, certified technicians and a relaxing studio.",
+    "aboutTitle": "About — Pure Nail Bar",
+    "aboutDescription": "A serene, stylish nail sanctuary in Vancouver. Premium products, hospital-grade hygiene and skilled artists across 5 Greater Vancouver locations.",
+    "bookOnlineTitle": "Book Online — Pure Nail Bar",
+    "bookOnlineDescription": "Book your manicure, pedicure, lashes or waxing at any Pure Nail Bar location. Reserve online in seconds.",
+    "contactTitle": "Contact — Pure Nail Bar",
+    "contactDescription": "Get in touch with Pure Nail Bar. Questions about services, bookings or careers — send us a message.",
+    "faqTitle": "FAQ — Pure Nail Bar",
+    "faqDescription": "Hours, booking, services, hygiene and more — answers to common questions about Pure Nail Bar.",
+    "reviewsTitle": "Reviews — Pure Nail Bar",
+    "reviewsDescription": "See why clients rate Pure Nail Bar 4.4/5 — gel nails, pedicures, lashes and nail art across Vancouver.",
+    "galleryTitle": "Gallery — Pure Nail Bar",
+    "galleryDescription": "Browse our latest nail art, gel manicures and client transformations at Pure Nail Bar.",
+    "locationsTitle": "Locations — Pure Nail Bar",
+    "locationsDescription": "Find Pure Nail Bar near you — 5 studios across Vancouver and Surrey: Killarney, Kitsilano West 4th, Morgan Crossing, Olympic Village and Renfrew Heights.",
+    "careersTitle": "Careers — Pure Nail Bar",
+    "careersDescription": "Join the Pure Nail Bar team. We're hiring certified nail technicians and front-desk talent across Greater Vancouver.",
+    "pressTitle": "Press — Pure Nail Bar",
+    "pressDescription": "Press and media resources for Pure Nail Bar, Vancouver's premier nail studio.",
+    "purePartiesTitle": "Pure Parties — Pure Nail Bar",
+    "purePartiesDescription": "Book a group nail party at Pure Nail Bar — birthdays, bridal showers and corporate events in a private, pampering setting.",
+    "franchisingTitle": "Franchising — Pure Nail Bar",
+    "franchisingDescription": "Bring Pure Nail Bar to your community. Explore franchising opportunities with a proven, premium nail-care brand.",
+    "termsTitle": "Terms & Conditions — Pure Nail Bar",
+    "termsDescription": "Salon policies for Pure Nail Bar: appointments, cancellations, deposits, gift cards, health & safety and more.",
+    "privacyTitle": "Privacy Policy — Pure Nail Bar",
+    "privacyDescription": "How Pure Nail Bar collects, uses and protects your personal information."
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "gallery": "Gallery",
+    "reviews": "Reviews",
+    "locations": "Locations",
+    "about": "About",
+    "giftcards": "Gift Cards",
+    "careers": "Careers",
+    "press": "Press",
+    "pureParties": "Pure Parties",
+    "franchising": "Franchising",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "bookOnline": "Book Now"
+  },
+  "cta": {
+    "book": "Book Online",
+    "callNow": "Call to Book",
+    "learnMore": "Learn More",
+    "services": "View All Services",
+    "viewServices": "View Services",
+    "send": "Send",
+    "sending": "Sending…",
+    "bookNow": "Book Now",
+    "buyGiftCard": "Buy a Gift Card",
+    "seeMore": "See More Designs",
+    "getDirections": "Get Directions",
+    "join": "Join"
+  },
+  "hero": {
+    "subtitle": "Vancouver's Premier Nail Studio",
+    "taglineLead": "Luxury Nail Care, Designed for",
+    "taglineEmphasis": "You",
+    "description": "Expert nail services in a relaxing, modern studio. Where elegance meets precision in the art of nail care.",
+    "alt": "Elegant nail art and a freshly finished manicure at Pure Nail Bar",
+    "badges": [
+      { "value": "4.4★", "label": "104 reviews" },
+      { "value": "2,000+", "label": "Happy clients" },
+      { "value": "Certified", "label": "Technicians" }
+    ]
+  },
+  "home": {
+    "servicesEyebrow": "Our Services",
+    "servicesHeading": "Indulge in Perfection",
+    "servicesIntro": "From classic elegance to intricate nail art, our skilled technicians deliver meticulous attention to detail in every service.",
+    "serviceCards": [
+      {
+        "title": "Gel Manicure",
+        "price": "$45+",
+        "body": "Long-lasting gel polish with a flawless, high-shine finish that stays perfect for weeks."
+      },
+      {
+        "title": "Acrylic Full Set",
+        "price": "$65+",
+        "body": "Custom-sculpted acrylic nails with your choice of shape, length, and design for a stunning look."
+      },
+      {
+        "title": "Nail Art",
+        "price": "$35+",
+        "body": "Express your style with hand-painted designs, intricate patterns, and creative embellishments."
+      },
+      {
+        "title": "Spa Pedicure",
+        "price": "$55+",
+        "body": "A luxurious pedicure experience with exfoliation, massage, and perfectly polished toes."
+      }
+    ],
+    "galleryEyebrow": "Our Work",
+    "galleryHeading": "Nail Art Gallery",
+    "galleryIntro": "A showcase of our latest designs, trending styles, and client transformations.",
+    "bookingHeading": "Ready for Your Next Appointment?",
+    "bookingIntro": "Book your session today and experience the Pure Nail Bar difference. Schedule online or call your nearest location.",
+    "locationsEyebrow": "Visit Us",
+    "locationsHeading": "Find Us"
+  },
+  "whyChooseUs": {
+    "eyebrow": "The Pure Difference",
+    "heading": "Why Choose Us",
+    "intro": "We set the standard for premium nail care with our commitment to quality, hygiene, and artistry.",
+    "features": [
+      {
+        "icon": "✨",
+        "title": "Premium Products",
+        "body": "Only the finest, professional-grade polishes, gels, and treatments from trusted luxury brands."
+      },
+      {
+        "icon": "🛡️",
+        "title": "Hygienic & Sterilized",
+        "body": "Hospital-grade sterilization protocols. Every tool is sanitized for your complete safety and peace of mind."
+      },
+      {
+        "icon": "🎨",
+        "title": "Skilled Nail Artists",
+        "body": "Our certified technicians bring years of expertise to every service, from classic to avant-garde."
+      },
+      {
+        "icon": "🌿",
+        "title": "Relaxing Atmosphere",
+        "body": "A serene, stylish sanctuary designed for you to unwind, escape, and indulge in pure pampering."
+      }
+    ]
+  },
+  "giftCards": {
+    "eyebrow": "Gift Cards",
+    "heading": "Give the Gift of Beauty",
+    "description": "Treat someone special to a luxurious nail care experience. Choose from beautiful designs for birthdays, holidays, and every occasion. Send instantly by email or print at home.",
+    "note": "Email or print delivery • Any amount",
+    "designs": [
+      { "title": "Happy Holidays" },
+      { "title": "For Mom" },
+      { "title": "Happy Birthday" },
+      { "title": "Gift Card" }
+    ]
+  },
+  "locations": {
+    "eyebrow": "Visit Us",
+    "heading": "Find Us",
+    "intro": "Five studios across Greater Vancouver. Drop in or book ahead at the location nearest you.",
+    "labelHours": "Hours",
+    "labelPhone": "Phone",
+    "labelAddress": "Address",
+    "bookNow": "Book Now",
+    "getDirections": "Get Directions",
+    "viewAll": "View All Locations"
+  },
+  "newsletter": {
+    "heading": "Stay in Touch",
+    "description": "Get exclusive offers, new designs, and beauty tips delivered to your inbox.",
+    "placeholder": "Your email address",
+    "button": "Join",
+    "success": "Thank you — you're on the list!",
+    "error": "Something went wrong. Please try again."
+  },
+  "services": [
+    {
+      "title": "Gel Nails",
+      "body": "Gel manicures, acrylic full sets and custom nail art with a flawless, long-wearing, high-shine finish."
+    },
+    {
+      "title": "Feet",
+      "body": "Spa pedicures with exfoliation, massage and deep hydration that leave your feet soft and beautifully polished."
+    },
+    {
+      "title": "Wax",
+      "body": "Comfortable, efficient waxing from brows to bikini, with smooth results that last for weeks."
+    },
+    {
+      "title": "Lashes",
+      "body": "Classic, hybrid and volume lash extensions mapped to your eyes for a natural-to-dramatic, weightless look."
+    },
+    {
+      "title": "Hair",
+      "body": "Polished hair services to complete your look, delivered by experienced stylists in a relaxing setting."
+    }
+  ],
+  "servicesPage": {
+    "heading": "Our Services",
+    "intro": "From classic elegance to intricate nail art, our skilled technicians deliver meticulous attention to detail in every service."
+  },
+  "about": {
+    "heading": "About Pure Nail Bar",
+    "body": [
+      "Pure Nail Bar is a serene and stylish sanctuary in Vancouver, where elegance meets precision in the art of nail care. From classic manicures to intricate nail art, our certified technicians bring years of expertise to every service.",
+      "We set the standard for premium nail care with a commitment to quality, hygiene and artistry. We use only the finest professional-grade products and follow hospital-grade sterilization protocols, so every visit is as safe as it is beautiful.",
+      "With more than 2,000 happy clients and five studios across Greater Vancouver, we've designed every detail — from our relaxing atmosphere to our skilled artists — to help you unwind, escape and indulge in pure pampering."
+    ]
+  },
+  "bookOnline": {
+    "heading": "Book Online",
+    "intro": "Choose your nearest Pure Nail Bar location to view its service menu and reserve your appointment in seconds.",
+    "helpBefore": "Prefer to talk to us? Call your nearest location, or reach the Killarney studio at ",
+    "helpAfter": "."
+  },
+  "reviews": {
+    "eyebrow": "Client Love",
+    "headlineLead": "Don't just take our word for it —",
+    "headlineMain": "What Our Clients Say",
+    "basedOn": "from",
+    "reviewsWord": "Google reviews",
+    "ctaPrompt": "Ready to experience the Pure difference?",
+    "bookOnline": "Book Online"
+  },
+  "contact": {
+    "heading": "Contact Us",
+    "intro": "Questions about services, bookings or working with us? Send a message and we'll reply shortly."
+  },
+  "form": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "message": "Message",
+    "success": "Thank you — we've received your message and will be in touch shortly."
+  },
+  "labels": {
+    "location": "Location",
+    "contact": "Contact"
+  },
+  "serviceDetails": {
+    "gel-nails": {
+      "title": "Gel Nails in Vancouver",
+      "heroAlt": "Glossy gel manicure with a flawless finish at Pure Nail Bar",
+      "intro": [
+        "Our gel nail services pair long-lasting wear with a flawless, high-shine finish that stays perfect for weeks. From a clean, natural gel manicure to a custom-sculpted acrylic full set, our certified technicians shape, build and finish your nails exactly the way you want.",
+        "We never rush the details. Every set follows a careful, unhurried process with premium, professional-grade products — because the difference between a good manicure and a great one lives in the finish: even cuticles, a precise polish line and a shape that flatters your hands."
+      ],
+      "whyUs": "Clients across Vancouver trust Pure Nail Bar for consistency: skilled, certified artists, premium products and hospital-grade hygiene at every visit. Whether you want subtle elegance or bold nail art, you'll leave with a result that lasts.",
+      "included": [
+        "Nail shaping and meticulous cuticle care",
+        "Your choice of gel manicure or acrylic full set",
+        "A precise, long-wearing, high-shine finish",
+        "Access to a wide range of colours and finishes",
+        "Honest advice on shape, length and design",
+        "A relaxing, sterilized service environment"
+      ],
+      "addons": [
+        "Custom hand-painted nail art and seasonal designs",
+        "Length and shape customization on full sets",
+        "Chrome, French and encapsulated finishes"
+      ],
+      "duration": "About 45–75 minutes, depending on the set and add-ons.",
+      "aftercare": "Apply cuticle oil daily and wear gloves for cleaning or dishwashing — water and harsh detergents are the main cause of early chips and lifting. When it's time for a change, book a proper removal rather than peeling, which takes the top layer of your natural nail with it.",
+      "hygiene": "Your safety comes first. Every tool is sanitized to hospital-grade standards and single-use items are discarded after each client — the protocol behind every Pure Nail Bar service.",
+      "faq": [
+        {
+          "q": "How long does a gel manicure last?",
+          "a": "A gel manicure typically lasts two to three weeks without chipping. We'll recommend the finish that best fits your routine and how quickly your nails grow."
+        },
+        {
+          "q": "Do you do acrylic full sets and nail art?",
+          "a": "Yes. We offer custom-sculpted acrylic full sets in your choice of shape and length, plus hand-painted nail art and intricate designs."
+        },
+        {
+          "q": "What's the difference between gel and regular polish?",
+          "a": "Gel is cured under a lamp for a glossy, flexible finish that resists chips for two to three weeks; regular polish air-dries and chips sooner. We'll recommend the best option for your plans."
+        }
+      ],
+      "metaTitle": "Gel Nails & Acrylics in Vancouver | Pure Nail Bar",
+      "metaDescription": "Gel manicures, acrylic full sets and custom nail art with a flawless, long-wearing finish. Book online — from $45."
+    },
+    "feet": {
+      "title": "Spa Pedicures in Vancouver",
+      "heroAlt": "Relaxing spa pedicure in progress at Pure Nail Bar",
+      "intro": [
+        "Our spa pedicure is the ultimate reset for tired feet. Each treatment pairs careful nail and skin care with a genuinely relaxing experience — exfoliation, a soothing massage and deep hydration that leaves your feet soft, smooth and perfectly polished.",
+        "It's more than polish. We take the time to address rough heels, dry skin and overgrown cuticles, so you walk out feeling lighter, not just looking better."
+      ],
+      "whyUs": "Feet carry you all day and deserve real expertise. Our technicians deliver a pedicure that's both therapeutic and relaxing, in a spotless, welcoming setting across all five Pure Nail Bar studios.",
+      "included": [
+        "A warm soak to soften skin and ease tension",
+        "Nail shaping and thorough cuticle care",
+        "Gentle exfoliation to remove rough, dry skin",
+        "A relaxing lower-leg and foot massage",
+        "Deep hydration and your choice of polish",
+        "Smoothing of calluses at the heels and pressure points"
+      ],
+      "addons": [
+        "Gel polish for a longer-lasting, chip-resistant finish",
+        "Extra massage time for a true spa session",
+        "Paraffin treatment for extra-soft skin"
+      ],
+      "duration": "About 45–65 minutes, depending on add-ons.",
+      "aftercare": "Moisturise your feet daily, especially the heels, and reapply after showering when skin absorbs best. If you chose gel polish, it's ready immediately; regular polish needs a little drying time, so wear open shoes home.",
+      "hygiene": "We take hygiene seriously: tools sterilized to hospital-grade standards after every use, single-use items discarded, and a spotless setup for every guest.",
+      "faq": [
+        {
+          "q": "What makes a spa pedicure different?",
+          "a": "Beyond shaping and polish, a spa pedicure includes exfoliation, a relaxing massage and deep hydration for soft, rejuvenated feet."
+        },
+        {
+          "q": "Can I get gel polish on a pedicure?",
+          "a": "Yes. Gel polish keeps toes looking fresh for weeks and is a popular choice before vacations and sandal season."
+        },
+        {
+          "q": "How often should I get a pedicure?",
+          "a": "Every four to six weeks keeps feet healthy and smooth, though many clients come more often in summer or before special occasions."
+        }
+      ],
+      "metaTitle": "Spa Pedicures in Vancouver | Pure Nail Bar",
+      "metaDescription": "Relaxing spa pedicures with exfoliation, massage and deep hydration. Book online — from $40."
+    },
+    "wax": {
+      "title": "Waxing in Vancouver",
+      "heroAlt": "Calm, clean waxing treatment room at Pure Nail Bar",
+      "intro": [
+        "Smooth, comfortable and quick — our waxing service covers everything from eyebrow shaping to a full bikini wax. Our technique is designed to keep you as comfortable as possible for a fast, low-stress experience.",
+        "Waxing removes hair from the root, so results last far longer than shaving and regrowth comes back softer and finer over time."
+      ],
+      "whyUs": "Waxing is as much about comfort and trust as technique. Clients return to us because we're fast, gentle and genuinely discreet, in a clean and welcoming space.",
+      "included": [
+        "Eyebrow shaping and facial waxing",
+        "Underarm, arm and full or half leg waxing",
+        "Bikini and full bikini (Brazilian) waxing",
+        "A technique focused on comfort and speed",
+        "Smooth results that last weeks, not days",
+        "Discreet, professional service in a private setting"
+      ],
+      "addons": [
+        "Brow tint to complete and define your shape",
+        "Combine multiple areas in one visit to save time"
+      ],
+      "duration": "From about 10 minutes (brows) to 45 minutes (larger areas).",
+      "aftercare": "For the first 24–48 hours, avoid hot baths, saunas, swimming and direct sun, and skip heavy workouts — freshly waxed skin is sensitive. Start gentle exfoliation after a couple of days to prevent ingrown hairs.",
+      "hygiene": "We never compromise on cleanliness: disinfected stations, single-use applicators where appropriate, and tools sterilized after every use.",
+      "faq": [
+        {
+          "q": "How long does waxing last?",
+          "a": "Most clients stay smooth for three to four weeks. With regular visits, regrowth becomes finer over time."
+        },
+        {
+          "q": "How long should hair be before waxing?",
+          "a": "About a quarter-inch (roughly two to three weeks of growth) lets the wax grip properly for the cleanest result."
+        },
+        {
+          "q": "Is waxing painful?",
+          "a": "There's a brief sensation, but our technique is designed to minimize discomfort, and it eases with regular visits."
+        }
+      ],
+      "metaTitle": "Waxing in Vancouver | Pure Nail Bar",
+      "metaDescription": "Eyebrow to full-body waxing with a comfort-first technique. Smooth results that last. Book online — from $15."
+    },
+    "lashes": {
+      "title": "Lash Extensions in Vancouver",
+      "heroAlt": "Close-up of natural-looking lash extensions applied at Pure Nail Bar",
+      "intro": [
+        "Wake up ready with lash extensions from Pure Nail Bar. We offer classic, hybrid and volume sets, each tailored to your eye shape and the look you want — from a soft, natural enhancement to full, dramatic volume.",
+        "Our technicians map the set to your eyes — adjusting curl, length and density across the lash line — so the result flatters your features and feels weightless."
+      ],
+      "whyUs": "Lash work demands patience and a steady hand. Clients choose us for a real consultation, a clean and controlled setup, and honest guidance on the style and refill schedule that works for you.",
+      "included": [
+        "A consultation to choose the right style for your eyes",
+        "Your choice of classic, hybrid or volume sets",
+        "Lightweight, comfortable, isolated application",
+        "Natural-looking length, curl and density",
+        "A look mapped to flatter your individual eye shape",
+        "Aftercare guidance to protect your lashes and extend wear"
+      ],
+      "addons": [
+        "Lash refills to maintain a full, fresh look",
+        "Extra volume for weddings and special occasions"
+      ],
+      "duration": "About 60–120 minutes for a full set, depending on the style.",
+      "aftercare": "Keep lashes dry for the first 24 hours while the adhesive cures, then avoid oil-based cleansers and heavy rubbing. Brush them gently each morning and book a refill every two to three weeks.",
+      "hygiene": "Eyes deserve extra care. We work in a clean, controlled setup with sterilized tools and disinfected stations.",
+      "faq": [
+        {
+          "q": "How long do lash extensions last?",
+          "a": "A full set lasts the natural growth cycle of your lashes — usually six to eight weeks. A refill every two to three weeks keeps them looking full."
+        },
+        {
+          "q": "Will extensions damage my natural lashes?",
+          "a": "Applied correctly, they don't. Our technicians match the weight and length to your natural lashes and share aftercare so your own lashes stay healthy."
+        },
+        {
+          "q": "What's the difference between classic, hybrid and volume?",
+          "a": "Classic adds one extension per natural lash for a defined look; volume fans multiple ultra-fine lashes for fullness; hybrid blends both for a textured, natural-yet-full effect."
+        }
+      ],
+      "metaTitle": "Lash Extensions in Vancouver | Pure Nail Bar",
+      "metaDescription": "Classic, hybrid and volume lash extensions tailored to you. Natural to dramatic. Book online — from $90."
+    },
+    "hair": {
+      "title": "Hair Services in Vancouver",
+      "heroAlt": "Polished hair styling at Pure Nail Bar",
+      "intro": [
+        "Complete your look with our hair services. From a fresh blow-dry to special-occasion styling, our experienced stylists deliver a polished finish in the same relaxing, modern setting you love for your nails.",
+        "Every appointment starts with a quick consultation so the result suits your hair, your features and the occasion."
+      ],
+      "whyUs": "One studio for nails, lashes and hair means a seamless, pampering experience — and the same standard of premium products and spotless hygiene throughout.",
+      "included": [
+        "A consultation to plan your look",
+        "Wash, blow-dry and finishing",
+        "Special-occasion and event styling",
+        "Premium, professional-grade products",
+        "A relaxing, modern studio setting",
+        "Friendly, experienced stylists"
+      ],
+      "addons": [
+        "Event and bridal styling",
+        "Treatment add-ons for shine and hydration"
+      ],
+      "duration": "About 30–90 minutes, depending on the service.",
+      "aftercare": "Use a gentle, sulphate-free shampoo and limit heat styling between visits to keep your finish looking fresh for longer.",
+      "hygiene": "Tools and stations are cleaned and sanitized between every client, following the same strict standards as the rest of the studio.",
+      "faq": [
+        {
+          "q": "Do I need to book ahead for hair?",
+          "a": "Booking ahead guarantees your stylist and time, especially for events and weekends. Call your nearest location to arrange."
+        },
+        {
+          "q": "Can I combine hair with nails or lashes?",
+          "a": "Yes — many clients pair services in one visit. Let us know when booking so we can schedule enough time."
+        }
+      ],
+      "metaTitle": "Hair Services in Vancouver | Pure Nail Bar",
+      "metaDescription": "Blow-dry, styling and special-occasion hair services in a relaxing studio. Book online — from $35."
+    }
+  },
+  "serviceLabels": {
+    "included": "What's included",
+    "addons": "Popular add-ons",
+    "duration": "How long it takes",
+    "price": "Price",
+    "hygiene": "Hygiene & safety",
+    "faq": "Frequently asked questions",
+    "allServices": "All services",
+    "why": "Why Pure Nail Bar",
+    "aftercare": "Aftercare tips",
+    "priceFrom": "from",
+    "guides": "Helpful guides"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "intro": "Everything you need to know before your visit to Pure Nail Bar.",
+    "items": [
+      {
+        "q": "Where are Pure Nail Bar locations?",
+        "a": "We have five studios across Greater Vancouver: Killarney, Kitsilano West 4th, Morgan Crossing (Surrey), Olympic Village and Renfrew Heights. See our Locations page for addresses and hours."
+      },
+      {
+        "q": "Do you take walk-ins or is it appointment only?",
+        "a": "Both. We welcome walk-ins when chairs are open, but booking ahead guarantees your time — especially evenings and weekends."
+      },
+      {
+        "q": "How do I book an appointment?",
+        "a": "Book online any time through our Book Online page (powered by Booker), or call your nearest location directly."
+      },
+      {
+        "q": "What services do you offer?",
+        "a": "Gel manicures, acrylic full sets, nail art, spa pedicures, waxing, lash extensions and hair services. See our Services page for details."
+      },
+      {
+        "q": "How do you keep tools and stations clean?",
+        "a": "We follow hospital-grade sterilization protocols. Tools are sanitized after every client, single-use items are discarded, and every station is sanitized between appointments."
+      },
+      {
+        "q": "Do you sell gift cards?",
+        "a": "Yes — gift cards make a great present and can be purchased online for any amount, delivered by email or printed at home."
+      },
+      {
+        "q": "How long do gel nails and lash extensions last?",
+        "a": "Gel manicures typically last 2–3 weeks; lash extensions last the natural lash cycle with a refill every 2–3 weeks. We'll share aftercare tips at your visit."
+      }
+    ]
+  },
+  "reviewsPage": {
+    "title": "Reviews",
+    "intro": "Hear from the hundreds of clients who trust us with their nails.",
+    "empty": "Come find out why our clients keep coming back — book your visit today.",
+    "cta": "Book Online"
+  },
+  "gallery": {
+    "title": "Nail Art Gallery",
+    "intro": "A showcase of our latest designs, trending styles, and client transformations.",
+    "photos": {
+      "nail-art-1": { "alt": "Hand-painted nail art design at Pure Nail Bar", "caption": "Nail Art" },
+      "nail-art-2": { "alt": "Intricate nail art with detailed patterns at Pure Nail Bar", "caption": "Nail Art" },
+      "nail-art-3": { "alt": "Trending nail design at Pure Nail Bar", "caption": "Nail Art" },
+      "nail-art-4": { "alt": "Creative nail art and embellishments at Pure Nail Bar", "caption": "Nail Art" },
+      "gel-mani": { "alt": "Glossy gel manicure at Pure Nail Bar", "caption": "Gel Manicure" },
+      "spa-pedi": { "alt": "Spa pedicure result at Pure Nail Bar", "caption": "Spa Pedicure" }
+    }
+  },
+  "careers": {
+    "heading": "Careers",
+    "intro": "Join Vancouver's premier nail studio.",
+    "body": [
+      "We're always looking for talented, certified nail technicians, lash artists and friendly front-desk team members who share our commitment to quality, hygiene and artistry.",
+      "At Pure Nail Bar you'll work in a supportive, professional environment across five thriving locations, with premium products and a loyal, growing client base.",
+      "Interested? Send your resume and a note about yourself through our contact form, or drop into the location nearest you."
+    ]
+  },
+  "press": {
+    "heading": "Press",
+    "intro": "Media resources and brand information.",
+    "body": [
+      "Pure Nail Bar is Vancouver's premier nail studio — a serene, stylish sanctuary where elegance meets precision in the art of nail care, with five locations across Greater Vancouver.",
+      "For press enquiries, interviews, photography or partnership opportunities, please get in touch through our contact form and our team will respond promptly."
+    ]
+  },
+  "pureParties": {
+    "heading": "Pure Parties",
+    "intro": "Celebrate together in a private, pampering setting.",
+    "body": [
+      "Make your next celebration unforgettable with a Pure Party. Whether it's a birthday, a bridal shower or a corporate get-together, we'll host your group for a relaxing afternoon of manicures, pedicures and pampering.",
+      "Group bookings can be tailored to your party size and chosen services. Reach out through our contact form or call your nearest location to plan the perfect event."
+    ]
+  },
+  "franchising": {
+    "heading": "Franchising",
+    "intro": "Bring Pure Nail Bar to your community.",
+    "body": [
+      "Pure Nail Bar is a proven, premium nail-care brand with a loyal client base and a refined, repeatable studio experience. As we grow, we're exploring franchising partnerships with operators who share our standards.",
+      "If you're interested in opening a Pure Nail Bar in your area, get in touch through our contact form and we'll share more about the opportunity."
+    ]
+  },
+  "legal": {
+    "terms": {
+      "heading": "Terms & Conditions",
+      "intro": [
+        "At Pure Nail Bar, our goal is to give every client a relaxed, professional and high-quality experience. So that everything goes smoothly — and everyone is treated fairly — we invite you to read the policies below before your appointment. By booking with us, you accept these terms.",
+        "These policies apply to all services offered at every Pure Nail Bar location."
+      ],
+      "sections": [
+        {
+          "heading": "1. Appointments",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Booking an appointment is recommended to reserve the time and technician of your choice. Walk-in clients are welcome, subject to availability.",
+              "items": []
+            },
+            {
+              "kind": "p",
+              "text": "Please arrive 5 to 10 minutes before your appointment time for check-in.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "2. Cancellations and no-shows",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Out of respect for our team and other clients, we ask for at least 24 hours' notice for any cancellation or change to an appointment.",
+              "items": []
+            },
+            {
+              "kind": "p",
+              "text": "Late cancellations or no-shows may incur a fee, and certain bookings may require a deposit at the time of booking. Any such fees are communicated to you when you book.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "3. Pricing and payments",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Prices are shown in Canadian dollars and are subject to applicable taxes. The final price may vary depending on length, design complexity and add-ons; any surcharge is communicated before the service begins.",
+              "items": []
+            },
+            {
+              "kind": "p",
+              "text": "We accept cash, debit and major credit cards. Tips are appreciated but never required.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "4. Gift cards",
+          "blocks": [
+            {
+              "kind": "ul",
+              "text": "",
+              "items": [
+                "Gift cards can be purchased online for any amount and delivered by email or printed at home.",
+                "Gift cards are non-refundable and should be treated like cash.",
+                "We cannot replace a lost or stolen gift card."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "5. Satisfaction guarantee",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Your satisfaction matters to us. Please check the result before leaving so any concern can be addressed right away. If you notice a technical issue with your service after you leave, contact us within 7 days so we can assess the situation and, where appropriate, provide a complimentary fix for the same shape, length and design.",
+              "items": []
+            },
+            {
+              "kind": "p",
+              "text": "Changes of preference, normal wear and damage from daily life or at-home care are not covered.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "6. Health, safety and hygiene",
+          "blocks": [
+            {
+              "kind": "ul",
+              "text": "",
+              "items": [
+                "All tools and surfaces are disinfected to public-health and industry standards.",
+                "Single-use instruments are discarded after each client.",
+                "Reusable instruments are sterilized to hospital-grade standards.",
+                "Workstations are sanitized between every appointment."
+              ]
+            },
+            {
+              "kind": "p",
+              "text": "Please reschedule if you are unwell, and let us know of any medical condition, allergy or sensitivity so we can adapt the service safely.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "Acknowledgement",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "By booking and receiving services at Pure Nail Bar, you acknowledge that you have read and accepted these policies. We thank you for choosing us and look forward to taking care of you.",
+              "items": []
+            }
+          ]
+        }
+      ],
+      "updated": "Last updated: May 22, 2026 — Pure Nail Bar · Vancouver, BC"
+    },
+    "privacy": {
+      "heading": "Privacy Policy",
+      "intro": [
+        "This Privacy Policy explains how Pure Nail Bar collects, uses and protects your personal information when you visit our website, book an appointment or receive our services.",
+        "By using our website or our services, you accept the practices described in this policy."
+      ],
+      "sections": [
+        {
+          "heading": "1. Information we collect",
+          "blocks": [
+            {
+              "kind": "ul",
+              "text": "",
+              "items": [
+                "Contact details you provide when booking or sending a message (name, phone, email).",
+                "Appointment details: services booked, date, time and service history.",
+                "Newsletter subscriptions: your email address, if you choose to join.",
+                "Limited technical data (device type, pages viewed) to operate and improve the site."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "2. How we use your information",
+          "blocks": [
+            {
+              "kind": "ul",
+              "text": "",
+              "items": [
+                "Schedule, confirm and manage your appointments;",
+                "Respond to requests sent through our contact form;",
+                "Send offers and updates if you subscribe to our newsletter;",
+                "Meet our legal and accounting obligations."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "3. Sharing with third parties",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "We do not sell your personal information and do not share it for marketing purposes without your consent. We share information with service providers (for example, our online booking platform) only as needed to deliver their services.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "4. Your choices",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "You can unsubscribe from our newsletter at any time, and you may request access to or correction of your information by contacting us.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "5. Security",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "We use reasonable technical and organizational measures to protect your information against unauthorized access, use or disclosure.",
+              "items": []
+            }
+          ]
+        }
+      ],
+      "updated": "Last updated: May 22, 2026 — Pure Nail Bar · Vancouver, BC"
+    }
+  }
+}
