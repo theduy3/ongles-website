@@ -26,14 +26,30 @@ const CARD_IMAGES = [
 // Small inline icons for the hero CTAs.
 function ArrowIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4" aria-hidden>
-      <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className="h-4 w-4"
+      aria-hidden
+    >
+      <path
+        d="M5 12h14M13 6l6 6-6 6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function PhoneIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden>
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="h-4 w-4"
+      aria-hidden
+    >
       <path d="M6.62 10.79a15.46 15.46 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.21 2.2z" />
     </svg>
   );
@@ -81,7 +97,9 @@ export default async function Home({ params }: LangParams) {
               </p>
               <h1 className="mt-6 max-w-xl text-5xl leading-[1.05] text-espresso md:text-6xl">
                 {dict.hero.taglineLead}{" "}
-                <em className="italic text-mocha">{dict.hero.taglineEmphasis}</em>
+                <em className="italic text-mocha">
+                  {dict.hero.taglineEmphasis}
+                </em>
               </h1>
               <p className="mt-6 max-w-md text-lg font-light leading-relaxed text-mocha">
                 {dict.hero.description}
@@ -134,7 +152,9 @@ export default async function Home({ params }: LangParams) {
                 </p>
               </div>
               <div className="absolute -right-4 bottom-8 rounded-2xl bg-white px-5 py-3 shadow-card">
-                <p className="text-lg font-semibold text-espresso">{dict.hero.badges[1].value}</p>
+                <p className="text-lg font-semibold text-espresso">
+                  {dict.hero.badges[1].value}
+                </p>
                 <p className="text-xs uppercase tracking-wide text-mocha">
                   Happy Clients
                 </p>
@@ -251,14 +271,15 @@ export default async function Home({ params }: LangParams) {
               >
                 <Stars className="text-gold" />
                 <p className="text-sm uppercase tracking-wide text-mocha">
-                  {ratingDisplay} / {site.reviews.bestRating} · {dict.reviews.basedOn}{" "}
-                  {reviewCountDisplay} {dict.reviews.reviewsWord}
+                  {ratingDisplay} / {site.reviews.bestRating} ·{" "}
+                  {dict.reviews.basedOn} {reviewCountDisplay}{" "}
+                  {dict.reviews.reviewsWord}
                 </p>
               </div>
             </Reveal>
           </div>
           <div className="mt-12">
-            <Testimonials />
+            <Testimonials dict={dict} />
           </div>
         </div>
       </section>

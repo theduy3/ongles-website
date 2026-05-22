@@ -1,13 +1,18 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { testimonials } from "@/data/testimonials";
+import type { Dictionary } from "@/lib/dictionary";
+import { reviews } from "@/lib/reviews";
 
 function Stars({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5 text-gold" aria-hidden>
       {[0, 1, 2, 3, 4].map((i) => (
-        <svg key={i} viewBox="0 0 24 24" className={`h-4 w-4 ${i < count ? "fill-current" : "fill-espresso/15"}`}>
+        <svg
+          key={i}
+          viewBox="0 0 24 24"
+          className={`h-4 w-4 ${i < count ? "fill-current" : "fill-espresso/15"}`}
+        >
           <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 7.1-1.01L12 2z" />
         </svg>
       ))}
@@ -29,12 +34,24 @@ function ArrowButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      aria-label={dir === "prev" ? "Previous testimonials" : "Next testimonials"}
+      aria-label={
+        dir === "prev" ? "Previous testimonials" : "Next testimonials"
+      }
       className="flex h-11 w-11 items-center justify-center rounded-full border border-espresso/20 text-espresso transition-colors hover:border-espresso disabled:opacity-30"
     >
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        className="h-5 w-5"
+      >
         {dir === "prev" ? (
-          <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M15 18l-6-6 6-6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         ) : (
           <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
         )}
@@ -43,8 +60,15 @@ function ArrowButton({
   );
 }
 
+type Testimonial = {
+  author: string;
+  rating: number;
+  status: string;
+  quote: string;
+};
+
 // Horizontal scroll-snap carousel with prev/next arrows (replaces the marquee).
-export function Testimonials() {
+export function Testimonials({ dict }: { dict: Dictionary }) {
   const trackRef = useRef<HTMLUListElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
@@ -74,13 +98,24 @@ export function Testimonials() {
     el.scrollBy({ left: dir * (el.clientWidth * 0.85), behavior: "smooth" });
   };
 
+  // Prefer real Google reviews when present; fall back to locale-aware placeholders.
+  const fromGoogle: Testimonial[] = reviews.map((r) => ({
+    author: r.author,
+    rating: 5,
+    status: dict.reviews.placeholders[0]?.status ?? "Verified Client",
+    quote: r.text,
+  }));
+
+  const items: Testimonial[] =
+    fromGoogle.length > 0 ? fromGoogle.slice(0, 6) : dict.reviews.placeholders;
+
   return (
     <div>
       <ul
         ref={trackRef}
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {testimonials.map((t, i) => (
+        {items.map((t, i) => (
           <li
             key={i}
             className="flex w-[300px] shrink-0 snap-start flex-col rounded-xl bg-white p-6 text-left shadow-card sm:w-[360px]"
@@ -106,8 +141,16 @@ export function Testimonials() {
         ))}
       </ul>
       <div className="mt-8 flex justify-center gap-3">
-        <ArrowButton dir="prev" disabled={!canPrev} onClick={() => scrollByCard(-1)} />
-        <ArrowButton dir="next" disabled={!canNext} onClick={() => scrollByCard(1)} />
+        <ArrowButton
+          dir="prev"
+          disabled={!canPrev}
+          onClick={() => scrollByCard(-1)}
+        />
+        <ArrowButton
+          dir="next"
+          disabled={!canNext}
+          onClick={() => scrollByCard(1)}
+        />
       </div>
     </div>
   );

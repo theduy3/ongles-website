@@ -70,9 +70,18 @@
     "description": "Services d'ongles experts dans une ambiance chaleureuse et familiale. Hygiène irréprochable avec trois postes de désinfection et plus de 15 ans d'expérience.",
     "alt": "Belle pose d'ongles et manucure chez Ongles Maily, Carrefour Beauport",
     "badges": [
-      { "value": "15+", "label": "Ans d'expérience" },
-      { "value": "3", "label": "Postes de désinfection" },
-      { "value": "Sans RDV", "label": "Bienvenu" }
+      {
+        "value": "15+",
+        "label": "Ans d'expérience"
+      },
+      {
+        "value": "3",
+        "label": "Postes de désinfection"
+      },
+      {
+        "value": "Sans RDV",
+        "label": "Bienvenu"
+      }
     ]
   },
   "home": {
@@ -142,10 +151,18 @@
     "description": "Pour une occasion spéciale ou simplement pour faire plaisir? Nos certificats cadeaux de manucure et pédicure sont disponibles à l'achat en ligne via Square pour tout montant, livrés par courriel — ou achetez-les directement au salon.",
     "note": "Les cartes-cadeaux sont non monnayables et non remboursables. • En ligne via Square ou sur place",
     "designs": [
-      { "title": "Joyeuses Fêtes" },
-      { "title": "Pour Maman" },
-      { "title": "Joyeux Anniversaire" },
-      { "title": "Certificat Cadeau" }
+      {
+        "title": "Joyeuses Fêtes"
+      },
+      {
+        "title": "Pour Maman"
+      },
+      {
+        "title": "Joyeux Anniversaire"
+      },
+      {
+        "title": "Certificat Cadeau"
+      }
     ]
   },
   "locations": {
@@ -210,7 +227,45 @@
     "basedOn": "d'après",
     "reviewsWord": "avis Google",
     "ctaPrompt": "Prête à vivre l'expérience Ongles Maily?",
-    "bookOnline": "Réserver en ligne"
+    "bookOnline": "Réserver en ligne",
+    "placeholders": [
+      {
+        "author": "Sarah M.",
+        "rating": 5,
+        "status": "Cliente régulière",
+        "quote": "Le meilleur salon d'ongles où je suis allée — impeccable, professionnel, et les résultats sont toujours magnifiques."
+      },
+      {
+        "author": "Michelle W.",
+        "rating": 5,
+        "status": "Membre fidèle",
+        "quote": "Ma manucure gel tient parfaitement trois semaines à chaque fois. Je ne vais nulle part ailleurs."
+      },
+      {
+        "author": "Amanda K.",
+        "rating": 5,
+        "status": "Cliente vérifiée",
+        "quote": "J'adore l'espace, l'emplacement et l'équipe. Les techniciennes sont minutieuses et prennent vraiment soin de leur travail."
+      },
+      {
+        "author": "Jessica T.",
+        "rating": 5,
+        "status": "Cliente régulière",
+        "quote": "Des ongles magnifiques et une atmosphère tellement relaxante. C'est une petite escapade de luxe à chaque visite."
+      },
+      {
+        "author": "Priya S.",
+        "rating": 4,
+        "status": "Nouvelle cliente",
+        "quote": "Belle pédicure spa et service très accueillant. Un peu d'attente en période achalandée, mais ça vaut amplement le coup."
+      },
+      {
+        "author": "Emily R.",
+        "rating": 5,
+        "status": "Cliente vérifiée",
+        "quote": "Studio impeccable, techniciennes certifiées, résultats superbes. Mon adresse pour chaque occasion spéciale."
+      }
+    ]
   },
   "contact": {
     "heading": "Nous contacter",
@@ -452,12 +507,30 @@
     "title": "Galerie de nail art",
     "intro": "Un aperçu de nos derniers designs, des tendances actuelles et des transformations de nos clientes.",
     "photos": {
-      "nail-art-1": { "alt": "Design de nail art peint à la main chez Ongles Maily", "caption": "Nail Art" },
-      "nail-art-2": { "alt": "Nail art élaboré avec motifs détaillés chez Ongles Maily", "caption": "Nail Art" },
-      "nail-art-3": { "alt": "Design tendance chez Ongles Maily, Carrefour Beauport", "caption": "Nail Art" },
-      "nail-art-4": { "alt": "Nail art créatif et ornements chez Ongles Maily", "caption": "Nail Art" },
-      "gel-mani": { "alt": "Manucure professionnelle chez Ongles Maily", "caption": "Manucure" },
-      "spa-pedi": { "alt": "Résultat de pédicure chez Ongles Maily, Carrefour Beauport", "caption": "Pédicure" }
+      "nail-art-1": {
+        "alt": "Design de nail art peint à la main chez Ongles Maily",
+        "caption": "Nail Art"
+      },
+      "nail-art-2": {
+        "alt": "Nail art élaboré avec motifs détaillés chez Ongles Maily",
+        "caption": "Nail Art"
+      },
+      "nail-art-3": {
+        "alt": "Design tendance chez Ongles Maily, Carrefour Beauport",
+        "caption": "Nail Art"
+      },
+      "nail-art-4": {
+        "alt": "Nail art créatif et ornements chez Ongles Maily",
+        "caption": "Nail Art"
+      },
+      "gel-mani": {
+        "alt": "Manucure professionnelle chez Ongles Maily",
+        "caption": "Manucure"
+      },
+      "spa-pedi": {
+        "alt": "Résultat de pédicure chez Ongles Maily, Carrefour Beauport",
+        "caption": "Pédicure"
+      }
     }
   },
   "careers": {

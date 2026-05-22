@@ -70,9 +70,18 @@
     "description": "Expert nail services in a warm, family atmosphere. Hygiene-first with three disinfection stations and 15+ years of experience.",
     "alt": "Beautiful nail enhancements and manicure at Ongles Maily, Carrefour Beauport",
     "badges": [
-      { "value": "15+", "label": "Years experience" },
-      { "value": "3", "label": "Disinfection stations" },
-      { "value": "Walk-ins", "label": "Welcome" }
+      {
+        "value": "15+",
+        "label": "Years experience"
+      },
+      {
+        "value": "3",
+        "label": "Disinfection stations"
+      },
+      {
+        "value": "Walk-ins",
+        "label": "Welcome"
+      }
     ]
   },
   "home": {
@@ -142,10 +151,18 @@
     "description": "Treat someone special to a professional nail care experience at Ongles Maily. Purchase a gift card online via Square for any amount, delivered by email — or buy one in person at the salon.",
     "note": "Online via Square or in person • Any amount",
     "designs": [
-      { "title": "Happy Holidays" },
-      { "title": "For Mom" },
-      { "title": "Happy Birthday" },
-      { "title": "Gift Card" }
+      {
+        "title": "Happy Holidays"
+      },
+      {
+        "title": "For Mom"
+      },
+      {
+        "title": "Happy Birthday"
+      },
+      {
+        "title": "Gift Card"
+      }
     ]
   },
   "locations": {
@@ -210,7 +227,45 @@
     "basedOn": "from",
     "reviewsWord": "Google reviews",
     "ctaPrompt": "Ready to experience the Ongles Maily difference?",
-    "bookOnline": "Book Online"
+    "bookOnline": "Book Online",
+    "placeholders": [
+      {
+        "author": "Sarah M.",
+        "rating": 5,
+        "status": "Regular Client",
+        "quote": "Best nail salon I’ve ever visited — spotless, professional, and the results are always stunning."
+      },
+      {
+        "author": "Michelle W.",
+        "rating": 5,
+        "status": "Loyal Member",
+        "quote": "My gel manicure lasts a perfect three weeks every single time. I won’t go anywhere else."
+      },
+      {
+        "author": "Amanda K.",
+        "rating": 5,
+        "status": "Verified Client",
+        "quote": "I love the space, the location, and the team. The technicians are thorough and take such care with their work."
+      },
+      {
+        "author": "Jessica T.",
+        "rating": 5,
+        "status": "Regular Client",
+        "quote": "Gorgeous nail art and such a relaxing atmosphere. It feels like a little luxury escape every visit."
+      },
+      {
+        "author": "Priya S.",
+        "rating": 4,
+        "status": "New Client",
+        "quote": "Lovely spa pedicure and very friendly service. A short wait at peak times but absolutely worth it."
+      },
+      {
+        "author": "Emily R.",
+        "rating": 5,
+        "status": "Verified Client",
+        "quote": "Spotless studio, certified techs, beautiful results. My go-to for every special occasion."
+      }
+    ]
   },
   "contact": {
     "heading": "Contact Us",
@@ -452,12 +507,30 @@
     "title": "Nail Art Gallery",
     "intro": "A showcase of our latest designs, trending styles, and client transformations.",
     "photos": {
-      "nail-art-1": { "alt": "Hand-painted nail art design at Ongles Maily", "caption": "Nail Art" },
-      "nail-art-2": { "alt": "Intricate nail art with detailed patterns at Ongles Maily", "caption": "Nail Art" },
-      "nail-art-3": { "alt": "Trending nail design at Ongles Maily, Carrefour Beauport", "caption": "Nail Art" },
-      "nail-art-4": { "alt": "Creative nail art and embellishments at Ongles Maily", "caption": "Nail Art" },
-      "gel-mani": { "alt": "Professional manicure at Ongles Maily", "caption": "Manicure" },
-      "spa-pedi": { "alt": "Pedicure result at Ongles Maily, Carrefour Beauport", "caption": "Pedicure" }
+      "nail-art-1": {
+        "alt": "Hand-painted nail art design at Ongles Maily",
+        "caption": "Nail Art"
+      },
+      "nail-art-2": {
+        "alt": "Intricate nail art with detailed patterns at Ongles Maily",
+        "caption": "Nail Art"
+      },
+      "nail-art-3": {
+        "alt": "Trending nail design at Ongles Maily, Carrefour Beauport",
+        "caption": "Nail Art"
+      },
+      "nail-art-4": {
+        "alt": "Creative nail art and embellishments at Ongles Maily",
+        "caption": "Nail Art"
+      },
+      "gel-mani": {
+        "alt": "Professional manicure at Ongles Maily",
+        "caption": "Manicure"
+      },
+      "spa-pedi": {
+        "alt": "Pedicure result at Ongles Maily, Carrefour Beauport",
+        "caption": "Pedicure"
+      }
     }
   },
   "careers": {
