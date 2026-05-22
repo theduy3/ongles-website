@@ -7,13 +7,14 @@ import { site } from "@/lib/site";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { Button } from "./Button";
+import { LocaleSwitch } from "./LocaleSwitch";
 
-// Serif-free wordmark per the live logo (Jost 600, "Nail Bar" emphasized).
+// Serif-free wordmark per the live logo (Jost 600, "Maily" emphasized).
 function Wordmark() {
   return (
     <span className="font-[var(--font-jost)] text-xl tracking-tight text-espresso sm:text-2xl">
-      <span className="font-normal">Pure </span>
-      <span className="font-semibold">Nail Bar</span>
+      <span className="font-normal">Ongles </span>
+      <span className="font-semibold">Maily</span>
     </span>
   );
 }
@@ -49,6 +50,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
         </nav>
 
         <div className="hidden items-center gap-5 lg:flex">
+          <LocaleSwitch locale={locale} />
           <Button href={href(site.bookingAnchor)} variant="solid">
             {dict.nav.bookOnline}
           </Button>
@@ -99,6 +101,9 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
               >
                 {dict.nav.bookOnline}
               </Button>
+              <div className="mt-3 flex justify-end">
+                <LocaleSwitch locale={locale} />
+              </div>
             </div>
           </motion.nav>
         )}
