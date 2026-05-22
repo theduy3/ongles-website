@@ -1,28 +1,27 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { services } from "@/lib/services";
 import { NewsletterForm } from "./NewsletterForm";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 
-// Quick links + services mirror the live footer exactly.
-const QUICK_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Reviews", href: "#testimonials" },
-  { label: "Book Now", href: "#booking" },
-  { label: "Contact", href: "/contact" },
-];
-
-const SERVICE_LINKS = [
-  "Gel Manicure",
-  "Acrylic Full Set",
-  "Nail Art",
-  "Spa Pedicure",
-  "Nail Repair",
-];
-
 export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
   const href = (h: string) => (h === "/" ? `/${locale}` : `/${locale}${h}`);
+
+  // Quick links — only routes that exist in this project.
+  const quickLinks = [
+    { label: dict.nav.services, href: "/services" },
+    { label: dict.nav.gallery, href: "/gallery" },
+    { label: dict.nav.reviews, href: "/reviews" },
+    { label: dict.nav.contact, href: "/contact" },
+    { label: dict.nav.bookOnline, href: "/book-online" },
+  ];
+
+  // Service links built from the canonical registry + active-locale slugs.
+  const serviceLinks = services.map((s, i) => ({
+    label: dict.home.serviceCards[i]?.title ?? s.id,
+    href: `/${locale}/services/${s.slug[locale]}`,
+  }));
 
   return (
     <footer className="bg-espresso text-cream">
@@ -31,22 +30,21 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
           {/* Brand */}
           <div>
             <p className="font-[var(--font-jost)] text-2xl">
-              <span className="font-normal">Pure </span>
-              <span className="font-semibold">Nail Bar</span>
+              <span className="font-normal">Ongles </span>
+              <span className="font-semibold">Maily</span>
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">
-              Where elegance meets precision in the art of nail care. A serene
-              and stylish sanctuary in Vancouver.
+              {dict.hero.subtitle}
             </p>
           </div>
 
           {/* Quick links */}
           <div>
             <h3 className="text-sm uppercase tracking-wide text-gold">
-              Quick Links
+              {locale === "fr" ? "Liens rapides" : "Quick Links"}
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              {QUICK_LINKS.map((item) => (
+              {quickLinks.map((item) => (
                 <li key={item.label}>
                   <Link
                     href={href(item.href)}
@@ -62,16 +60,16 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
           {/* Services */}
           <div>
             <h3 className="text-sm uppercase tracking-wide text-gold">
-              Services
+              {dict.nav.services}
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              {SERVICE_LINKS.map((label) => (
-                <li key={label}>
+              {serviceLinks.map((item) => (
+                <li key={item.href}>
                   <Link
-                    href={`/${locale}/services`}
+                    href={item.href}
                     className="text-cream/80 hover:text-cream"
                   >
-                    {label}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -94,7 +92,11 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
           <p>
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
-          <p>Designed with ♡ in Vancouver, BC</p>
+          <p>
+            {locale === "fr"
+              ? "Conçu avec ♡ à Québec"
+              : "Designed with ♡ in Québec"}
+          </p>
         </div>
       </div>
     </footer>

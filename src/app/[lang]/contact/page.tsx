@@ -75,14 +75,13 @@ export default async function ContactPage({ params }: LangParams) {
               </div>
               <div>
                 <p className="leading-relaxed text-mocha">
-                  We have five studios across Greater Vancouver.{" "}
+                  {dict.locations.intro}{" "}
                   <a
                     href={`/${lang}/locations`}
                     className="font-semibold text-espresso hover:underline"
                   >
-                    View all locations
-                  </a>{" "}
-                  for addresses, hours and directions.
+                    {dict.cta.getDirections}
+                  </a>
                 </p>
               </div>
             </div>

@@ -68,7 +68,7 @@ export default async function BookOnlinePage({ params }: LangParams) {
         <Reveal>
           <div className="mt-12 text-center">
             <Button href={site.booker.brand} variant="outline">
-              {dict.cta.book} — View all locations on Booker
+              {dict.cta.book}
             </Button>
           </div>
         </Reveal>
