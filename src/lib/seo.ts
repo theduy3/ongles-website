@@ -17,8 +17,9 @@ import type { GalleryImage } from "@/lib/gallery";
 // Default social-share image (absolute path; resolved against metadataBase).
 const OG_IMAGE = "/images/hero.png";
 
-// OpenGraph locale codes. English-only Vancouver salon.
+// OpenGraph locale codes — Québec FR-first salon.
 const OG_LOCALE: Record<Locale, string> = {
+  fr: "fr_CA",
   en: "en_CA",
 };
 

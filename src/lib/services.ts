@@ -28,28 +28,28 @@ export type Service = {
 export const services: readonly Service[] = [
   {
     id: "pose-ongles",
-    slug: { en: "nail-enhancements" },
+    slug: { fr: "pose-d-ongles", en: "nail-enhancements" },
     price: 60,
     priceTo: 75,
     photo: false,
   },
   {
     id: "remplissage",
-    slug: { en: "fill" },
+    slug: { fr: "remplissage", en: "fill" },
     price: 45,
     priceTo: 60,
     photo: false,
   },
   {
     id: "soins-mains",
-    slug: { en: "manicure" },
+    slug: { fr: "soins-des-mains", en: "manicure" },
     price: 30,
     priceTo: 40,
     photo: false,
   },
   {
     id: "soins-pieds",
-    slug: { en: "pedicure" },
+    slug: { fr: "soins-des-pieds", en: "pedicure" },
     price: 35,
     priceTo: 60,
     photo: false,
