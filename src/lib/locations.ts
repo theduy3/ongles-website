@@ -1,7 +1,7 @@
-// Multi-location registry — Pure Nail Bar operates 5 salons across Greater
-// Vancouver. Structural, locale-invariant data (the parent SS-website was
-// single-location; this is the main net-new concept of the clone). Display copy
-// (section headings, labels) lives in dict.locations.
+// Location registry — Ongles Maily operates one salon at Carrefour Beauport,
+// Québec City. Display copy (section headings, labels) lives in dict.locations.
+
+import { site } from "./site";
 
 export type DayHours = { label: string; value: string };
 
@@ -32,153 +32,41 @@ export type Location = {
 
 export const locations: readonly Location[] = [
   {
-    id: "killarney",
-    name: "Killarney",
-    slug: "killarney",
-    landmark: "Located in The Peak — Rupert & Kingsway",
+    id: "carrefour-beauport",
+    name: "Carrefour Beauport",
+    slug: "carrefour-beauport",
+    landmark: "Carrefour Beauport — Entrées 4 ou 5",
     address: {
-      line1: "7050 Kerr Street",
-      line2: "Vancouver, BC V5S 4W2",
-      street: "7050 Kerr Street",
-      city: "Vancouver",
-      region: "BC",
-      postalCode: "V5S 4W2",
+      line1: "3333 Rue du Carrefour",
+      line2: "Québec, QC G1C 5R9",
+      street: "3333 Rue du Carrefour",
+      city: "Québec",
+      region: "QC",
+      postalCode: "G1C 5R9",
       country: "CA",
     },
-    phone: "(778) 379-9799",
-    phoneHref: "tel:+17783799799",
+    phone: "(418) 660-8228",
+    phoneHref: "tel:+14186608228",
     hours: [
-      { label: "Mon – Sat", value: "10:00 AM – 7:00 PM" },
-      { label: "Sunday", value: "11:00 AM – 6:00 PM" },
+      { label: "Lun – Mer", value: "9 h 00 – 17 h 30" },
+      { label: "Jeu – Ven", value: "9 h 00 – 21 h 00" },
+      { label: "Sam", value: "9 h 00 – 17 h 00" },
+      { label: "Dim", value: "10 h 00 – 17 h 00" },
     ],
     hoursSpec: [
-      {
-        days: ["Mo", "Tu", "We", "Th", "Fr", "Sa"],
-        opens: "10:00",
-        closes: "19:00",
-      },
-      { days: ["Su"], opens: "11:00", closes: "18:00" },
+      { days: ["Mo", "Tu", "We"], opens: "09:00", closes: "17:30" },
+      { days: ["Th", "Fr"], opens: "09:00", closes: "21:00" },
+      { days: ["Sa"], opens: "09:00", closes: "17:00" },
+      { days: ["Su"], opens: "10:00", closes: "17:00" },
     ],
-    geo: { lat: 49.2192, lng: -123.0388 },
-    bookerSlug: "purenailchamplain",
-  },
-  {
-    id: "kitsilano-west-4th",
-    name: "Kitsilano West 4th",
-    slug: "kitsilano-west-4th",
-    address: {
-      line1: "2139 West 4th Avenue",
-      line2: "Vancouver, BC V6K 1N7",
-      street: "2139 West 4th Avenue",
-      city: "Vancouver",
-      region: "BC",
-      postalCode: "V6K 1N7",
-      country: "CA",
-    },
-    phone: "(604) 738-8990",
-    phoneHref: "tel:+16047388990",
-    hours: [{ label: "Daily", value: "10:00 AM – 7:00 PM" }],
-    hoursSpec: [
-      {
-        days: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-        opens: "10:00",
-        closes: "19:00",
-      },
-    ],
-    geo: { lat: 49.2683, lng: -123.1545 },
-    bookerSlug: "purenailwest4",
-  },
-  {
-    id: "morgan-crossing",
-    name: "Morgan Crossing",
-    slug: "morgan-crossing",
-    address: {
-      line1: "120-15735 Croydon Drive",
-      line2: "Surrey, BC V3Z 2L5",
-      street: "120-15735 Croydon Drive",
-      city: "Surrey",
-      region: "BC",
-      postalCode: "V3Z 2L5",
-      country: "CA",
-    },
-    phone: "(778) 294-4500",
-    phoneHref: "tel:+17782944500",
-    hours: [
-      { label: "Mon – Sat", value: "10:00 AM – 7:00 PM" },
-      { label: "Sunday", value: "10:00 AM – 6:00 PM" },
-    ],
-    hoursSpec: [
-      {
-        days: ["Mo", "Tu", "We", "Th", "Fr", "Sa"],
-        opens: "10:00",
-        closes: "19:00",
-      },
-      { days: ["Su"], opens: "10:00", closes: "18:00" },
-    ],
-    geo: { lat: 49.0469, lng: -122.7969 },
-    bookerSlug: "purenailcroydon",
-  },
-  {
-    id: "olympic-village",
-    name: "Olympic Village",
-    slug: "olympic-village",
-    address: {
-      line1: "1780 Manitoba Street",
-      line2: "Vancouver, BC V5Y 0H1",
-      street: "1780 Manitoba Street",
-      city: "Vancouver",
-      region: "BC",
-      postalCode: "V5Y 0H1",
-      country: "CA",
-    },
-    phone: "(604) 559-7488",
-    phoneHref: "tel:+16045597488",
-    hours: [{ label: "Daily", value: "10:00 AM – 7:00 PM" }],
-    hoursSpec: [
-      {
-        days: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-        opens: "10:00",
-        closes: "19:00",
-      },
-    ],
-    geo: { lat: 49.2686, lng: -123.1027 },
-    bookerSlug: "pure10",
-  },
-  {
-    id: "renfrew-heights",
-    name: "Renfrew Heights",
-    slug: "renfrew-heights",
-    address: {
-      line1: "3739 Rupert Street",
-      line2: "Vancouver, BC V5M 3W2",
-      street: "3739 Rupert Street",
-      city: "Vancouver",
-      region: "BC",
-      postalCode: "V5M 3W2",
-      country: "CA",
-    },
-    phone: "(604) 564-9799",
-    phoneHref: "tel:+16045649799",
-    hours: [
-      { label: "Mon – Sat", value: "10:00 AM – 7:00 PM" },
-      { label: "Sunday", value: "11:00 AM – 6:00 PM" },
-    ],
-    hoursSpec: [
-      {
-        days: ["Mo", "Tu", "We", "Th", "Fr", "Sa"],
-        opens: "10:00",
-        closes: "19:00",
-      },
-      { days: ["Su"], opens: "11:00", closes: "18:00" },
-    ],
-    geo: { lat: 49.2486, lng: -123.0356 },
-    bookerSlug: "PureNailBarRenfew",
+    geo: { lat: 46.8606, lng: -71.1947 },
+    bookerSlug: "",
   },
 ];
 
 /** Per-location Booker service-menu URL — the location's "Book Now" target. */
-export function bookerServiceMenu(loc: Location): string {
-  return `https://go.booker.com/location/${loc.bookerSlug}/service-menu`;
+export function bookerServiceMenu(_loc: Location): string {
+  return site.booker.brand;
 }
 
 /** Google Maps embed src (no API key needed) for a location's full address. */
@@ -190,7 +78,7 @@ export function mapEmbedUrl(loc: Location): string {
 /** Google Maps "open in Maps" link for the location pin. */
 export function mapLink(loc: Location): string {
   const q = encodeURIComponent(
-    `Pure Nail Bar ${loc.name}, ${loc.address.street}, ${loc.address.line2}`,
+    `${site.name} ${loc.name}, ${loc.address.street}, ${loc.address.line2}`,
   );
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
