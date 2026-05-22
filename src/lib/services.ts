@@ -9,7 +9,11 @@
 
 import { locales, type Locale } from "@/lib/i18n";
 
-export type ServiceId = "gel-nails" | "feet" | "wax" | "lashes" | "hair";
+export type ServiceId =
+  | "pose-ongles"
+  | "remplissage"
+  | "soins-mains"
+  | "soins-pieds";
 
 export type Service = {
   id: ServiceId;
@@ -23,38 +27,31 @@ export type Service = {
 
 export const services: readonly Service[] = [
   {
-    id: "gel-nails",
-    slug: { en: "gel-nails" },
+    id: "pose-ongles",
+    slug: { en: "nail-enhancements" },
+    price: 60,
+    priceTo: 75,
+    photo: false,
+  },
+  {
+    id: "remplissage",
+    slug: { en: "fill" },
     price: 45,
-    priceTo: 95,
-    photo: true,
-  },
-  {
-    id: "feet",
-    slug: { en: "feet" },
-    price: 40,
-    priceTo: 75,
-    photo: true,
-  },
-  {
-    id: "wax",
-    slug: { en: "wax" },
-    price: 15,
-    priceTo: 75,
+    priceTo: 60,
     photo: false,
   },
   {
-    id: "lashes",
-    slug: { en: "lashes" },
-    price: 90,
-    priceTo: 160,
+    id: "soins-mains",
+    slug: { en: "manicure" },
+    price: 30,
+    priceTo: 40,
     photo: false,
   },
   {
-    id: "hair",
-    slug: { en: "hair" },
+    id: "soins-pieds",
+    slug: { en: "pedicure" },
     price: 35,
-    priceTo: 120,
+    priceTo: 60,
     photo: false,
   },
 ] as const;
