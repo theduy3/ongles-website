@@ -46,7 +46,7 @@ export async function generateMetadata({
     title: dict.meta.homeTitle,
     description: dict.meta.homeDescription,
     robots: { index: true, follow: true },
-    // Local-SEO geo signals for the primary (Killarney) location.
+    // Local-SEO geo signals for the primary (Carrefour Beauport) location.
     other: {
       "geo.region": "CA-QC",
       "geo.placename": site.contact.address.city,

@@ -144,7 +144,7 @@ export function organizationGraph(
 
   // One NailSalon node per physical location, linked to the brand as a
   // `department`. Each carries its own address, geo, phone and hours so search
-  // engines understand all five Greater-Vancouver studios.
+  // engines understand each Ongles Maily salon location.
   const departments = locations.map((loc) => ({
     "@type": "NailSalon",
     "@id": `${site.url}/#location-${loc.id}`,

@@ -1,5 +1,5 @@
 // Price formatting. Single source so service cards and detail pages render
-// prices identically. English-only (Vancouver), so the symbol always prefixes.
+// prices identically. CAD amounts, so the symbol always prefixes.
 
 import type { Locale } from "@/lib/i18n";
 

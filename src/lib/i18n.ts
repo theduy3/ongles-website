@@ -1,6 +1,6 @@
-// i18n configuration. Pure Nail Bar is an English-only Vancouver salon, so the
-// site ships a single locale. The [lang] route segment is kept (max parity with
-// the parent SS-website App Router shape and an easy on-ramp for future locales),
+// i18n configuration. Ongles Maily is a Québec salon serving French (default) and
+// English; Spanish is planned. The [lang] route segment drives locale routing (max
+// parity with the parent SS-website App Router shape and an easy on-ramp for more locales),
 // but `locales` holds only "en" today.
 
 export const locales = ["fr", "en"] as const;
