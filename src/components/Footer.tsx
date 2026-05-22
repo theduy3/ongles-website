@@ -35,35 +35,23 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
               <span className="font-semibold">Nail Bar</span>
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">
-              Where elegance meets precision in the art of nail care. A serene and
-              stylish sanctuary in Vancouver.
+              Where elegance meets precision in the art of nail care. A serene
+              and stylish sanctuary in Vancouver.
             </p>
-            <div className="mt-6 flex gap-3">
-              {[
-                { label: "Instagram", url: site.instagram },
-                { label: "Facebook", url: site.facebook },
-                { label: "TikTok", url: site.tiktok },
-              ].map((s) => (
-                <a
-                  key={s.label}
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs uppercase tracking-wide text-cream/70 transition-colors hover:text-gold"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Quick links */}
           <div>
-            <h3 className="text-sm uppercase tracking-wide text-gold">Quick Links</h3>
+            <h3 className="text-sm uppercase tracking-wide text-gold">
+              Quick Links
+            </h3>
             <ul className="mt-4 space-y-2 text-sm">
               {QUICK_LINKS.map((item) => (
                 <li key={item.label}>
-                  <Link href={href(item.href)} className="text-cream/80 hover:text-cream">
+                  <Link
+                    href={href(item.href)}
+                    className="text-cream/80 hover:text-cream"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -73,11 +61,16 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
 
           {/* Services */}
           <div>
-            <h3 className="text-sm uppercase tracking-wide text-gold">Services</h3>
+            <h3 className="text-sm uppercase tracking-wide text-gold">
+              Services
+            </h3>
             <ul className="mt-4 space-y-2 text-sm">
               {SERVICE_LINKS.map((label) => (
                 <li key={label}>
-                  <Link href={`/${locale}/services`} className="text-cream/80 hover:text-cream">
+                  <Link
+                    href={`/${locale}/services`}
+                    className="text-cream/80 hover:text-cream"
+                  >
                     {label}
                   </Link>
                 </li>
@@ -98,7 +91,9 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-2 border-t border-cream/10 pt-8 text-xs text-cream/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
+          </p>
           <p>Designed with ♡ in Vancouver, BC</p>
         </div>
       </div>
