@@ -18,14 +18,6 @@
     "galleryDescription": "Browse our latest nail art, manicures and nail enhancements at Ongles Maily, Carrefour Beauport.",
     "locationsTitle": "Location — Ongles Maily",
     "locationsDescription": "Find Ongles Maily at Carrefour Beauport — 3333 Rue du Carrefour, Entrées 4 ou 5, Québec, QC G1C 5R9.",
-    "careersTitle": "Careers — Ongles Maily",
-    "careersDescription": "Join the Ongles Maily team at Carrefour Beauport, Québec.",
-    "pressTitle": "Press — Ongles Maily",
-    "pressDescription": "Press and media resources for Ongles Maily, Carrefour Beauport, Québec.",
-    "purePartiesTitle": "Nail Parties — Ongles Maily",
-    "purePartiesDescription": "Book a group nail party at Ongles Maily, Carrefour Beauport.",
-    "franchisingTitle": "Franchising — Ongles Maily",
-    "franchisingDescription": "Franchising information for Ongles Maily.",
     "termsTitle": "Terms & Conditions — Ongles Maily",
     "termsDescription": "Salon policies for Ongles Maily: appointments, cancellations, deposits, gift cards, health & safety and more.",
     "privacyTitle": "Privacy Policy — Ongles Maily",
@@ -39,10 +31,6 @@
     "locations": "Location",
     "about": "About",
     "giftcards": "Gift Cards",
-    "careers": "Careers",
-    "press": "Press",
-    "pureParties": "Nail Parties",
-    "franchising": "Franchising",
     "contact": "Contact",
     "faq": "FAQ",
     "privacy": "Privacy Policy",
@@ -532,38 +520,6 @@
         "caption": "Pedicure"
       }
     }
-  },
-  "careers": {
-    "heading": "Careers",
-    "intro": "Join the Ongles Maily team.",
-    "body": [
-      "We are always looking for passionate nail technicians who share our commitment to hygiene, quality and client care.",
-      "Interested? Send your resume and a note about yourself through our contact form or visit us at Carrefour Beauport."
-    ]
-  },
-  "press": {
-    "heading": "Press",
-    "intro": "Media resources and brand information.",
-    "body": [
-      "Ongles Maily is a professional nail salon at Carrefour Beauport, Québec City, known for our hygiene-first approach and 15+ years of experience.",
-      "For press enquiries or partnership opportunities, please get in touch through our contact form."
-    ]
-  },
-  "pureParties": {
-    "heading": "Nail Parties",
-    "intro": "Celebrate together at Ongles Maily.",
-    "body": [
-      "Planning a birthday, bridal shower or group outing? Contact us to arrange a group nail appointment at Ongles Maily, Carrefour Beauport.",
-      "Reach out through our contact form or call us at (418) 660-8228 to plan your visit."
-    ]
-  },
-  "franchising": {
-    "heading": "Franchising",
-    "intro": "Franchising information.",
-    "body": [
-      "For franchising enquiries, please contact us through our contact form.",
-      "We will respond with more information about opportunities."
-    ]
   },
   "legal": {
     "terms": {

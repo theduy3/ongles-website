@@ -18,14 +18,6 @@
     "galleryDescription": "Parcourez nos derniers nail art, manucures et poses d'ongles chez Ongles Maily, Carrefour Beauport.",
     "locationsTitle": "Notre adresse — Ongles Maily",
     "locationsDescription": "Trouvez Ongles Maily au Carrefour Beauport — 3333 rue du Carrefour, Entrées 4 ou 5, Québec, QC G1C 5R9.",
-    "careersTitle": "Carrières — Ongles Maily",
-    "careersDescription": "Joignez l'équipe d'Ongles Maily au Carrefour Beauport, Québec.",
-    "pressTitle": "Presse — Ongles Maily",
-    "pressDescription": "Ressources presse et médias pour Ongles Maily, Carrefour Beauport, Québec.",
-    "purePartiesTitle": "Fêtes d'ongles — Ongles Maily",
-    "purePartiesDescription": "Réservez une fête d'ongles en groupe chez Ongles Maily, Carrefour Beauport.",
-    "franchisingTitle": "Franchisage — Ongles Maily",
-    "franchisingDescription": "Informations sur le franchisage d'Ongles Maily.",
     "termsTitle": "Conditions générales — Ongles Maily",
     "termsDescription": "Politiques du salon Ongles Maily : rendez-vous, annulations, dépôts, certificats cadeaux, santé et sécurité et plus encore.",
     "privacyTitle": "Politique de confidentialité — Ongles Maily",
@@ -39,10 +31,6 @@
     "locations": "Notre adresse",
     "about": "À propos",
     "giftcards": "Certificats cadeaux",
-    "careers": "Carrières",
-    "press": "Presse",
-    "pureParties": "Fêtes d'ongles",
-    "franchising": "Franchisage",
     "contact": "Contact",
     "faq": "FAQ",
     "privacy": "Politique de confidentialité",
@@ -532,38 +520,6 @@
         "caption": "Pédicure"
       }
     }
-  },
-  "careers": {
-    "heading": "Carrières",
-    "intro": "Joignez l'équipe d'Ongles Maily.",
-    "body": [
-      "Nous sommes toujours à la recherche de techniciennes en ongles passionnées qui partagent notre engagement envers l'hygiène, la qualité et le soin à la clientèle.",
-      "Intéressée? Envoyez votre curriculum vitæ et une note sur vous-même via notre formulaire de contact ou venez nous rendre visite au Carrefour Beauport."
-    ]
-  },
-  "press": {
-    "heading": "Presse",
-    "intro": "Ressources médias et informations sur la marque.",
-    "body": [
-      "Ongles Maily est un salon d'ongles professionnel au Carrefour Beauport, Québec, reconnu pour son approche axée sur l'hygiène et ses plus de 15 ans d'expérience.",
-      "Pour les demandes médias ou les opportunités de partenariat, veuillez nous contacter via notre formulaire de contact."
-    ]
-  },
-  "pureParties": {
-    "heading": "Fêtes d'ongles",
-    "intro": "Célébrez ensemble chez Ongles Maily.",
-    "body": [
-      "Vous planifiez un anniversaire, une fête de fiançailles ou une sortie de groupe? Contactez-nous pour organiser un rendez-vous de groupe chez Ongles Maily, Carrefour Beauport.",
-      "Écrivez-nous via notre formulaire de contact ou appelez-nous au (418) 660-8228 pour planifier votre visite."
-    ]
-  },
-  "franchising": {
-    "heading": "Franchisage",
-    "intro": "Informations sur le franchisage.",
-    "body": [
-      "Pour les demandes de franchisage, veuillez nous contacter via notre formulaire de contact.",
-      "Nous vous répondrons avec plus d'informations sur les opportunités disponibles."
-    ]
   },
   "legal": {
     "terms": {
