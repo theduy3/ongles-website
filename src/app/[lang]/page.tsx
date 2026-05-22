@@ -264,19 +264,21 @@ export default async function Home({ params }: LangParams) {
                 {dict.reviews.headlineMain}
               </h2>
             </Reveal>
-            <Reveal delay={0.05}>
-              <div
-                className="mt-6 flex flex-col items-center gap-2"
-                aria-label={`${ratingDisplay} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${reviewCountDisplay} ${dict.reviews.reviewsWord}`}
-              >
-                <Stars className="text-gold" />
-                <p className="text-sm uppercase tracking-wide text-mocha">
-                  {ratingDisplay} / {site.reviews.bestRating} ·{" "}
-                  {dict.reviews.basedOn} {reviewCountDisplay}{" "}
-                  {dict.reviews.reviewsWord}
-                </p>
-              </div>
-            </Reveal>
+            {site.reviews.reviewCount > 0 && (
+              <Reveal delay={0.05}>
+                <div
+                  className="mt-6 flex flex-col items-center gap-2"
+                  aria-label={`${ratingDisplay} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${reviewCountDisplay} ${dict.reviews.reviewsWord}`}
+                >
+                  <Stars className="text-gold" />
+                  <p className="text-sm uppercase tracking-wide text-mocha">
+                    {ratingDisplay} / {site.reviews.bestRating} ·{" "}
+                    {dict.reviews.basedOn} {reviewCountDisplay}{" "}
+                    {dict.reviews.reviewsWord}
+                  </p>
+                </div>
+              </Reveal>
+            )}
           </div>
           <div className="mt-12">
             <Testimonials dict={dict} />

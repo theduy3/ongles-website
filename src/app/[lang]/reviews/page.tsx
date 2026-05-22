@@ -55,24 +55,26 @@ export default async function ReviewsPage({ params }: LangParams) {
         intro={dict.reviewsPage.intro}
       />
 
-      {/* Aggregate rating */}
-      <section className="mx-auto max-w-3xl px-6 pt-16 text-center md:pt-24">
-        <div
-          className="flex flex-col items-center gap-2"
-          aria-label={`${rating} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${count} ${dict.reviews.reviewsWord}`}
-        >
-          <Stars className="text-espresso" />
-          <p className="text-2xl font-semibold text-espresso">
-            {rating}{" "}
-            <span className="text-espresso/40">
-              / {site.reviews.bestRating}
-            </span>
-          </p>
-          <p className="text-sm uppercase tracking-wide text-mocha">
-            {dict.reviews.basedOn} {count} {dict.reviews.reviewsWord}
-          </p>
-        </div>
-      </section>
+      {/* Aggregate rating — only shown when real reviews exist */}
+      {site.reviews.reviewCount > 0 && (
+        <section className="mx-auto max-w-3xl px-6 pt-16 text-center md:pt-24">
+          <div
+            className="flex flex-col items-center gap-2"
+            aria-label={`${rating} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${count} ${dict.reviews.reviewsWord}`}
+          >
+            <Stars className="text-espresso" />
+            <p className="text-2xl font-semibold text-espresso">
+              {rating}{" "}
+              <span className="text-espresso/40">
+                / {site.reviews.bestRating}
+              </span>
+            </p>
+            <p className="text-sm uppercase tracking-wide text-mocha">
+              {dict.reviews.basedOn} {count} {dict.reviews.reviewsWord}
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Testimonial cards */}
       <section className="mx-auto max-w-5xl px-6 py-16 md:py-24">
