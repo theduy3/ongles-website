@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { site } from "@/lib/site";
-import { services, servicePath } from "@/lib/services";
+import { services, servicePath, servicePathsByLocale } from "@/lib/services";
 
 // Single-locale sitemap (en). The header nav is now anchor links into the home
 // page, so indexable routes come from site.routes + the service slugs + home.
@@ -33,13 +33,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   const serviceEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
-    services.map((service) => ({
-      url: `${site.url}/${locale}${servicePath(service, locale)}`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-      alternates: { languages: altLanguages(servicePath(service, locale)) },
-    })),
+    services.map((service) => {
+      const pathsByLocale = servicePathsByLocale(service);
+      return {
+        url: `${site.url}/${locale}${servicePath(service, locale)}`,
+        lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: {
+          languages: {
+            ...Object.fromEntries(
+              locales.map((l) => [l, `${site.url}/${l}${pathsByLocale[l]}`]),
+            ),
+            "x-default": `${site.url}/${defaultLocale}${pathsByLocale[defaultLocale]}`,
+          },
+        },
+      };
+    }),
   );
 
   return [...homeEntries, ...pageEntries, ...serviceEntries];

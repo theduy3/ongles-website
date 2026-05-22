@@ -70,6 +70,16 @@
         "value": "Walk-ins",
         "label": "Welcome"
       }
+    ],
+    "stats": [
+      {
+        "value": "15+",
+        "label": "Years of experience"
+      },
+      {
+        "value": "7/7",
+        "label": "Open every day"
+      }
     ]
   },
   "home": {

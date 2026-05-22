@@ -70,6 +70,16 @@
         "value": "Sans RDV",
         "label": "Bienvenu"
       }
+    ],
+    "stats": [
+      {
+        "value": "15+",
+        "label": "Ans d'expérience"
+      },
+      {
+        "value": "7/7",
+        "label": "Ouvert tous les jours"
+      }
     ]
   },
   "home": {

@@ -15,11 +15,11 @@ import { getDictionary } from "./dictionaries";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 
-// Marketing service-card images (live order: Gel, Acrylic, Nail Art, Spa Pedicure).
+// Marketing service-card images — order matches serviceCards: Nail Enhancements, Fill, Manicure, Pedicure.
 const CARD_IMAGES = [
-  "/images/home/gel-manicure.png",
   "/images/home/acrylic-full-set.png",
   "/images/home/nail-art.png",
+  "/images/home/gel-manicure.png",
   "/images/home/spa-pedicure.png",
 ];
 
@@ -145,18 +145,18 @@ export default async function Home({ params }: LangParams) {
               {/* Floating stat cards */}
               <div className="absolute -left-4 top-8 rounded-2xl bg-white px-5 py-3 shadow-card">
                 <p className="text-lg font-semibold text-espresso">
-                  {ratingDisplay} <span className="text-mocha">/ 5.0</span>
+                  {dict.hero.stats[0].value}
                 </p>
                 <p className="text-xs uppercase tracking-wide text-mocha">
-                  {reviewCountDisplay} Reviews
+                  {dict.hero.stats[0].label}
                 </p>
               </div>
               <div className="absolute -right-4 bottom-8 rounded-2xl bg-white px-5 py-3 shadow-card">
                 <p className="text-lg font-semibold text-espresso">
-                  {dict.hero.badges[1].value}
+                  {dict.hero.stats[1].value}
                 </p>
                 <p className="text-xs uppercase tracking-wide text-mocha">
-                  Happy Clients
+                  {dict.hero.stats[1].label}
                 </p>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default async function Home({ params }: LangParams) {
                   <div className="flex flex-1 flex-col p-5">
                     <h3 className="text-xl text-espresso">{card.title}</h3>
                     <p className="mt-1 text-sm font-medium text-gold">
-                      From {card.price}
+                      {card.price}
                     </p>
                     <p className="mt-3 flex-1 text-sm font-light leading-relaxed text-mocha">
                       {card.body}
