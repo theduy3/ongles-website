@@ -58,7 +58,9 @@ export function LocationCard({
               🕐 {l.labelHours}
             </dt>
             <dd className="mt-0.5">
-              {loc.hours.map((h) => (
+              {/* Hours sourced from dict so labels are locale-aware.
+                  TODO: move to per-location locale-keyed data once sister salons are added. */}
+              {l.hours.map((h) => (
                 <span key={h.label} className="block">
                   {h.label}: {h.value}
                 </span>

@@ -8,8 +8,11 @@ import { services, servicePath } from "@/lib/services";
 // Each entry declares hreflang alternates for App Router parity (one locale).
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-  const altLanguages = (path: string) =>
-    Object.fromEntries(locales.map((l) => [l, `${site.url}/${l}${path}`]));
+  const defaultLocale = locales[0]; // fr is index 0 (the canonical default)
+  const altLanguages = (path: string) => ({
+    ...Object.fromEntries(locales.map((l) => [l, `${site.url}/${l}${path}`])),
+    "x-default": `${site.url}/${defaultLocale}${path}`,
+  });
 
   const homeEntries: MetadataRoute.Sitemap = locales.map((locale) => ({
     url: `${site.url}/${locale}`,

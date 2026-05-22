@@ -162,7 +162,25 @@
     "labelAddress": "Adresse",
     "bookNow": "Réservez dès maintenant!",
     "getDirections": "Obtenir l'itinéraire",
-    "viewAll": "Voir l'adresse"
+    "viewAll": "Voir l'adresse",
+    "hours": [
+      {
+        "label": "Lun – Mer",
+        "value": "9 h 00 – 17 h 30"
+      },
+      {
+        "label": "Jeu – Ven",
+        "value": "9 h 00 – 21 h 00"
+      },
+      {
+        "label": "Sam",
+        "value": "9 h 00 – 17 h 00"
+      },
+      {
+        "label": "Dim",
+        "value": "10 h 00 – 17 h 00"
+      }
+    ]
   },
   "newsletter": {
     "heading": "Restez en contact",

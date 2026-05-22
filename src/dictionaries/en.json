@@ -162,7 +162,25 @@
     "labelAddress": "Address",
     "bookNow": "Book Now",
     "getDirections": "Get Directions",
-    "viewAll": "View Location"
+    "viewAll": "View Location",
+    "hours": [
+      {
+        "label": "Mon – Wed",
+        "value": "9:00 AM – 5:30 PM"
+      },
+      {
+        "label": "Thu – Fri",
+        "value": "9:00 AM – 9:00 PM"
+      },
+      {
+        "label": "Sat",
+        "value": "9:00 AM – 5:00 PM"
+      },
+      {
+        "label": "Sun",
+        "value": "10:00 AM – 5:00 PM"
+      }
+    ]
   },
   "newsletter": {
     "heading": "Stay in Touch",
