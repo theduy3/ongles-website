@@ -48,7 +48,7 @@ export async function generateMetadata({
     robots: { index: true, follow: true },
     // Local-SEO geo signals for the primary (Killarney) location.
     other: {
-      "geo.region": "CA-BC",
+      "geo.region": "CA-QC",
       "geo.placename": site.contact.address.city,
       "geo.position": `${site.geo.lat};${site.geo.lng}`,
       ICBM: `${site.geo.lat}, ${site.geo.lng}`,
