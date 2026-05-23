@@ -5,6 +5,7 @@ import {
   mapLink,
   type Location,
 } from "@/lib/locations";
+import { site } from "@/lib/site";
 import type { Dictionary } from "@/lib/dictionary";
 
 // One salon location: embedded Google Map on top + address/hours/phone/landmark
@@ -22,7 +23,7 @@ export function LocationCard({
       <div className="relative aspect-[16/9] w-full bg-sand">
         <iframe
           src={mapEmbedUrl(loc)}
-          title={`Map of Pure Nail Bar — ${loc.name}`}
+          title={`${site.name} — ${loc.name}`}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           className="h-full w-full border-0"
@@ -37,7 +38,9 @@ export function LocationCard({
         >
           {loc.name}
         </a>
-        {loc.landmark && <p className="mt-1 text-sm text-tan">{loc.landmark}</p>}
+        {loc.landmark && (
+          <p className="mt-1 text-sm text-tan">{loc.landmark}</p>
+        )}
 
         <dl className="mt-4 space-y-3 text-sm text-mocha">
           <div>
@@ -55,7 +58,9 @@ export function LocationCard({
               🕐 {l.labelHours}
             </dt>
             <dd className="mt-0.5">
-              {loc.hours.map((h) => (
+              {/* Hours sourced from dict so labels are locale-aware.
+                  TODO: move to per-location locale-keyed data once sister salons are added. */}
+              {l.hours.map((h) => (
                 <span key={h.label} className="block">
                   {h.label}: {h.value}
                 </span>

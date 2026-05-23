@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-/* Exact Pure Nail Bar design system (from purenailbar-style.min.css). Token
-   names kept from the original system so components restyle by class.
+/* Ongles Maily design system. Token names kept from the original system so
+   components restyle by class.
    Tailwind v4 is CSS-first: these @theme vars auto-generate utilities. */
 @theme {
   --color-espresso: #2c2824; /* primary text, dark elements, footer */

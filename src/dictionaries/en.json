@@ -1,48 +1,36 @@
 {
   "meta": {
-    "homeTitle": "Pure Nail Bar — Luxury Nail Care in Vancouver",
-    "homeDescription": "Vancouver's premier nail studio. Gel manicures, acrylic full sets, nail art and spa pedicures across 5 locations. Book online — 4.4★, 2,000+ clients.",
-    "servicesTitle": "Services — Pure Nail Bar",
-    "servicesDescription": "Gel nails, feet & pedicures, waxing, lash extensions and hair services at Pure Nail Bar. Premium products, certified technicians and a relaxing studio.",
-    "aboutTitle": "About — Pure Nail Bar",
-    "aboutDescription": "A serene, stylish nail sanctuary in Vancouver. Premium products, hospital-grade hygiene and skilled artists across 5 Greater Vancouver locations.",
-    "bookOnlineTitle": "Book Online — Pure Nail Bar",
-    "bookOnlineDescription": "Book your manicure, pedicure, lashes or waxing at any Pure Nail Bar location. Reserve online in seconds.",
-    "contactTitle": "Contact — Pure Nail Bar",
-    "contactDescription": "Get in touch with Pure Nail Bar. Questions about services, bookings or careers — send us a message.",
-    "faqTitle": "FAQ — Pure Nail Bar",
-    "faqDescription": "Hours, booking, services, hygiene and more — answers to common questions about Pure Nail Bar.",
-    "reviewsTitle": "Reviews — Pure Nail Bar",
-    "reviewsDescription": "See why clients rate Pure Nail Bar 4.4/5 — gel nails, pedicures, lashes and nail art across Vancouver.",
-    "galleryTitle": "Gallery — Pure Nail Bar",
-    "galleryDescription": "Browse our latest nail art, gel manicures and client transformations at Pure Nail Bar.",
-    "locationsTitle": "Locations — Pure Nail Bar",
-    "locationsDescription": "Find Pure Nail Bar near you — 5 studios across Vancouver and Surrey: Killarney, Kitsilano West 4th, Morgan Crossing, Olympic Village and Renfrew Heights.",
-    "careersTitle": "Careers — Pure Nail Bar",
-    "careersDescription": "Join the Pure Nail Bar team. We're hiring certified nail technicians and front-desk talent across Greater Vancouver.",
-    "pressTitle": "Press — Pure Nail Bar",
-    "pressDescription": "Press and media resources for Pure Nail Bar, Vancouver's premier nail studio.",
-    "purePartiesTitle": "Pure Parties — Pure Nail Bar",
-    "purePartiesDescription": "Book a group nail party at Pure Nail Bar — birthdays, bridal showers and corporate events in a private, pampering setting.",
-    "franchisingTitle": "Franchising — Pure Nail Bar",
-    "franchisingDescription": "Bring Pure Nail Bar to your community. Explore franchising opportunities with a proven, premium nail-care brand.",
-    "termsTitle": "Terms & Conditions — Pure Nail Bar",
-    "termsDescription": "Salon policies for Pure Nail Bar: appointments, cancellations, deposits, gift cards, health & safety and more.",
-    "privacyTitle": "Privacy Policy — Pure Nail Bar",
-    "privacyDescription": "How Pure Nail Bar collects, uses and protects your personal information."
+    "homeTitle": "Ongles Maily — Nail Salon at Carrefour Beauport, Québec",
+    "homeDescription": "Ongles Maily is a professional nail salon at Carrefour Beauport, Québec City. Nail enhancements, fills, manicures and pedicures. Hygiene-first, 15+ years experience. Walk-ins welcome.",
+    "servicesTitle": "Services — Ongles Maily",
+    "servicesDescription": "Nail enhancements, fills, manicures and pedicures at Ongles Maily, Carrefour Beauport, Québec. Three disinfection stations, tools sanitized after every use.",
+    "aboutTitle": "About — Ongles Maily",
+    "aboutDescription": "Ongles Maily is a hygiene-first nail salon at Carrefour Beauport, Québec City. 15+ years of experience, warm family atmosphere. You are our family.",
+    "bookOnlineTitle": "Book Online — Ongles Maily",
+    "bookOnlineDescription": "Book your nail appointment at Ongles Maily, Carrefour Beauport, Québec. Reserve online or walk in — we welcome both.",
+    "contactTitle": "Contact — Ongles Maily",
+    "contactDescription": "Get in touch with Ongles Maily at Carrefour Beauport, Québec. Questions about services, bookings — send us a message.",
+    "faqTitle": "FAQ — Ongles Maily",
+    "faqDescription": "Hours, booking, services, hygiene and more — answers to common questions about Ongles Maily, Carrefour Beauport.",
+    "reviewsTitle": "Reviews — Ongles Maily",
+    "reviewsDescription": "See why clients love Ongles Maily — nail enhancements, fills, manicures and pedicures at Carrefour Beauport, Québec.",
+    "galleryTitle": "Gallery — Ongles Maily",
+    "galleryDescription": "Browse our latest nail art, manicures and nail enhancements at Ongles Maily, Carrefour Beauport.",
+    "locationsTitle": "Location — Ongles Maily",
+    "locationsDescription": "Find Ongles Maily at Carrefour Beauport — 3333 Rue du Carrefour, Entrées 4 ou 5, Québec, QC G1C 5R9.",
+    "termsTitle": "Terms & Conditions — Ongles Maily",
+    "termsDescription": "Salon policies for Ongles Maily: appointments, cancellations, deposits, gift cards, health & safety and more.",
+    "privacyTitle": "Privacy Policy — Ongles Maily",
+    "privacyDescription": "How Ongles Maily collects, uses and protects your personal information."
   },
   "nav": {
     "home": "Home",
     "services": "Services",
     "gallery": "Gallery",
     "reviews": "Reviews",
-    "locations": "Locations",
+    "locations": "Location",
     "about": "About",
     "giftcards": "Gift Cards",
-    "careers": "Careers",
-    "press": "Press",
-    "pureParties": "Pure Parties",
-    "franchising": "Franchising",
     "contact": "Contact",
     "faq": "FAQ",
     "privacy": "Privacy Policy",
@@ -64,104 +52,149 @@
     "join": "Join"
   },
   "hero": {
-    "subtitle": "Vancouver's Premier Nail Studio",
-    "taglineLead": "Luxury Nail Care, Designed for",
+    "subtitle": "Nail Salon at Carrefour Beauport, Québec",
+    "taglineLead": "Professional Nail Care, Made for",
     "taglineEmphasis": "You",
-    "description": "Expert nail services in a relaxing, modern studio. Where elegance meets precision in the art of nail care.",
-    "alt": "Elegant nail art and a freshly finished manicure at Pure Nail Bar",
+    "description": "Expert nail services in a warm, family atmosphere. Hygiene-first with three disinfection stations and 15+ years of experience.",
+    "alt": "Beautiful nail enhancements and manicure at Ongles Maily, Carrefour Beauport",
     "badges": [
-      { "value": "4.4★", "label": "104 reviews" },
-      { "value": "2,000+", "label": "Happy clients" },
-      { "value": "Certified", "label": "Technicians" }
+      {
+        "value": "15+",
+        "label": "Years experience"
+      },
+      {
+        "value": "3",
+        "label": "Disinfection stations"
+      },
+      {
+        "value": "Walk-ins",
+        "label": "Welcome"
+      }
+    ],
+    "stats": [
+      {
+        "value": "15+",
+        "label": "Years of experience"
+      },
+      {
+        "value": "7/7",
+        "label": "Open every day"
+      }
     ]
   },
   "home": {
     "servicesEyebrow": "Our Services",
-    "servicesHeading": "Indulge in Perfection",
-    "servicesIntro": "From classic elegance to intricate nail art, our skilled technicians deliver meticulous attention to detail in every service.",
+    "servicesHeading": "Beautiful Nails, Every Visit",
+    "servicesIntro": "From natural manicures to full nail enhancements, our experienced team delivers careful, precise results with exceptional hygiene at every appointment.",
     "serviceCards": [
       {
-        "title": "Gel Manicure",
-        "price": "$45",
-        "body": "Long-lasting gel polish with a flawless, high-shine finish that stays perfect for weeks."
+        "title": "Nail Enhancements",
+        "price": "from $60",
+        "body": "Full set nail enhancements with or without extensions. Custom shapes, lengths and nail art options available."
       },
       {
-        "title": "Acrylic Full Set",
-        "price": "$65",
-        "body": "Custom-sculpted acrylic nails with your choice of shape, length, and design for a stunning look."
+        "title": "Fill",
+        "price": "from $45",
+        "body": "Maintain your nail enhancements with a professional refill every 2–3 weeks for a fresh, flawless look."
       },
       {
-        "title": "Nail Art",
-        "price": "$35",
-        "body": "Express your style with hand-painted designs, intricate patterns, and creative embellishments."
+        "title": "Manicure",
+        "price": "from $30",
+        "body": "Hand care with cuticle treatment, shaping and your choice of polish. Classic elegance at every visit."
       },
       {
-        "title": "Spa Pedicure",
-        "price": "$55",
-        "body": "A luxurious pedicure experience with exfoliation, massage, and perfectly polished toes."
+        "title": "Pedicure",
+        "price": "from $35",
+        "body": "Foot care in our sanitized pedicure stations — toenail shaping, cuticle care and polished results."
       }
     ],
     "galleryEyebrow": "Our Work",
     "galleryHeading": "Nail Art Gallery",
     "galleryIntro": "A showcase of our latest designs, trending styles, and client transformations.",
     "bookingHeading": "Ready for Your Next Appointment?",
-    "bookingIntro": "Book your session today and experience the Pure Nail Bar difference. Schedule online or call your nearest location.",
+    "bookingIntro": "Book online or walk in — we welcome both. Experience the Ongles Maily difference at Carrefour Beauport.",
     "locationsEyebrow": "Visit Us",
     "locationsHeading": "Find Us"
   },
   "whyChooseUs": {
-    "eyebrow": "The Pure Difference",
+    "eyebrow": "The Ongles Maily Difference",
     "heading": "Why Choose Us",
-    "intro": "We set the standard for premium nail care with our commitment to quality, hygiene, and artistry.",
+    "intro": "We set the standard for professional nail care with our commitment to hygiene, quality and exceptional service.",
     "features": [
       {
         "icon": "✨",
-        "title": "Premium Products",
-        "body": "Only the finest, professional-grade polishes, gels, and treatments from trusted luxury brands."
+        "title": "Hygiene First",
+        "body": "Three dedicated disinfection stations. Every tool is disinfected after each use — your safety is our top priority."
       },
       {
         "icon": "🛡️",
-        "title": "Hygienic & Sterilized",
-        "body": "Hospital-grade sterilization protocols. Every tool is sanitized for your complete safety and peace of mind."
+        "title": "Sanitized Stations",
+        "body": "Sanitized pedicure stations and dust collectors at every manicure station for a clean, safe experience."
       },
       {
         "icon": "🎨",
-        "title": "Skilled Nail Artists",
-        "body": "Our certified technicians bring years of expertise to every service, from classic to avant-garde."
+        "title": "15+ Years Experience",
+        "body": "Our team brings over 15 years of expertise to every service, from classic manicures to intricate nail art."
       },
       {
         "icon": "🌿",
-        "title": "Relaxing Atmosphere",
-        "body": "A serene, stylish sanctuary designed for you to unwind, escape, and indulge in pure pampering."
+        "title": "Family Atmosphere",
+        "body": "A warm, welcoming salon where you are our family. Walk-ins always welcome alongside booked appointments."
       }
     ]
   },
   "giftCards": {
     "eyebrow": "Gift Cards",
-    "heading": "Give the Gift of Beauty",
-    "description": "Treat someone special to a luxurious nail care experience. Choose from beautiful designs for birthdays, holidays, and every occasion. Send instantly by email or print at home.",
-    "note": "Email or print delivery • Any amount",
+    "heading": "Give the Gift of Beautiful Nails",
+    "description": "Treat someone special to a professional nail care experience at Ongles Maily. Purchase a gift card online via Square for any amount, delivered by email — or buy one in person at the salon.",
+    "note": "Online via Square or in person • Any amount",
     "designs": [
-      { "title": "Happy Holidays" },
-      { "title": "For Mom" },
-      { "title": "Happy Birthday" },
-      { "title": "Gift Card" }
+      {
+        "title": "Happy Holidays"
+      },
+      {
+        "title": "For Mom"
+      },
+      {
+        "title": "Happy Birthday"
+      },
+      {
+        "title": "Gift Card"
+      }
     ]
   },
   "locations": {
     "eyebrow": "Visit Us",
     "heading": "Find Us",
-    "intro": "Five studios across Greater Vancouver. Drop in or book ahead at the location nearest you.",
+    "intro": "Ongles Maily is located at Carrefour Beauport, Québec City. Walk in or book ahead — we're happy to see you.",
     "labelHours": "Hours",
     "labelPhone": "Phone",
     "labelAddress": "Address",
     "bookNow": "Book Now",
     "getDirections": "Get Directions",
-    "viewAll": "View All Locations"
+    "viewAll": "View Location",
+    "hours": [
+      {
+        "label": "Mon – Wed",
+        "value": "9:00 AM – 5:30 PM"
+      },
+      {
+        "label": "Thu – Fri",
+        "value": "9:00 AM – 9:00 PM"
+      },
+      {
+        "label": "Sat",
+        "value": "9:00 AM – 5:00 PM"
+      },
+      {
+        "label": "Sun",
+        "value": "10:00 AM – 5:00 PM"
+      }
+    ]
   },
   "newsletter": {
     "heading": "Stay in Touch",
-    "description": "Get exclusive offers, new designs, and beauty tips delivered to your inbox.",
+    "description": "Get exclusive offers, seasonal nail designs, and beauty tips delivered to your inbox.",
     "placeholder": "Your email address",
     "button": "Join",
     "success": "Thank you — you're on the list!",
@@ -169,43 +202,39 @@
   },
   "services": [
     {
-      "title": "Gel Nails",
-      "body": "Gel manicures, acrylic full sets and custom nail art with a flawless, long-wearing, high-shine finish."
+      "title": "Nail Enhancements",
+      "body": "Full set nail enhancements with or without extensions. Custom shapes, lengths, nail art and add-ons available."
     },
     {
-      "title": "Feet",
-      "body": "Spa pedicures with exfoliation, massage and deep hydration that leave your feet soft and beautifully polished."
+      "title": "Fill",
+      "body": "Maintenance refill for your nail enhancements. Recommended every 2–3 weeks to keep your nails looking fresh."
     },
     {
-      "title": "Wax",
-      "body": "Comfortable, efficient waxing from brows to bikini, with smooth results that last for weeks."
+      "title": "Manicure",
+      "body": "Hand care with cuticle treatment, nail shaping and your choice of polish. Polish change option also available."
     },
     {
-      "title": "Lashes",
-      "body": "Classic, hybrid and volume lash extensions mapped to your eyes for a natural-to-dramatic, weightless look."
-    },
-    {
-      "title": "Hair",
-      "body": "Polished hair services to complete your look, delivered by experienced stylists in a relaxing setting."
+      "title": "Pedicure",
+      "body": "Foot care in our sanitized pedicure stations with toenail shaping, cuticle care and polished results."
     }
   ],
   "servicesPage": {
     "heading": "Our Services",
-    "intro": "From classic elegance to intricate nail art, our skilled technicians deliver meticulous attention to detail in every service."
+    "intro": "From natural manicures to full nail enhancements, our experienced team delivers careful, precise results with exceptional hygiene at every appointment."
   },
   "about": {
-    "heading": "About Pure Nail Bar",
+    "heading": "About Ongles Maily",
     "body": [
-      "Pure Nail Bar is a serene and stylish sanctuary in Vancouver, where elegance meets precision in the art of nail care. From classic manicures to intricate nail art, our certified technicians bring years of expertise to every service.",
-      "We set the standard for premium nail care with a commitment to quality, hygiene and artistry. We use only the finest professional-grade products and follow hospital-grade sterilization protocols, so every visit is as safe as it is beautiful.",
-      "With more than 2,000 happy clients and five studios across Greater Vancouver, we've designed every detail — from our relaxing atmosphere to our skilled artists — to help you unwind, escape and indulge in pure pampering."
+      "Ongles Maily is a professional nail salon located at Carrefour Beauport in Québec City. We believe that beautiful nails begin with exceptional hygiene and genuine care — which is why every visit starts and ends with your safety and comfort in mind.",
+      "Our team brings more than 15 years of experience to every service. We operate three dedicated disinfection stations, sanitize every tool after each use, maintain sanitized pedicure stations, and use dust collectors at all manicure stations. This isn't a checklist — it's simply how we work.",
+      "At Ongles Maily, you are our family. Walk-ins are always welcome alongside booked appointments. We look forward to taking care of you."
     ]
   },
   "bookOnline": {
     "heading": "Book Online",
-    "intro": "Choose your nearest Pure Nail Bar location to view its service menu and reserve your appointment in seconds.",
-    "helpBefore": "Prefer to talk to us? Call your nearest location, or reach the Killarney studio at ",
-    "helpAfter": "."
+    "intro": "Reserve your appointment at Ongles Maily, Carrefour Beauport. Choose your service and book in seconds — or simply walk in.",
+    "helpBefore": "Prefer to talk to us? Call us at ",
+    "helpAfter": " — we're happy to help."
   },
   "reviews": {
     "eyebrow": "Client Love",
@@ -213,12 +242,50 @@
     "headlineMain": "What Our Clients Say",
     "basedOn": "from",
     "reviewsWord": "Google reviews",
-    "ctaPrompt": "Ready to experience the Pure difference?",
-    "bookOnline": "Book Online"
+    "ctaPrompt": "Ready to experience the Ongles Maily difference?",
+    "bookOnline": "Book Online",
+    "placeholders": [
+      {
+        "author": "Sarah M.",
+        "rating": 5,
+        "status": "Regular Client",
+        "quote": "Best nail salon I’ve ever visited — spotless, professional, and the results are always stunning."
+      },
+      {
+        "author": "Michelle W.",
+        "rating": 5,
+        "status": "Loyal Member",
+        "quote": "My gel manicure lasts a perfect three weeks every single time. I won’t go anywhere else."
+      },
+      {
+        "author": "Amanda K.",
+        "rating": 5,
+        "status": "Verified Client",
+        "quote": "I love the space, the location, and the team. The technicians are thorough and take such care with their work."
+      },
+      {
+        "author": "Jessica T.",
+        "rating": 5,
+        "status": "Regular Client",
+        "quote": "Gorgeous nail art and such a relaxing atmosphere. It feels like a little luxury escape every visit."
+      },
+      {
+        "author": "Priya S.",
+        "rating": 4,
+        "status": "New Client",
+        "quote": "Lovely spa pedicure and very friendly service. A short wait at peak times but absolutely worth it."
+      },
+      {
+        "author": "Emily R.",
+        "rating": 5,
+        "status": "Verified Client",
+        "quote": "Spotless studio, certified techs, beautiful results. My go-to for every special occasion."
+      }
+    ]
   },
   "contact": {
     "heading": "Contact Us",
-    "intro": "Questions about services, bookings or working with us? Send a message and we'll reply shortly."
+    "intro": "Questions about services or bookings? Send a message and we'll reply shortly. You can also call or walk in."
   },
   "form": {
     "firstName": "First name",
@@ -232,203 +299,171 @@
     "contact": "Contact"
   },
   "serviceDetails": {
-    "gel-nails": {
-      "title": "Gel Nails in Vancouver",
-      "heroAlt": "Glossy gel manicure with a flawless finish at Pure Nail Bar",
+    "pose-ongles": {
+      "title": "Nail Enhancements at Ongles Maily, Québec",
+      "heroAlt": "Beautiful nail enhancements — full set at Ongles Maily, Carrefour Beauport",
       "intro": [
-        "Our gel nail services pair long-lasting wear with a flawless, high-shine finish that stays perfect for weeks. From a clean, natural gel manicure to a custom-sculpted acrylic full set, our certified technicians shape, build and finish your nails exactly the way you want.",
-        "We never rush the details. Every set follows a careful, unhurried process with premium, professional-grade products — because the difference between a good manicure and a great one lives in the finish: even cuticles, a precise polish line and a shape that flatters your hands."
+        "Our nail enhancement service delivers a full set of beautiful, durable nails — with or without extensions. Whether you prefer a natural, clean look or want to add length and nail art, our experienced team shapes, builds and finishes your nails exactly the way you want.",
+        "We never rush the process. Every set is done with care and precision using professional-grade products, following our strict hygiene protocol — three disinfection stations, tools sanitized after every use, and dust collectors at every manicure station."
       ],
-      "whyUs": "Clients across Vancouver trust Pure Nail Bar for consistency: skilled, certified artists, premium products and hospital-grade hygiene at every visit. Whether you want subtle elegance or bold nail art, you'll leave with a result that lasts.",
+      "whyUs": "Clients at Carrefour Beauport trust Ongles Maily for consistent, high-quality results. Our team's 15+ years of experience means you'll leave with nails that look exactly how you imagined — and a salon experience that puts your safety first.",
       "included": [
+        "Full set nail enhancements with or without extensions",
+        "Your choice of shape and length",
         "Nail shaping and meticulous cuticle care",
-        "Your choice of gel manicure or acrylic full set",
-        "A precise, long-wearing, high-shine finish",
+        "Professional-grade products for lasting results",
         "Access to a wide range of colours and finishes",
-        "Honest advice on shape, length and design",
-        "A relaxing, sterilized service environment"
+        "Hygiene-first environment — three disinfection stations"
       ],
       "addons": [
-        "Custom hand-painted nail art and seasonal designs",
-        "Length and shape customization on full sets",
-        "Chrome, French and encapsulated finishes"
+        "Nail art on 2–4 fingers (+$5–10) or all 10 (+$15–25)",
+        "3 colours (+$5) or 5 colours (+$10)",
+        "Longer tips: long (+$5), longer (+$10), extra-long (+$15)",
+        "Diamonds and ornaments",
+        "Prosthetic removal (+$20)"
       ],
-      "duration": "About 45–75 minutes, depending on the set and add-ons.",
-      "aftercare": "Apply cuticle oil daily and wear gloves for cleaning or dishwashing — water and harsh detergents are the main cause of early chips and lifting. When it's time for a change, book a proper removal rather than peeling, which takes the top layer of your natural nail with it.",
-      "hygiene": "Your safety comes first. Every tool is sanitized to hospital-grade standards and single-use items are discarded after each client — the protocol behind every Pure Nail Bar service.",
+      "duration": "About 60–90 minutes depending on shape, length and add-ons.",
+      "aftercare": "Apply cuticle oil daily and wear gloves for cleaning or dishwashing — water and harsh detergents are the main cause of early lifting. When it's time for a change, book a proper fill or removal rather than picking, which can damage your natural nail.",
+      "hygiene": "Your safety is our priority. We operate three dedicated disinfection stations, sanitize every tool after each use, and use dust collectors at every manicure station — the hygiene standard behind every Ongles Maily service.",
       "faq": [
         {
-          "q": "How long does a gel manicure last?",
-          "a": "A gel manicure typically lasts two to three weeks without chipping. We'll recommend the finish that best fits your routine and how quickly your nails grow."
+          "q": "How long do nail enhancements last?",
+          "a": "Nail enhancements typically last 2–3 weeks before needing a fill. With proper aftercare — cuticle oil daily, gloves for cleaning — you can extend their life and keep them looking fresh."
         },
         {
-          "q": "Do you do acrylic full sets and nail art?",
-          "a": "Yes. We offer custom-sculpted acrylic full sets in your choice of shape and length, plus hand-painted nail art and intricate designs."
+          "q": "Can I add nail art to my full set?",
+          "a": "Yes. Nail art is available on 2–4 fingers or all 10, with options for multiple colours, diamonds and ornaments. We'll walk you through the options at your appointment."
         },
         {
-          "q": "What's the difference between gel and regular polish?",
-          "a": "Gel is cured under a lamp for a glossy, flexible finish that resists chips for two to three weeks; regular polish air-dries and chips sooner. We'll recommend the best option for your plans."
+          "q": "Do you offer prosthetic removal?",
+          "a": "Yes. Prosthetic removal is available as an add-on for $20. We always recommend professional removal to protect the health of your natural nails."
         }
       ],
-      "metaTitle": "Gel Nails & Acrylics in Vancouver | Pure Nail Bar",
-      "metaDescription": "Gel manicures, acrylic full sets and custom nail art with a flawless, long-wearing finish. Book online — from $45."
+      "metaTitle": "Nail Enhancements at Ongles Maily | Carrefour Beauport, Québec",
+      "metaDescription": "Full set nail enhancements with or without extensions at Ongles Maily, Carrefour Beauport. Nail art, multiple colours, hygiene-first. From $60."
     },
-    "feet": {
-      "title": "Spa Pedicures in Vancouver",
-      "heroAlt": "Relaxing spa pedicure in progress at Pure Nail Bar",
+    "remplissage": {
+      "title": "Nail Fill at Ongles Maily, Québec",
+      "heroAlt": "Professional nail fill in progress at Ongles Maily, Carrefour Beauport",
       "intro": [
-        "Our spa pedicure is the ultimate reset for tired feet. Each treatment pairs careful nail and skin care with a genuinely relaxing experience — exfoliation, a soothing massage and deep hydration that leaves your feet soft, smooth and perfectly polished.",
-        "It's more than polish. We take the time to address rough heels, dry skin and overgrown cuticles, so you walk out feeling lighter, not just looking better."
+        "A professional fill every 2–3 weeks keeps your nail enhancements looking fresh, strong and flawless. As your natural nails grow, the gap at the base fills in — a timely refill prevents lifting, maintains the structure and keeps your nails looking their best.",
+        "Our team takes the same careful, unhurried approach to fills as to a full set — properly cleaning, shaping, and finishing every nail with professional-grade products."
       ],
-      "whyUs": "Feet carry you all day and deserve real expertise. Our technicians deliver a pedicure that's both therapeutic and relaxing, in a spotless, welcoming setting across all five Pure Nail Bar studios.",
+      "whyUs": "Regular fills at Ongles Maily maintain the quality and longevity of your enhancements. Our 15+ years of experience means we'll assess your nails at each visit and recommend the right approach to keep them strong and beautiful.",
       "included": [
-        "A warm soak to soften skin and ease tension",
-        "Nail shaping and thorough cuticle care",
-        "Gentle exfoliation to remove rough, dry skin",
-        "A relaxing lower-leg and foot massage",
-        "Deep hydration and your choice of polish",
-        "Smoothing of calluses at the heels and pressure points"
+        "Refill of the growth gap at the base of each nail",
+        "Nail shaping and cuticle care",
+        "Surface buffing and professional finish",
+        "Your choice of colour or design update",
+        "Professional-grade products throughout",
+        "Hygiene-first environment — tools sanitized after every use"
       ],
       "addons": [
-        "Gel polish for a longer-lasting, chip-resistant finish",
-        "Extra massage time for a true spa session",
-        "Paraffin treatment for extra-soft skin"
+        "Nail art on 2–4 fingers (+$5–10) or all 10 (+$15–25)",
+        "Colour change or design update",
+        "Diamonds and ornaments"
       ],
-      "duration": "About 45–65 minutes, depending on add-ons.",
-      "aftercare": "Moisturise your feet daily, especially the heels, and reapply after showering when skin absorbs best. If you chose gel polish, it's ready immediately; regular polish needs a little drying time, so wear open shoes home.",
-      "hygiene": "We take hygiene seriously: tools sterilized to hospital-grade standards after every use, single-use items discarded, and a spotless setup for every guest.",
+      "duration": "About 45–75 minutes depending on the condition of the nails and add-ons.",
+      "aftercare": "Apply cuticle oil daily to keep your natural nail and enhancement flexible. Avoid prying things open with your nails and wear gloves for wet work. Book your next fill in 2–3 weeks before the gap becomes too large.",
+      "hygiene": "Every tool is disinfected after each use at our three dedicated disinfection stations. Your safety comes first at every Ongles Maily appointment.",
       "faq": [
         {
-          "q": "What makes a spa pedicure different?",
-          "a": "Beyond shaping and polish, a spa pedicure includes exfoliation, a relaxing massage and deep hydration for soft, rejuvenated feet."
+          "q": "How often should I get a fill?",
+          "a": "Every 2–3 weeks is typical. Waiting too long allows the gap to grow and increases the risk of lifting or breakage."
         },
         {
-          "q": "Can I get gel polish on a pedicure?",
-          "a": "Yes. Gel polish keeps toes looking fresh for weeks and is a popular choice before vacations and sandal season."
+          "q": "Can I change my colour or design at a fill appointment?",
+          "a": "Yes. A fill is a great opportunity to update your colour or add new nail art. Just let us know what you have in mind."
+        },
+        {
+          "q": "What if one of my nails breaks before my fill?",
+          "a": "Call or walk in — we can repair a broken nail. It's always better to fix it promptly to protect the underlying natural nail."
+        }
+      ],
+      "metaTitle": "Nail Fill at Ongles Maily | Carrefour Beauport, Québec",
+      "metaDescription": "Professional nail fill every 2–3 weeks at Ongles Maily, Carrefour Beauport. Keep your enhancements fresh and strong. From $45."
+    },
+    "soins-mains": {
+      "title": "Manicure at Ongles Maily, Québec",
+      "heroAlt": "Professional manicure with polish at Ongles Maily, Carrefour Beauport",
+      "intro": [
+        "A classic manicure at Ongles Maily is thorough, precise and relaxing. We shape your nails, care for your cuticles and finish with your choice of polish — leaving your hands looking clean, polished and well-groomed.",
+        "Whether you want a simple polish change or a complete hand care treatment, our experienced team takes the time to do it properly. No rushing, no cutting corners."
+      ],
+      "whyUs": "With 15+ years of experience and an unwavering commitment to hygiene, Ongles Maily delivers manicure results you can count on. Our sanitized tools and careful technique mean every visit is as safe as it is beautiful.",
+      "included": [
+        "Nail shaping to your preferred style",
+        "Thorough cuticle care",
+        "Your choice of polish colour",
+        "Clean, precise polish application",
+        "Professional-grade products",
+        "Tools disinfected after every use"
+      ],
+      "addons": [
+        "Polish change only (without full cuticle treatment)",
+        "Nail art or design accents",
+        "Gel polish for a longer-lasting finish"
+      ],
+      "duration": "About 30–45 minutes for a full manicure; about 20 minutes for a polish change.",
+      "aftercare": "Let your polish dry fully before exposing your nails to water. Apply cuticle oil regularly to keep nails flexible and healthy. Wear gloves for cleaning and dishwashing to extend the life of your polish.",
+      "hygiene": "All tools are disinfected after every client at our three dedicated disinfection stations. Dust collectors at every manicure station keep the air clean for you and our team.",
+      "faq": [
+        {
+          "q": "What is included in a manicure?",
+          "a": "Our full manicure includes nail shaping, cuticle care and polish application with your chosen colour — starting at $40. A polish change only (without cuticle treatment) is available from $30."
+        },
+        {
+          "q": "How long does a manicure take?",
+          "a": "A full manicure takes about 30–45 minutes. A polish change is quicker, around 20 minutes."
+        },
+        {
+          "q": "Can I get gel polish on a manicure?",
+          "a": "Yes. Gel polish is available as an add-on for a chip-resistant finish that lasts 2–3 weeks. Ask our team at your appointment."
+        }
+      ],
+      "metaTitle": "Manicure at Ongles Maily | Carrefour Beauport, Québec",
+      "metaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Maily, Carrefour Beauport, Québec. From $30."
+    },
+    "soins-pieds": {
+      "title": "Pedicure at Ongles Maily, Québec",
+      "heroAlt": "Professional pedicure in a sanitized station at Ongles Maily, Carrefour Beauport",
+      "intro": [
+        "Our pedicure service is a genuine treat for your feet — and a thorough one. We shape your toenails, care for your cuticles, and finish with your choice of polish. Every pedicure is performed in our sanitized pedicure stations for your complete peace of mind.",
+        "Whether you want a full foot care treatment or a simple polish change, our experienced team works carefully and efficiently so you leave feeling fresh and well-cared-for."
+      ],
+      "whyUs": "Sanitized pedicure stations are a non-negotiable at Ongles Maily. Combined with 15+ years of experience and tools disinfected after every use, you can relax knowing your treatment is as hygienic as it is enjoyable.",
+      "included": [
+        "Toenail shaping and thorough cuticle care",
+        "Your choice of polish colour",
+        "Clean, precise polish application",
+        "Sanitized pedicure station for every client",
+        "Professional-grade products throughout",
+        "Tools disinfected after every use"
+      ],
+      "addons": [
+        "Polish change feet only (without full treatment)",
+        "Toenail trim only",
+        "Gel polish for a longer-lasting finish"
+      ],
+      "duration": "About 45–60 minutes for a full pedicure; about 20–30 minutes for a polish change or trim.",
+      "aftercare": "Moisturise your feet daily, especially the heels. If you chose gel polish, it's ready immediately; regular polish needs a little drying time — wear open shoes home. Keep toenails trimmed regularly to avoid ingrown nails.",
+      "hygiene": "We sanitize every pedicure station between clients. Tools are disinfected at our three dedicated disinfection stations after every use. Your hygiene and safety are our first priority.",
+      "faq": [
+        {
+          "q": "What is included in a pedicure?",
+          "a": "Our full pedicure includes toenail shaping, cuticle care and polish application — from $60. A polish change for feet only is available from $35, and a toenail trim is from $20."
+        },
+        {
+          "q": "Are your pedicure stations sanitized?",
+          "a": "Yes, always. We sanitize every pedicure station between clients as part of our hygiene-first approach."
         },
         {
           "q": "How often should I get a pedicure?",
-          "a": "Every four to six weeks keeps feet healthy and smooth, though many clients come more often in summer or before special occasions."
+          "a": "Every 4–6 weeks is typical for healthy, well-groomed feet. Many clients come more often in summer or before special occasions."
         }
       ],
-      "metaTitle": "Spa Pedicures in Vancouver | Pure Nail Bar",
-      "metaDescription": "Relaxing spa pedicures with exfoliation, massage and deep hydration. Book online — from $40."
-    },
-    "wax": {
-      "title": "Waxing in Vancouver",
-      "heroAlt": "Calm, clean waxing treatment room at Pure Nail Bar",
-      "intro": [
-        "Smooth, comfortable and quick — our waxing service covers everything from eyebrow shaping to a full bikini wax. Our technique is designed to keep you as comfortable as possible for a fast, low-stress experience.",
-        "Waxing removes hair from the root, so results last far longer than shaving and regrowth comes back softer and finer over time."
-      ],
-      "whyUs": "Waxing is as much about comfort and trust as technique. Clients return to us because we're fast, gentle and genuinely discreet, in a clean and welcoming space.",
-      "included": [
-        "Eyebrow shaping and facial waxing",
-        "Underarm, arm and full or half leg waxing",
-        "Bikini and full bikini (Brazilian) waxing",
-        "A technique focused on comfort and speed",
-        "Smooth results that last weeks, not days",
-        "Discreet, professional service in a private setting"
-      ],
-      "addons": [
-        "Brow tint to complete and define your shape",
-        "Combine multiple areas in one visit to save time"
-      ],
-      "duration": "From about 10 minutes (brows) to 45 minutes (larger areas).",
-      "aftercare": "For the first 24–48 hours, avoid hot baths, saunas, swimming and direct sun, and skip heavy workouts — freshly waxed skin is sensitive. Start gentle exfoliation after a couple of days to prevent ingrown hairs.",
-      "hygiene": "We never compromise on cleanliness: disinfected stations, single-use applicators where appropriate, and tools sterilized after every use.",
-      "faq": [
-        {
-          "q": "How long does waxing last?",
-          "a": "Most clients stay smooth for three to four weeks. With regular visits, regrowth becomes finer over time."
-        },
-        {
-          "q": "How long should hair be before waxing?",
-          "a": "About a quarter-inch (roughly two to three weeks of growth) lets the wax grip properly for the cleanest result."
-        },
-        {
-          "q": "Is waxing painful?",
-          "a": "There's a brief sensation, but our technique is designed to minimize discomfort, and it eases with regular visits."
-        }
-      ],
-      "metaTitle": "Waxing in Vancouver | Pure Nail Bar",
-      "metaDescription": "Eyebrow to full-body waxing with a comfort-first technique. Smooth results that last. Book online — from $15."
-    },
-    "lashes": {
-      "title": "Lash Extensions in Vancouver",
-      "heroAlt": "Close-up of natural-looking lash extensions applied at Pure Nail Bar",
-      "intro": [
-        "Wake up ready with lash extensions from Pure Nail Bar. We offer classic, hybrid and volume sets, each tailored to your eye shape and the look you want — from a soft, natural enhancement to full, dramatic volume.",
-        "Our technicians map the set to your eyes — adjusting curl, length and density across the lash line — so the result flatters your features and feels weightless."
-      ],
-      "whyUs": "Lash work demands patience and a steady hand. Clients choose us for a real consultation, a clean and controlled setup, and honest guidance on the style and refill schedule that works for you.",
-      "included": [
-        "A consultation to choose the right style for your eyes",
-        "Your choice of classic, hybrid or volume sets",
-        "Lightweight, comfortable, isolated application",
-        "Natural-looking length, curl and density",
-        "A look mapped to flatter your individual eye shape",
-        "Aftercare guidance to protect your lashes and extend wear"
-      ],
-      "addons": [
-        "Lash refills to maintain a full, fresh look",
-        "Extra volume for weddings and special occasions"
-      ],
-      "duration": "About 60–120 minutes for a full set, depending on the style.",
-      "aftercare": "Keep lashes dry for the first 24 hours while the adhesive cures, then avoid oil-based cleansers and heavy rubbing. Brush them gently each morning and book a refill every two to three weeks.",
-      "hygiene": "Eyes deserve extra care. We work in a clean, controlled setup with sterilized tools and disinfected stations.",
-      "faq": [
-        {
-          "q": "How long do lash extensions last?",
-          "a": "A full set lasts the natural growth cycle of your lashes — usually six to eight weeks. A refill every two to three weeks keeps them looking full."
-        },
-        {
-          "q": "Will extensions damage my natural lashes?",
-          "a": "Applied correctly, they don't. Our technicians match the weight and length to your natural lashes and share aftercare so your own lashes stay healthy."
-        },
-        {
-          "q": "What's the difference between classic, hybrid and volume?",
-          "a": "Classic adds one extension per natural lash for a defined look; volume fans multiple ultra-fine lashes for fullness; hybrid blends both for a textured, natural-yet-full effect."
-        }
-      ],
-      "metaTitle": "Lash Extensions in Vancouver | Pure Nail Bar",
-      "metaDescription": "Classic, hybrid and volume lash extensions tailored to you. Natural to dramatic. Book online — from $90."
-    },
-    "hair": {
-      "title": "Hair Services in Vancouver",
-      "heroAlt": "Polished hair styling at Pure Nail Bar",
-      "intro": [
-        "Complete your look with our hair services. From a fresh blow-dry to special-occasion styling, our experienced stylists deliver a polished finish in the same relaxing, modern setting you love for your nails.",
-        "Every appointment starts with a quick consultation so the result suits your hair, your features and the occasion."
-      ],
-      "whyUs": "One studio for nails, lashes and hair means a seamless, pampering experience — and the same standard of premium products and spotless hygiene throughout.",
-      "included": [
-        "A consultation to plan your look",
-        "Wash, blow-dry and finishing",
-        "Special-occasion and event styling",
-        "Premium, professional-grade products",
-        "A relaxing, modern studio setting",
-        "Friendly, experienced stylists"
-      ],
-      "addons": [
-        "Event and bridal styling",
-        "Treatment add-ons for shine and hydration"
-      ],
-      "duration": "About 30–90 minutes, depending on the service.",
-      "aftercare": "Use a gentle, sulphate-free shampoo and limit heat styling between visits to keep your finish looking fresh for longer.",
-      "hygiene": "Tools and stations are cleaned and sanitized between every client, following the same strict standards as the rest of the studio.",
-      "faq": [
-        {
-          "q": "Do I need to book ahead for hair?",
-          "a": "Booking ahead guarantees your stylist and time, especially for events and weekends. Call your nearest location to arrange."
-        },
-        {
-          "q": "Can I combine hair with nails or lashes?",
-          "a": "Yes — many clients pair services in one visit. Let us know when booking so we can schedule enough time."
-        }
-      ],
-      "metaTitle": "Hair Services in Vancouver | Pure Nail Bar",
-      "metaDescription": "Blow-dry, styling and special-occasion hair services in a relaxing studio. Book online — from $35."
+      "metaTitle": "Pedicure at Ongles Maily | Carrefour Beauport, Québec",
+      "metaDescription": "Professional pedicure in sanitized stations at Ongles Maily, Carrefour Beauport, Québec. Toenail care, cuticle treatment and polish. From $35."
     }
   },
   "serviceLabels": {
@@ -439,48 +474,48 @@
     "hygiene": "Hygiene & safety",
     "faq": "Frequently asked questions",
     "allServices": "All services",
-    "why": "Why Pure Nail Bar",
+    "why": "Why Ongles Maily",
     "aftercare": "Aftercare tips",
     "priceFrom": "from",
     "guides": "Helpful guides"
   },
   "faq": {
     "title": "Frequently asked questions",
-    "intro": "Everything you need to know before your visit to Pure Nail Bar.",
+    "intro": "Everything you need to know before your visit to Ongles Maily at Carrefour Beauport.",
     "items": [
       {
-        "q": "Where are Pure Nail Bar locations?",
-        "a": "We have five studios across Greater Vancouver: Killarney, Kitsilano West 4th, Morgan Crossing (Surrey), Olympic Village and Renfrew Heights. See our Locations page for addresses and hours."
+        "q": "Where is Ongles Maily located?",
+        "a": "We are at Carrefour Beauport — 3333 Rue du Carrefour, Entrées 4 ou 5, Québec, QC G1C 5R9. Parking is available at the mall."
+      },
+      {
+        "q": "What are your hours?",
+        "a": "Monday–Wednesday 9:00–17:30, Thursday–Friday 9:00–21:00, Saturday 9:00–17:00, Sunday 10:00–17:00."
       },
       {
         "q": "Do you take walk-ins or is it appointment only?",
-        "a": "Both. We welcome walk-ins when chairs are open, but booking ahead guarantees your time — especially evenings and weekends."
+        "a": "Both. We welcome walk-ins when we have availability, and we encourage booking ahead to guarantee your time — especially evenings and weekends."
       },
       {
         "q": "How do I book an appointment?",
-        "a": "Book online any time through our Book Online page (powered by Booker), or call your nearest location directly."
+        "a": "Book online any time through our Book Online page, or call us at (418) 660-8228. Walk-ins are always welcome too."
       },
       {
         "q": "What services do you offer?",
-        "a": "Gel manicures, acrylic full sets, nail art, spa pedicures, waxing, lash extensions and hair services. See our Services page for details."
+        "a": "Nail enhancements (full set), fills, manicures and pedicures. See our Services page for details and pricing."
       },
       {
         "q": "How do you keep tools and stations clean?",
-        "a": "We follow hospital-grade sterilization protocols. Tools are sanitized after every client, single-use items are discarded, and every station is sanitized between appointments."
+        "a": "Hygiene is our top priority. We have three dedicated disinfection stations, tools are disinfected after every use, pedicure stations are sanitized between clients, and dust collectors are installed at every manicure station."
       },
       {
         "q": "Do you sell gift cards?",
-        "a": "Yes — gift cards make a great present and can be purchased online for any amount, delivered by email or printed at home."
-      },
-      {
-        "q": "How long do gel nails and lash extensions last?",
-        "a": "Gel manicures typically last 2–3 weeks; lash extensions last the natural lash cycle with a refill every 2–3 weeks. We'll share aftercare tips at your visit."
+        "a": "Yes — gift cards are available online via Square for any amount (delivered by email), or you can purchase one in person at the salon."
       }
     ]
   },
   "reviewsPage": {
     "title": "Reviews",
-    "intro": "Hear from the hundreds of clients who trust us with their nails.",
+    "intro": "Hear from the clients who trust us with their nails at Ongles Maily.",
     "empty": "Come find out why our clients keep coming back — book your visit today.",
     "cta": "Book Online"
   },
@@ -488,53 +523,38 @@
     "title": "Nail Art Gallery",
     "intro": "A showcase of our latest designs, trending styles, and client transformations.",
     "photos": {
-      "nail-art-1": { "alt": "Hand-painted nail art design at Pure Nail Bar", "caption": "Nail Art" },
-      "nail-art-2": { "alt": "Intricate nail art with detailed patterns at Pure Nail Bar", "caption": "Nail Art" },
-      "nail-art-3": { "alt": "Trending nail design at Pure Nail Bar", "caption": "Nail Art" },
-      "nail-art-4": { "alt": "Creative nail art and embellishments at Pure Nail Bar", "caption": "Nail Art" },
-      "gel-mani": { "alt": "Glossy gel manicure at Pure Nail Bar", "caption": "Gel Manicure" },
-      "spa-pedi": { "alt": "Spa pedicure result at Pure Nail Bar", "caption": "Spa Pedicure" }
+      "nail-art-1": {
+        "alt": "Hand-painted nail art design at Ongles Maily",
+        "caption": "Nail Art"
+      },
+      "nail-art-2": {
+        "alt": "Intricate nail art with detailed patterns at Ongles Maily",
+        "caption": "Nail Art"
+      },
+      "nail-art-3": {
+        "alt": "Trending nail design at Ongles Maily, Carrefour Beauport",
+        "caption": "Nail Art"
+      },
+      "nail-art-4": {
+        "alt": "Creative nail art and embellishments at Ongles Maily",
+        "caption": "Nail Art"
+      },
+      "gel-mani": {
+        "alt": "Professional manicure at Ongles Maily",
+        "caption": "Manicure"
+      },
+      "spa-pedi": {
+        "alt": "Pedicure result at Ongles Maily, Carrefour Beauport",
+        "caption": "Pedicure"
+      }
     }
-  },
-  "careers": {
-    "heading": "Careers",
-    "intro": "Join Vancouver's premier nail studio.",
-    "body": [
-      "We're always looking for talented, certified nail technicians, lash artists and friendly front-desk team members who share our commitment to quality, hygiene and artistry.",
-      "At Pure Nail Bar you'll work in a supportive, professional environment across five thriving locations, with premium products and a loyal, growing client base.",
-      "Interested? Send your resume and a note about yourself through our contact form, or drop into the location nearest you."
-    ]
-  },
-  "press": {
-    "heading": "Press",
-    "intro": "Media resources and brand information.",
-    "body": [
-      "Pure Nail Bar is Vancouver's premier nail studio — a serene, stylish sanctuary where elegance meets precision in the art of nail care, with five locations across Greater Vancouver.",
-      "For press enquiries, interviews, photography or partnership opportunities, please get in touch through our contact form and our team will respond promptly."
-    ]
-  },
-  "pureParties": {
-    "heading": "Pure Parties",
-    "intro": "Celebrate together in a private, pampering setting.",
-    "body": [
-      "Make your next celebration unforgettable with a Pure Party. Whether it's a birthday, a bridal shower or a corporate get-together, we'll host your group for a relaxing afternoon of manicures, pedicures and pampering.",
-      "Group bookings can be tailored to your party size and chosen services. Reach out through our contact form or call your nearest location to plan the perfect event."
-    ]
-  },
-  "franchising": {
-    "heading": "Franchising",
-    "intro": "Bring Pure Nail Bar to your community.",
-    "body": [
-      "Pure Nail Bar is a proven, premium nail-care brand with a loyal client base and a refined, repeatable studio experience. As we grow, we're exploring franchising partnerships with operators who share our standards.",
-      "If you're interested in opening a Pure Nail Bar in your area, get in touch through our contact form and we'll share more about the opportunity."
-    ]
   },
   "legal": {
     "terms": {
       "heading": "Terms & Conditions",
       "intro": [
-        "At Pure Nail Bar, our goal is to give every client a relaxed, professional and high-quality experience. So that everything goes smoothly — and everyone is treated fairly — we invite you to read the policies below before your appointment. By booking with us, you accept these terms.",
-        "These policies apply to all services offered at every Pure Nail Bar location."
+        "At Ongles Maily, our goal is to give every client a professional, safe and high-quality experience. So that everything goes smoothly — and everyone is treated fairly — we invite you to read the policies below before your appointment. By booking with us, you accept these terms.",
+        "These policies apply to all services offered at Ongles Maily, Carrefour Beauport, Québec."
       ],
       "sections": [
         {
@@ -589,7 +609,7 @@
               "kind": "ul",
               "text": "",
               "items": [
-                "Gift cards can be purchased online for any amount and delivered by email or printed at home.",
+                "Gift cards can be purchased online via Square for any amount and delivered by email, or purchased in person at the salon.",
                 "Gift cards are non-refundable and should be treated like cash.",
                 "We cannot replace a lost or stolen gift card."
               ]
@@ -618,10 +638,10 @@
               "kind": "ul",
               "text": "",
               "items": [
-                "All tools and surfaces are disinfected to public-health and industry standards.",
-                "Single-use instruments are discarded after each client.",
-                "Reusable instruments are sterilized to hospital-grade standards.",
-                "Workstations are sanitized between every appointment."
+                "Three dedicated disinfection stations are in operation at all times.",
+                "All tools are disinfected after every client.",
+                "Pedicure stations are sanitized between every appointment.",
+                "Dust collectors are installed at every manicure station."
               ]
             },
             {
@@ -636,18 +656,18 @@
           "blocks": [
             {
               "kind": "p",
-              "text": "By booking and receiving services at Pure Nail Bar, you acknowledge that you have read and accepted these policies. We thank you for choosing us and look forward to taking care of you.",
+              "text": "By booking and receiving services at Ongles Maily, you acknowledge that you have read and accepted these policies. We thank you for choosing us and look forward to taking care of you.",
               "items": []
             }
           ]
         }
       ],
-      "updated": "Last updated: May 22, 2026 — Pure Nail Bar · Vancouver, BC"
+      "updated": "Last updated: May 22, 2026 — Ongles Maily · Carrefour Beauport, Québec, Canada"
     },
     "privacy": {
       "heading": "Privacy Policy",
       "intro": [
-        "This Privacy Policy explains how Pure Nail Bar collects, uses and protects your personal information when you visit our website, book an appointment or receive our services.",
+        "This Privacy Policy explains how Ongles Maily collects, uses and protects your personal information when you visit our website, book an appointment or receive our services.",
         "By using our website or our services, you accept the practices described in this policy."
       ],
       "sections": [
@@ -676,7 +696,7 @@
                 "Schedule, confirm and manage your appointments;",
                 "Respond to requests sent through our contact form;",
                 "Send offers and updates if you subscribe to our newsletter;",
-                "Meet our legal and accounting obligations."
+                "Meet our legal and accounting obligations under applicable Québec and Canadian law."
               ]
             }
           ]
@@ -686,7 +706,7 @@
           "blocks": [
             {
               "kind": "p",
-              "text": "We do not sell your personal information and do not share it for marketing purposes without your consent. We share information with service providers (for example, our online booking platform) only as needed to deliver their services.",
+              "text": "We do not sell your personal information and do not share it for marketing purposes without your consent. We share information with service providers (for example, our online booking and payment platform) only as needed to deliver their services.",
               "items": []
             }
           ]
@@ -696,7 +716,7 @@
           "blocks": [
             {
               "kind": "p",
-              "text": "You can unsubscribe from our newsletter at any time, and you may request access to or correction of your information by contacting us.",
+              "text": "You can unsubscribe from our newsletter at any time, and you may request access to or correction of your information by contacting us at onglesmailyqc@gmail.com.",
               "items": []
             }
           ]
@@ -712,7 +732,7 @@
           ]
         }
       ],
-      "updated": "Last updated: May 22, 2026 — Pure Nail Bar · Vancouver, BC"
+      "updated": "Last updated: May 22, 2026 — Ongles Maily · Carrefour Beauport, Québec, Canada"
     }
   }
 }

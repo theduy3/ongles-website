@@ -1,69 +1,58 @@
-// Locale-invariant business facts for Pure Nail Bar (Vancouver / Surrey, BC).
+// Locale-invariant business facts for Ongles Maily (Québec City, QC).
 // Anything translatable (taglines, services, copy, nav labels) lives in
-// src/dictionaries/en.json. Per-location data (5 salons) lives in
+// src/dictionaries/en.json. Per-location data lives in
 // src/lib/locations.ts; the fields here describe the BRAND and the PRIMARY
-// location (Killarney), which backs the sitewide JSON-LD and footer.
-
-import googleReviews from "@/data/google-reviews.json";
+// location (Carrefour Beauport), which backs the sitewide JSON-LD and footer.
 
 export const site = {
-  name: "Pure Nail Bar",
+  name: "Ongles Maily",
   // Canonical production origin — feeds metadataBase, sitemap, robots and JSON-LD @id.
   // No trailing slash; relative metadata paths compose against this.
-  url: "https://purenailbar.com",
+  url: "https://onglesmaily.com",
   // All primary "Book now" CTAs route to the in-app booking page, which links
-  // out to the brand's Booker hub. Locale-agnostic base path (callers prefix /{locale}).
+  // out to the online reservation system. Locale-agnostic base path (callers prefix /{locale}).
   booking: "/book-online",
-  // Brand social profiles.
-  instagram: "https://www.instagram.com/purenailbar",
-  facebook: "https://www.facebook.com/purenailbar",
-  tiktok: "https://www.tiktok.com/@purenailbar",
-  // Booker booking platform — brand hub + gift-certificate flow.
+  // Booking platform — brand hub + gift-certificate flow.
   booker: {
-    brand: "https://go.booker.com/brand/purenailbar/locations",
+    brand: "https://moo.wyf.mybluehost.me/website_44873f44/reservation/",
     giftCertificate:
-      "https://go.booker.com/location/purenailchamplain/buy/gift-certificate",
+      "https://moo.wyf.mybluehost.me/website_44873f44/reservation/", // TODO: confirm exact Square gift-card URL
   },
   // Profiles emitted as schema.org `sameAs` on the business node.
-  socialProfiles: [
-    "https://www.instagram.com/purenailbar",
-    "https://www.facebook.com/purenailbar",
-    "https://www.tiktok.com/@purenailbar",
-  ],
+  // No active social profiles for Ongles Maily at this time.
+  socialProfiles: [],
   // Schema.org priceRange hint ($ = inexpensive … $$$$ = very pricey).
   priceRange: "$$",
   // Aggregate review rating shown on-page AND emitted as schema.org
   // AggregateRating (gated on a real Google fetch — see src/lib/seo.ts).
   reviews: {
-    ratingValue: googleReviews.aggregate.ratingValue,
-    reviewCount: googleReviews.aggregate.reviewCount,
+    ratingValue: 0,
+    reviewCount: 0,
     bestRating: 5,
     source: "Google",
   },
-  // Approx coordinates of the primary (Killarney) location, 7050 Kerr St.
-  geo: { lat: 49.2192, lng: -123.0388 },
-  // Opening hours of the PRIMARY location (Killarney). Days use schema.org
+  // Approx coordinates of the primary location at Carrefour Beauport.
+  geo: { lat: 46.8606, lng: -71.1947 },
+  // Opening hours of the PRIMARY location. Days use schema.org
   // two-letter codes; times are 24h "HH:MM" for OpeningHoursSpecification.
   hours: [
-    {
-      days: ["Mo", "Tu", "We", "Th", "Fr", "Sa"],
-      opens: "10:00",
-      closes: "19:00",
-    },
-    { days: ["Su"], opens: "11:00", closes: "18:00" },
+    { days: ["Mo", "Tu", "We"], opens: "09:00", closes: "17:30" },
+    { days: ["Th", "Fr"], opens: "09:00", closes: "21:00" },
+    { days: ["Sa"], opens: "09:00", closes: "17:00" },
+    { days: ["Su"], opens: "10:00", closes: "17:00" },
   ],
   contact: {
-    email: "hello@purenailbar.com",
-    phone: "(778) 379-9799",
-    phoneHref: "tel:+17783799799",
-    landmark: "Killarney — The Peak, Rupert & Kingsway",
+    email: "onglesmailyqc@gmail.com",
+    phone: "(418) 660-8228",
+    phoneHref: "tel:+14186608228",
+    landmark: "Carrefour Beauport — Entrées 4 ou 5",
     address: {
-      line1: "7050 Kerr Street",
-      line2: "Vancouver, BC V5S 4W2",
-      street: "7050 Kerr Street",
-      city: "Vancouver",
-      region: "BC",
-      postalCode: "V5S 4W2",
+      line1: "3333 Rue du Carrefour",
+      line2: "Québec, QC G1C 5R9",
+      street: "3333 Rue du Carrefour",
+      city: "Québec",
+      region: "QC",
+      postalCode: "G1C 5R9",
       country: "CA",
     },
   },
@@ -89,10 +78,6 @@ export const site = {
     "/faq",
     "/contact",
     "/book-online",
-    "/careers",
-    "/press",
-    "/pure-parties",
-    "/franchising",
     "/privacy",
     "/terms",
   ],

@@ -6,8 +6,8 @@ import type { NextConfig } from "next";
 // NOTE: a Content-Security-Policy is intentionally NOT set here yet. Future CSP
 // must allowlist the following origins before enabling:
 //   - frame-src https://www.google.com  (Google Maps iframes on /locations)
-//   - script-src + connect-src + frame-src for Booker booking links
-//     (https://go.booker.com, https://*.booker.com)
+//   - connect-src for the Ongles Maily booking platform
+//     (moo.wyf.mybluehost.me — see site.booker in src/lib/site.ts)
 // Validate at runtime before enabling — tracked as a follow-up.
 const securityHeaders = [
   {

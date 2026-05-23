@@ -13,7 +13,11 @@ const TILE_STYLES = [
 
 // Gift Cards section (#giftcards): left copy + CTA, right 4 staggered design
 // tiles. CTA links out to the Booker gift-certificate flow. Server component.
-export function GiftCards({ dict }: { dict: Pick<Dictionary, "giftCards" | "cta"> }) {
+export function GiftCards({
+  dict,
+}: {
+  dict: Pick<Dictionary, "giftCards" | "cta">;
+}) {
   const g = dict.giftCards;
   return (
     <section id="giftcards" className="scroll-mt-20">
@@ -24,7 +28,9 @@ export function GiftCards({ dict }: { dict: Pick<Dictionary, "giftCards" | "cta"
               <p className="text-xs uppercase tracking-[0.2em] text-gold">
                 {g.eyebrow}
               </p>
-              <h2 className="mt-3 text-4xl text-espresso md:text-5xl">{g.heading}</h2>
+              <h2 className="mt-3 text-4xl text-espresso md:text-5xl">
+                {g.heading}
+              </h2>
               <p className="mt-5 max-w-md font-light leading-relaxed text-mocha">
                 {g.description}
               </p>
@@ -33,7 +39,9 @@ export function GiftCards({ dict }: { dict: Pick<Dictionary, "giftCards" | "cta"
                   {dict.cta.buyGiftCard}
                 </Button>
               </div>
-              <p className="mt-4 text-xs uppercase tracking-wide text-tan">{g.note}</p>
+              <p className="mt-4 text-xs uppercase tracking-wide text-tan">
+                {g.note}
+              </p>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
@@ -44,7 +52,7 @@ export function GiftCards({ dict }: { dict: Pick<Dictionary, "giftCards" | "cta"
                   className={`flex aspect-[8/5] flex-col justify-between rounded-2xl p-5 shadow-card ${TILE_STYLES[i % TILE_STYLES.length]} ${i % 2 === 1 ? "translate-y-6" : ""}`}
                 >
                   <span className="font-[var(--font-jost)] text-xs uppercase tracking-[0.2em] opacity-80">
-                    Pure Nail Bar
+                    {site.name}
                   </span>
                   <span className="font-[var(--font-cormorant)] text-2xl leading-tight">
                     {d.title}

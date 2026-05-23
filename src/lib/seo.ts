@@ -17,8 +17,9 @@ import type { GalleryImage } from "@/lib/gallery";
 // Default social-share image (absolute path; resolved against metadataBase).
 const OG_IMAGE = "/images/hero.png";
 
-// OpenGraph locale codes. English-only Vancouver salon.
+// OpenGraph locale codes — Québec FR-first salon.
 const OG_LOCALE: Record<Locale, string> = {
+  fr: "fr_CA",
   en: "en_CA",
 };
 
@@ -143,7 +144,7 @@ export function organizationGraph(
 
   // One NailSalon node per physical location, linked to the brand as a
   // `department`. Each carries its own address, geo, phone and hours so search
-  // engines understand all five Greater-Vancouver studios.
+  // engines understand each Ongles Maily salon location.
   const departments = locations.map((loc) => ({
     "@type": "NailSalon",
     "@id": `${site.url}/#location-${loc.id}`,

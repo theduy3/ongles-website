@@ -14,7 +14,12 @@ import {
 } from "@/lib/services";
 import { getDictionary } from "../../dictionaries";
 import { isLocale } from "@/lib/i18n";
-import { pageMetadata, serviceGraph, faqPageGraph, breadcrumbGraph } from "@/lib/seo";
+import {
+  pageMetadata,
+  serviceGraph,
+  faqPageGraph,
+  breadcrumbGraph,
+} from "@/lib/seo";
 import { formatFromPrice } from "@/lib/format";
 
 type Params = { params: Promise<{ lang: string; slug: string }> };
@@ -62,9 +67,7 @@ export default async function ServiceDetailPage({ params }: Params) {
           path: servicePath(service, lang),
         })}
       />
-      <JsonLd
-        data={faqPageGraph(d.faq)}
-      />
+      <JsonLd data={faqPageGraph(d.faq)} />
       <JsonLd
         data={breadcrumbGraph(lang, [
           { name: dict.nav.home, route: "" },
@@ -107,7 +110,7 @@ export default async function ServiceDetailPage({ params }: Params) {
         </Reveal>
       </section>
 
-      {/* Why Pure Nail Bar */}
+      {/* Why choose us */}
       <section className="mx-auto max-w-3xl px-6 pb-4">
         <Reveal>
           <h2 className="text-2xl text-espresso md:text-3xl">{labels.why}</h2>

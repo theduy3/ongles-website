@@ -8,9 +8,9 @@ import { defaultLocale } from "@/lib/i18n";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: site.name,
-    short_name: "Pure Nail Bar",
+    short_name: "Ongles Maily",
     description:
-      "Vancouver's premier nail studio — gel manicures, pedicures, lash extensions and more across 5 Greater Vancouver locations.",
+      "Ongles Maily — salon d'ongles au Carrefour Beauport, Québec. Pose d'ongles, manucure et pédicure.",
     start_url: `/${defaultLocale}`,
     display: "standalone",
     background_color: "#ffffff",
