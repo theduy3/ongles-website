@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
+import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { ContactForm } from "@/components/ContactForm";
 import { site } from "@/lib/site";
@@ -35,6 +36,21 @@ export default async function ContactPage({ params }: LangParams) {
         ])}
       />
       <PageHeader title={dict.contact.heading} intro={dict.contact.intro} />
+
+      {/* Click-to-call band — surfaces the phone above the fold (walk-in business). */}
+      <div className="mx-auto max-w-5xl px-6 pt-8">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <Button href={site.contact.phoneHref} className="w-full sm:w-auto">
+            {dict.cta.callNow}
+          </Button>
+          <a
+            href={site.contact.phoneHref}
+            className="text-center text-lg font-semibold text-espresso hover:underline sm:text-left"
+          >
+            {site.contact.phone}
+          </a>
+        </div>
+      </div>
 
       <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">

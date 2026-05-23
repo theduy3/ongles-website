@@ -88,7 +88,8 @@ export default async function RootLayout({
           })}
         />
         <Header dict={dict} locale={lang} />
-        <main className="flex-1">{children}</main>
+        {/* pb clears the fixed FloatingCTA so it never covers page content. */}
+        <main className="flex-1 pb-28">{children}</main>
         <Footer dict={dict} locale={lang} />
         <FloatingCTA dict={dict} />
         <PopupHost locale={lang} />
