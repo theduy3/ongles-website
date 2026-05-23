@@ -17,10 +17,10 @@ import { pageMetadata } from "@/lib/seo";
 
 // Marketing service-card images — order matches serviceCards: Nail Enhancements, Fill, Manicure, Pedicure.
 const CARD_IMAGES = [
-  "/images/home/acrylic-full-set.png",
-  "/images/home/nail-art.png",
-  "/images/home/gel-manicure.png",
-  "/images/home/spa-pedicure.png",
+  "/images/home/acrylic-full-set.webp",
+  "/images/home/nail-art.webp",
+  "/images/home/gel-manicure.webp",
+  "/images/home/spa-pedicure.webp",
 ];
 
 // Small inline icons for the hero CTAs.
@@ -134,7 +134,7 @@ export default async function Home({ params }: LangParams) {
             <div className="relative mx-auto w-full max-w-md">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-card">
                 <Image
-                  src="/images/hero.png"
+                  src="/images/hero.webp"
                   alt={dict.hero.alt}
                   fill
                   priority

@@ -15,7 +15,8 @@ import { reviewsFetchedAt } from "@/lib/reviews";
 import type { GalleryImage } from "@/lib/gallery";
 
 // Default social-share image (absolute path; resolved against metadataBase).
-const OG_IMAGE = "/images/hero.png";
+// JPEG (not WebP) for universal social-scraper compatibility.
+const OG_IMAGE = "/images/og.jpg";
 
 // OpenGraph locale codes — Québec FR-first salon.
 const OG_LOCALE: Record<Locale, string> = {
