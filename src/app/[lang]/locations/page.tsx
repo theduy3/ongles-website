@@ -34,10 +34,7 @@ export default async function LocationsPage({ params }: LangParams) {
           { name: dict.nav.locations, route: "/locations" },
         ])}
       />
-      <PageHeader
-        title={dict.locations.heading}
-        intro={dict.locations.intro}
-      />
+      <PageHeader title={dict.locations.heading} intro={dict.locations.intro} />
 
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -46,6 +43,40 @@ export default async function LocationsPage({ params }: LangParams) {
               <LocationCard loc={loc} dict={dict} />
             </Reveal>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-6 pb-20 md:pb-28">
+        <Reveal>
+          <h2 className="text-3xl text-espresso md:text-4xl">
+            {dict.locations.visit.heading}
+          </h2>
+        </Reveal>
+        <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
+          <Reveal>
+            <h3 className="text-lg font-semibold text-espresso">
+              {dict.locations.visit.gettingHereTitle}
+            </h3>
+            <p className="mt-2 leading-relaxed text-mocha">
+              {dict.locations.visit.gettingHere}
+            </p>
+          </Reveal>
+          <Reveal delay={0.07}>
+            <h3 className="text-lg font-semibold text-espresso">
+              {dict.locations.visit.walkinTitle}
+            </h3>
+            <p className="mt-2 leading-relaxed text-mocha">
+              {dict.locations.visit.walkin}
+            </p>
+          </Reveal>
+          <Reveal delay={0.14}>
+            <h3 className="text-lg font-semibold text-espresso">
+              {dict.locations.visit.expectTitle}
+            </h3>
+            <p className="mt-2 leading-relaxed text-mocha">
+              {dict.locations.visit.expect}
+            </p>
+          </Reveal>
         </div>
       </section>
     </>

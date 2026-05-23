@@ -54,6 +54,11 @@ export default async function ServicesPage({ params }: LangParams) {
       />
 
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <Reveal>
+          <p className="mx-auto mb-12 max-w-3xl text-center leading-relaxed text-mocha">
+            {dict.servicesPage.lead}
+          </p>
+        </Reveal>
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((svc, i) => {
             const d = dict.serviceDetails[svc.id];
@@ -93,8 +98,19 @@ export default async function ServicesPage({ params }: LangParams) {
         </div>
 
         <Reveal>
-          <div className="mt-16 text-center">
-            <Button href={`/${lang}${site.booking}`}>{dict.cta.book}</Button>
+          <div className="mt-16 rounded-2xl bg-sand px-6 py-12 text-center">
+            <h2 className="text-2xl text-espresso md:text-3xl">
+              {dict.servicesPage.hygieneTitle}
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-mocha">
+              {dict.servicesPage.hygieneBody}
+            </p>
+            <p className="mt-8 text-lg text-espresso">
+              {dict.servicesPage.ctaLead}
+            </p>
+            <div className="mt-4 flex justify-center">
+              <Button href={`/${lang}${site.booking}`}>{dict.cta.book}</Button>
+            </div>
           </div>
         </Reveal>
       </section>

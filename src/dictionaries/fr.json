@@ -190,7 +190,16 @@
         "label": "Dim",
         "value": "10 h 00 – 17 h 00"
       }
-    ]
+    ],
+    "visit": {
+      "heading": "Venir nous voir",
+      "gettingHereTitle": "Comment nous trouver",
+      "gettingHere": "Ongles Maily se trouve à l'intérieur du Carrefour Beauport, accessible par les entrées 4 ou 5. Le centre commercial offre un grand stationnement gratuit, juste devant les portes.",
+      "walkinTitle": "Sans rendez-vous ou sur réservation",
+      "walkin": "Pas de rendez-vous? Aucun problème. Les visites sans rendez-vous sont toujours les bienvenues et aucun dépôt n'est exigé. Vous préférez planifier? Réservez en ligne pour choisir votre plage horaire à l'avance.",
+      "expectTitle": "À votre arrivée",
+      "expect": "On vous accueille, on discute du service souhaité, puis on vous installe à un poste propre et assaini. Vous profitez d'un soin attentionné, sans précipitation, réalisé par une équipe expérimentée."
+    }
   },
   "newsletter": {
     "heading": "Restez en contact",
@@ -220,21 +229,44 @@
   ],
   "servicesPage": {
     "heading": "Nos services",
-    "intro": "De la manucure naturelle à la pose complète, notre équipe expérimentée livre des résultats soignés et précis avec une hygiène exceptionnelle à chaque rendez-vous."
+    "intro": "De la manucure naturelle à la pose complète, notre équipe expérimentée livre des résultats soignés et précis avec une hygiène exceptionnelle à chaque rendez-vous.",
+    "lead": "Chaque service est réalisé par une équipe expérimentée, avec des outils désinfectés et des postes assainis. Les prix indiqués sont des prix de départ — le total dépend de la longueur, de la forme et du nail art choisis.",
+    "hygieneTitle": "L'hygiène, à chaque étape",
+    "hygieneBody": "Trois postes de désinfection dédiés, des outils stérilisés après chaque cliente et des capteurs de poussière à chaque poste de manucure. Votre sécurité passe avant tout.",
+    "ctaLead": "Prête à prendre soin de vous?"
   },
   "about": {
     "heading": "À propos d'Ongles Maily",
     "body": [
       "Ongles Maily est un salon d'ongles professionnel situé au Carrefour Beauport à Québec. Nous croyons que de beaux ongles commencent par une hygiène exceptionnelle et des soins sincères — c'est pourquoi chaque visite est pensée pour votre sécurité et votre confort.",
-      "Notre équipe cumule plus de 15 ans d'expérience dans l'industrie des arts des ongles. Nous disposons de trois postes de désinfection dédiés, désinfectons chaque outil après utilisation, maintenons des postes de pédicure assainis et utilisons des capteurs de poussière à chaque poste de manucure. Ce n'est pas une liste de vérification — c'est simplement notre façon de travailler.",
-      "Chez Ongles Maily, vous êtes notre famille. Les clients sans rendez-vous sont toujours les bienvenus, tout comme ceux qui ont réservé. DÉPÔT NON EXIGÉ AVEC RDV ou SANS RDV. Nous serons ravis de prendre soin de vous."
+      "Notre équipe cumule plus de 15 ans d'expérience dans les arts des ongles. Cette expertise se voit dans chaque détail : des lignes nettes, des poses durables et des finis impeccables, que vous veniez pour une manucure naturelle ou une pose complète avec nail art sur mesure.",
+      "Nous disposons de trois postes de désinfection dédiés, désinfectons chaque outil après utilisation, maintenons des postes de pédicure assainis et utilisons des capteurs de poussière à chaque poste de manucure. Ce n'est pas une liste de vérification — c'est simplement notre façon de travailler.",
+      "Du remplissage d'entretien aux soins des mains et des pieds, nous offrons une gamme complète de services pensés pour s'adapter à votre rythme de vie. Nos prix de départ sont affichés clairement, sans surprise.",
+      "Nous savons que la vie ne se planifie pas toujours. C'est pourquoi les clients sans rendez-vous sont toujours les bienvenus, au même titre que ceux qui réservent — et aucun dépôt n'est exigé, avec ou sans rendez-vous.",
+      "Chez Ongles Maily, vous êtes notre famille. Nous serons ravis de prendre soin de vous — passez nous voir au Carrefour Beauport, par les entrées 4 ou 5."
     ]
   },
   "bookOnline": {
     "heading": "Réserver en ligne",
     "intro": "Réservez votre rendez-vous chez Ongles Maily, Carrefour Beauport. Choisissez votre service et réservez en quelques secondes — ou venez simplement sans rendez-vous.",
     "helpBefore": "Vous préférez nous parler? Appelez-nous au ",
-    "helpAfter": " — nous serons heureux de vous aider."
+    "helpAfter": " — nous serons heureux de vous aider.",
+    "howTitle": "Comment réserver",
+    "steps": [
+      {
+        "title": "Choisissez votre service",
+        "body": "Pose d'ongles, remplissage, soins des mains ou des pieds — sélectionnez ce qui vous convient."
+      },
+      {
+        "title": "Réservez en quelques secondes",
+        "body": "Choisissez la plage horaire qui vous arrange et confirmez en ligne. Aucun dépôt requis."
+      },
+      {
+        "title": "Ou venez sans rendez-vous",
+        "body": "Les visites sans rendez-vous sont toujours les bienvenues au Carrefour Beauport, entrées 4 ou 5."
+      }
+    ],
+    "note": "Aucun dépôt n'est exigé, avec ou sans rendez-vous. Si vos plans changent, un simple appel nous aide à libérer votre plage pour une autre cliente."
   },
   "reviews": {
     "eyebrow": "L'amour de nos clientes",

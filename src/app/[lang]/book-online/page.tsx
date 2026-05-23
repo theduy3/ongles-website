@@ -40,6 +40,29 @@ export default async function BookOnlinePage({ params }: LangParams) {
         intro={dict.bookOnline.intro}
       />
 
+      <section className="mx-auto max-w-5xl px-6 pt-16 md:pt-20">
+        <Reveal>
+          <h2 className="text-center text-3xl text-espresso md:text-4xl">
+            {dict.bookOnline.howTitle}
+          </h2>
+        </Reveal>
+        <ol className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          {dict.bookOnline.steps.map((step, i) => (
+            <Reveal key={step.title} delay={i * 0.07}>
+              <li className="text-center">
+                <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-espresso text-cream">
+                  {i + 1}
+                </span>
+                <h3 className="mt-4 text-lg font-semibold text-espresso">
+                  {step.title}
+                </h3>
+                <p className="mt-2 leading-relaxed text-mocha">{step.body}</p>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
+      </section>
+
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
         {/* Per-location booking cards */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -84,6 +107,12 @@ export default async function BookOnlinePage({ params }: LangParams) {
               {site.contact.phone}
             </a>
             {dict.bookOnline.helpAfter}
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed text-mocha/80">
+            {dict.bookOnline.note}
           </p>
         </Reveal>
       </section>

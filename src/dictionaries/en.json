@@ -190,7 +190,16 @@
         "label": "Sun",
         "value": "10:00 AM – 5:00 PM"
       }
-    ]
+    ],
+    "visit": {
+      "heading": "Visit Us",
+      "gettingHereTitle": "How to find us",
+      "gettingHere": "Ongles Maily is located inside Carrefour Beauport, reachable through Entrances 4 or 5. The shopping centre offers plenty of free parking, right by the doors.",
+      "walkinTitle": "Walk in or book ahead",
+      "walkin": "No appointment? No problem. Walk-ins are always welcome and no deposit is required. Prefer to plan ahead? Book online to choose your time slot in advance.",
+      "expectTitle": "When you arrive",
+      "expect": "We welcome you, talk through the service you'd like, then settle you at a clean, sanitized station. You'll enjoy careful, unhurried work from an experienced team."
+    }
   },
   "newsletter": {
     "heading": "Stay in Touch",
@@ -220,21 +229,44 @@
   ],
   "servicesPage": {
     "heading": "Our Services",
-    "intro": "From natural manicures to full nail enhancements, our experienced team delivers careful, precise results with exceptional hygiene at every appointment."
+    "intro": "From natural manicures to full nail enhancements, our experienced team delivers careful, precise results with exceptional hygiene at every appointment.",
+    "lead": "Every service is performed by an experienced team, with sanitized tools and clean stations. The prices shown are starting prices — your total depends on the length, shape and nail art you choose.",
+    "hygieneTitle": "Hygiene at every step",
+    "hygieneBody": "Three dedicated disinfection stations, tools sterilized after every guest, and dust collectors at all manicure stations. Your safety always comes first.",
+    "ctaLead": "Ready to treat yourself?"
   },
   "about": {
     "heading": "About Ongles Maily",
     "body": [
       "Ongles Maily is a professional nail salon located at Carrefour Beauport in Québec City. We believe that beautiful nails begin with exceptional hygiene and genuine care — which is why every visit starts and ends with your safety and comfort in mind.",
-      "Our team brings more than 15 years of experience to every service. We operate three dedicated disinfection stations, sanitize every tool after each use, maintain sanitized pedicure stations, and use dust collectors at all manicure stations. This isn't a checklist — it's simply how we work.",
-      "At Ongles Maily, you are our family. Walk-ins are always welcome alongside booked appointments. We look forward to taking care of you."
+      "Our team brings more than 15 years of experience in nail artistry. That expertise shows in every detail — clean lines, long-lasting sets and flawless finishes, whether you come in for a natural manicure or a full set with custom nail art.",
+      "We operate three dedicated disinfection stations, sanitize every tool after each use, maintain sanitized pedicure stations, and use dust collectors at all manicure stations. This isn't a checklist — it's simply how we work.",
+      "From maintenance fills to manicures and pedicures, we offer a full range of services designed to fit your schedule. Our starting prices are posted clearly, with no surprises.",
+      "We know life doesn't always go to plan. That's why walk-ins are always welcome alongside booked appointments — and no deposit is required, with or without an appointment.",
+      "At Ongles Maily, you are our family. We look forward to taking care of you — come see us at Carrefour Beauport, through Entrances 4 or 5."
     ]
   },
   "bookOnline": {
     "heading": "Book Online",
     "intro": "Reserve your appointment at Ongles Maily, Carrefour Beauport. Choose your service and book in seconds — or simply walk in.",
     "helpBefore": "Prefer to talk to us? Call us at ",
-    "helpAfter": " — we're happy to help."
+    "helpAfter": " — we're happy to help.",
+    "howTitle": "How booking works",
+    "steps": [
+      {
+        "title": "Choose your service",
+        "body": "Nail enhancements, fills, manicures or pedicures — pick what suits you."
+      },
+      {
+        "title": "Book in seconds",
+        "body": "Choose the time slot that works for you and confirm online. No deposit required."
+      },
+      {
+        "title": "Or simply walk in",
+        "body": "Walk-ins are always welcome at Carrefour Beauport, Entrances 4 or 5."
+      }
+    ],
+    "note": "No deposit is required, with or without an appointment. If your plans change, a quick call helps us free up your slot for another guest."
   },
   "reviews": {
     "eyebrow": "Client Love",
