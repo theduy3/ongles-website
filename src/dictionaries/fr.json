@@ -199,7 +199,10 @@
       "walkin": "Pas de rendez-vous? Aucun problème. Les visites sans rendez-vous sont toujours les bienvenues et aucun dépôt n'est exigé. Vous préférez planifier? Réservez en ligne pour choisir votre plage horaire à l'avance.",
       "expectTitle": "À votre arrivée",
       "expect": "On vous accueille, on discute du service souhaité, puis on vous installe à un poste propre et assaini. Vous profitez d'un soin attentionné, sans précipitation, réalisé par une équipe expérimentée."
-    }
+    },
+    "comingSoon": "Bientôt",
+    "salonsHeading": "Nos salons",
+    "salonsIntro": "Retrouvez Ongles Maily au Carrefour Beauport, ainsi que nos salons à travers le Québec. Venez sans rendez-vous ou réservez en ligne."
   },
   "newsletter": {
     "heading": "Restez en contact",

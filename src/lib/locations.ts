@@ -69,18 +69,26 @@ export function bookerServiceMenu(_loc: Location): string {
   return site.booker.brand;
 }
 
-/** Google Maps embed src (no API key needed) for a location's full address. */
+/** Google Maps embed src (no API key needed) for any address query string. */
+export function mapEmbedSrc(query: string): string {
+  return `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+}
+
+/** Google Maps "open in Maps" search link for any query string. */
+export function mapSearchLink(query: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+/** Google Maps embed src for a Maily location's full address. */
 export function mapEmbedUrl(loc: Location): string {
-  const q = encodeURIComponent(`${loc.address.street}, ${loc.address.line2}`);
-  return `https://www.google.com/maps?q=${q}&output=embed`;
+  return mapEmbedSrc(`${loc.address.street}, ${loc.address.line2}`);
 }
 
 /** Google Maps "open in Maps" link for the location pin. */
 export function mapLink(loc: Location): string {
-  const q = encodeURIComponent(
+  return mapSearchLink(
     `${site.name} ${loc.name}, ${loc.address.street}, ${loc.address.line2}`,
   );
-  return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
 /** Resolve a location by slug, or undefined (→ 404). */

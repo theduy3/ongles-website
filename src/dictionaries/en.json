@@ -199,7 +199,10 @@
       "walkin": "No appointment? No problem. Walk-ins are always welcome and no deposit is required. Prefer to plan ahead? Book online to choose your time slot in advance.",
       "expectTitle": "When you arrive",
       "expect": "We welcome you, talk through the service you'd like, then settle you at a clean, sanitized station. You'll enjoy careful, unhurried work from an experienced team."
-    }
+    },
+    "comingSoon": "Coming soon",
+    "salonsHeading": "Our Salons",
+    "salonsIntro": "Find Ongles Maily at Carrefour Beauport, plus our salons across Québec. Walk in or book online — we're happy to see you."
   },
   "newsletter": {
     "heading": "Stay in Touch",

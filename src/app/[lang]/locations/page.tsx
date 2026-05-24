@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
-import { LocationCard } from "@/components/LocationCard";
+import { SalonCard, buildSalonCards } from "@/components/SalonCard";
 import { JsonLd } from "@/components/JsonLd";
-import { locations } from "@/lib/locations";
 import { getDictionary } from "../dictionaries";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
@@ -25,6 +24,7 @@ export default async function LocationsPage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const cards = buildSalonCards(dict, lang);
 
   return (
     <>
@@ -38,9 +38,9 @@ export default async function LocationsPage({ params }: LangParams) {
 
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {locations.map((loc, i) => (
-            <Reveal key={loc.id} delay={i * 0.07}>
-              <LocationCard loc={loc} dict={dict} />
+          {cards.map((card, i) => (
+            <Reveal key={card.name} delay={i * 0.07}>
+              <SalonCard {...card} />
             </Reveal>
           ))}
         </div>
