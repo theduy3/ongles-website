@@ -170,25 +170,28 @@ export function buildSalonCards(
     labels,
   }));
 
-  const sisters: SalonCardProps[] = sisterSalons.map((s) => ({
-    name: s.brand,
-    nameHref: s.website,
-    external: true,
-    landmark: s.landmark,
-    mapSrc: s.address ? mapEmbedSrc(s.address.query) : undefined,
-    mapTitle: s.brand,
-    address: s.address
-      ? { line1: s.address.line1, line2: s.address.line2 }
-      : undefined,
-    hours: s.hours?.[lang],
-    phone: s.phone,
-    phoneHref: s.phoneHref,
-    bookHref: s.booking,
-    bookLabel: l.bookNow,
-    comingSoon: s.comingSoon,
-    comingSoonLabel: l.comingSoon,
-    labels,
-  }));
+  const sisters: SalonCardProps[] = sisterSalons.map((s) => {
+    const name = s.brandByLocale?.[lang] ?? s.brand;
+    return {
+      name,
+      nameHref: s.website,
+      external: true,
+      landmark: s.landmark,
+      mapSrc: s.address ? mapEmbedSrc(s.address.query) : undefined,
+      mapTitle: name,
+      address: s.address
+        ? { line1: s.address.line1, line2: s.address.line2 }
+        : undefined,
+      hours: s.hours?.[lang],
+      phone: s.phone,
+      phoneHref: s.phoneHref,
+      bookHref: s.booking,
+      bookLabel: l.bookNow,
+      comingSoon: s.comingSoon,
+      comingSoonLabel: l.comingSoon,
+      labels,
+    };
+  });
 
   return [...maily, ...sisters];
 }

@@ -19,6 +19,9 @@ export type SisterSalon = {
   // Pre-formatted per-locale hours (the salons keep different schedules).
   hours?: { fr: DayHours[]; en: DayHours[] };
   comingSoon?: boolean;
+  // Optional per-locale display name for descriptive/placeholder entries that
+  // aren't locale-invariant proper nouns. Falls back to `brand` when absent.
+  brandByLocale?: { fr: string; en: string };
 };
 
 export const sisterSalons: readonly SisterSalon[] = [
@@ -83,7 +86,11 @@ export const sisterSalons: readonly SisterSalon[] = [
   },
   {
     id: "quebec",
-    brand: "Ongles & Spa Québec",
+    brand: "New Store in Quebec City",
+    brandByLocale: {
+      en: "New Store in Quebec City",
+      fr: "Nouveau salon à Québec",
+    },
     comingSoon: true,
   },
 ];
