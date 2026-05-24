@@ -52,9 +52,7 @@ export function SalonCard(props: SalonCardProps) {
     comingSoonLabel,
     labels,
   } = props;
-  const ext = external
-    ? { target: "_blank", rel: "noopener noreferrer" }
-    : {};
+  const ext = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-card">
@@ -157,7 +155,7 @@ export function buildSalonCards(
   };
 
   const maily: SalonCardProps[] = locations.map((loc) => ({
-    name: loc.name,
+    name: site.name,
     nameHref: mapLink(loc),
     external: true,
     landmark: loc.landmark,

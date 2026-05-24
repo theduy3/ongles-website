@@ -25,7 +25,7 @@ export const sisterSalons: readonly SisterSalon[] = [
   {
     id: "charlesbourg",
     brand: "Ongles Charlesbourg",
-    landmark: "Carrefour Charlesbourg",
+    landmark: "Carrefour Charlesbourg — Entrées 5",
     website: "https://www.onglescharlesbourg.com",
     address: {
       line1: "8500 boulevard Henri-Bourassa",
@@ -36,7 +36,21 @@ export const sisterSalons: readonly SisterSalon[] = [
     phone: "(581) 981-8228",
     phoneHref: "tel:+15819818228",
     booking: "https://www.onglescharlesbourg.com/reservation/",
-    // Hours not published on their site yet — omitted intentionally.
+    // Same schedule as Ongles Maily, except Thu–Fri close at 8 PM (not 9 PM).
+    hours: {
+      fr: [
+        { label: "Lun – Mer", value: "9 h 00 – 17 h 30" },
+        { label: "Jeu – Ven", value: "9 h 00 – 20 h 00" },
+        { label: "Sam", value: "9 h 00 – 17 h 00" },
+        { label: "Dim", value: "10 h 00 – 17 h 00" },
+      ],
+      en: [
+        { label: "Mon – Wed", value: "9:00 AM – 5:30 PM" },
+        { label: "Thu – Fri", value: "9:00 AM – 8:00 PM" },
+        { label: "Sat", value: "9:00 AM – 5:00 PM" },
+        { label: "Sun", value: "10:00 AM – 5:00 PM" },
+      ],
+    },
   },
   {
     id: "rivieres",
