@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/lib/site";
 import type { Dictionary } from "@/lib/dictionary";
@@ -9,13 +10,17 @@ import type { Locale } from "@/lib/i18n";
 import { Button } from "./Button";
 import { LocaleSwitch } from "./LocaleSwitch";
 
-// Serif-free wordmark per the live logo (Jost 600, "Maily" emphasized).
-function Wordmark() {
+// Brand logo (real wordmark PNG, transparent bg) sized for the light header.
+function Logo() {
   return (
-    <span className="font-[var(--font-jost)] text-xl tracking-tight text-espresso sm:text-2xl">
-      <span className="font-normal">Ongles </span>
-      <span className="font-semibold">Maily</span>
-    </span>
+    <Image
+      src="/images/logo.png"
+      alt={site.name}
+      width={829}
+      height={302}
+      priority
+      className="h-8 w-auto sm:h-9"
+    />
   );
 }
 
@@ -34,7 +39,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
           onClick={() => setOpen(false)}
           aria-label={site.name}
         >
-          <Wordmark />
+          <Logo />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -51,7 +56,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
 
         <div className="hidden items-center gap-5 lg:flex">
           <LocaleSwitch locale={locale} />
-          <Button href={href(site.bookingAnchor)} variant="solid">
+          <Button href={href(site.booking)} variant="solid">
             {dict.nav.bookOnline}
           </Button>
         </div>
@@ -95,7 +100,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
                 </Link>
               ))}
               <Button
-                href={href(site.bookingAnchor)}
+                href={href(site.booking)}
                 variant="solid"
                 className="mt-3 w-full"
               >
