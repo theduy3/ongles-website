@@ -19,8 +19,8 @@ export const site = {
       "https://moo.wyf.mybluehost.me/website_44873f44/reservation/", // TODO: confirm exact Square gift-card URL
   },
   // Profiles emitted as schema.org `sameAs` on the business node.
-  // No active social profiles for Ongles Maily at this time.
-  socialProfiles: [],
+  // Google Business Profile (Maps CID). Add Facebook/Instagram URLs here too.
+  socialProfiles: ["https://www.google.com/maps?cid=14129710654556946214"],
   // Schema.org priceRange hint ($ = inexpensive … $$$$ = very pricey).
   priceRange: "$$",
   // Aggregate review rating shown on-page AND emitted as schema.org
