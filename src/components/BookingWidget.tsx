@@ -3,10 +3,8 @@
 import { useEffect, useRef } from "react";
 import type { Locale } from "@/lib/i18n";
 
-// TODO(owner): replace with the Ongles Maily reservation widget URL once
-// the widget endpoint is confirmed.
-const WIDGET_SRC = "";
-const STORE = "onglesmaily";
+const WIDGET_SRC = "https://app.onglesmaily.com/widgets/booking-widget.js";
+const STORE = "OM";
 
 // Embeds the Booker booking widget. The widget script mounts its UI as the next
 // sibling of its own <script data-store> tag, so we inject that script into this

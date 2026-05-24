@@ -2,9 +2,8 @@
 
 import { WidgetEmbed } from "@/components/WidgetEmbed";
 
-// TODO(owner): update to the Ongles Maily check-in widget endpoint when available.
-const WIDGET_SRC = "";
-const STORE = "onglesmaily";
+const WIDGET_SRC = "https://app.onglesmaily.com/widgets/checkin-widget.js";
+const STORE = "OM";
 
 // Embeds the check-in widget on the un-localized /checkin kiosk page.
 // Injection, loading and error/retry handling live in WidgetEmbed.

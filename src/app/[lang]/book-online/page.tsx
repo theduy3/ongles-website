@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
-import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
+import { BookingWidget } from "@/components/BookingWidget";
 import { site } from "@/lib/site";
-import { locations, bookerServiceMenu } from "@/lib/locations";
 import { getDictionary } from "../dictionaries";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
@@ -63,38 +62,9 @@ export default async function BookOnlinePage({ params }: LangParams) {
         </ol>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-        {/* Per-location booking cards */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {locations.map((loc, i) => (
-            <Reveal key={loc.id} delay={i * 0.07}>
-              <div className="flex flex-col gap-4 rounded-2xl border border-fog bg-beige p-6 shadow-sm">
-                <div>
-                  <h2 className="text-xl text-espresso">{loc.name}</h2>
-                  <p className="mt-1 text-sm leading-relaxed text-mocha">
-                    {loc.address.line1}
-                    <br />
-                    {loc.address.line2}
-                  </p>
-                </div>
-                <div className="mt-auto">
-                  <Button href={bookerServiceMenu(loc)} className="w-full">
-                    {dict.locations.bookNow}
-                  </Button>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        {/* Brand hub CTA */}
-        <Reveal>
-          <div className="mt-12 text-center">
-            <Button href={site.booker.brand} variant="outline">
-              {dict.cta.book}
-            </Button>
-          </div>
-        </Reveal>
+      <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
+        {/* Embedded SalonX booking wizard (store OM, app.onglesmaily.com). */}
+        <BookingWidget locale={lang} />
 
         {/* Help line */}
         <Reveal>

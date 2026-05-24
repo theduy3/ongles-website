@@ -1,6 +1,7 @@
-import { redirect } from "next/navigation";
+import { QueueWidget } from "@/components/QueueWidget";
 
-// Standalone technician-queue kiosk route — redirect home.
+// Standalone, un-localized technician-queue board for a TV/monitor. Display-only.
+// The minimal noindex shell comes from layout.tsx.
 export default function QueuePage() {
-  redirect("/en");
+  return <QueueWidget />;
 }
