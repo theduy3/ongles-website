@@ -118,10 +118,7 @@ export function LocationsSection({
           className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {cards.map((card) => (
-            <li
-              key={card.name}
-              className="w-[300px] shrink-0 snap-start sm:w-[340px]"
-            >
+            <li key={card.name} className="w-[256px] shrink-0 snap-start">
               <SalonCard {...card} />
             </li>
           ))}
