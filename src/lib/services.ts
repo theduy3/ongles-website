@@ -3,7 +3,7 @@
 // image flags live here; all prose lives in dict.serviceDetails[id].
 //
 // `id` is the stable key shared with dict.serviceDetails and used for image
-// filenames (public/images/services/<id>.jpg). Single-locale (en), so slugs are
+// filenames (public/images/services/<id>.webp). Single-locale (en), so slugs are
 // a Record keyed by Locale for parity with the parent App Router shape, but each
 // service has exactly one slug today.
 
@@ -21,7 +21,7 @@ export type Service = {
   price: number; // CAD — single source of truth (feeds Offer schema + display)
   // Upper bound for the AggregateOffer price range (base + top add-on).
   priceTo: number;
-  // true once a real photo exists at public/images/services/<id>.jpg.
+  // true once a real photo exists at public/images/services/<id>.webp.
   photo: boolean;
 };
 
@@ -31,28 +31,28 @@ export const services: readonly Service[] = [
     slug: { fr: "pose-d-ongles", en: "nail-enhancements" },
     price: 60,
     priceTo: 75,
-    photo: false,
+    photo: true,
   },
   {
     id: "remplissage",
     slug: { fr: "remplissage", en: "fill" },
     price: 45,
     priceTo: 60,
-    photo: false,
+    photo: true,
   },
   {
     id: "soins-mains",
     slug: { fr: "soins-des-mains", en: "manicure" },
     price: 30,
     priceTo: 40,
-    photo: false,
+    photo: true,
   },
   {
     id: "soins-pieds",
     slug: { fr: "soins-des-pieds", en: "pedicure" },
     price: 35,
     priceTo: 60,
-    photo: false,
+    photo: true,
   },
 ] as const;
 

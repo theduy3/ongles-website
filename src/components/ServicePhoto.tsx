@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { ServiceId } from "@/lib/services";
 
 // Renders a real service photo when one exists, else a styled placeholder.
-// Drop a file at public/images/services/<id>.jpg and flip `photo: true` in the
+// Drop a file at public/images/services/<id>.webp and flip `photo: true` in the
 // services registry to swap the placeholder for the real image — no other code
 // change. The caller sizes/rounds the box via `className`.
 export function ServicePhoto({
@@ -24,7 +24,7 @@ export function ServicePhoto({
     <div className={`relative overflow-hidden bg-tan/40 ${className}`}>
       {photo ? (
         <Image
-          src={`/images/services/${id}.jpg`}
+          src={`/images/services/${id}.webp`}
           alt={alt}
           fill
           sizes={sizes}
