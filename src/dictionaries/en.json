@@ -194,7 +194,7 @@
     "visit": {
       "heading": "Visit Us",
       "gettingHereTitle": "How to find us",
-      "gettingHere": "Ongles Maily is located inside Carrefour Beauport, reachable through Entrances 4 or 5. The shopping centre offers plenty of free parking, right by the doors.",
+      "gettingHere": "Ongles Maily is located inside Carrefour Beauport, reachable through Entrances 4 or 5. The shopping centre offers more than 1,500 free parking spaces, right by the doors. The venue is fully accessible and served by RTC transit — Terminus Beauport is right nearby (see the Carrefour Beauport website for routes).",
       "walkinTitle": "Walk in or book ahead",
       "walkin": "No appointment? No problem. Walk-ins are always welcome and no deposit is required. Prefer to plan ahead? Book online to choose your time slot in advance.",
       "expectTitle": "When you arrive",
@@ -239,6 +239,7 @@
     "heading": "About Ongles Maily",
     "body": [
       "Ongles Maily is a professional nail salon located at Carrefour Beauport in Québec City. We believe that beautiful nails begin with exceptional hygiene and genuine care — which is why every visit starts and ends with your safety and comfort in mind.",
+      "Ongles Maily is part of a family business founded in 2007. After many years in the industry, we do this work out of love — for the craft, but above all for the people. Our greatest joy is taking care of you and seeing you leave with a smile.",
       "Our team brings more than 15 years of experience in nail artistry. That expertise shows in every detail — clean lines, long-lasting sets and flawless finishes, whether you come in for a natural manicure or a full set with custom nail art.",
       "We operate three dedicated disinfection stations, sanitize every tool after each use, maintain sanitized pedicure stations, and use dust collectors at all manicure stations. This isn't a checklist — it's simply how we work.",
       "From maintenance fills to manicures and pedicures, we offer a full range of services designed to fit your schedule. Our starting prices are posted clearly, with no surprises.",
@@ -266,7 +267,7 @@
         "body": "Walk-ins are always welcome at Carrefour Beauport, Entrances 4 or 5."
       }
     ],
-    "note": "No deposit is required, with or without an appointment. If your plans change, a quick call helps us free up your slot for another guest."
+    "note": "No deposit is required, with or without an appointment. If your plans change, please give us at least 24 hours' notice so we can free up your slot for another guest. Arriving more than 15 minutes late may shorten your service — please aim to arrive 5–10 minutes before your appointment."
   },
   "reviews": {
     "eyebrow": "Client Love",

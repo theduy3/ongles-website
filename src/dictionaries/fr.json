@@ -194,7 +194,7 @@
     "visit": {
       "heading": "Venir nous voir",
       "gettingHereTitle": "Comment nous trouver",
-      "gettingHere": "Ongles Maily se trouve à l'intérieur du Carrefour Beauport, accessible par les entrées 4 ou 5. Le centre commercial offre un grand stationnement gratuit, juste devant les portes.",
+      "gettingHere": "Ongles Maily se trouve à l'intérieur du Carrefour Beauport, accessible par les entrées 4 ou 5. Le centre commercial offre plus de 1 500 places de stationnement gratuites, juste devant les portes. Le site est entièrement accessible et desservi par le RTC — le Terminus Beauport est tout près (consultez le site du Carrefour Beauport pour les parcours).",
       "walkinTitle": "Sans rendez-vous ou sur réservation",
       "walkin": "Pas de rendez-vous? Aucun problème. Les visites sans rendez-vous sont toujours les bienvenues et aucun dépôt n'est exigé. Vous préférez planifier? Réservez en ligne pour choisir votre plage horaire à l'avance.",
       "expectTitle": "À votre arrivée",
@@ -239,6 +239,7 @@
     "heading": "À propos d'Ongles Maily",
     "body": [
       "Ongles Maily est un salon d'ongles professionnel situé au Carrefour Beauport à Québec. Nous croyons que de beaux ongles commencent par une hygiène exceptionnelle et des soins sincères — c'est pourquoi chaque visite est pensée pour votre sécurité et votre confort.",
+      "Ongles Maily fait partie d'une entreprise familiale fondée en 2007. Après de nombreuses années dans l'industrie, nous faisons ce métier par passion — pour le travail bien fait, mais surtout pour les gens. Notre plus grande joie, c'est de prendre soin de vous et de vous voir repartir le sourire aux lèvres.",
       "Notre équipe cumule plus de 15 ans d'expérience dans les arts des ongles. Cette expertise se voit dans chaque détail : des lignes nettes, des poses durables et des finis impeccables, que vous veniez pour une manucure naturelle ou une pose complète avec nail art sur mesure.",
       "Nous disposons de trois postes de désinfection dédiés, désinfectons chaque outil après utilisation, maintenons des postes de pédicure assainis et utilisons des capteurs de poussière à chaque poste de manucure. Ce n'est pas une liste de vérification — c'est simplement notre façon de travailler.",
       "Du remplissage d'entretien aux soins des mains et des pieds, nous offrons une gamme complète de services pensés pour s'adapter à votre rythme de vie. Nos prix de départ sont affichés clairement, sans surprise.",
@@ -266,7 +267,7 @@
         "body": "Les visites sans rendez-vous sont toujours les bienvenues au Carrefour Beauport, entrées 4 ou 5."
       }
     ],
-    "note": "Aucun dépôt n'est exigé, avec ou sans rendez-vous. Si vos plans changent, un simple appel nous aide à libérer votre plage pour une autre cliente."
+    "note": "Aucun dépôt n'est exigé, avec ou sans rendez-vous. Si vos plans changent, prévenez-nous au moins 24 heures à l'avance afin de libérer votre plage pour une autre cliente. Un retard de plus de 15 minutes peut écourter votre service — arrivez idéalement 5 à 10 minutes avant votre rendez-vous."
   },
   "reviews": {
     "eyebrow": "L'amour de nos clientes",
