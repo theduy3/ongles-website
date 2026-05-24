@@ -15,8 +15,7 @@ export const site = {
   // Booking platform — brand hub + gift-certificate flow.
   booker: {
     brand: "https://moo.wyf.mybluehost.me/website_44873f44/reservation/",
-    giftCertificate:
-      "https://moo.wyf.mybluehost.me/website_44873f44/reservation/", // TODO: confirm exact Square gift-card URL
+    giftCertificate: "https://app.squareup.com/gift/GVCCQ8WQ9Z4MW/order",
   },
   // Profiles emitted as schema.org `sameAs` on the business node.
   // Google Business Profile (Maps CID). Add Facebook/Instagram URLs here too.
