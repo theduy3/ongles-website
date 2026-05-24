@@ -19,7 +19,7 @@ function Logo() {
       width={829}
       height={302}
       priority
-      className="h-8 w-auto sm:h-9"
+      className="h-10 w-auto sm:h-12"
     />
   );
 }
@@ -33,11 +33,12 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-espresso/10 bg-cream/90 text-espresso backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link
           href={`/${locale}`}
           onClick={() => setOpen(false)}
           aria-label={site.name}
+          className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
         >
           <Logo />
         </Link>
@@ -63,7 +64,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
 
         <button
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
+          className="ml-auto flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
         >
