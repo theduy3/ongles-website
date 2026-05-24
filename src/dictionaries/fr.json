@@ -555,6 +555,10 @@
       {
         "q": "Que se passe-t-il si je ne suis pas entièrement satisfaite?",
         "a": "Dites-le-nous avant de partir — nous corrigerons avec plaisir tout détail qui ne vous convient pas."
+      },
+      {
+        "q": "Quels modes de paiement acceptez-vous?",
+        "a": "Nous acceptons tous les modes de paiement courants : argent comptant, carte de débit, principales cartes de crédit et paiements sans contact ou mobiles (Apple Pay, Google Pay)."
       }
     ]
   },

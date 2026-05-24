@@ -555,6 +555,10 @@
       {
         "q": "What if I'm not completely happy with my service?",
         "a": "Let us know before you leave — we'll gladly fix anything that isn't quite right."
+      },
+      {
+        "q": "What payment methods do you accept?",
+        "a": "We accept all common payment methods: cash, debit, major credit cards, and contactless or mobile payments (Apple Pay, Google Pay)."
       }
     ]
   },
