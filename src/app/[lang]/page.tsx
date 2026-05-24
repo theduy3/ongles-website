@@ -105,7 +105,7 @@ export default async function Home({ params }: LangParams) {
                 {dict.hero.description}
               </p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <Button href={site.booker.brand}>
+                <Button href={`/${lang}/book-online`}>
                   {dict.cta.book}
                   <ArrowIcon />
                 </Button>
@@ -300,7 +300,7 @@ export default async function Home({ params }: LangParams) {
               {dict.home.bookingIntro}
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href={site.booker.brand}>
+              <Button href={`/${lang}/book-online`}>
                 {dict.cta.book}
                 <ArrowIcon />
               </Button>
