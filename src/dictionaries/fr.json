@@ -543,6 +543,18 @@
       {
         "q": "Vendez-vous des certificats cadeaux?",
         "a": "Oui — les certificats cadeaux sont disponibles en ligne via Square pour tout montant (livrés par courriel), ou vous pouvez en acheter un directement au salon."
+      },
+      {
+        "q": "Parlez-vous français et anglais?",
+        "a": "Oui. Notre équipe vous accueille en français comme en anglais."
+      },
+      {
+        "q": "À quelle fréquence dois-je faire un remplissage?",
+        "a": "En général toutes les 2 à 3 semaines, pour garder votre pose nette et solide."
+      },
+      {
+        "q": "Que se passe-t-il si je ne suis pas entièrement satisfaite?",
+        "a": "Dites-le-nous avant de partir — nous corrigerons avec plaisir tout détail qui ne vous convient pas."
       }
     ]
   },

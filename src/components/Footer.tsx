@@ -13,6 +13,9 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
     { label: dict.nav.services, href: "/services" },
     { label: dict.nav.gallery, href: "/gallery" },
     { label: dict.nav.reviews, href: "/reviews" },
+    { label: dict.nav.about, href: "/about" },
+    { label: dict.nav.locations, href: "/locations" },
+    { label: dict.nav.faq, href: "/faq" },
     { label: dict.nav.contact, href: "/contact" },
     { label: dict.nav.bookOnline, href: "/book-online" },
   ];
@@ -93,6 +96,14 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
             © {new Date().getFullYear()} {site.name}.{" "}
             {locale === "fr" ? "Tous droits réservés." : "All rights reserved."}
           </p>
+          <nav className="flex gap-4">
+            <Link href={href("/terms")} className="hover:text-cream">
+              {dict.nav.terms}
+            </Link>
+            <Link href={href("/privacy")} className="hover:text-cream">
+              {dict.nav.privacy}
+            </Link>
+          </nav>
           <p>
             {locale === "fr"
               ? "Conçu avec ♡ à Québec"

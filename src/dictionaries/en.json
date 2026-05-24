@@ -543,6 +543,18 @@
       {
         "q": "Do you sell gift cards?",
         "a": "Yes — gift cards are available online via Square for any amount (delivered by email), or you can purchase one in person at the salon."
+      },
+      {
+        "q": "Do you speak French and English?",
+        "a": "Yes. Our team welcomes you in both French and English."
+      },
+      {
+        "q": "How often should I get a fill?",
+        "a": "Usually every 2 to 3 weeks, to keep your set looking neat and strong."
+      },
+      {
+        "q": "What if I'm not completely happy with my service?",
+        "a": "Let us know before you leave — we'll gladly fix anything that isn't quite right."
       }
     ]
   },
