@@ -11,6 +11,13 @@ const STORE = "OM";
 // ref'd container (rather than via next/script, which hoists scripts to end-of-
 // body and would strand the widget below the page). data-lang keeps the widget's
 // initial language in sync with the active locale.
+//
+// Lifecycle note: do NOT add an effect cleanup that wipes the container. React
+// Strict Mode runs effect setup → cleanup → setup on mount; a cleanup that
+// removes the injected <script> defeats the dedupe guard below, causing two
+// script tags to load and the external widget to mount twice. The widget lives
+// for the lifetime of this route — when the user navigates away, React unmounts
+// the whole subtree (container div included), so no manual teardown is needed.
 export function BookingWidget({ locale }: { locale: Locale }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -26,8 +33,6 @@ export function BookingWidget({ locale }: { locale: Locale }) {
     script.setAttribute("data-store", STORE);
     script.setAttribute("data-lang", locale);
     container.appendChild(script);
-
-    return () => container.replaceChildren();
   }, [locale]);
 
   return <div ref={ref} className="mt-10 min-h-[420px]" />;
