@@ -65,8 +65,6 @@ export const site = {
     { key: "locations", href: "#location" },
     { key: "giftcards", href: "#giftcards" },
   ],
-  // Anchor for the "Book Now" CTA (homepage booking band).
-  bookingAnchor: "#booking",
   // Real indexable page routes (feeds the sitemap; nav is anchors now).
   routes: [
     "/services",

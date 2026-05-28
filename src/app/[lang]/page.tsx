@@ -203,7 +203,7 @@ export default async function Home({ params }: LangParams) {
                     </p>
                     <div className="mt-5">
                       <Button
-                        href={`/${lang}#booking`}
+                        href={`/${lang}/book-online`}
                         variant="outline"
                         className="w-full"
                       >
