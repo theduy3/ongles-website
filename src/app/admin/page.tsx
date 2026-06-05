@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Popup } from "@/lib/popup";
 import { emptyDraft, toDraft, toPopup, type Draft } from "@/lib/popup-draft";
@@ -132,6 +133,12 @@ export default function AdminPage() {
           >
             New popup
           </button>
+          <Link
+            href="/admin/settings"
+            className="rounded-pill border border-tan px-4 py-2 text-sm"
+          >
+            Store settings
+          </Link>
           <button
             onClick={logout}
             className="rounded-pill border border-tan px-4 py-2 text-sm"
