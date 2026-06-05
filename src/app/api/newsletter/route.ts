@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { tenant } from "@/config";
 
 // Newsletter subscription endpoint for Ongles Maily. Validates the submitted
 // email and upserts it into the newsletter_subscribers table via the service-role
@@ -47,8 +48,8 @@ export async function POST(request: Request) {
     const { error } = await supabase
       .from("newsletter_subscribers")
       .upsert(
-        { email, source: "website" },
-        { onConflict: "email", ignoreDuplicates: true },
+        { email, source: "website", tenant_id: tenant.id },
+        { onConflict: "email,tenant_id", ignoreDuplicates: true },
       );
 
     if (error) {
