@@ -4,18 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { site } from "@/lib/site";
+import type { TenantSite } from "@/config/types";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { Button } from "./Button";
 import { LocaleSwitch } from "./LocaleSwitch";
 
 // Brand logo (real wordmark PNG, transparent bg) sized for the light header.
-function Logo() {
+function Logo({ name }: { name: string }) {
   return (
     <Image
       src="/images/logo.png"
-      alt={site.name}
+      alt={name}
       width={829}
       height={302}
       priority
@@ -25,7 +25,15 @@ function Logo() {
 }
 
 // Light, translucent sticky header with anchor-scroll nav (single-page design).
-export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
+export function Header({
+  dict,
+  locale,
+  site,
+}: {
+  dict: Dictionary;
+  locale: Locale;
+  site: TenantSite;
+}) {
   const [open, setOpen] = useState(false);
 
   // Anchor hrefs prefixed with the active locale so they scroll from any route.
@@ -40,7 +48,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
           aria-label={site.name}
           className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
         >
-          <Logo />
+          <Logo name={site.name} />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -50,7 +58,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
               href={href(item.href)}
               className="text-[13px] uppercase tracking-[0.12em] text-espresso/80 transition-colors hover:text-espresso"
             >
-              {dict.nav[item.key]}
+              {dict.nav[item.key as keyof typeof dict.nav]}
             </Link>
           ))}
         </nav>
@@ -97,7 +105,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
                   onClick={() => setOpen(false)}
                   className="py-2 text-sm uppercase tracking-[0.12em] text-espresso/80 transition-colors hover:text-espresso"
                 >
-                  {dict.nav[item.key]}
+                  {dict.nav[item.key as keyof typeof dict.nav]}
                 </Link>
               ))}
               <Button

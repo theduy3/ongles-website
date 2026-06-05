@@ -9,7 +9,7 @@ import { getDictionary } from "./dictionaries";
 import { locales, isLocale, dirFor, type LangParams } from "@/lib/i18n";
 import { PopupHost } from "@/components/PopupHost";
 import { FloatingCTA } from "@/components/FloatingCTA";
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 import { organizationGraph } from "@/lib/seo";
 
 // Cormorant Garamond — elegant serif for headings (light/regular weights).
@@ -39,6 +39,7 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const dict = await getDictionary(lang);
+  const { site } = await getStoreConfig();
   return {
     // Sitewide base URL — every relative metadata field (canonical, hreflang, og:url,
     // og:image) on every page composes against this. Set once, here.
@@ -72,6 +73,7 @@ export default async function RootLayout({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const { site, locations } = await getStoreConfig();
 
   return (
     <html
@@ -85,9 +87,9 @@ export default async function RootLayout({
           data={organizationGraph(lang, {
             name: site.name,
             description: dict.meta.homeDescription,
-          })}
+          }, { site, locations })}
         />
-        <Header dict={dict} locale={lang} />
+        <Header dict={dict} locale={lang} site={site} />
         {/* pb clears the fixed FloatingCTA so it never covers page content. */}
         <main className="flex-1 pb-28">{children}</main>
         <Footer dict={dict} locale={lang} />

@@ -11,6 +11,7 @@ import { GiftCards } from "@/components/GiftCards";
 import { LocationsSection } from "@/components/LocationsSection";
 import { galleryImages } from "@/lib/gallery";
 import { getStoreConfig } from "@/lib/store-config";
+import { buildSalonCards } from "@/components/SalonCard";
 import { getDictionary } from "./dictionaries";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
@@ -72,7 +73,8 @@ export default async function Home({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
-  const { site } = await getStoreConfig();
+  const { site, locations } = await getStoreConfig();
+  const salonCards = buildSalonCards(dict, lang, site, locations);
 
   const ratingDisplay = site.reviews.ratingValue.toLocaleString("en-CA", {
     minimumFractionDigits: 1,
@@ -316,7 +318,7 @@ export default async function Home({ params }: LangParams) {
       </section>
 
       {/* Locations */}
-      <LocationsSection dict={dict} locale={lang} />
+      <LocationsSection dict={dict} locale={lang} cards={salonCards} />
     </>
   );
 }
