@@ -1,8 +1,9 @@
 import { QueueWidget } from "@/components/QueueWidget";
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 
 // Standalone, un-localized technician-queue board for a TV/monitor. Display-only.
 // The minimal noindex shell comes from layout.tsx.
-export default function QueuePage() {
+export default async function QueuePage() {
+  const { site } = await getStoreConfig();
   return <QueueWidget storeId={site.storeId} />;
 }

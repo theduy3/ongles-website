@@ -5,7 +5,7 @@ import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { ServicePhoto } from "@/components/ServicePhoto";
 import { JsonLd } from "@/components/JsonLd";
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 import {
   serviceBySlug,
   slugParams,
@@ -37,11 +37,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const service = serviceBySlug(lang, slug);
   if (!service) return {};
   const d = (await getDictionary(lang)).serviceDetails[service.id];
+  const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, servicePath(service, lang), {
     title: d.metaTitle,
     description: d.metaDescription,
     routeByLocale: servicePathsByLocale(service),
-  });
+  }, { site, locations });
 }
 
 export default async function ServiceDetailPage({ params }: Params) {
@@ -51,6 +52,7 @@ export default async function ServiceDetailPage({ params }: Params) {
   if (!service) notFound();
 
   const dict = await getDictionary(lang);
+  const { site, locations } = await getStoreConfig();
   const d = dict.serviceDetails[service.id];
   const labels = dict.serviceLabels;
   const bookHref = `/${lang}${site.booking}`;
@@ -65,7 +67,7 @@ export default async function ServiceDetailPage({ params }: Params) {
           price: service.price,
           priceTo: service.priceTo,
           path: servicePath(service, lang),
-        })}
+        }, { site, locations })}
       />
       <JsonLd data={faqPageGraph(d.faq)} />
       <JsonLd
@@ -73,7 +75,7 @@ export default async function ServiceDetailPage({ params }: Params) {
           { name: dict.nav.home, route: "" },
           { name: dict.nav.services, route: "/services" },
           { name: d.title, route: servicePath(service, lang) },
-        ])}
+        ], { site, locations })}
       />
 
       {/* Hero: back link + title + image */}

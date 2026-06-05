@@ -10,7 +10,7 @@ import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { GiftCards } from "@/components/GiftCards";
 import { LocationsSection } from "@/components/LocationsSection";
 import { galleryImages } from "@/lib/gallery";
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 import { getDictionary } from "./dictionaries";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
@@ -61,16 +61,18 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const dict = await getDictionary(lang);
+  const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, "", {
     title: dict.meta.homeTitle,
     description: dict.meta.homeDescription,
-  });
+  }, { site, locations });
 }
 
 export default async function Home({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const { site } = await getStoreConfig();
 
   const ratingDisplay = site.reviews.ratingValue.toLocaleString("en-CA", {
     minimumFractionDigits: 1,

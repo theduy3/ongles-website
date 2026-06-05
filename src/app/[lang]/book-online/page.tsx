@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
 import { BookingWidget } from "@/components/BookingWidget";
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 import { getDictionary } from "../dictionaries";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
@@ -15,16 +15,18 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const dict = await getDictionary(lang);
+  const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, "/book-online", {
     title: dict.meta.bookOnlineTitle,
     description: dict.meta.bookOnlineDescription,
-  });
+  }, { site, locations });
 }
 
 export default async function BookOnlinePage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const { site, locations } = await getStoreConfig();
 
   return (
     <>
@@ -32,7 +34,7 @@ export default async function BookOnlinePage({ params }: LangParams) {
         data={breadcrumbGraph(lang, [
           { name: dict.nav.home, route: "" },
           { name: dict.nav.bookOnline, route: "/book-online" },
-        ])}
+        ], { site, locations })}
       />
       <PageHeader
         title={dict.bookOnline.heading}

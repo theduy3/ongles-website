@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { PageHeader } from "@/components/PageHeader";
 import { Stars } from "@/components/Stars";
 import { Button } from "@/components/Button";
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 import { reviews } from "@/lib/reviews";
 
 export async function generateMetadata({
@@ -16,16 +16,18 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const dict = await getDictionary(lang);
+  const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, "/reviews", {
     title: dict.meta.reviewsTitle,
     description: dict.meta.reviewsDescription,
-  });
+  }, { site, locations });
 }
 
 export default async function ReviewsPage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const { site, locations } = await getStoreConfig();
 
   const rating = site.reviews.ratingValue.toLocaleString("en-CA", {
     minimumFractionDigits: 1,
@@ -48,7 +50,7 @@ export default async function ReviewsPage({ params }: LangParams) {
         data={breadcrumbGraph(lang, [
           { name: dict.nav.home, route: "" },
           { name: dict.nav.reviews, route: "/reviews" },
-        ])}
+        ], { site, locations })}
       />
       <PageHeader
         title={dict.reviewsPage.title}

@@ -6,8 +6,8 @@ import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { ServicePhoto } from "@/components/ServicePhoto";
 import { JsonLd } from "@/components/JsonLd";
-import { site } from "@/lib/site";
-import { services, servicePath } from "@/lib/services";
+import { servicePath } from "@/lib/services";
+import { getStoreConfig } from "@/lib/store-config";
 import { getDictionary } from "../dictionaries";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata, servicesGraph, breadcrumbGraph } from "@/lib/seo";
@@ -19,16 +19,18 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const dict = await getDictionary(lang);
+  const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, "/services", {
     title: dict.meta.servicesTitle,
     description: dict.meta.servicesDescription,
-  });
+  }, { site, locations });
 }
 
 export default async function ServicesPage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const { site, locations, services } = await getStoreConfig();
 
   // Hub ItemList schema: build ServiceItem[] from registry + dict.
   const items = services.map((s) => ({
@@ -41,12 +43,12 @@ export default async function ServicesPage({ params }: LangParams) {
 
   return (
     <>
-      <JsonLd data={servicesGraph(lang, items)} />
+      <JsonLd data={servicesGraph(lang, items, { site, locations })} />
       <JsonLd
         data={breadcrumbGraph(lang, [
           { name: dict.nav.home, route: "" },
           { name: dict.nav.services, route: "/services" },
-        ])}
+        ], { site, locations })}
       />
       <PageHeader
         title={dict.servicesPage.heading}
