@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 
 // Allow all crawlers; point them at the sitemap. host disambiguates the
 // preferred origin. The API route is excluded from indexing.
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const { site } = await getStoreConfig();
   return {
     rules: {
       userAgent: "*",

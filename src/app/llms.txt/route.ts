@@ -1,12 +1,12 @@
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 import { defaultLocale } from "@/lib/i18n";
 
 // Served at /llms.txt — guides AI crawlers (ChatGPT, Perplexity, Claude, AI
 // Overviews) to the canonical FR pages and the core business facts. Generated
 // from site config so it stays in sync. See https://llmstxt.org.
-export const dynamic = "force-static";
 
-export function GET() {
+export async function GET() {
+  const { site } = await getStoreConfig();
   const base = `${site.url}/${defaultLocale}`;
   const { address, phone, email } = site.contact;
 

@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
-import { site } from "@/lib/site";
-import { services, servicePath, servicePathsByLocale } from "@/lib/services";
+import { servicePath, servicePathsByLocale } from "@/lib/services";
+import { getStoreConfig } from "@/lib/store-config";
 
 // Single-locale sitemap (en). The header nav is now anchor links into the home
 // page, so indexable routes come from site.routes + the service slugs + home.
 // Each entry declares hreflang alternates for App Router parity (one locale).
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { site, services } = await getStoreConfig();
   const lastModified = new Date();
   const defaultLocale = locales[0]; // fr is index 0 (the canonical default)
   const altLanguages = (path: string) => ({

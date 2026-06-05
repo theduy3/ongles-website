@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 import { defaultLocale } from "@/lib/i18n";
 
 // PWA / install manifest. Colours match the LIVE rendered theme in globals.css
 // (grayscale palette: page bg #ffffff, header/footer #141414).
 // start_url uses the default locale.
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+  const { site } = await getStoreConfig();
   return {
     name: site.name,
     short_name: "Ongles Maily",
