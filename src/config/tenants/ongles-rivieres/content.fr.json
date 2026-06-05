@@ -1,0 +1,397 @@
+{
+  "meta": {
+    "homeTitle": "Ongles Rivières — Salon de manucure au Centre Les Rivières, Québec",
+    "homeDescription": "Salon d'ongles au Centre Les Rivières, Québec. Pose d'ongles, remplissage, soins des mains et des pieds. Hygiène irréprochable, 15 ans+. Sans rendez-vous.",
+    "servicesTitle": "Services d'ongles à Rivières, Québec | Ongles Rivières",
+    "servicesDescription": "Pose d'ongles, remplissage, manucure et pédicure chez Ongles Rivières, Centre Les Rivières, Québec. Trois postes de désinfection, outils désinfectés après chaque utilisation.",
+    "aboutTitle": "À propos de notre salon à Rivières | Ongles Rivières",
+    "aboutDescription": "Ongles Rivières est un salon d'ongles axé sur l'hygiène au Centre Les Rivières, Québec. Plus de 15 ans d'expérience, ambiance chaleureuse et familiale. Vous êtes notre famille.",
+    "bookOnlineTitle": "Réserver un rendez-vous à Rivières | Ongles Rivières",
+    "bookOnlineDescription": "Réservez votre rendez-vous chez Ongles Rivières, Centre Les Rivières, Québec. Réservez en ligne ou venez sans rendez-vous — les deux sont bienvenus.",
+    "contactTitle": "Contact et itinéraire, Rivières | Ongles Rivières",
+    "contactDescription": "Communiquez avec Ongles Rivières au Centre Les Rivières, Québec. Questions sur les services ou les réservations — envoyez-nous un message.",
+    "faqTitle": "FAQ — Salon d'ongles à Rivières | Ongles Rivières",
+    "faqDescription": "Heures, réservations, services, hygiène et plus — réponses aux questions fréquentes sur Ongles Rivières, Centre Les Rivières.",
+    "reviewsTitle": "Avis clients — Salon d'ongles Rivières | Ongles Rivières",
+    "reviewsDescription": "Découvrez pourquoi nos clientes adorent Ongles Rivières — pose d'ongles, remplissage, manucure et pédicure au Centre Les Rivières, Québec.",
+    "galleryTitle": "Galerie nail art, Rivières | Ongles Rivières",
+    "galleryDescription": "Parcourez nos derniers nail art, manucures et poses d'ongles chez Ongles Rivières, Centre Les Rivières.",
+    "locationsTitle": "Nous trouver — Centre Les Rivières | Ongles Rivières",
+    "locationsDescription": "Trouvez Ongles Rivières au Centre Les Rivières — 3333 rue du Carrefour, Entrées 4 ou 5, Trois-Rivières, QC G8Y 1W2.",
+    "termsTitle": "Conditions générales — Ongles Rivières",
+    "termsDescription": "Politiques du salon Ongles Rivières : rendez-vous, annulations, dépôts, certificats cadeaux, santé et sécurité et plus encore.",
+    "privacyTitle": "Politique de confidentialité — Ongles Rivières",
+    "privacyDescription": "Comment Ongles Rivières collecte, utilise et protège vos renseignements personnels."
+  },
+  "hero": {
+    "subtitle": "Salon d'ongles au Centre Les Rivières, Québec",
+    "alt": "Belle pose d'ongles et manucure chez Ongles Rivières, Centre Les Rivières"
+  },
+  "home": {
+    "bookingIntro": "Réservez en ligne ou venez sans rendez-vous — les deux sont bienvenus. Vivez l'expérience Ongles Rivières au Centre Les Rivières."
+  },
+  "whyChooseUs": {
+    "eyebrow": "La différence Ongles Rivières",
+    "features": [
+      {
+        "icon": "✨",
+        "title": "L'hygiène avant tout",
+        "body": "Trois postes de désinfection dédiés. Chaque outil est désinfecté après chaque utilisation — votre sécurité est notre priorité absolue."
+      },
+      {
+        "icon": "🛡️",
+        "title": "Postes assainis",
+        "body": "Postes de pédicure assainis et capteurs de poussière à chaque poste de manucure pour une expérience propre et sécuritaire."
+      },
+      {
+        "icon": "🎨",
+        "title": "Plus de 15 ans d'expérience",
+        "body": "Notre équipe apporte plus de 15 ans d'expertise dans l'industrie des arts des ongles à chaque service, des manucures classiques aux nail art les plus élaborés."
+      },
+      {
+        "icon": "🌿",
+        "title": "Ambiance familiale",
+        "body": "Chez Ongles Rivières, vous êtes notre famille. Venez avec ou sans rendez-vous — vous êtes toujours les bienvenus."
+      }
+    ]
+  },
+  "giftCards": {
+    "description": "Pour une occasion spéciale ou simplement pour faire plaisir? Nos certificats cadeaux de manucure et pédicure sont disponibles à l'achat en ligne via Square pour tout montant, livrés par courriel — ou achetez-les directement au salon."
+  },
+  "locations": {
+    "intro": "Ongles Rivières est situé au Centre Les Rivières, Québec. Venez sans rendez-vous ou réservez à l'avance — nous serons heureux de vous accueillir.",
+    "visit": {
+      "gettingHere": "Ongles Rivières se trouve à l'intérieur du Centre Les Rivières, accessible par les entrées 4 ou 5. Le centre commercial offre plus de 1 500 places de stationnement gratuites, juste devant les portes. Le site est entièrement accessible et desservi par le RTC : le parcours 55 s'arrête à l'arrêt du Carrefour, et le Terminus Rivières est tout près."
+    },
+    "salonsIntro": "Retrouvez Ongles Rivières au Centre Les Rivières, ainsi que nos salons à travers le Québec. Venez sans rendez-vous ou réservez en ligne."
+  },
+  "about": {
+    "heading": "À propos d'Ongles Rivières",
+    "body": [
+      "Ongles Rivières est un salon d'ongles professionnel situé au Centre Les Rivières à Québec. Nous croyons que de beaux ongles commencent par une hygiène exceptionnelle et des soins sincères — c'est pourquoi chaque visite est pensée pour votre sécurité et votre confort.",
+      "Ongles Rivières fait partie d'une entreprise familiale fondée en 2007. Après de nombreuses années dans l'industrie, nous faisons ce métier par passion — pour le travail bien fait, mais surtout pour les gens. Notre plus grande joie, c'est de prendre soin de vous et de vous voir repartir le sourire aux lèvres.",
+      "Notre équipe cumule plus de 15 ans d'expérience dans les arts des ongles. Cette expertise se voit dans chaque détail : des lignes nettes, des poses durables et des finis impeccables, que vous veniez pour une manucure naturelle ou une pose complète avec nail art sur mesure.",
+      "Nous disposons de trois postes de désinfection dédiés, désinfectons chaque outil après utilisation, maintenons des postes de pédicure assainis et utilisons des capteurs de poussière à chaque poste de manucure. Ce n'est pas une liste de vérification — c'est simplement notre façon de travailler.",
+      "Du remplissage d'entretien aux soins des mains et des pieds, nous offrons une gamme complète de services pensés pour s'adapter à votre rythme de vie. Nos prix de départ sont affichés clairement, sans surprise.",
+      "Nous savons que la vie ne se planifie pas toujours. C'est pourquoi les clients sans rendez-vous sont toujours les bienvenus, au même titre que ceux qui réservent — et aucun dépôt n'est exigé, avec ou sans rendez-vous.",
+      "Chez Ongles Rivières, vous êtes notre famille. Nous serons ravis de prendre soin de vous — passez nous voir au Centre Les Rivières, par les entrées 4 ou 5."
+    ]
+  },
+  "bookOnline": {
+    "intro": "Réservez votre rendez-vous chez Ongles Rivières, Centre Les Rivières. Choisissez votre service et réservez en quelques secondes — ou venez simplement sans rendez-vous.",
+    "steps": [
+      {
+        "title": "Choisissez votre service",
+        "body": "Pose d'ongles, remplissage, soins des mains ou des pieds — sélectionnez ce qui vous convient."
+      },
+      {
+        "title": "Réservez en quelques secondes",
+        "body": "Choisissez la plage horaire qui vous arrange et confirmez en ligne. Aucun dépôt requis."
+      },
+      {
+        "title": "Ou venez sans rendez-vous",
+        "body": "Les visites sans rendez-vous sont toujours les bienvenues au Centre Les Rivières, entrées 4 ou 5."
+      }
+    ]
+  },
+  "reviews": {
+    "ctaPrompt": "Prête à vivre l'expérience Ongles Rivières?"
+  },
+  "serviceDetails": {
+    "pose-ongles": {
+      "title": "Pose d'ongles chez Ongles Rivières, Québec",
+      "heroAlt": "Belle pose d'ongles complète chez Ongles Rivières, Centre Les Rivières",
+      "whyUs": "Les clientes au Centre Les Rivières font confiance à Ongles Rivières pour des résultats constants et de haute qualité. Les plus de 15 ans d'expérience de notre équipe font que vous repartirez avec des ongles exactement comme vous les aviez imaginés — et une expérience en salon qui place votre sécurité au premier plan.",
+      "hygiene": "Votre sécurité est notre priorité. Nous disposons de trois postes de désinfection dédiés, désinfectons chaque outil après utilisation et utilisons des capteurs de poussière à chaque poste de manucure — le standard d'hygiène derrière chaque service Ongles Rivières.",
+      "metaTitle": "Pose d'ongles chez Ongles Rivières | Centre Les Rivières, Québec",
+      "metaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles Rivières, Centre Les Rivières. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $."
+    },
+    "remplissage": {
+      "title": "Remplissage chez Ongles Rivières, Québec",
+      "heroAlt": "Remplissage d'ongles professionnel en cours chez Ongles Rivières, Centre Les Rivières",
+      "whyUs": "Les remplissages réguliers chez Ongles Rivières maintiennent la qualité et la longévité de votre pose. Nos plus de 15 ans d'expérience signifient que nous évaluerons vos ongles à chaque visite et recommanderons la meilleure approche pour les garder solides et beaux.",
+      "hygiene": "Chaque outil est désinfecté après chaque utilisation dans nos trois postes de désinfection dédiés. Votre sécurité passe en premier à chaque rendez-vous chez Ongles Rivières.",
+      "metaTitle": "Remplissage chez Ongles Rivières | Centre Les Rivières, Québec",
+      "metaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles Rivières, Centre Les Rivières. Gardez votre pose fraîche et solide. À partir de 45 $."
+    },
+    "soins-mains": {
+      "title": "Soins des mains chez Ongles Rivières, Québec",
+      "heroAlt": "Manucure professionnelle avec vernis chez Ongles Rivières, Centre Les Rivières",
+      "intro": [
+        "Une manucure classique chez Ongles Rivières est rigoureuse, précise et relaxante. Nous façonnons vos ongles, prenons soin de vos cuticules et terminons avec le vernis de votre choix — laissant vos mains propres, soignées et bien entretenues.",
+        "Que vous souhaitiez un simple changement de vernis ou un traitement complet des mains, notre équipe expérimentée prend le temps de bien faire les choses. Pas de précipitation, pas de raccourcis."
+      ],
+      "whyUs": "Avec plus de 15 ans d'expérience et un engagement inébranlable envers l'hygiène, Ongles Rivières offre des résultats de manucure sur lesquels vous pouvez compter. Nos outils assainis et notre technique soignée font de chaque visite une expérience aussi sécuritaire que belle.",
+      "metaTitle": "Soins des mains chez Ongles Rivières | Centre Les Rivières, Québec",
+      "metaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles Rivières, Centre Les Rivières, Québec. À partir de 30 $."
+    },
+    "soins-pieds": {
+      "title": "Soins des pieds chez Ongles Rivières, Québec",
+      "heroAlt": "Pédicure professionnelle dans un poste assaini chez Ongles Rivières, Centre Les Rivières",
+      "whyUs": "Les postes de pédicure assainis sont non négociables chez Ongles Rivières. Combinés à plus de 15 ans d'expérience et à des outils désinfectés après chaque utilisation, vous pouvez vous détendre en sachant que votre traitement est aussi hygiénique qu'agréable.",
+      "metaTitle": "Soins des pieds chez Ongles Rivières | Centre Les Rivières, Québec",
+      "metaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles Rivières, Centre Les Rivières, Québec. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $."
+    }
+  },
+  "serviceLabels": {
+    "why": "Pourquoi Ongles Rivières"
+  },
+  "faq": {
+    "intro": "Tout ce que vous devez savoir avant votre visite chez Ongles Rivières au Centre Les Rivières.",
+    "items": [
+      {
+        "q": "Où est situé Ongles Rivières?",
+        "a": "Nous sommes au Centre Les Rivières — 3333 rue du Carrefour, Entrées 4 ou 5, Trois-Rivières, QC G8Y 1W2. Le stationnement est disponible au centre commercial."
+      },
+      {
+        "q": "Quelles sont vos heures d'ouverture?",
+        "a": "Lundi–mercredi 9 h à 17 h 30, jeudi–vendredi 9 h à 21 h, samedi 9 h à 17 h, dimanche 10 h à 17 h."
+      },
+      {
+        "q": "Acceptez-vous les clients sans rendez-vous ou uniquement sur rendez-vous?",
+        "a": "Les deux. Nous accueillons les clients sans rendez-vous selon la disponibilité, et nous encourageons la réservation à l'avance pour garantir votre heure — surtout en soirée et les fins de semaine."
+      },
+      {
+        "q": "Comment prendre un rendez-vous?",
+        "a": "Réservez en ligne en tout temps via notre page Réserver en ligne, ou appelez-nous au (819) 378-8228. Les clients sans rendez-vous sont toujours bienvenus."
+      },
+      {
+        "q": "Quels services offrez-vous?",
+        "a": "Pose d'ongles (set complet), remplissage, soins des mains (manucure) et soins des pieds (pédicure). Consultez notre page Services pour les détails et les prix."
+      },
+      {
+        "q": "Comment gardez-vous les outils et les postes propres?",
+        "a": "L'hygiène est notre priorité absolue. Nous avons trois postes de désinfection dédiés, les outils sont désinfectés après chaque utilisation, les postes de pédicure sont assainis entre les clientes, et des capteurs de poussière sont installés à chaque poste de manucure."
+      },
+      {
+        "q": "Vendez-vous des certificats cadeaux?",
+        "a": "Oui — les certificats cadeaux sont disponibles en ligne via Square pour tout montant (livrés par courriel), ou vous pouvez en acheter un directement au salon."
+      },
+      {
+        "q": "Parlez-vous français et anglais?",
+        "a": "Oui. Notre équipe vous accueille en français comme en anglais."
+      },
+      {
+        "q": "À quelle fréquence dois-je faire un remplissage?",
+        "a": "En général toutes les 2 à 3 semaines, pour garder votre pose nette et solide."
+      },
+      {
+        "q": "Que se passe-t-il si je ne suis pas entièrement satisfaite?",
+        "a": "Dites-le-nous avant de partir — nous corrigerons avec plaisir tout détail qui ne vous convient pas."
+      },
+      {
+        "q": "Quels modes de paiement acceptez-vous?",
+        "a": "Nous acceptons tous les modes de paiement courants : argent comptant, carte de débit, principales cartes de crédit et paiements sans contact ou mobiles (Apple Pay, Google Pay)."
+      }
+    ]
+  },
+  "reviewsPage": {
+    "intro": "Lisez les témoignages des clientes qui nous font confiance chez Ongles Rivières."
+  },
+  "gallery": {
+    "photos": {
+      "nail-art-1": {
+        "alt": "Design de nail art peint à la main chez Ongles Rivières"
+      },
+      "nail-art-2": {
+        "alt": "Nail art élaboré avec motifs détaillés chez Ongles Rivières"
+      },
+      "nail-art-3": {
+        "alt": "Design tendance chez Ongles Rivières, Centre Les Rivières"
+      },
+      "nail-art-4": {
+        "alt": "Nail art créatif et ornements chez Ongles Rivières"
+      },
+      "gel-mani": {
+        "alt": "Manucure professionnelle chez Ongles Rivières"
+      },
+      "spa-pedi": {
+        "alt": "Résultat de pédicure chez Ongles Rivières, Centre Les Rivières"
+      }
+    }
+  },
+  "legal": {
+    "terms": {
+      "intro": [
+        "Chez Ongles Rivières, notre objectif est d'offrir à chaque cliente une expérience professionnelle, sécuritaire et de haute qualité. Pour que tout se déroule bien — et que chacune soit traitée équitablement — nous vous invitons à lire les politiques ci-dessous avant votre rendez-vous. En réservant avec nous, vous acceptez ces conditions.",
+        "Ces politiques s'appliquent à tous les services offerts chez Ongles Rivières, Centre Les Rivières, Québec."
+      ],
+      "sections": [
+        {
+          "heading": "1. Rendez-vous",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "La prise de rendez-vous est recommandée pour réserver l'heure et la technicienne de votre choix. Les clientes sans rendez-vous sont les bienvenues, selon la disponibilité.",
+              "items": []
+            },
+            {
+              "kind": "p",
+              "text": "Veuillez arriver 5 à 10 minutes avant l'heure de votre rendez-vous pour l'accueil.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "2. Annulations et absences",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Par respect pour notre équipe et nos autres clientes, nous demandons un préavis d'au moins 24 heures pour toute annulation ou modification de rendez-vous.",
+              "items": []
+            },
+            {
+              "kind": "p",
+              "text": "Les annulations tardives ou les absences sans préavis peuvent entraîner des frais, et certaines réservations peuvent nécessiter un dépôt au moment de la réservation. Ces frais vous sont communiqués au moment de la réservation.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "3. Prix et paiements",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Les prix sont indiqués en dollars canadiens et sont sujets aux taxes applicables. Le prix final peut varier selon la longueur, la complexité du design et les ajouts; tout supplément vous est communiqué avant le début du service.",
+              "items": []
+            },
+            {
+              "kind": "p",
+              "text": "Nous acceptons l'argent comptant, le débit et les principales cartes de crédit. Les pourboires sont appréciés mais jamais obligatoires.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "4. Certificats cadeaux",
+          "blocks": [
+            {
+              "kind": "ul",
+              "text": "",
+              "items": [
+                "Les certificats cadeaux peuvent être achetés en ligne via Square pour tout montant et livrés par courriel, ou achetés directement au salon.",
+                "Les cartes-cadeaux sont non monnayables et non remboursables.",
+                "Nous ne pouvons remplacer une carte-cadeau perdue ou volée."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "5. Garantie de satisfaction",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Votre satisfaction nous tient à cœur. Veuillez vérifier le résultat avant de partir afin que toute préoccupation puisse être adressée immédiatement. Si vous constatez un problème technique avec votre service après votre départ, contactez-nous dans les 7 jours afin que nous puissions évaluer la situation et, le cas échéant, effectuer une correction gratuite pour la même forme, longueur et design.",
+              "items": []
+            },
+            {
+              "kind": "p",
+              "text": "Les changements de préférence, l'usure normale et les dommages causés par la vie quotidienne ou les soins à domicile ne sont pas couverts.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "6. Santé, sécurité et hygiène",
+          "blocks": [
+            {
+              "kind": "ul",
+              "text": "",
+              "items": [
+                "Trois postes de désinfection dédiés sont en opération en tout temps.",
+                "Tous les outils sont désinfectés après chaque cliente.",
+                "Les postes de pédicure sont assainis entre chaque rendez-vous.",
+                "Des capteurs de poussière sont installés à chaque poste de manucure."
+              ]
+            },
+            {
+              "kind": "p",
+              "text": "Veuillez reporter votre rendez-vous si vous êtes souffrante, et informez-nous de toute condition médicale, allergie ou sensibilité afin que nous puissions adapter le service en toute sécurité.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "Acceptation",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "En réservant et en recevant des services chez Ongles Rivières, vous reconnaissez avoir lu et accepté ces politiques. Nous vous remercions de nous avoir choisis et nous nous réjouissons de prendre soin de vous.",
+              "items": []
+            }
+          ]
+        }
+      ],
+      "updated": "Dernière mise à jour : 22 mai 2026 — Ongles Rivières · Centre Les Rivières, Québec, Canada"
+    },
+    "privacy": {
+      "intro": [
+        "Cette politique de confidentialité explique comment Ongles Rivières collecte, utilise et protège vos renseignements personnels lorsque vous visitez notre site Web, réservez un rendez-vous ou bénéficiez de nos services.",
+        "En utilisant notre site Web ou nos services, vous acceptez les pratiques décrites dans cette politique."
+      ],
+      "sections": [
+        {
+          "heading": "1. Renseignements que nous collectons",
+          "blocks": [
+            {
+              "kind": "ul",
+              "text": "",
+              "items": [
+                "Coordonnées que vous fournissez lors d'une réservation ou d'un message (nom, téléphone, courriel).",
+                "Détails du rendez-vous : services réservés, date, heure et historique des services.",
+                "Abonnements à l'infolettre : votre adresse courriel, si vous choisissez de vous abonner.",
+                "Données techniques limitées (type d'appareil, pages consultées) pour exploiter et améliorer le site."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "2. Comment nous utilisons vos renseignements",
+          "blocks": [
+            {
+              "kind": "ul",
+              "text": "",
+              "items": [
+                "Planifier, confirmer et gérer vos rendez-vous;",
+                "Répondre aux demandes envoyées via notre formulaire de contact;",
+                "Envoyer des offres et des mises à jour si vous vous abonnez à notre infolettre;",
+                "Respecter nos obligations légales et comptables en vertu des lois applicables du Québec et du Canada."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "3. Partage avec des tiers",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Nous ne vendons pas vos renseignements personnels et ne les partageons pas à des fins de marketing sans votre consentement. Nous partageons des informations avec des fournisseurs de services (par exemple, notre plateforme de réservation et de paiement en ligne) uniquement dans la mesure nécessaire à la prestation de leurs services.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "4. Vos choix",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Vous pouvez vous désabonner de notre infolettre en tout temps, et vous pouvez demander l'accès à vos renseignements ou leur correction en nous contactant à info@onglesrivieres.com.",
+              "items": []
+            }
+          ]
+        },
+        {
+          "heading": "5. Sécurité",
+          "blocks": [
+            {
+              "kind": "p",
+              "text": "Nous utilisons des mesures techniques et organisationnelles raisonnables pour protéger vos renseignements contre tout accès, utilisation ou divulgation non autorisés.",
+              "items": []
+            }
+          ]
+        }
+      ],
+      "updated": "Dernière mise à jour : 22 mai 2026 — Ongles Rivières · Centre Les Rivières, Québec, Canada"
+    }
+  }
+}
