@@ -14,7 +14,7 @@ Commits (branch `worktree-multi-location-architecture`):
 - `e6aebaa` P3.2/3.3 dictionary split · `e5ef2c3` P3.4 sibling content · `2d8c1f3` P3.5 services
 - `4cac851` P3.6 admin tenant_id · `df698e7` P4 storeId + cross-promo · `c847988` P5 Docker/CI/docs
 
-Verified: lint + `bun test` + builds green for maily-beauport, ongles-charlesbourg,
+Verified: lint + `bun test` + builds green for ongles-maily, ongles-charlesbourg,
 ongles-rivieres; per-tenant title/robots/sitemap/JSON-LD host; dictionary merge lossless
 + locale parity. SEO (4.1/4.2) was already per-tenant via the P1 resolver — no change needed.
 
@@ -41,10 +41,10 @@ Blast radius (gitnexus): `src/lib/site.ts` 17 importers, `dictionaries.ts` 8,
 
 - [x] **1.1** Create `src/config/types.ts` — `Location`/`DayHours` moved here; added
   `TenantSite` + `TenantConfig` structural types.
-- [x] **1.2** Create `src/config/tenants/maily-beauport/{site,location,index}.ts` — verbatim
+- [x] **1.2** Create `src/config/tenants/ongles-maily/{site,location,index}.ts` — verbatim
   current values, `site` kept `as const` to preserve literal types.
 - [x] **1.3** Create `src/config/index.ts` — registry + `process.env.TENANT` resolver
-  (defaults maily-beauport) + fail-loud guard on unknown tenant.
+  (defaults ongles-maily) + fail-loud guard on unknown tenant.
 - [x] **1.4** `src/lib/{site,locations}.ts` → thin re-exports from `@/config`; helpers +
   type re-exports retained. 20 importers unchanged.
 - [x] **1.5 GATE:** `bun run lint` clean; `bun run build` green; route manifest identical to
@@ -58,7 +58,7 @@ Blast radius (gitnexus): `src/lib/site.ts` 17 importers, `dictionaries.ts` 8,
 - [~] **2.3** Quebec City SKIPPED as a tenant (no domain/NAP → not buildable). Stays the
   coming-soon cross-promo card via `salons.ts`; wire in Phase 4.3.
 - [x] **2.4** Registered both in `src/config/index.ts` (+ `TenantId` union + fail-loud guard).
-- [x] **2.5 GATE:** all 3 builds green (`maily-beauport`, `ongles-charlesbourg`,
+- [x] **2.5 GATE:** all 3 builds green (`ongles-maily`, `ongles-charlesbourg`,
   `ongles-rivieres`); each renders own brand. Committed `1a03913`.
   ⚠️ TODO confirm per sibling (flagged `// TODO` in code): real geo coords, Google Maps
   CID, gift-cert URL, contact email.
@@ -67,7 +67,7 @@ Blast radius (gitnexus): `src/lib/site.ts` 17 importers, `dictionaries.ts` 8,
 
 - [x] **3.1** DONE (commit ff8af11) — `src/config/deep-merge.ts` + 5 bun tests, build green.
 - [ ] **3.2** ⏭️ NEXT. Split `src/dictionaries/{fr,en}.json` → `src/config/base/content.<locale>.json`
-  (shared UI: nav, cta, generic chrome) + `tenants/maily-beauport/content.<locale>.json`
+  (shared UI: nav, cta, generic chrome) + `tenants/ongles-maily/content.<locale>.json`
   (meta.* titles/descriptions, location landing copy). Keys partitioned, no value changes.
 - [ ] **3.3** Rewire `src/app/[lang]/dictionaries.ts` `getDictionary(locale)` to
   `deepMerge(base[locale], tenant.content[locale])`. 8 importers unchanged (same return shape).
@@ -76,7 +76,7 @@ Blast radius (gitnexus): `src/lib/site.ts` 17 importers, `dictionaries.ts` 8,
 - [ ] **3.5** Move services+pricing into `tenants/<id>/services.ts`; update
   `generateStaticParams()` for `/[lang]/services/[slug]` to read active tenant services.
 - [ ] **3.6** Admin isolation: add `tenant_id` column to popup/newsletter Supabase tables
-  (migration), default backfill `'maily-beauport'`; filter all reads/writes in
+  (migration), default backfill `'ongles-maily'`; filter all reads/writes in
   `src/app/api/popups/*` + newsletter route by `tenant.id`. Server-side only.
 - [ ] **3.7 GATE:** per-tenant build shows unique meta + own service catalog; locale-parity
   check (`fr` keys == `en` keys) passes for every tenant content pair. API rows scoped by tenant.
@@ -101,7 +101,7 @@ Blast radius (gitnexus): `src/lib/site.ts` 17 importers, `dictionaries.ts` 8,
 
 - [ ] **5.1** `Dockerfile`: `ARG TENANT` + `ENV TENANT=$TENANT`, threaded into build stage.
 - [ ] **5.2** Add CI workflow `.github/workflows/deploy.yml` (or document infra) — matrix
-  `[maily-beauport, ongles-charlesbourg, ongles-rivieres]` → 4 images → 4 domains. One merge
+  `[ongles-maily, ongles-charlesbourg, ongles-rivieres]` → 4 images → 4 domains. One merge
   to `main` rebuilds all live tenants.
 - [ ] **5.3** Update `env.example` + `README.md`: `TENANT` var, per-tenant deploy, domain map.
 - [ ] **5.4 GATE:** `docker build --build-arg TENANT=ongles-charlesbourg .` produces a
@@ -112,7 +112,7 @@ Blast radius (gitnexus): `src/lib/site.ts` 17 importers, `dictionaries.ts` 8,
 
 ### Verification (end-to-end, from spec)
 
-1. `TENANT=ongles-charlesbourg bun run build` vs `TENANT=maily-beauport bun run build` —
+1. `TENANT=ongles-charlesbourg bun run build` vs `TENANT=ongles-maily bun run build` —
    brand/NAP/title/JSON-LD `@id` differ, no cross-leak.
 2. Per build: `sitemap.xml`, `robots.txt`, root `<title>`, single `NailSalon` node → own host.
 3. Chrome DevTools render each build: metadata + one LocalBusiness per host; widget storeId correct.

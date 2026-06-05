@@ -11,8 +11,8 @@ import { deepMerge } from "@/config/deep-merge";
 // within each tenant override — see AGENTS.md.
 import baseFr from "@/config/base/content.fr.json";
 import baseEn from "@/config/base/content.en.json";
-import mailyFr from "@/config/tenants/maily-beauport/content.fr.json";
-import mailyEn from "@/config/tenants/maily-beauport/content.en.json";
+import mailyFr from "@/config/tenants/ongles-maily/content.fr.json";
+import mailyEn from "@/config/tenants/ongles-maily/content.en.json";
 import charlesbourgFr from "@/config/tenants/ongles-charlesbourg/content.fr.json";
 import charlesbourgEn from "@/config/tenants/ongles-charlesbourg/content.en.json";
 import rivieresFr from "@/config/tenants/ongles-rivieres/content.fr.json";
@@ -24,7 +24,7 @@ const base: Record<Locale, Content> = { fr: baseFr, en: baseEn };
 
 // Per-tenant content overrides. Each tenant supplies its own SEO meta + brand copy.
 const overrides: Record<string, Record<Locale, Content>> = {
-  "maily-beauport": { fr: mailyFr, en: mailyEn },
+  "ongles-maily": { fr: mailyFr, en: mailyEn },
   "ongles-charlesbourg": { fr: charlesbourgFr, en: charlesbourgEn },
   "ongles-rivieres": { fr: rivieresFr, en: rivieresEn },
 };

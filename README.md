@@ -26,7 +26,7 @@ tenant is chosen at **build time** via `process.env.TENANT`; each domain is its 
 static build, so shared code/design changes propagate to all sites on rebuild while
 each keeps its own brand, NAP, services, SEO copy and Schema.org data.
 
-- **Tenants:** `maily-beauport` (default), `ongles-charlesbourg`, `ongles-rivieres`.
+- **Tenants:** `ongles-maily` (default), `ongles-charlesbourg`, `ongles-rivieres`.
   (Quebec City is a coming-soon cross-promo card, not yet a buildable tenant.)
 - **Config:** `src/config/` — `tenants/<id>/{site,location,services}.ts` +
   `content.<locale>.json` (per-tenant override); `base/content.<locale>.json` is the

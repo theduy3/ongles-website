@@ -1,10 +1,10 @@
-// maily-beauport tenant config — the primary Ongles Maily site (default tenant).
+// ongles-maily tenant config — the primary Ongles Maily site (default tenant).
 import { site } from "./site";
 import { location } from "./location";
 import { services } from "./services";
 
 export const mailyBeauport = {
-  id: "maily-beauport",
+  id: "ongles-maily",
   site,
   location,
   services,

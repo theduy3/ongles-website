@@ -1,4 +1,4 @@
-// maily-beauport services + pricing. Verbatim from the legacy src/lib/services.ts.
+// ongles-maily services + pricing. Verbatim from the legacy src/lib/services.ts.
 import type { Service } from "@/config/types";
 
 export const services: readonly Service[] = [

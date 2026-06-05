@@ -50,7 +50,7 @@ export type Location = {
 
 // Structural shape of a tenant's locale-invariant brand facts. Mirrors the legacy
 // `site` object. Sibling tenants (Phase 2+) annotate their config with this; the
-// primary maily-beauport tenant keeps an `as const` literal to preserve the narrow
+// primary ongles-maily tenant keeps an `as const` literal to preserve the narrow
 // literal types its consumers rely on (nav keys, route strings, brand name).
 export type TenantSite = {
   name: string;

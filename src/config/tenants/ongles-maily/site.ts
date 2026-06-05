@@ -1,4 +1,4 @@
-// maily-beauport tenant — brand + primary-location facts for Ongles Maily
+// ongles-maily tenant — brand + primary-location facts for Ongles Maily
 // (Carrefour Beauport, Québec City). Values copied verbatim from the legacy
 // src/lib/site.ts. Kept as an `as const` literal so consumers retain the narrow
 // literal types they depend on (nav keys, route strings, brand name).

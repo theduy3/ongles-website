@@ -1,5 +1,5 @@
 // ongles-charlesbourg physical location — Carrefour Charlesbourg. hours[] uses the
-// French display labels (matching the maily-beauport convention); hoursSpec is the
+// French display labels (matching the ongles-maily convention); hoursSpec is the
 // schema.org 24h form.
 import type { Location } from "@/config/types";
 

@@ -19,7 +19,7 @@ jobs:
       matrix:
         # Add a tenant here (and a domain mapping) when it goes live. Quebec City
         # joins once it has a domain + confirmed NAP.
-        tenant: [maily-beauport, ongles-charlesbourg, ongles-rivieres]
+        tenant: [ongles-maily, ongles-charlesbourg, ongles-rivieres]
     steps:
       - uses: actions/checkout@v4
 

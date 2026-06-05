@@ -1,17 +1,17 @@
 -- Multi-tenant isolation: stamp popups and newsletter subscribers with the owning
 -- tenant so the shared Supabase project keeps each branded site's data separate.
--- Existing rows belong to the original site, so they backfill to 'maily-beauport'.
+-- Existing rows belong to the original site, so they backfill to 'ongles-maily'.
 
 -- popups -------------------------------------------------------------------
 alter table public.popups
-  add column if not exists tenant_id text not null default 'maily-beauport';
+  add column if not exists tenant_id text not null default 'ongles-maily';
 
 create index if not exists popups_tenant_id_idx
   on public.popups (tenant_id);
 
 -- newsletter_subscribers ---------------------------------------------------
 alter table public.newsletter_subscribers
-  add column if not exists tenant_id text not null default 'maily-beauport';
+  add column if not exists tenant_id text not null default 'ongles-maily';
 
 -- The same email may now subscribe to more than one tenant, so uniqueness is the
 -- (email, tenant_id) pair rather than email alone. Drop the old single-column

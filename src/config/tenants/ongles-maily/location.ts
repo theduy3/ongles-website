@@ -1,4 +1,4 @@
-// maily-beauport physical location — Carrefour Beauport. Copied verbatim from the
+// ongles-maily physical location — Carrefour Beauport. Copied verbatim from the
 // legacy src/lib/locations.ts single entry. Display copy lives in dict.locations.
 import type { Location } from "@/config/types";
 

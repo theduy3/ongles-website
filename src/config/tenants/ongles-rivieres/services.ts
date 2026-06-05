@@ -1,5 +1,5 @@
 // ongles-rivieres services + pricing.
-// TODO: confirm Rivières-specific pricing (currently mirrors maily-beauport).
+// TODO: confirm Rivières-specific pricing (currently mirrors ongles-maily).
 import type { Service } from "@/config/types";
 
 export const services: readonly Service[] = [

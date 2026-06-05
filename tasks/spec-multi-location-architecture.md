@@ -57,7 +57,7 @@ src/config/
     content.fr.json        // shared UI strings (propagate)
     content.en.json
   tenants/
-    maily-beauport/        // current live site, values = today's site.ts/locations.ts exactly
+    ongles-maily/        // current live site, values = today's site.ts/locations.ts exactly
       site.ts              // brand, url, contact, booker, storeId, googleCid, theme, social
       location.ts          // single physical Location (NAP/hours/geo/hoursSpec)
       services.ts          // services + pricing
@@ -74,17 +74,17 @@ src/config/
 type safety; no dynamic runtime branching):
 
 ```ts
-import { mailyBeauport } from "./tenants/maily-beauport";
+import { mailyBeauport } from "./tenants/ongles-maily";
 import { onglesCharlesbourg } from "./tenants/ongles-charlesbourg";
 import { onglesRivieres } from "./tenants/ongles-rivieres";
 
 const registry = {
-  "maily-beauport": mailyBeauport,
+  "ongles-maily": mailyBeauport,
   "ongles-charlesbourg": onglesCharlesbourg,
   "ongles-rivieres": onglesRivieres,
 } as const;
 
-export const tenant = registry[process.env.TENANT ?? "maily-beauport"];
+export const tenant = registry[process.env.TENANT ?? "ongles-maily"];
 export const site = tenant.site;            // same shape as today's site.ts
 export const locations = [tenant.location];  // keep array shape for existing consumers
 ```
@@ -131,7 +131,7 @@ mild link equity, good UX). Quebec City shows as coming-soon until its domain is
 ### 6. Build + deploy
 
 - `Dockerfile`: add `ARG TENANT` + `ENV TENANT=$TENANT`; pass through to build.
-- CI matrix `[maily-beauport, ongles-charlesbourg, ongles-rivieres]` → 4 images →
+- CI matrix `[ongles-maily, ongles-charlesbourg, ongles-rivieres]` → 4 images →
   4 domains (DNS A/CNAME per domain → its container/host).
 - One merge to `main` → matrix rebuilds all live tenants → shared change propagates.
 - Quebec City joins the matrix when its domain + data are ready.
@@ -139,7 +139,7 @@ mild link equity, good UX). Quebec City shows as coming-soon until its domain is
 ## Migration path (incremental, keep the live site green at every step)
 
 - **Phase 1 — extract, no behavior change.** Create `src/config` with a single
-  tenant `maily-beauport` holding today's exact `site.ts` + `locations.ts` values.
+  tenant `ongles-maily` holding today's exact `site.ts` + `locations.ts` values.
   Make `@/lib/site` / `@/lib/locations` re-export from `@/config`. Verify build
   output is byte-identical to current. *(small)*
 - **Phase 2 — resolver + 2nd/3rd tenants.** Add `process.env.TENANT` resolver +
@@ -171,7 +171,7 @@ mild link equity, good UX). Quebec City shows as coming-soon until its domain is
 ## Verification
 
 1. `TENANT=ongles-charlesbourg bun run build` → static HTML shows Charlesbourg
-   brand, NAP, `<title>`, JSON-LD `@id`; `TENANT=maily-beauport bun run build` →
+   brand, NAP, `<title>`, JSON-LD `@id`; `TENANT=ongles-maily bun run build` →
    Beauport values. Confirm no leakage between builds.
 2. Per build, inspect `sitemap.xml`, `robots.txt`, root `<title>`, and the single
    `NailSalon` JSON-LD node — all reference that tenant's host only.

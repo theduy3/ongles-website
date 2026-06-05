@@ -1,5 +1,5 @@
 // ongles-charlesbourg services + pricing.
-// TODO: confirm Charlesbourg-specific pricing (currently mirrors maily-beauport).
+// TODO: confirm Charlesbourg-specific pricing (currently mirrors ongles-maily).
 import type { Service } from "@/config/types";
 
 export const services: readonly Service[] = [
