@@ -19,6 +19,36 @@ bun install
 bun run dev                 # http://localhost:3000
 ```
 
+## Multi-tenant (one repo, N branded sites)
+
+This codebase serves several branded salons from a single source tree. The active
+tenant is chosen at **build time** via `process.env.TENANT`; each domain is its own
+static build, so shared code/design changes propagate to all sites on rebuild while
+each keeps its own brand, NAP, services, SEO copy and Schema.org data.
+
+- **Tenants:** `maily-beauport` (default), `ongles-charlesbourg`, `ongles-rivieres`.
+  (Quebec City is a coming-soon cross-promo card, not yet a buildable tenant.)
+- **Config:** `src/config/` — `tenants/<id>/{site,location,services}.ts` +
+  `content.<locale>.json` (per-tenant override); `base/content.<locale>.json` is the
+  shared dictionary. `src/config/index.ts` resolves `TENANT` and exports `site`,
+  `locations`, `services`, `tenant`. `src/lib/{site,locations,services}.ts` re-export
+  these for backward compatibility.
+
+```bash
+# Build/preview a specific tenant locally:
+TENANT=ongles-charlesbourg bun run build
+# Per-tenant Docker image:
+docker build --build-arg TENANT=ongles-charlesbourg -t maily-website:ongles-charlesbourg .
+```
+
+CI builds every tenant on push to `main` (`.github/workflows/deploy.yml`). Map each
+image to its domain in your host (DNS A/CNAME per domain). Adding a tenant: create
+`src/config/tenants/<id>/`, register it in `src/config/index.ts`, add it to the CI
+matrix and the dictionary override map in `src/app/[lang]/dictionaries.ts`.
+
+> Note: this README's heading/intro still reflect an older template and are unrelated
+> to the multi-tenant setup above.
+
 ## Scripts
 
 | Command | Purpose |

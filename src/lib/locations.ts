@@ -1,68 +1,13 @@
-// Location registry — Ongles Maily operates one salon at Carrefour Beauport,
-// Québec City. Display copy (section headings, labels) lives in dict.locations.
+// Location registry + map/booking helpers. The location DATA now lives in
+// per-tenant config (src/config/tenants/<id>/location.ts) and is re-exported here
+// under the stable "@/lib/locations" import path. The Location/DayHours TYPES live
+// in src/config/types.ts; the helper functions below stay here (logic, not data).
 
-import { site } from "./site";
+import { site, locations } from "@/config";
+import type { DayHours, Location } from "@/config/types";
 
-export type DayHours = { label: string; value: string };
-
-export type Location = {
-  id: string;
-  name: string;
-  slug: string;
-  landmark?: string;
-  address: {
-    line1: string;
-    line2: string;
-    street: string;
-    city: string;
-    region: string;
-    postalCode: string;
-    country: string;
-  };
-  phone: string;
-  phoneHref: string;
-  // Human-readable hours rows for the location card.
-  hours: DayHours[];
-  // schema.org OpeningHoursSpecification blocks (two-letter day codes, 24h).
-  hoursSpec: { days: string[]; opens: string; closes: string }[];
-  geo: { lat: number; lng: number };
-  // Booker location slug → service-menu booking URL.
-  bookerSlug: string;
-};
-
-export const locations: readonly Location[] = [
-  {
-    id: "carrefour-beauport",
-    name: "Carrefour Beauport",
-    slug: "carrefour-beauport",
-    landmark: "Carrefour Beauport — Entrées 4 ou 5",
-    address: {
-      line1: "3333 Rue du Carrefour",
-      line2: "Québec, QC G1C 5R9",
-      street: "3333 Rue du Carrefour",
-      city: "Québec",
-      region: "QC",
-      postalCode: "G1C 5R9",
-      country: "CA",
-    },
-    phone: "(418) 660-8228",
-    phoneHref: "tel:+14186608228",
-    hours: [
-      { label: "Lun – Mer", value: "9 h 00 – 17 h 30" },
-      { label: "Jeu – Ven", value: "9 h 00 – 21 h 00" },
-      { label: "Sam", value: "9 h 00 – 17 h 00" },
-      { label: "Dim", value: "10 h 00 – 17 h 00" },
-    ],
-    hoursSpec: [
-      { days: ["Mo", "Tu", "We"], opens: "09:00", closes: "17:30" },
-      { days: ["Th", "Fr"], opens: "09:00", closes: "21:00" },
-      { days: ["Sa"], opens: "09:00", closes: "17:00" },
-      { days: ["Su"], opens: "10:00", closes: "17:00" },
-    ],
-    geo: { lat: 46.8606, lng: -71.1947 },
-    bookerSlug: "",
-  },
-];
+export type { DayHours, Location };
+export { locations };
 
 /** Per-location Booker service-menu URL — the location's "Book Now" target. */
 export function bookerServiceMenu(_loc: Location): string {

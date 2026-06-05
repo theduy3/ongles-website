@@ -9,6 +9,7 @@ import {
 } from "@/lib/locations";
 import { sisterSalons } from "@/lib/salons";
 import { site } from "@/lib/site";
+import { tenant } from "@/config";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 
@@ -170,7 +171,20 @@ export function buildSalonCards(
     labels,
   }));
 
-  const sisters: SalonCardProps[] = sisterSalons.map((s) => {
+  // Cross-promo lists the OTHER salons — never the active tenant itself. Map the
+  // active tenant id to its sister-salon id (maily-beauport has no sister entry, so
+  // nothing is excluded on the Maily site).
+  // TODO: when sibling domains go live, also surface Ongles Maily as a cross-promo
+  // candidate (sisterSalons has no Maily entry today).
+  const selfSisterId: Record<string, string> = {
+    "ongles-charlesbourg": "charlesbourg",
+    "ongles-rivieres": "rivieres",
+  };
+  const excludeId = selfSisterId[tenant.id];
+
+  const sisters: SalonCardProps[] = sisterSalons
+    .filter((s) => s.id !== excludeId)
+    .map((s) => {
     const name = s.brandByLocale?.[lang] ?? s.brand;
     return {
       name,

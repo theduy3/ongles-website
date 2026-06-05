@@ -1,0 +1,449 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "services": "Services",
+    "gallery": "Galerie",
+    "reviews": "Avis",
+    "locations": "Notre adresse",
+    "about": "À propos",
+    "giftcards": "Certificats cadeaux",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions générales",
+    "bookOnline": "Réserver"
+  },
+  "cta": {
+    "book": "Réserver en ligne",
+    "callNow": "Appeler pour réserver",
+    "learnMore": "En savoir plus",
+    "services": "Voir tous les services",
+    "viewServices": "Voir les services",
+    "send": "Envoyer",
+    "sending": "Envoi en cours…",
+    "bookNow": "Réservez dès maintenant!",
+    "buyGiftCard": "Acheter un certificat cadeau",
+    "seeMore": "Voir plus de designs",
+    "getDirections": "Obtenir l'itinéraire",
+    "join": "S'abonner"
+  },
+  "hero": {
+    "taglineLead": "Des soins d'ongles professionnels, faits pour",
+    "taglineEmphasis": "Vous",
+    "description": "Services d'ongles experts dans une ambiance chaleureuse et familiale, dans 4 salons. Hygiène irréprochable et plus de 15 ans d'expérience.",
+    "badges": [
+      {
+        "value": "15+",
+        "label": "Ans d'expérience"
+      },
+      {
+        "value": "4",
+        "label": "Emplacements"
+      },
+      {
+        "value": "Sans RDV",
+        "label": "Bienvenu"
+      }
+    ],
+    "stats": [
+      {
+        "value": "15+",
+        "label": "Ans d'expérience"
+      },
+      {
+        "value": "7/7",
+        "label": "Ouvert tous les jours"
+      }
+    ]
+  },
+  "home": {
+    "servicesEyebrow": "Nos services",
+    "servicesHeading": "De beaux ongles, à chaque visite",
+    "servicesIntro": "De la manucure naturelle à la pose complète, notre équipe expérimentée livre des résultats soignés et précis avec une hygiène exceptionnelle à chaque rendez-vous.",
+    "serviceCards": [
+      {
+        "title": "Pose d'ongles",
+        "price": "à partir de 60 $",
+        "body": "Pose complète avec ou sans rallonges. Formes, longueurs et nail art sur mesure disponibles."
+      },
+      {
+        "title": "Remplissage",
+        "price": "à partir de 45 $",
+        "body": "Entretenez votre pose avec un remplissage professionnel toutes les 2 à 3 semaines pour un look frais et impeccable."
+      },
+      {
+        "title": "Soins des mains",
+        "price": "à partir de 30 $",
+        "body": "Soin des mains avec traitement des cuticules, mise en forme et vernis au choix. Élégance classique à chaque visite."
+      },
+      {
+        "title": "Soins des pieds",
+        "price": "à partir de 35 $",
+        "body": "Soin des pieds dans nos postes de pédicure assainis — mise en forme des ongles, soin des cuticules et résultats impeccables."
+      }
+    ],
+    "galleryEyebrow": "Notre travail",
+    "galleryHeading": "Galerie de nail art",
+    "galleryIntro": "Un aperçu de nos derniers designs, des tendances actuelles et des transformations de nos clientes.",
+    "bookingHeading": "Prête pour votre prochain rendez-vous?",
+    "locationsEyebrow": "Nous rendre visite",
+    "locationsHeading": "Nous trouver"
+  },
+  "whyChooseUs": {
+    "heading": "POURQUOI NOUS?",
+    "intro": "Parce que nous prenons votre sécurité et votre hygiène comme notre priorité, tout en offrant des services professionnels et exceptionnels."
+  },
+  "giftCards": {
+    "eyebrow": "Certificats cadeaux",
+    "heading": "Le plaisir d'offrir — certificats cadeaux",
+    "note": "Les cartes-cadeaux sont non monnayables et non remboursables. • En ligne via Square ou sur place",
+    "designs": [
+      {
+        "title": "Joyeuses Fêtes"
+      },
+      {
+        "title": "Pour Maman"
+      },
+      {
+        "title": "Joyeux Anniversaire"
+      },
+      {
+        "title": "Certificat Cadeau"
+      }
+    ]
+  },
+  "locations": {
+    "eyebrow": "Nous rendre visite",
+    "heading": "Nous trouver",
+    "labelHours": "Heures",
+    "labelPhone": "Téléphone",
+    "labelAddress": "Adresse",
+    "bookNow": "Réservez dès maintenant!",
+    "getDirections": "Obtenir l'itinéraire",
+    "viewAll": "Voir l'adresse",
+    "hours": [
+      {
+        "label": "Lun – Mer",
+        "value": "9 h 00 – 17 h 30"
+      },
+      {
+        "label": "Jeu – Ven",
+        "value": "9 h 00 – 21 h 00"
+      },
+      {
+        "label": "Sam",
+        "value": "9 h 00 – 17 h 00"
+      },
+      {
+        "label": "Dim",
+        "value": "10 h 00 – 17 h 00"
+      }
+    ],
+    "visit": {
+      "heading": "Venir nous voir",
+      "gettingHereTitle": "Comment nous trouver",
+      "walkinTitle": "Sans rendez-vous ou sur réservation",
+      "walkin": "Pas de rendez-vous? Aucun problème. Les visites sans rendez-vous sont toujours les bienvenues et aucun dépôt n'est exigé. Vous préférez planifier? Réservez en ligne pour choisir votre plage horaire à l'avance.",
+      "expectTitle": "À votre arrivée",
+      "expect": "On vous accueille, on discute du service souhaité, puis on vous installe à un poste propre et assaini. Vous profitez d'un soin attentionné, sans précipitation, réalisé par une équipe expérimentée."
+    },
+    "comingSoon": "Bientôt",
+    "salonsHeading": "Nos salons"
+  },
+  "newsletter": {
+    "heading": "Restez en contact",
+    "description": "Recevez des offres exclusives, des designs de saison et des conseils beauté directement dans votre boîte courriel.",
+    "placeholder": "Votre adresse courriel",
+    "button": "S'abonner",
+    "success": "Merci — vous êtes sur la liste!",
+    "error": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "services": [
+    {
+      "title": "Pose d'ongles",
+      "body": "Pose complète avec ou sans rallonges. Formes, longueurs, nail art et ajouts sur mesure disponibles."
+    },
+    {
+      "title": "Remplissage",
+      "body": "Remplissage d'entretien pour votre pose d'ongles. Recommandé toutes les 2 à 3 semaines pour garder vos ongles impeccables."
+    },
+    {
+      "title": "Soins des mains",
+      "body": "Soin des mains avec traitement des cuticules, mise en forme des ongles et vernis au choix. Changement de vernis également disponible."
+    },
+    {
+      "title": "Soins des pieds",
+      "body": "Soin des pieds dans nos postes de pédicure assainis avec mise en forme des ongles d'orteils, soin des cuticules et résultats impeccables."
+    }
+  ],
+  "servicesPage": {
+    "heading": "Nos services",
+    "intro": "De la manucure naturelle à la pose complète, notre équipe expérimentée livre des résultats soignés et précis avec une hygiène exceptionnelle à chaque rendez-vous.",
+    "lead": "Chaque service est réalisé par une équipe expérimentée, avec des outils désinfectés et des postes assainis. Les prix indiqués sont des prix de départ — le total dépend de la longueur, de la forme et du nail art choisis.",
+    "hygieneTitle": "L'hygiène, à chaque étape",
+    "hygieneBody": "Trois postes de désinfection dédiés, des outils stérilisés après chaque cliente et des capteurs de poussière à chaque poste de manucure. Votre sécurité passe avant tout.",
+    "ctaLead": "Prête à prendre soin de vous?"
+  },
+  "bookOnline": {
+    "heading": "Réserver en ligne",
+    "helpBefore": "Vous préférez nous parler? Appelez-nous au ",
+    "helpAfter": " — nous serons heureux de vous aider.",
+    "howTitle": "Comment réserver",
+    "note": "Aucun dépôt n'est exigé, avec ou sans rendez-vous. Si vos plans changent, prévenez-nous au moins 24 heures à l'avance afin de libérer votre plage pour une autre cliente. Un retard de plus de 15 minutes peut écourter votre service — arrivez idéalement 5 à 10 minutes avant votre rendez-vous."
+  },
+  "reviews": {
+    "eyebrow": "L'amour de nos clientes",
+    "headlineLead": "Ne nous croyez pas sur parole —",
+    "headlineMain": "Ce que disent nos clientes",
+    "basedOn": "d'après",
+    "reviewsWord": "avis Google",
+    "bookOnline": "Réserver en ligne",
+    "placeholders": [
+      {
+        "author": "Sarah M.",
+        "rating": 5,
+        "status": "Cliente régulière",
+        "quote": "Le meilleur salon d'ongles où je suis allée — impeccable, professionnel, et les résultats sont toujours magnifiques."
+      },
+      {
+        "author": "Michelle W.",
+        "rating": 5,
+        "status": "Membre fidèle",
+        "quote": "Ma manucure gel tient parfaitement trois semaines à chaque fois. Je ne vais nulle part ailleurs."
+      },
+      {
+        "author": "Amanda K.",
+        "rating": 5,
+        "status": "Cliente vérifiée",
+        "quote": "J'adore l'espace, l'emplacement et l'équipe. Les techniciennes sont minutieuses et prennent vraiment soin de leur travail."
+      },
+      {
+        "author": "Jessica T.",
+        "rating": 5,
+        "status": "Cliente régulière",
+        "quote": "Des ongles magnifiques et une atmosphère tellement relaxante. C'est une petite escapade de luxe à chaque visite."
+      },
+      {
+        "author": "Priya S.",
+        "rating": 4,
+        "status": "Nouvelle cliente",
+        "quote": "Belle pédicure spa et service très accueillant. Un peu d'attente en période achalandée, mais ça vaut amplement le coup."
+      },
+      {
+        "author": "Emily R.",
+        "rating": 5,
+        "status": "Cliente vérifiée",
+        "quote": "Studio impeccable, techniciennes certifiées, résultats superbes. Mon adresse pour chaque occasion spéciale."
+      }
+    ]
+  },
+  "contact": {
+    "heading": "Nous contacter",
+    "intro": "Des questions sur les services ou les réservations? Envoyez un message et nous vous répondrons rapidement. Vous pouvez aussi nous appeler ou venir directement."
+  },
+  "form": {
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "email": "Courriel",
+    "message": "Message",
+    "success": "Merci — nous avons bien reçu votre message et vous répondrons sous peu."
+  },
+  "labels": {
+    "location": "Adresse",
+    "contact": "Contact"
+  },
+  "serviceDetails": {
+    "pose-ongles": {
+      "intro": [
+        "Notre service de pose d'ongles offre un set complet de beaux ongles durables — avec ou sans rallonges. Que vous préfériez un look naturel et épuré ou que vous souhaitiez ajouter de la longueur et du nail art, notre équipe expérimentée façonne, construit et finit vos ongles exactement comme vous le souhaitez.",
+        "Nous ne précipitions jamais le processus. Chaque pose est réalisée avec soin et précision à l'aide de produits professionnels, dans le respect de notre protocole d'hygiène strict — trois postes de désinfection, outils désinfectés après chaque utilisation et capteurs de poussière à chaque poste de manucure."
+      ],
+      "included": [
+        "Pose complète avec ou sans rallonges",
+        "Votre choix de forme et de longueur",
+        "Mise en forme des ongles et soin méticuleux des cuticules",
+        "Produits professionnels pour des résultats durables",
+        "Accès à une large gamme de couleurs et de finitions",
+        "Environnement axé sur l'hygiène — trois postes de désinfection"
+      ],
+      "addons": [
+        "Design 2–4 doigts (+5–10 $) ou 10 doigts (+15–25 $)",
+        "3 couleurs (+5 $) ou 5 couleurs (+10 $)",
+        "Faux ongles long (+5 $) / plus long (+10 $) / extra long (+15 $)",
+        "Diamants ou ornements",
+        "Enlève prothèse (+20 $)"
+      ],
+      "duration": "Environ 60 à 90 minutes selon la forme, la longueur et les ajouts.",
+      "aftercare": "Appliquez de l'huile à cuticules quotidiennement et portez des gants pour le ménage ou la vaisselle — l'eau et les détergents agressifs sont la principale cause de soulèvement prématuré. Lorsqu'il est temps d'apporter des changements, réservez un remplissage ou un retrait professionnel plutôt que de les arracher, ce qui pourrait endommager votre ongle naturel.",
+      "faq": [
+        {
+          "q": "Combien de temps dure une pose d'ongles?",
+          "a": "Une pose d'ongles dure généralement 2 à 3 semaines avant de nécessiter un remplissage. Avec un bon entretien — huile à cuticules quotidienne, gants pour le ménage — vous pouvez prolonger leur durée de vie et les garder impeccables."
+        },
+        {
+          "q": "Puis-je ajouter du nail art à ma pose complète?",
+          "a": "Oui. Le nail art est disponible sur 2 à 4 doigts ou sur les 10, avec des options pour plusieurs couleurs, diamants et ornements. Nous vous présenterons les options lors de votre rendez-vous."
+        },
+        {
+          "q": "Offrez-vous le retrait de prothèse?",
+          "a": "Oui. Le retrait de prothèse est disponible en option pour 20 $. Nous recommandons toujours un retrait professionnel pour préserver la santé de vos ongles naturels."
+        }
+      ]
+    },
+    "remplissage": {
+      "intro": [
+        "Un remplissage professionnel toutes les 2 à 3 semaines garde votre pose d'ongles fraîche, solide et impeccable. Au fur et à mesure que vos ongles naturels poussent, un espace apparaît à la base — un remplissage opportun prévient le soulèvement, maintient la structure et garde vos ongles à leur meilleur.",
+        "Notre équipe adopte la même approche soignée et sans précipitation pour les remplissages que pour une pose complète — nettoyant, façonnant et finissant chaque ongle correctement avec des produits professionnels."
+      ],
+      "included": [
+        "Remplissage de l'espace de croissance à la base de chaque ongle",
+        "Mise en forme des ongles et soin des cuticules",
+        "Polissage de la surface et finition professionnelle",
+        "Votre choix de couleur ou mise à jour de design",
+        "Produits professionnels tout au long du service",
+        "Environnement axé sur l'hygiène — outils désinfectés après chaque utilisation"
+      ],
+      "addons": [
+        "Design 2–4 doigts (+5–10 $) ou 10 doigts (+15–25 $)",
+        "Changement de couleur ou mise à jour de design",
+        "Diamants ou ornements"
+      ],
+      "duration": "Environ 45 à 75 minutes selon l'état des ongles et les ajouts.",
+      "aftercare": "Appliquez de l'huile à cuticules quotidiennement pour garder vos ongles naturels et la pose flexibles. Évitez d'utiliser vos ongles comme outils et portez des gants pour les travaux mouillés. Réservez votre prochain remplissage dans 2 à 3 semaines avant que l'espace ne devienne trop grand.",
+      "faq": [
+        {
+          "q": "À quelle fréquence devrais-je faire un remplissage?",
+          "a": "Toutes les 2 à 3 semaines est typique. Attendre trop longtemps permet à l'espace de s'agrandir et augmente le risque de soulèvement ou de brisure."
+        },
+        {
+          "q": "Puis-je changer ma couleur ou mon design lors d'un remplissage?",
+          "a": "Oui. Un remplissage est une excellente occasion de mettre à jour votre couleur ou d'ajouter un nouveau nail art. Dites-nous simplement ce que vous avez en tête."
+        },
+        {
+          "q": "Et si l'un de mes ongles se brise avant mon remplissage?",
+          "a": "Appelez-nous ou venez sans rendez-vous — nous pouvons réparer un ongle brisé. Il est toujours préférable de le faire réparer rapidement pour protéger l'ongle naturel sous-jacent."
+        }
+      ]
+    },
+    "soins-mains": {
+      "included": [
+        "Mise en forme des ongles selon votre style préféré",
+        "Soin complet des cuticules",
+        "Votre choix de couleur de vernis",
+        "Application de vernis propre et précise",
+        "Produits professionnels",
+        "Outils désinfectés après chaque utilisation"
+      ],
+      "addons": [
+        "Application ou changement de vernis mains seulement (sans traitement complet des cuticules)",
+        "Nail art ou accents de design",
+        "Vernis gel pour une finition plus durable"
+      ],
+      "duration": "Environ 30 à 45 minutes pour une manucure complète; environ 20 minutes pour un changement de vernis.",
+      "aftercare": "Laissez votre vernis sécher complètement avant d'exposer vos ongles à l'eau. Appliquez régulièrement de l'huile à cuticules pour garder les ongles flexibles et en santé. Portez des gants pour le ménage et la vaisselle afin de prolonger la durée de vie de votre vernis.",
+      "hygiene": "Tous les outils sont désinfectés après chaque cliente dans nos trois postes de désinfection dédiés. Les capteurs de poussière à chaque poste de manucure gardent l'air pur pour vous et notre équipe.",
+      "faq": [
+        {
+          "q": "Qu'est-ce qui est inclus dans une manucure?",
+          "a": "Notre manucure complète comprend la mise en forme des ongles, le soin des cuticules et l'application de vernis avec la couleur de votre choix — à partir de 40 $. Un changement de vernis seulement (sans traitement des cuticules) est disponible à partir de 30 $."
+        },
+        {
+          "q": "Combien de temps prend une manucure?",
+          "a": "Une manucure complète prend environ 30 à 45 minutes. Un changement de vernis est plus rapide, environ 20 minutes."
+        },
+        {
+          "q": "Puis-je avoir du vernis gel sur une manucure?",
+          "a": "Oui. Le vernis gel est disponible en option pour une finition résistante aux écailles qui dure 2 à 3 semaines. Parlez-en à notre équipe lors de votre rendez-vous."
+        }
+      ]
+    },
+    "soins-pieds": {
+      "intro": [
+        "Notre service de soins des pieds est un vrai régal pour vos pieds — et un traitement complet. Nous façonnons vos ongles d'orteils, prenons soin de vos cuticules et terminons avec le vernis de votre choix. Chaque pédicure est réalisée dans nos postes de pédicure assainis pour votre totale tranquillité d'esprit.",
+        "Que vous souhaitiez un traitement complet des pieds ou un simple changement de vernis, notre équipe expérimentée travaille soigneusement et efficacement pour que vous repartiez fraîche et bien chouchoutée."
+      ],
+      "included": [
+        "Mise en forme des ongles d'orteils et soin complet des cuticules",
+        "Votre choix de couleur de vernis",
+        "Application de vernis propre et précise",
+        "Poste de pédicure assaini pour chaque cliente",
+        "Produits professionnels tout au long du service",
+        "Outils désinfectés après chaque utilisation"
+      ],
+      "addons": [
+        "Application ou changement de vernis pieds seulement (sans traitement complet)",
+        "Coupe d'ongles d'orteils seulement",
+        "Vernis gel pour une finition plus durable"
+      ],
+      "duration": "Environ 45 à 60 minutes pour une pédicure complète; environ 20 à 30 minutes pour un changement de vernis ou une coupe.",
+      "aftercare": "Hydratez vos pieds quotidiennement, surtout les talons. Si vous avez choisi du vernis gel, il est prêt immédiatement; le vernis ordinaire nécessite un peu de temps de séchage — portez des chaussures ouvertes pour rentrer. Taillez régulièrement vos ongles d'orteils pour éviter les ongles incarnés.",
+      "hygiene": "Nous assainissons chaque poste de pédicure entre les clientes. Les outils sont désinfectés dans nos trois postes de désinfection dédiés après chaque utilisation. Votre hygiène et votre sécurité sont notre première priorité.",
+      "faq": [
+        {
+          "q": "Qu'est-ce qui est inclus dans une pédicure?",
+          "a": "Notre pédicure complète comprend la mise en forme des ongles d'orteils, le soin des cuticules et l'application de vernis — à partir de 60 $. Un changement de vernis pour les pieds seulement est disponible à partir de 35 $, et une coupe d'ongles d'orteils à partir de 20 $."
+        },
+        {
+          "q": "Vos postes de pédicure sont-ils assainis?",
+          "a": "Oui, toujours. Nous assainissons chaque poste de pédicure entre les clientes dans le cadre de notre approche axée sur l'hygiène."
+        },
+        {
+          "q": "À quelle fréquence devrais-je faire une pédicure?",
+          "a": "Toutes les 4 à 6 semaines est typique pour des pieds bien entretenus. De nombreuses clientes viennent plus souvent en été ou avant des occasions spéciales."
+        }
+      ]
+    }
+  },
+  "serviceLabels": {
+    "included": "Ce qui est inclus",
+    "addons": "Options populaires",
+    "duration": "Durée du service",
+    "price": "Prix",
+    "hygiene": "Hygiène et sécurité",
+    "faq": "Questions fréquentes",
+    "allServices": "Tous les services",
+    "aftercare": "Conseils d'entretien",
+    "priceFrom": "à partir de",
+    "guides": "Guides pratiques"
+  },
+  "faq": {
+    "title": "Questions fréquentes"
+  },
+  "reviewsPage": {
+    "title": "Avis",
+    "empty": "Venez découvrir pourquoi nos clientes reviennent toujours — réservez votre visite aujourd'hui.",
+    "cta": "Réserver en ligne"
+  },
+  "gallery": {
+    "title": "Galerie de nail art",
+    "intro": "Un aperçu de nos derniers designs, des tendances actuelles et des transformations de nos clientes.",
+    "photos": {
+      "nail-art-1": {
+        "caption": "Nail Art"
+      },
+      "nail-art-2": {
+        "caption": "Nail Art"
+      },
+      "nail-art-3": {
+        "caption": "Nail Art"
+      },
+      "nail-art-4": {
+        "caption": "Nail Art"
+      },
+      "gel-mani": {
+        "caption": "Manucure"
+      },
+      "spa-pedi": {
+        "caption": "Pédicure"
+      }
+    }
+  },
+  "legal": {
+    "terms": {
+      "heading": "Conditions générales"
+    },
+    "privacy": {
+      "heading": "Politique de confidentialité"
+    }
+  }
+}

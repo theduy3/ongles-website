@@ -18,6 +18,10 @@ ARG NEXT_PUBLIC_SITE_URL
 ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL \
     NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
     NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+# Selects which branded tenant this image is built for (one image per domain).
+# Defaults to maily-beauport so an un-parameterized build matches the original site.
+ARG TENANT=maily-beauport
+ENV TENANT=$TENANT
 RUN npm run build
 
 # --- runner: minimal Node runtime serving standalone output ---
