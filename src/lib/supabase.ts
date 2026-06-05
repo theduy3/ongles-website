@@ -36,3 +36,4 @@ export function getSupabaseAdmin(): SupabaseClient | null {
 
 export const POPUPS_TABLE = "popups";
 export const POPUP_IMAGES_BUCKET = "popup-images";
+export const STORE_SETTINGS_TABLE = "store_settings";
