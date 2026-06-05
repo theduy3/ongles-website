@@ -4,14 +4,14 @@
 // in src/config/types.ts; the helper functions below stay here (logic, not data).
 
 import { site, locations } from "@/config";
-import type { DayHours, Location } from "@/config/types";
+import type { DayHours, Location, TenantSite } from "@/config/types";
 
 export type { DayHours, Location };
 export { locations };
 
 /** Per-location Booker service-menu URL — the location's "Book Now" target. */
-export function bookerServiceMenu(_loc: Location): string {
-  return site.booker.brand;
+export function bookerServiceMenu(_loc: Location, s: TenantSite = site): string {
+  return s.booker.brand;
 }
 
 /** Google Maps embed src (no API key needed) for any address query string. */
@@ -30,9 +30,9 @@ export function mapEmbedUrl(loc: Location): string {
 }
 
 /** Google Maps "open in Maps" link for the location pin. */
-export function mapLink(loc: Location): string {
+export function mapLink(loc: Location, s: TenantSite = site): string {
   return mapSearchLink(
-    `${site.name} ${loc.name}, ${loc.address.street}, ${loc.address.line2}`,
+    `${s.name} ${loc.name}, ${loc.address.street}, ${loc.address.line2}`,
   );
 }
 
