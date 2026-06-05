@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { getDictionary } from "../dictionaries";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
+import { getStoreConfig } from "@/lib/store-config";
 
 export async function generateMetadata({
   params,
@@ -14,17 +15,19 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const dict = await getDictionary(lang);
+  const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, "/locations", {
     title: dict.meta.locationsTitle,
     description: dict.meta.locationsDescription,
-  });
+  }, { site, locations });
 }
 
 export default async function LocationsPage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
-  const cards = buildSalonCards(dict, lang);
+  const { site, locations } = await getStoreConfig();
+  const cards = buildSalonCards(dict, lang, site, locations);
 
   return (
     <>
@@ -32,7 +35,7 @@ export default async function LocationsPage({ params }: LangParams) {
         data={breadcrumbGraph(lang, [
           { name: dict.nav.home, route: "" },
           { name: dict.nav.locations, route: "/locations" },
-        ])}
+        ], { site, locations })}
       />
       <PageHeader title={dict.locations.heading} intro={dict.locations.intro} />
 

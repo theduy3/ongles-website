@@ -1,6 +1,6 @@
 import { Reveal } from "./Reveal";
 import { Button } from "./Button";
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 import type { Dictionary } from "@/lib/dictionary";
 
 // Tile background treatments cycle through the warm accent palette.
@@ -13,11 +13,12 @@ const TILE_STYLES = [
 
 // Gift Cards section (#giftcards): left copy + CTA, right 4 staggered design
 // tiles. CTA links out to the Booker gift-certificate flow. Server component.
-export function GiftCards({
+export async function GiftCards({
   dict,
 }: {
   dict: Pick<Dictionary, "giftCards" | "cta">;
 }) {
+  const { site } = await getStoreConfig();
   const g = dict.giftCards;
   return (
     <section id="giftcards" className="scroll-mt-20">

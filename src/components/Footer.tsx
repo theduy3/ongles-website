@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { site } from "@/lib/site";
-import { services } from "@/lib/services";
+import { getStoreConfig } from "@/lib/store-config";
 import { NewsletterForm } from "./NewsletterForm";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 
-export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
+export async function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
+  const { site, services } = await getStoreConfig();
   const href = (h: string) => (h === "/" ? `/${locale}` : `/${locale}${h}`);
 
   // Quick links — only routes that exist in this project.

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { SalonCard, buildSalonCards } from "./SalonCard";
+import { SalonCard, buildSalonCards, type SalonCardProps } from "./SalonCard";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 
@@ -49,12 +49,15 @@ function ArrowButton({
 export function LocationsSection({
   dict,
   locale,
+  cards: cardsProp,
 }: {
   dict: Dictionary;
   locale: Locale;
+  /** Pre-built cards from a server parent (live config). Falls back to static defaults. */
+  cards?: SalonCardProps[];
 }) {
   const l = dict.locations;
-  const cards = buildSalonCards(dict, locale);
+  const cards = cardsProp ?? buildSalonCards(dict, locale);
   const trackRef = useRef<HTMLUListElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);

@@ -4,12 +4,13 @@ import {
   mapEmbedSrc,
   mapEmbedUrl,
   mapLink,
-  locations,
+  locations as staticLocations,
   type DayHours,
 } from "@/lib/locations";
 import { sisterSalons } from "@/lib/salons";
-import { site } from "@/lib/site";
+import { site as staticSite } from "@/lib/site";
 import { tenant } from "@/config";
+import type { TenantSite, Location } from "@/config/types";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 
@@ -147,6 +148,8 @@ export function SalonCard(props: SalonCardProps) {
 export function buildSalonCards(
   dict: Pick<Dictionary, "locations">,
   lang: Locale,
+  site: TenantSite = staticSite,
+  locations: Location[] = staticLocations,
 ): SalonCardProps[] {
   const l = dict.locations;
   const labels = {
@@ -157,7 +160,7 @@ export function buildSalonCards(
 
   const maily: SalonCardProps[] = locations.map((loc) => ({
     name: site.name,
-    nameHref: mapLink(loc),
+    nameHref: mapLink(loc, site),
     external: true,
     landmark: loc.landmark,
     mapSrc: mapEmbedUrl(loc),

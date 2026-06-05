@@ -1,16 +1,17 @@
-import { site } from "@/lib/site";
+import { getStoreConfig } from "@/lib/store-config";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 
 // Fixed bottom-right quick actions: a "Book Online" pill (→ the on-page booking
 // wizard at /book-online) and a circular phone button (→ primary location).
-export function FloatingCTA({
+export async function FloatingCTA({
   dict,
   locale,
 }: {
   dict: Pick<Dictionary, "cta">;
   locale: Locale;
 }) {
+  const { site } = await getStoreConfig();
   return (
     <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
       <a
