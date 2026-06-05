@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { getStoreConfig, mergeServicesById } from "@/lib/store-config";
-import { site as staticSite, locations as staticLocations, services as staticServices } from "@/config";
+import { site as staticSite, services as staticServices } from "@/config";
 
 describe("getStoreConfig (no DB in test env)", () => {
   it("returns static site.name when no DB override exists", async () => {

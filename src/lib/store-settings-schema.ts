@@ -141,8 +141,8 @@ const ServiceOverrideSchema = z
 // the key set grows as new meta fields are added in the editor.
 
 const ContentSectionSchema = z.object({
-  fr: z.record(z.unknown()).optional(),
-  en: z.record(z.unknown()).optional(),
+  fr: z.record(z.string(), z.unknown()).optional(),
+  en: z.record(z.string(), z.unknown()).optional(),
 });
 
 // ── outer schema ─────────────────────────────────────────────────────────────
