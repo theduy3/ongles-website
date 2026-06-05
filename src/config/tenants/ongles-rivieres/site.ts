@@ -5,6 +5,8 @@
 export const site = {
   name: "Ongles Rivières",
   url: "https://www.onglesrivieres.com",
+  // TODO: confirm SalonX widget store code for Rivières.
+  storeId: "OR",
   booking: "/book-online",
   booker: {
     brand: "https://www.onglesrivieres.com/reservation/",

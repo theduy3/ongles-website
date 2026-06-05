@@ -7,6 +7,8 @@
 export const site = {
   name: "Ongles Charlesbourg",
   url: "https://www.onglescharlesbourg.com",
+  // TODO: confirm SalonX widget store code for Charlesbourg.
+  storeId: "OC",
   booking: "/book-online",
   booker: {
     brand: "https://www.onglescharlesbourg.com/reservation/",

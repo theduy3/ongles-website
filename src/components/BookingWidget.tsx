@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import type { Locale } from "@/lib/i18n";
 
 const WIDGET_SRC = "https://app.onglesmaily.com/widgets/booking-widget.js";
-const STORE = "OM";
 
 // Embeds the Booker booking widget. The widget script mounts its UI as the next
 // sibling of its own <script data-store> tag, so we inject that script into this
@@ -18,7 +17,13 @@ const STORE = "OM";
 // script tags to load and the external widget to mount twice. The widget lives
 // for the lifetime of this route — when the user navigates away, React unmounts
 // the whole subtree (container div included), so no manual teardown is needed.
-export function BookingWidget({ locale }: { locale: Locale }) {
+export function BookingWidget({
+  locale,
+  storeId = "OM",
+}: {
+  locale: Locale;
+  storeId?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,10 +35,10 @@ export function BookingWidget({ locale }: { locale: Locale }) {
     const script = document.createElement("script");
     script.src = WIDGET_SRC;
     script.async = true;
-    script.setAttribute("data-store", STORE);
+    script.setAttribute("data-store", storeId);
     script.setAttribute("data-lang", locale);
     container.appendChild(script);
-  }, [locale]);
+  }, [locale, storeId]);
 
   return <div ref={ref} className="mt-10 min-h-[420px]" />;
 }

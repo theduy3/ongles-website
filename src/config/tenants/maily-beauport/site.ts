@@ -8,6 +8,8 @@ export const site = {
   // Canonical production origin — feeds metadataBase, sitemap, robots and JSON-LD @id.
   // No trailing slash; relative metadata paths compose against this.
   url: "https://onglesmaily.com",
+  // SalonX widget store code.
+  storeId: "OM",
   // All primary "Book now" CTAs route to the in-app booking page, which links
   // out to the online reservation system. Locale-agnostic base path (callers prefix /{locale}).
   booking: "/book-online",

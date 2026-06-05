@@ -55,6 +55,8 @@ export type Location = {
 export type TenantSite = {
   name: string;
   url: string;
+  // SalonX widget store code (booking / check-in / queue widgets).
+  storeId: string;
   booking: string;
   booker: { brand: string; giftCertificate: string };
   socialProfiles: readonly string[];
