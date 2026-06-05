@@ -7,9 +7,13 @@
 // stable public surface.
 
 import { mailyBeauport } from "./tenants/maily-beauport";
+import { onglesCharlesbourg } from "./tenants/ongles-charlesbourg";
+import { onglesRivieres } from "./tenants/ongles-rivieres";
 
 const registry = {
   "maily-beauport": mailyBeauport,
+  "ongles-charlesbourg": onglesCharlesbourg,
+  "ongles-rivieres": onglesRivieres,
 } as const;
 
 export type TenantId = keyof typeof registry;
