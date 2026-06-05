@@ -11,6 +11,14 @@ const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
+// Per-tenant JWT for public reads. When set (one per branded container), it
+// carries a `tenant_id` claim that tenant-aware RLS matches, physically scoping
+// anon reads to this container's rows. Falls back to the shared anon key when
+// unset so local dev and pre-RLS-migration deploys keep working unchanged.
+// See supabase/migrations/20260606000000_tenant_aware_rls.sql.
+const tenantJwt = process.env.NEXT_PUBLIC_SUPABASE_TENANT_JWT;
+const publicKey = tenantJwt ?? anonKey;
+
 // Server-only clients: never persist a session or refresh tokens.
 const clientOptions = { auth: { persistSession: false, autoRefreshToken: false } } as const;
 
@@ -19,7 +27,7 @@ let adminClient: SupabaseClient | null | undefined;
 
 export function getSupabasePublic(): SupabaseClient | null {
   if (publicClient !== undefined) return publicClient;
-  publicClient = url && anonKey ? createClient(url, anonKey, clientOptions) : null;
+  publicClient = url && publicKey ? createClient(url, publicKey, clientOptions) : null;
   return publicClient;
 }
 
