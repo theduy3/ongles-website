@@ -53,3 +53,6 @@ clone-hero-check.png
 
 # git worktrees (created by EnterWorktree)
 /.claude/worktrees/
+
+# scratch research
+/.tmp-research/
