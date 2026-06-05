@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "bun test src/",
     "test:e2e": "playwright test",
     "fetch:reviews": "node --env-file-if-exists=.env.local scripts/fetch-google-reviews.mjs"
   },
