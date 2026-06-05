@@ -30,3 +30,4 @@ export const tenant = registry[requested as TenantId];
 export const site = tenant.site;
 // Keep the array shape the legacy `locations` export had (consumers iterate it).
 export const locations = [tenant.location];
+export const services = tenant.services;

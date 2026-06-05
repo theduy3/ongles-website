@@ -3,7 +3,25 @@
 // in src/config/index.ts. Per-location physical data uses the Location type below,
 // which is re-exported by src/lib/locations.ts for backward-compatible imports.
 
+import type { Locale } from "@/lib/i18n";
+
 export type DayHours = { label: string; value: string };
+
+// A service offered by a tenant. Structural/locale-invariant: prose lives in
+// dict.serviceDetails[id]. `id` is the stable key (also the image filename).
+export type ServiceId =
+  | "pose-ongles"
+  | "remplissage"
+  | "soins-mains"
+  | "soins-pieds";
+
+export type Service = {
+  id: ServiceId;
+  slug: Record<Locale, string>;
+  price: number; // CAD — feeds Offer schema + display
+  priceTo: number; // upper bound for AggregateOffer range
+  photo: boolean; // true once public/images/services/<id>.webp exists
+};
 
 export type Location = {
   id: string;
@@ -72,4 +90,5 @@ export type TenantConfig = {
   id: string;
   site: TenantSite;
   location: Location;
+  services: readonly Service[];
 };
