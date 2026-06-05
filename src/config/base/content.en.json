@@ -1,0 +1,449 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "gallery": "Gallery",
+    "reviews": "Reviews",
+    "locations": "Location",
+    "about": "About",
+    "giftcards": "Gift Cards",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "bookOnline": "Book Now"
+  },
+  "cta": {
+    "book": "Book Online",
+    "callNow": "Call to Book",
+    "learnMore": "Learn More",
+    "services": "View All Services",
+    "viewServices": "View Services",
+    "send": "Send",
+    "sending": "Sending…",
+    "bookNow": "Book Now",
+    "buyGiftCard": "Buy a Gift Card",
+    "seeMore": "See More Designs",
+    "getDirections": "Get Directions",
+    "join": "Join"
+  },
+  "hero": {
+    "taglineLead": "Professional Nail Care, Made for",
+    "taglineEmphasis": "You",
+    "description": "Expert nail services in a warm, family atmosphere across 4 locations. Hygiene-first, with 15+ years of experience.",
+    "badges": [
+      {
+        "value": "15+",
+        "label": "Years experience"
+      },
+      {
+        "value": "4",
+        "label": "Locations"
+      },
+      {
+        "value": "Walk-ins",
+        "label": "Welcome"
+      }
+    ],
+    "stats": [
+      {
+        "value": "15+",
+        "label": "Years of experience"
+      },
+      {
+        "value": "7/7",
+        "label": "Open every day"
+      }
+    ]
+  },
+  "home": {
+    "servicesEyebrow": "Our Services",
+    "servicesHeading": "Beautiful Nails, Every Visit",
+    "servicesIntro": "From natural manicures to full nail enhancements, our experienced team delivers careful, precise results with exceptional hygiene at every appointment.",
+    "serviceCards": [
+      {
+        "title": "Nail Enhancements",
+        "price": "from $60",
+        "body": "Full set nail enhancements with or without extensions. Custom shapes, lengths and nail art options available."
+      },
+      {
+        "title": "Fill",
+        "price": "from $45",
+        "body": "Maintain your nail enhancements with a professional refill every 2–3 weeks for a fresh, flawless look."
+      },
+      {
+        "title": "Manicure",
+        "price": "from $30",
+        "body": "Hand care with cuticle treatment, shaping and your choice of polish. Classic elegance at every visit."
+      },
+      {
+        "title": "Pedicure",
+        "price": "from $35",
+        "body": "Foot care in our sanitized pedicure stations — toenail shaping, cuticle care and polished results."
+      }
+    ],
+    "galleryEyebrow": "Our Work",
+    "galleryHeading": "Nail Art Gallery",
+    "galleryIntro": "A showcase of our latest designs, trending styles, and client transformations.",
+    "bookingHeading": "Ready for Your Next Appointment?",
+    "locationsEyebrow": "Visit Us",
+    "locationsHeading": "Find Us"
+  },
+  "whyChooseUs": {
+    "heading": "Why Choose Us",
+    "intro": "We set the standard for professional nail care with our commitment to hygiene, quality and exceptional service."
+  },
+  "giftCards": {
+    "eyebrow": "Gift Cards",
+    "heading": "Give the Gift of Beautiful Nails",
+    "note": "Online via Square or in person • Any amount",
+    "designs": [
+      {
+        "title": "Happy Holidays"
+      },
+      {
+        "title": "For Mom"
+      },
+      {
+        "title": "Happy Birthday"
+      },
+      {
+        "title": "Gift Card"
+      }
+    ]
+  },
+  "locations": {
+    "eyebrow": "Visit Us",
+    "heading": "Find Us",
+    "labelHours": "Hours",
+    "labelPhone": "Phone",
+    "labelAddress": "Address",
+    "bookNow": "Book Now",
+    "getDirections": "Get Directions",
+    "viewAll": "View Location",
+    "hours": [
+      {
+        "label": "Mon – Wed",
+        "value": "9:00 AM – 5:30 PM"
+      },
+      {
+        "label": "Thu – Fri",
+        "value": "9:00 AM – 9:00 PM"
+      },
+      {
+        "label": "Sat",
+        "value": "9:00 AM – 5:00 PM"
+      },
+      {
+        "label": "Sun",
+        "value": "10:00 AM – 5:00 PM"
+      }
+    ],
+    "visit": {
+      "heading": "Visit Us",
+      "gettingHereTitle": "How to find us",
+      "walkinTitle": "Walk in or book ahead",
+      "walkin": "No appointment? No problem. Walk-ins are always welcome and no deposit is required. Prefer to plan ahead? Book online to choose your time slot in advance.",
+      "expectTitle": "When you arrive",
+      "expect": "We welcome you, talk through the service you'd like, then settle you at a clean, sanitized station. You'll enjoy careful, unhurried work from an experienced team."
+    },
+    "comingSoon": "Coming soon",
+    "salonsHeading": "Our Salons"
+  },
+  "newsletter": {
+    "heading": "Stay in Touch",
+    "description": "Get exclusive offers, seasonal nail designs, and beauty tips delivered to your inbox.",
+    "placeholder": "Your email address",
+    "button": "Join",
+    "success": "Thank you — you're on the list!",
+    "error": "Something went wrong. Please try again."
+  },
+  "services": [
+    {
+      "title": "Nail Enhancements",
+      "body": "Full set nail enhancements with or without extensions. Custom shapes, lengths, nail art and add-ons available."
+    },
+    {
+      "title": "Fill",
+      "body": "Maintenance refill for your nail enhancements. Recommended every 2–3 weeks to keep your nails looking fresh."
+    },
+    {
+      "title": "Manicure",
+      "body": "Hand care with cuticle treatment, nail shaping and your choice of polish. Polish change option also available."
+    },
+    {
+      "title": "Pedicure",
+      "body": "Foot care in our sanitized pedicure stations with toenail shaping, cuticle care and polished results."
+    }
+  ],
+  "servicesPage": {
+    "heading": "Our Services",
+    "intro": "From natural manicures to full nail enhancements, our experienced team delivers careful, precise results with exceptional hygiene at every appointment.",
+    "lead": "Every service is performed by an experienced team, with sanitized tools and clean stations. The prices shown are starting prices — your total depends on the length, shape and nail art you choose.",
+    "hygieneTitle": "Hygiene at every step",
+    "hygieneBody": "Three dedicated disinfection stations, tools sterilized after every guest, and dust collectors at all manicure stations. Your safety always comes first.",
+    "ctaLead": "Ready to treat yourself?"
+  },
+  "bookOnline": {
+    "heading": "Book Online",
+    "helpBefore": "Prefer to talk to us? Call us at ",
+    "helpAfter": " — we're happy to help.",
+    "howTitle": "How booking works",
+    "note": "No deposit is required, with or without an appointment. If your plans change, please give us at least 24 hours' notice so we can free up your slot for another guest. Arriving more than 15 minutes late may shorten your service — please aim to arrive 5–10 minutes before your appointment."
+  },
+  "reviews": {
+    "eyebrow": "Client Love",
+    "headlineLead": "Don't just take our word for it —",
+    "headlineMain": "What Our Clients Say",
+    "basedOn": "from",
+    "reviewsWord": "Google reviews",
+    "bookOnline": "Book Online",
+    "placeholders": [
+      {
+        "author": "Sarah M.",
+        "rating": 5,
+        "status": "Regular Client",
+        "quote": "Best nail salon I’ve ever visited — spotless, professional, and the results are always stunning."
+      },
+      {
+        "author": "Michelle W.",
+        "rating": 5,
+        "status": "Loyal Member",
+        "quote": "My gel manicure lasts a perfect three weeks every single time. I won’t go anywhere else."
+      },
+      {
+        "author": "Amanda K.",
+        "rating": 5,
+        "status": "Verified Client",
+        "quote": "I love the space, the location, and the team. The technicians are thorough and take such care with their work."
+      },
+      {
+        "author": "Jessica T.",
+        "rating": 5,
+        "status": "Regular Client",
+        "quote": "Gorgeous nail art and such a relaxing atmosphere. It feels like a little luxury escape every visit."
+      },
+      {
+        "author": "Priya S.",
+        "rating": 4,
+        "status": "New Client",
+        "quote": "Lovely spa pedicure and very friendly service. A short wait at peak times but absolutely worth it."
+      },
+      {
+        "author": "Emily R.",
+        "rating": 5,
+        "status": "Verified Client",
+        "quote": "Spotless studio, certified techs, beautiful results. My go-to for every special occasion."
+      }
+    ]
+  },
+  "contact": {
+    "heading": "Contact Us",
+    "intro": "Questions about services or bookings? Send a message and we'll reply shortly. You can also call or walk in."
+  },
+  "form": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "message": "Message",
+    "success": "Thank you — we've received your message and will be in touch shortly."
+  },
+  "labels": {
+    "location": "Location",
+    "contact": "Contact"
+  },
+  "serviceDetails": {
+    "pose-ongles": {
+      "intro": [
+        "Our nail enhancement service delivers a full set of beautiful, durable nails — with or without extensions. Whether you prefer a natural, clean look or want to add length and nail art, our experienced team shapes, builds and finishes your nails exactly the way you want.",
+        "We never rush the process. Every set is done with care and precision using professional-grade products, following our strict hygiene protocol — three disinfection stations, tools sanitized after every use, and dust collectors at every manicure station."
+      ],
+      "included": [
+        "Full set nail enhancements with or without extensions",
+        "Your choice of shape and length",
+        "Nail shaping and meticulous cuticle care",
+        "Professional-grade products for lasting results",
+        "Access to a wide range of colours and finishes",
+        "Hygiene-first environment — three disinfection stations"
+      ],
+      "addons": [
+        "Nail art on 2–4 fingers (+$5–10) or all 10 (+$15–25)",
+        "3 colours (+$5) or 5 colours (+$10)",
+        "Longer tips: long (+$5), longer (+$10), extra-long (+$15)",
+        "Diamonds and ornaments",
+        "Prosthetic removal (+$20)"
+      ],
+      "duration": "About 60–90 minutes depending on shape, length and add-ons.",
+      "aftercare": "Apply cuticle oil daily and wear gloves for cleaning or dishwashing — water and harsh detergents are the main cause of early lifting. When it's time for a change, book a proper fill or removal rather than picking, which can damage your natural nail.",
+      "faq": [
+        {
+          "q": "How long do nail enhancements last?",
+          "a": "Nail enhancements typically last 2–3 weeks before needing a fill. With proper aftercare — cuticle oil daily, gloves for cleaning — you can extend their life and keep them looking fresh."
+        },
+        {
+          "q": "Can I add nail art to my full set?",
+          "a": "Yes. Nail art is available on 2–4 fingers or all 10, with options for multiple colours, diamonds and ornaments. We'll walk you through the options at your appointment."
+        },
+        {
+          "q": "Do you offer prosthetic removal?",
+          "a": "Yes. Prosthetic removal is available as an add-on for $20. We always recommend professional removal to protect the health of your natural nails."
+        }
+      ]
+    },
+    "remplissage": {
+      "intro": [
+        "A professional fill every 2–3 weeks keeps your nail enhancements looking fresh, strong and flawless. As your natural nails grow, the gap at the base fills in — a timely refill prevents lifting, maintains the structure and keeps your nails looking their best.",
+        "Our team takes the same careful, unhurried approach to fills as to a full set — properly cleaning, shaping, and finishing every nail with professional-grade products."
+      ],
+      "included": [
+        "Refill of the growth gap at the base of each nail",
+        "Nail shaping and cuticle care",
+        "Surface buffing and professional finish",
+        "Your choice of colour or design update",
+        "Professional-grade products throughout",
+        "Hygiene-first environment — tools sanitized after every use"
+      ],
+      "addons": [
+        "Nail art on 2–4 fingers (+$5–10) or all 10 (+$15–25)",
+        "Colour change or design update",
+        "Diamonds and ornaments"
+      ],
+      "duration": "About 45–75 minutes depending on the condition of the nails and add-ons.",
+      "aftercare": "Apply cuticle oil daily to keep your natural nail and enhancement flexible. Avoid prying things open with your nails and wear gloves for wet work. Book your next fill in 2–3 weeks before the gap becomes too large.",
+      "faq": [
+        {
+          "q": "How often should I get a fill?",
+          "a": "Every 2–3 weeks is typical. Waiting too long allows the gap to grow and increases the risk of lifting or breakage."
+        },
+        {
+          "q": "Can I change my colour or design at a fill appointment?",
+          "a": "Yes. A fill is a great opportunity to update your colour or add new nail art. Just let us know what you have in mind."
+        },
+        {
+          "q": "What if one of my nails breaks before my fill?",
+          "a": "Call or walk in — we can repair a broken nail. It's always better to fix it promptly to protect the underlying natural nail."
+        }
+      ]
+    },
+    "soins-mains": {
+      "included": [
+        "Nail shaping to your preferred style",
+        "Thorough cuticle care",
+        "Your choice of polish colour",
+        "Clean, precise polish application",
+        "Professional-grade products",
+        "Tools disinfected after every use"
+      ],
+      "addons": [
+        "Polish change only (without full cuticle treatment)",
+        "Nail art or design accents",
+        "Gel polish for a longer-lasting finish"
+      ],
+      "duration": "About 30–45 minutes for a full manicure; about 20 minutes for a polish change.",
+      "aftercare": "Let your polish dry fully before exposing your nails to water. Apply cuticle oil regularly to keep nails flexible and healthy. Wear gloves for cleaning and dishwashing to extend the life of your polish.",
+      "hygiene": "All tools are disinfected after every client at our three dedicated disinfection stations. Dust collectors at every manicure station keep the air clean for you and our team.",
+      "faq": [
+        {
+          "q": "What is included in a manicure?",
+          "a": "Our full manicure includes nail shaping, cuticle care and polish application with your chosen colour — starting at $40. A polish change only (without cuticle treatment) is available from $30."
+        },
+        {
+          "q": "How long does a manicure take?",
+          "a": "A full manicure takes about 30–45 minutes. A polish change is quicker, around 20 minutes."
+        },
+        {
+          "q": "Can I get gel polish on a manicure?",
+          "a": "Yes. Gel polish is available as an add-on for a chip-resistant finish that lasts 2–3 weeks. Ask our team at your appointment."
+        }
+      ]
+    },
+    "soins-pieds": {
+      "intro": [
+        "Our pedicure service is a genuine treat for your feet — and a thorough one. We shape your toenails, care for your cuticles, and finish with your choice of polish. Every pedicure is performed in our sanitized pedicure stations for your complete peace of mind.",
+        "Whether you want a full foot care treatment or a simple polish change, our experienced team works carefully and efficiently so you leave feeling fresh and well-cared-for."
+      ],
+      "included": [
+        "Toenail shaping and thorough cuticle care",
+        "Your choice of polish colour",
+        "Clean, precise polish application",
+        "Sanitized pedicure station for every client",
+        "Professional-grade products throughout",
+        "Tools disinfected after every use"
+      ],
+      "addons": [
+        "Polish change feet only (without full treatment)",
+        "Toenail trim only",
+        "Gel polish for a longer-lasting finish"
+      ],
+      "duration": "About 45–60 minutes for a full pedicure; about 20–30 minutes for a polish change or trim.",
+      "aftercare": "Moisturise your feet daily, especially the heels. If you chose gel polish, it's ready immediately; regular polish needs a little drying time — wear open shoes home. Keep toenails trimmed regularly to avoid ingrown nails.",
+      "hygiene": "We sanitize every pedicure station between clients. Tools are disinfected at our three dedicated disinfection stations after every use. Your hygiene and safety are our first priority.",
+      "faq": [
+        {
+          "q": "What is included in a pedicure?",
+          "a": "Our full pedicure includes toenail shaping, cuticle care and polish application — from $60. A polish change for feet only is available from $35, and a toenail trim is from $20."
+        },
+        {
+          "q": "Are your pedicure stations sanitized?",
+          "a": "Yes, always. We sanitize every pedicure station between clients as part of our hygiene-first approach."
+        },
+        {
+          "q": "How often should I get a pedicure?",
+          "a": "Every 4–6 weeks is typical for healthy, well-groomed feet. Many clients come more often in summer or before special occasions."
+        }
+      ]
+    }
+  },
+  "serviceLabels": {
+    "included": "What's included",
+    "addons": "Popular add-ons",
+    "duration": "How long it takes",
+    "price": "Price",
+    "hygiene": "Hygiene & safety",
+    "faq": "Frequently asked questions",
+    "allServices": "All services",
+    "aftercare": "Aftercare tips",
+    "priceFrom": "from",
+    "guides": "Helpful guides"
+  },
+  "faq": {
+    "title": "Frequently asked questions"
+  },
+  "reviewsPage": {
+    "title": "Reviews",
+    "empty": "Come find out why our clients keep coming back — book your visit today.",
+    "cta": "Book Online"
+  },
+  "gallery": {
+    "title": "Nail Art Gallery",
+    "intro": "A showcase of our latest designs, trending styles, and client transformations.",
+    "photos": {
+      "nail-art-1": {
+        "caption": "Nail Art"
+      },
+      "nail-art-2": {
+        "caption": "Nail Art"
+      },
+      "nail-art-3": {
+        "caption": "Nail Art"
+      },
+      "nail-art-4": {
+        "caption": "Nail Art"
+      },
+      "gel-mani": {
+        "caption": "Manicure"
+      },
+      "spa-pedi": {
+        "caption": "Pedicure"
+      }
+    }
+  },
+  "legal": {
+    "terms": {
+      "heading": "Terms & Conditions"
+    },
+    "privacy": {
+      "heading": "Privacy Policy"
+    }
+  }
+}
