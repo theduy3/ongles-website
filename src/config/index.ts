@@ -6,12 +6,12 @@
 // "@/lib/locations" (thin re-exports of this module); those import paths are the
 // stable public surface.
 
-import { mailyBeauport } from "./tenants/ongles-maily";
+import { onglesMaily } from "./tenants/ongles-maily";
 import { onglesCharlesbourg } from "./tenants/ongles-charlesbourg";
 import { onglesRivieres } from "./tenants/ongles-rivieres";
 
 const registry = {
-  "ongles-maily": mailyBeauport,
+  "ongles-maily": onglesMaily,
   "ongles-charlesbourg": onglesCharlesbourg,
   "ongles-rivieres": onglesRivieres,
 } as const;

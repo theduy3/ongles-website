@@ -3,7 +3,7 @@ import { site } from "./site";
 import { location } from "./location";
 import { services } from "./services";
 
-export const mailyBeauport = {
+export const onglesMaily = {
   id: "ongles-maily",
   site,
   location,
