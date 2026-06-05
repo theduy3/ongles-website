@@ -13,6 +13,11 @@ import { site } from "@/lib/site";
 import { locations, mapLink } from "@/lib/locations";
 import { reviewsFetchedAt } from "@/lib/reviews";
 import type { GalleryImage } from "@/lib/gallery";
+import type { TenantSite, Location } from "@/config/types";
+
+/** Injected store config for SEO builders. Callers that pass this override the
+ *  static module-level defaults — enabling live DB config to flow through. */
+export type SeoConfig = { site: TenantSite; locations: Location[] };
 
 // Default social-share image (absolute path; resolved against metadataBase).
 // JPEG (not WebP) for universal social-scraper compatibility.
@@ -72,6 +77,7 @@ export function pageMetadata(
     description: string;
     routeByLocale?: Record<Locale, string>;
   },
+  cfg: SeoConfig = { site, locations },
 ): Metadata {
   const path = routeByLocale
     ? `/${lang}${routeByLocale[lang]}`
@@ -86,7 +92,7 @@ export function pageMetadata(
     openGraph: {
       type: "website",
       locale: OG_LOCALE[lang],
-      siteName: site.name,
+      siteName: cfg.site.name,
       title,
       description,
       url: path,
@@ -107,8 +113,8 @@ export function pageMetadata(
 // composition here), so everything is prefixed with site.url.
 // ---------------------------------------------------------------------------
 
-const BUSINESS_ID = `${site.url}/#business`;
-const WEBSITE_ID = `${site.url}/#website`;
+// NOTE: BUSINESS_ID and WEBSITE_ID are computed per-call inside builders that
+// accept an injected SeoConfig, so the site.url can be overridden at runtime.
 
 function offer(price: number, priceTo?: number) {
   // When a real upper bound exists, emit an AggregateOffer price range
@@ -135,8 +141,12 @@ function offer(price: number, priceTo?: number) {
 export function organizationGraph(
   lang: Locale,
   { name, description }: { name: string; description: string },
+  cfg: SeoConfig = { site, locations },
 ) {
-  const openingHoursSpecification = site.hours.map((block) => ({
+  const BUSINESS_ID = `${cfg.site.url}/#business`;
+  const WEBSITE_ID = `${cfg.site.url}/#website`;
+
+  const openingHoursSpecification = cfg.site.hours.map((block) => ({
     "@type": "OpeningHoursSpecification",
     dayOfWeek: block.days.map((d) => DAY_NAME[d]),
     opens: block.opens,
@@ -146,14 +156,14 @@ export function organizationGraph(
   // One NailSalon node per physical location, linked to the brand as a
   // `department`. Each carries its own address, geo, phone and hours so search
   // engines understand each Ongles Maily salon location.
-  const departments = locations.map((loc) => ({
+  const departments = cfg.locations.map((loc) => ({
     "@type": "NailSalon",
-    "@id": `${site.url}/#location-${loc.id}`,
-    name: `${site.name} — ${loc.name}`,
+    "@id": `${cfg.site.url}/#location-${loc.id}`,
+    name: `${cfg.site.name} — ${loc.name}`,
     parentOrganization: { "@id": BUSINESS_ID },
-    url: mapLink(loc),
+    url: mapLink(loc, cfg.site),
     telephone: loc.phoneHref.replace("tel:", ""),
-    priceRange: site.priceRange,
+    priceRange: cfg.site.priceRange,
     address: {
       "@type": "PostalAddress",
       streetAddress: loc.address.street,
@@ -183,11 +193,11 @@ export function organizationGraph(
         "@id": BUSINESS_ID,
         name,
         description,
-        url: site.url,
-        telephone: site.contact.phoneHref.replace("tel:", ""),
-        email: site.contact.email,
-        image: `${site.url}${OG_IMAGE}`,
-        priceRange: site.priceRange,
+        url: cfg.site.url,
+        telephone: cfg.site.contact.phoneHref.replace("tel:", ""),
+        email: cfg.site.contact.email,
+        image: `${cfg.site.url}${OG_IMAGE}`,
+        priceRange: cfg.site.priceRange,
         department: departments.map((d) => ({ "@id": d["@id"] })),
         // Only emit AggregateRating once real reviews have been fetched from
         // Google (fetchedAt set). The placeholder scaffold has no genuine
@@ -197,33 +207,33 @@ export function organizationGraph(
           ? {
               aggregateRating: {
                 "@type": "AggregateRating",
-                ratingValue: site.reviews.ratingValue,
-                reviewCount: site.reviews.reviewCount,
-                bestRating: site.reviews.bestRating,
+                ratingValue: cfg.site.reviews.ratingValue,
+                reviewCount: cfg.site.reviews.reviewCount,
+                bestRating: cfg.site.reviews.bestRating,
               },
             }
           : {}),
         address: {
           "@type": "PostalAddress",
-          streetAddress: site.contact.address.street,
-          addressLocality: site.contact.address.city,
-          addressRegion: site.contact.address.region,
-          postalCode: site.contact.address.postalCode,
-          addressCountry: site.contact.address.country,
+          streetAddress: cfg.site.contact.address.street,
+          addressLocality: cfg.site.contact.address.city,
+          addressRegion: cfg.site.contact.address.region,
+          postalCode: cfg.site.contact.address.postalCode,
+          addressCountry: cfg.site.contact.address.country,
         },
         geo: {
           "@type": "GeoCoordinates",
-          latitude: site.geo.lat,
-          longitude: site.geo.lng,
+          latitude: cfg.site.geo.lat,
+          longitude: cfg.site.geo.lng,
         },
         openingHoursSpecification,
-        sameAs: site.socialProfiles,
+        sameAs: cfg.site.socialProfiles,
       },
       {
         "@type": "WebSite",
         "@id": WEBSITE_ID,
-        url: site.url,
-        name: site.name,
+        url: cfg.site.url,
+        name: cfg.site.name,
         inLanguage: OG_LOCALE[lang],
         publisher: { "@id": BUSINESS_ID },
       },
@@ -244,7 +254,12 @@ type ServiceItem = {
  * Services hub graph: an ItemList of Service nodes, each linked to the business
  * and carrying a CAD Offer. Used on the /services overview page.
  */
-export function servicesGraph(lang: Locale, items: readonly ServiceItem[]) {
+export function servicesGraph(
+  lang: Locale,
+  items: readonly ServiceItem[],
+  cfg: SeoConfig = { site, locations },
+) {
+  const BUSINESS_ID = `${cfg.site.url}/#business`;
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -253,9 +268,9 @@ export function servicesGraph(lang: Locale, items: readonly ServiceItem[]) {
       position: i + 1,
       name: item.name,
       description: item.description,
-      ...(item.path ? { url: `${site.url}/${lang}${item.path}` } : {}),
+      ...(item.path ? { url: `${cfg.site.url}/${lang}${item.path}` } : {}),
       provider: { "@id": BUSINESS_ID },
-      areaServed: site.contact.address.city,
+      areaServed: cfg.site.contact.address.city,
       offers: offer(item.price, item.priceTo),
     })),
   };
@@ -265,15 +280,17 @@ export function servicesGraph(lang: Locale, items: readonly ServiceItem[]) {
 export function serviceGraph(
   lang: Locale,
   { name, description, price, priceTo, path }: ServiceItem,
+  cfg: SeoConfig = { site, locations },
 ) {
+  const BUSINESS_ID = `${cfg.site.url}/#business`;
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     name,
     description,
-    ...(path ? { url: `${site.url}/${lang}${path}` } : {}),
+    ...(path ? { url: `${cfg.site.url}/${lang}${path}` } : {}),
     provider: { "@id": BUSINESS_ID },
-    areaServed: site.contact.address.city,
+    areaServed: cfg.site.contact.address.city,
     offers: offer(price, priceTo),
   };
 }
@@ -296,6 +313,7 @@ export function imageGalleryGraph(
   name: string,
   images: readonly GalleryImage[],
   textFor: (id: string) => { alt: string; caption: string },
+  cfg: SeoConfig = { site, locations },
 ) {
   return {
     "@context": "https://schema.org",
@@ -305,7 +323,7 @@ export function imageGalleryGraph(
       const t = textFor(img.id);
       return {
         "@type": "ImageObject",
-        contentUrl: `${site.url}${img.file}`,
+        contentUrl: `${cfg.site.url}${img.file}`,
         name: t.alt,
         caption: t.caption,
       };
@@ -317,6 +335,7 @@ export function imageGalleryGraph(
 export function breadcrumbGraph(
   lang: Locale,
   crumbs: { name: string; route: string }[],
+  cfg: SeoConfig = { site, locations },
 ) {
   return {
     "@context": "https://schema.org",
@@ -325,7 +344,7 @@ export function breadcrumbGraph(
       "@type": "ListItem",
       position: i + 1,
       name: crumb.name,
-      item: `${site.url}/${lang}${crumb.route}`,
+      item: `${cfg.site.url}/${lang}${crumb.route}`,
     })),
   };
 }
