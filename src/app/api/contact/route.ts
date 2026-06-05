@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { sendContactEmail } from "@/lib/email";
+import { getStoreConfig } from "@/lib/store-config";
 
 // Contact form handler for the rebuilt Squarespace form. Validates input, then
 // delivers via Resend (see src/lib/email.ts). Configure secrets in .env.local.
@@ -25,7 +26,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: message }, { status: 422 });
   }
 
-  const result = await sendContactEmail(parsed.data);
+  const { site } = await getStoreConfig();
+  const result = await sendContactEmail(parsed.data, site.contact.email);
 
   if (result.ok) {
     return NextResponse.json({ success: true, data: { received: true } });

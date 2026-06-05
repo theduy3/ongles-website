@@ -1,5 +1,3 @@
-import { site } from "@/lib/site";
-
 // Contact email delivery via the Resend REST API (https://resend.com/docs).
 // We call the REST endpoint with fetch rather than pulling in the SDK — it's a
 // single request, so the dependency would not earn its weight.
@@ -18,13 +16,16 @@ export type EmailResult =
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
-export async function sendContactEmail(data: ContactPayload): Promise<EmailResult> {
+export async function sendContactEmail(
+  data: ContactPayload,
+  fallbackToEmail?: string,
+): Promise<EmailResult> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.CONTACT_FROM_EMAIL;
-  const to = process.env.CONTACT_TO_EMAIL ?? site.contact.email;
+  const to = process.env.CONTACT_TO_EMAIL ?? fallbackToEmail ?? "";
 
   // Provider not wired up (e.g. local dev without secrets). Caller decides policy.
-  if (!apiKey || !from) {
+  if (!apiKey || !from || !to) {
     return { ok: false, reason: "not_configured" };
   }
 
