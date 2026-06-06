@@ -67,7 +67,7 @@ export default async function BookOnlinePage({ params }: LangParams) {
 
       <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
         {/* Embedded SalonX booking wizard (store from active tenant). */}
-        <BookingWidget locale={lang} storeId={site.storeId} />
+        <BookingWidget locale={lang} storeId={site.storeId} widgetHost={site.widgetHost} />
 
         {/* Help line */}
         <Reveal>

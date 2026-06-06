@@ -5,5 +5,5 @@ import { getStoreConfig } from "@/lib/store-config";
 // The minimal noindex shell comes from layout.tsx.
 export default async function QueuePage() {
   const { site } = await getStoreConfig();
-  return <QueueWidget storeId={site.storeId} />;
+  return <QueueWidget storeId={site.storeId} widgetHost={site.widgetHost} />;
 }

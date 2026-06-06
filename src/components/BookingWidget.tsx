@@ -3,8 +3,6 @@
 import { useEffect, useRef } from "react";
 import type { Locale } from "@/lib/i18n";
 
-const WIDGET_SRC = "https://app.onglesmaily.com/widgets/booking-widget.js";
-
 // Embeds the Booker booking widget. The widget script mounts its UI as the next
 // sibling of its own <script data-store> tag, so we inject that script into this
 // ref'd container (rather than via next/script, which hoists scripts to end-of-
@@ -20,9 +18,11 @@ const WIDGET_SRC = "https://app.onglesmaily.com/widgets/booking-widget.js";
 export function BookingWidget({
   locale,
   storeId = "OM",
+  widgetHost = "https://app.onglesmaily.com",
 }: {
   locale: Locale;
   storeId?: string;
+  widgetHost?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -33,12 +33,12 @@ export function BookingWidget({
     if (container.querySelector("script[data-store]")) return;
 
     const script = document.createElement("script");
-    script.src = WIDGET_SRC;
+    script.src = `${widgetHost}/widgets/booking-widget.js`;
     script.async = true;
     script.setAttribute("data-store", storeId);
     script.setAttribute("data-lang", locale);
     container.appendChild(script);
-  }, [locale, storeId]);
+  }, [locale, storeId, widgetHost]);
 
   return <div ref={ref} className="mt-10 min-h-[420px]" />;
 }
