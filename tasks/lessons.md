@@ -33,3 +33,19 @@ Notes:
 - `newsletter_subscribers` (PII) is already isolated: no anon policy, server-only via
   service-role. Left unchanged.
 - Rotate JWTs only when the project JWT secret rotates (TTL is 10y).
+
+## SEO layer (commit 9242623)
+
+- **Moving a persisted settings namespace silently orphans existing DB overrides.**
+  The SEO refactor moved operator SEO from the `content` namespace to a new `seo`
+  namespace; the new resolver stopped reading `content.*`, so any legacy DB SEO
+  override went silently inert — it fell back to static JSON with no error. Fix:
+  a read-time shim (`src/app/[lang]/legacy-seo-shim.ts`) folds the old location
+  forward and `console.warn`s `[seo-shim]` when it fires so the tenant can be
+  migrated and the shim deleted. Rule: when relocating a persisted namespace,
+  ship a forward-fold shim — never assume the store is empty. (seo-layer-followups)
+- **`type SeoDictionary = typeof en` gives no compile-time locale-parity guard.**
+  Keys missing from `fr.json` become runtime `undefined`, not type errors —
+  identical caveat to the UI `Dictionary` type (see AGENTS.md). Parity is enforced
+  only by `src/config/seo/seo-parity.test.ts`; keep it green when adding keys.
+  (seo-layer-followups)
