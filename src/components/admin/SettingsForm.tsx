@@ -14,6 +14,7 @@ import { BrandSeoSection } from "./settings/BrandSeoSection";
 import { SeoSection } from "./settings/SeoSection";
 import { ContactHoursSection } from "./settings/ContactHoursSection";
 import { BookingServicesSection } from "./settings/BookingServicesSection";
+import { CustomCodeSection } from "./settings/CustomCodeSection";
 
 function emptyState(): SettingsDraftState {
   return { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft(), customCode: [] };
@@ -81,6 +82,11 @@ export function SettingsForm({
 
   function setSeoEn(next: SeoDraft) {
     setDraft((prev) => ({ ...prev, seoEn: next }));
+    setSaved(false);
+  }
+
+  function setCustomCode(next: SettingsDraftState["customCode"]) {
+    setDraft((prev) => ({ ...prev, customCode: next }));
     setSaved(false);
   }
 
@@ -155,6 +161,7 @@ export function SettingsForm({
             onSiteChange={patchSite}
             onServicesChange={setServices}
           />
+          <CustomCodeSection snippets={draft.customCode} onChange={setCustomCode} />
 
           <div className="flex gap-2 pb-8">
             <button

@@ -50,6 +50,15 @@ export function BrandSeoSection({ site, onSiteChange }: Props) {
           />
         </label>
         <label className={labelClass}>
+          <span className={spanClass}>Widget host</span>
+          <input
+            className={inputClass}
+            value={site.widgetHost ?? ""}
+            placeholder="https://app.onglesmaily.com"
+            onChange={(e) => onSiteChange({ widgetHost: e.target.value || undefined })}
+          />
+        </label>
+        <label className={labelClass}>
           <span className={spanClass}>Price range</span>
           <input
             className={inputClass}
