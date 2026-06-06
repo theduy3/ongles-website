@@ -7,14 +7,28 @@ import type { StoreSettings } from "@/lib/store-settings-schema";
 // → omit).  This is the ONLY place that decides what gets persisted —
 // the server re-validates via StoreSettingsSchema before writing.
 
-type SeoMeta = Record<string, unknown>;
+export interface SeoDraft {
+  meta: Record<string, string>;
+  services: Record<string, Record<string, string>>;
+  gallery: Record<string, Record<string, string>>;
+  org: Record<string, string>;
+}
 
 export interface SettingsDraftState {
   site: NonNullable<StoreSettings["site"]>;
   services: NonNullable<StoreSettings["services"]>;
-  // SEO meta overrides, persisted to the SEPARATE `seo` namespace (not `content`).
-  seoFr: SeoMeta;
-  seoEn: SeoMeta;
+  // Full nested SEO override mirroring seo.json, persisted to the SEPARATE `seo`
+  // namespace (not `content`). Pruned sparsely by buildSparseDoc.
+  seoFr: SeoDraft;
+  seoEn: SeoDraft;
+}
+
+export function emptySeoDraft(): SeoDraft {
+  return { meta: {}, services: {}, gallery: {}, org: {} };
+}
+
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
 }
 
 /** Remove undefined / empty-string values from a shallow record. */
@@ -100,23 +114,73 @@ export function buildSparseDoc(draft: SettingsDraftState): StoreSettings {
   if (validServices.length > 0) doc.services = validServices;
 
   // ── seo ───────────────────────────────────────────────────────────────
-  // SEO meta lives in its own top-level namespace, separate from UI `content`.
+  // Full nested SEO override (meta / services / gallery / org), pruned so empty
+  // leaves never freeze over good static defaults at the deep-merge layer.
   const seo: NonNullable<StoreSettings["seo"]> = {};
-  const frMeta = omitEmpty(draft.seoFr);
-  if (hasKeys(frMeta)) seo.fr = { meta: frMeta };
-  const enMeta = omitEmpty(draft.seoEn);
-  if (hasKeys(enMeta)) seo.en = { meta: enMeta };
+  const frSeo = buildSeoLocale(draft.seoFr);
+  if (hasKeys(frSeo)) seo.fr = frSeo;
+  const enSeo = buildSeoLocale(draft.seoEn);
+  if (hasKeys(enSeo)) seo.en = enSeo;
   if (hasKeys(seo)) doc.seo = seo;
 
   return doc;
 }
 
-/** Extract flat meta record from a seo locale override (may be absent). */
-export function extractSeoMeta(locale: Record<string, unknown> | undefined): SeoMeta {
-  if (!locale) return {};
-  const meta = locale["meta"];
-  if (meta && typeof meta === "object" && !Array.isArray(meta)) {
-    return meta as SeoMeta;
+/** Drop undefined / empty-string values from a flat string record. */
+function pruneStrings(obj: Record<string, string>): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const k in obj) {
+    const v = obj[k];
+    if (v !== undefined && v !== "") out[k] = v;
   }
-  return {};
+  return out;
+}
+
+/** Prune a nested {id: {field: value}} record: drop empty fields, then empty ids. */
+function pruneNested(
+  obj: Record<string, Record<string, string>>,
+): Record<string, Record<string, string>> {
+  const out: Record<string, Record<string, string>> = {};
+  for (const id in obj) {
+    const fields = pruneStrings(obj[id]);
+    if (hasKeys(fields)) out[id] = fields;
+  }
+  return out;
+}
+
+/** Build one locale's sparse seo override from a SeoDraft (empty sections omitted). */
+function buildSeoLocale(draft: SeoDraft): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  const meta = pruneStrings(draft.meta);
+  if (hasKeys(meta)) out.meta = meta;
+  const services = pruneNested(draft.services);
+  if (hasKeys(services)) out.services = services;
+  const gallery = pruneNested(draft.gallery);
+  if (hasKeys(gallery)) out.gallery = gallery;
+  const org = pruneStrings(draft.org);
+  if (hasKeys(org)) out.org = org;
+  return out;
+}
+
+/** Extract the nested SeoDraft from a seo locale override (may be absent). */
+export function extractSeo(locale: Record<string, unknown> | undefined): SeoDraft {
+  const src = locale ?? {};
+  const flat = (o: unknown): Record<string, string> => {
+    if (!isPlainObject(o)) return {};
+    const out: Record<string, string> = {};
+    for (const [k, v] of Object.entries(o)) if (typeof v === "string") out[k] = v;
+    return out;
+  };
+  const nested = (o: unknown): Record<string, Record<string, string>> => {
+    if (!isPlainObject(o)) return {};
+    const out: Record<string, Record<string, string>> = {};
+    for (const [id, fields] of Object.entries(o)) out[id] = flat(fields);
+    return out;
+  };
+  return {
+    meta: flat(src.meta),
+    services: nested(src.services),
+    gallery: nested(src.gallery),
+    org: flat(src.org),
+  };
 }

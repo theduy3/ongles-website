@@ -1,12 +1,16 @@
 import { describe, it, expect } from "bun:test";
-import { buildSparseDoc, extractSeoMeta } from "./settings-draft";
-import type { SettingsDraftState } from "./settings-draft";
+import {
+  buildSparseDoc,
+  extractSeo,
+  emptySeoDraft,
+  type SettingsDraftState,
+} from "./settings-draft";
 
 const empty: SettingsDraftState = {
   site: {},
   services: [],
-  seoFr: {},
-  seoEn: {},
+  seoFr: emptySeoDraft(),
+  seoEn: emptySeoDraft(),
 };
 
 describe("buildSparseDoc", () => {
@@ -62,7 +66,7 @@ describe("buildSparseDoc", () => {
   it("wraps seo meta under { meta: ... }", () => {
     const doc = buildSparseDoc({
       ...empty,
-      seoEn: { homeTitle: "My Title" },
+      seoEn: { ...emptySeoDraft(), meta: { homeTitle: "My Title" } },
     });
     expect(doc.seo?.en).toEqual({ meta: { homeTitle: "My Title" } });
   });
@@ -70,7 +74,7 @@ describe("buildSparseDoc", () => {
   it("omits seo when all meta values are empty", () => {
     const doc = buildSparseDoc({
       ...empty,
-      seoEn: { homeTitle: "" },
+      seoEn: { ...emptySeoDraft(), meta: { homeTitle: "" } },
     });
     expect(doc.seo).toBeUndefined();
   });
@@ -109,18 +113,51 @@ describe("buildSparseDoc", () => {
   });
 });
 
-describe("extractSeoMeta", () => {
-  it("returns empty object when undefined", () => {
-    expect(extractSeoMeta(undefined)).toEqual({});
-  });
+// ── Task 3: nested SeoDraft model ─────────────────────────────────────────────
 
-  it("extracts meta key from locale object", () => {
-    expect(extractSeoMeta({ meta: { homeTitle: "Hello" } })).toEqual({
-      homeTitle: "Hello",
+function baseDraft(): SettingsDraftState {
+  return { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft() };
+}
+
+describe("extractSeo", () => {
+  it("reads nested meta/services/gallery/org, keeping only strings", () => {
+    const d = extractSeo({
+      meta: { homeTitle: "H" },
+      services: { "pose-ongles": { metaTitle: "T", bogus: 5 } },
+      gallery: { "nail-art-1": { alt: "A" } },
+      org: { description: "O" },
     });
+    expect(d.meta).toEqual({ homeTitle: "H" });
+    expect(d.services).toEqual({ "pose-ongles": { metaTitle: "T" } });
+    expect(d.gallery).toEqual({ "nail-art-1": { alt: "A" } });
+    expect(d.org).toEqual({ description: "O" });
   });
 
-  it("returns empty object when meta is not an object", () => {
-    expect(extractSeoMeta({ meta: "bad" })).toEqual({});
+  it("returns an empty draft for undefined", () => {
+    expect(extractSeo(undefined)).toEqual(emptySeoDraft());
+  });
+});
+
+describe("buildSparseDoc — seo", () => {
+  it("omits seo entirely when every field is blank", () => {
+    const doc = buildSparseDoc(baseDraft());
+    expect(doc.seo).toBeUndefined();
+  });
+
+  it("recursively omits empty service/gallery/meta entries", () => {
+    const d = baseDraft();
+    d.seoFr = {
+      meta: { homeTitle: "H", servicesTitle: "" },
+      services: { "pose-ongles": { metaTitle: "T", metaDescription: "" }, remplissage: {} },
+      gallery: { "nail-art-1": { alt: "A" }, "nail-art-2": { alt: "" } },
+      org: { description: "" },
+    };
+    const doc = buildSparseDoc(d);
+    expect(doc.seo?.fr).toEqual({
+      meta: { homeTitle: "H" },
+      services: { "pose-ongles": { metaTitle: "T" } },
+      gallery: { "nail-art-1": { alt: "A" } },
+    });
+    expect(doc.seo?.en).toBeUndefined();
   });
 });
