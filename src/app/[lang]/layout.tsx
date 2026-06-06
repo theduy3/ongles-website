@@ -10,6 +10,7 @@ import { getSeo } from "./seo-content";
 import { locales, isLocale, dirFor, type LangParams } from "@/lib/i18n";
 import { PopupHost } from "@/components/PopupHost";
 import { FloatingCTA } from "@/components/FloatingCTA";
+import { CustomCodeHost } from "@/components/CustomCodeHost";
 import { getStoreConfig } from "@/lib/store-config";
 import { organizationGraph } from "@/lib/seo";
 
@@ -75,7 +76,7 @@ export default async function RootLayout({
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
+  const { site, locations, customCode } = await getStoreConfig();
 
   return (
     <html
@@ -97,6 +98,7 @@ export default async function RootLayout({
         <Footer dict={dict} locale={lang} />
         <FloatingCTA dict={dict} locale={lang} />
         <PopupHost locale={lang} />
+        <CustomCodeHost snippets={customCode.filter((s) => s.enabled)} />
       </body>
     </html>
   );
