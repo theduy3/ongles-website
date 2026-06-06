@@ -46,6 +46,37 @@ image to its domain in your host (DNS A/CNAME per domain). Adding a tenant: crea
 `src/config/tenants/<id>/`, register it in `src/config/index.ts`, add it to the CI
 matrix and the dictionary override map in `src/app/[lang]/dictionaries.ts`.
 
+### New-site onboarding
+
+A neutral `template` tenant ships as the canonical clone source:
+
+```bash
+cp -r src/config/tenants/template src/config/tenants/<new-id>
+```
+
+Edit the copied files — replace placeholder values (`"Your Salon"`, `"XX"`, geo `0,0`,
+`example.com`, etc.) with the real brand, NAP, services, and SEO copy. Keep the key
+structure of `content.en.json` / `content.fr.json` identical to `en.json` (keys missing
+in any locale silently become `undefined` at runtime). Then register the new tenant in
+`src/config/index.ts` and verify:
+
+```bash
+TENANT=<new-id> bun run build
+```
+
+## Admin — Custom code
+
+The **Custom code** section in `/admin/settings` lets the store owner paste arbitrary
+HTML/JS snippets (analytics tags, pixels, chat widgets, embeds) without a rebuild.
+
+- **Placement:** choose `Head` (injected into `<head>`) or `End of body`.
+- **Pages:** tick "All pages" (`*`) or select individual route keys (`home`, `services`,
+  `book-online`, etc.).
+- **Scope:** snippets run only on public `[lang]` pages. The `/admin`, `/checkin`, and
+  `/queue` kiosk routes are outside that layout and never receive injected code.
+- **Widget host:** the SalonX booking/check-in/queue widget origin is configurable in the
+  **Brand** section — change it to re-point all three widgets without a rebuild.
+
 > Note: this README's heading/intro still reflect an older template and are unrelated
 > to the multi-tenant setup above.
 
