@@ -14,6 +14,8 @@ import charlesbourgFr from "@/config/tenants/ongles-charlesbourg/content.fr.json
 import charlesbourgEn from "@/config/tenants/ongles-charlesbourg/content.en.json";
 import rivieresFr from "@/config/tenants/ongles-rivieres/content.fr.json";
 import rivieresEn from "@/config/tenants/ongles-rivieres/content.en.json";
+import templateFr from "@/config/tenants/template/content.fr.json";
+import templateEn from "@/config/tenants/template/content.en.json";
 
 // The dictionary is composed at request time from THREE layers:
 //   1. BASE    — shared UI chrome, identical for every tenant
@@ -31,6 +33,7 @@ const overrides: Record<string, Record<Locale, Content>> = {
   "ongles-maily": { fr: mailyFr, en: mailyEn },
   "ongles-charlesbourg": { fr: charlesbourgFr, en: charlesbourgEn },
   "ongles-rivieres": { fr: rivieresFr, en: rivieresEn },
+  template: { fr: templateFr, en: templateEn },
 };
 
 // composeDictionary lives in ./compose-dictionary (no server-only dep, testable).

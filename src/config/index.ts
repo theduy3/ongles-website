@@ -9,11 +9,13 @@
 import { onglesMaily } from "./tenants/ongles-maily";
 import { onglesCharlesbourg } from "./tenants/ongles-charlesbourg";
 import { onglesRivieres } from "./tenants/ongles-rivieres";
+import { template } from "./tenants/template";
 
 const registry = {
   "ongles-maily": onglesMaily,
   "ongles-charlesbourg": onglesCharlesbourg,
   "ongles-rivieres": onglesRivieres,
+  template,
 } as const;
 
 export type TenantId = keyof typeof registry;

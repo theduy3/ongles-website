@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "homeTitle": "Your Salon — Professional Nail Salon",
+    "homeDescription": "Professional nail salon. Nail enhancements, fills, manicures & pedicures. Hygiene-first, expert team. Walk-ins welcome.",
+    "servicesTitle": "Nail Services | Your Salon",
+    "servicesDescription": "Nail enhancements, fills, manicures and pedicures at Your Salon. Dedicated disinfection stations, tools sanitized after every use.",
+    "aboutTitle": "About Our Nail Salon | Your Salon",
+    "aboutDescription": "Your Salon is a hygiene-first nail salon. Expert team, warm family atmosphere. You are our family.",
+    "bookOnlineTitle": "Book a Nail Appointment | Your Salon",
+    "bookOnlineDescription": "Book your nail appointment at Your Salon. Reserve online or walk in — we welcome both.",
+    "contactTitle": "Contact & Directions | Your Salon",
+    "contactDescription": "Get in touch with Your Salon. Questions about services, bookings — send us a message.",
+    "faqTitle": "Nail Salon FAQ | Your Salon",
+    "faqDescription": "Hours, booking, services, hygiene and more — answers to common questions about Your Salon.",
+    "reviewsTitle": "Client Reviews | Your Salon",
+    "reviewsDescription": "See why clients love Your Salon — nail enhancements, fills, manicures and pedicures.",
+    "galleryTitle": "Nail Art Gallery | Your Salon",
+    "galleryDescription": "Browse our latest nail art, manicures and nail enhancements at Your Salon.",
+    "locationsTitle": "Find Us | Your Salon",
+    "locationsDescription": "Find Your Salon at 123 Example Street, City, Region A1A 1A1.",
+    "termsTitle": "Terms & Conditions — Your Salon",
+    "termsDescription": "Salon policies for Your Salon: appointments, cancellations, deposits, gift cards, health & safety and more.",
+    "privacyTitle": "Privacy Policy — Your Salon",
+    "privacyDescription": "How Your Salon collects, uses and protects your personal information."
+  },
+  "services": {
+    "pose-ongles": {
+      "metaTitle": "Nail Enhancements at Your Salon",
+      "metaDescription": "Full set nail enhancements with or without extensions at Your Salon. Nail art, multiple colours, hygiene-first. From $60.",
+      "schemaDescription": "Full set nail enhancements with or without extensions at Your Salon. Nail art, multiple colours, hygiene-first. From $60.",
+      "heroAlt": "Beautiful nail enhancements — full set at Your Salon"
+    },
+    "remplissage": {
+      "metaTitle": "Nail Fill at Your Salon",
+      "metaDescription": "Professional nail fill every 2–3 weeks at Your Salon. Keep your enhancements fresh and strong. From $45.",
+      "schemaDescription": "Professional nail fill every 2–3 weeks at Your Salon. Keep your enhancements fresh and strong. From $45.",
+      "heroAlt": "Professional nail fill in progress at Your Salon"
+    },
+    "soins-mains": {
+      "metaTitle": "Manicure at Your Salon",
+      "metaDescription": "Professional manicure with polish, cuticle care and nail shaping at Your Salon. From $30.",
+      "schemaDescription": "Professional manicure with polish, cuticle care and nail shaping at Your Salon. From $30.",
+      "heroAlt": "Professional manicure with polish at Your Salon"
+    },
+    "soins-pieds": {
+      "metaTitle": "Pedicure at Your Salon",
+      "metaDescription": "Professional pedicure in sanitized stations at Your Salon. Toenail care, cuticle treatment and polish. From $35.",
+      "schemaDescription": "Professional pedicure in sanitized stations at Your Salon. Toenail care, cuticle treatment and polish. From $35.",
+      "heroAlt": "Professional pedicure in a sanitized station at Your Salon"
+    }
+  },
+  "org": {
+    "description": "Professional nail salon. Nail enhancements, fills, manicures & pedicures. Hygiene-first, expert team. Walk-ins welcome."
+  },
+  "gallery": {
+    "nail-art-1": {
+      "alt": "Hand-painted nail art design at Your Salon"
+    },
+    "nail-art-2": {
+      "alt": "Intricate nail art with detailed patterns at Your Salon"
+    },
+    "nail-art-3": {
+      "alt": "Trending nail design at Your Salon"
+    },
+    "nail-art-4": {
+      "alt": "Creative nail art and embellishments at Your Salon"
+    },
+    "gel-mani": {
+      "alt": "Professional manicure at Your Salon"
+    },
+    "spa-pedi": {
+      "alt": "Pedicure result at Your Salon"
+    }
+  }
+}

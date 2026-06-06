@@ -16,6 +16,8 @@ import charlesbourgFr from "@/config/tenants/ongles-charlesbourg/seo.fr.json";
 import charlesbourgEn from "@/config/tenants/ongles-charlesbourg/seo.en.json";
 import rivieresFr from "@/config/tenants/ongles-rivieres/seo.fr.json";
 import rivieresEn from "@/config/tenants/ongles-rivieres/seo.en.json";
+import templateFr from "@/config/tenants/template/seo.fr.json";
+import templateEn from "@/config/tenants/template/seo.en.json";
 
 // The SEO doc is composed at request time from THREE layers, exactly like the
 // dictionary (dictionaries.ts) but in a SEPARATE namespace so SEO is authored
@@ -34,6 +36,7 @@ const overrides: Record<string, Record<Locale, Content>> = {
   "ongles-maily": { fr: mailyFr, en: mailyEn },
   "ongles-charlesbourg": { fr: charlesbourgFr, en: charlesbourgEn },
   "ongles-rivieres": { fr: rivieresFr, en: rivieresEn },
+  template: { fr: templateFr, en: templateEn },
 };
 
 // ── DB SEO override resolver ───────────────────────────────────────────────────
