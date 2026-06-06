@@ -114,3 +114,39 @@ describe("StoreSettingsSchema", () => {
     expect(result.success).toBe(true);
   });
 });
+
+// ── Task 1: widgetHost ────────────────────────────────────────────────────────
+
+import { test, expect as bexpect } from "bun:test";
+
+test("site.widgetHost is accepted", () => {
+  const r = StoreSettingsSchema.safeParse({
+    site: { widgetHost: "https://app.example.com" },
+  });
+  bexpect(r.success).toBe(true);
+});
+
+// ── Task 3: customCode section ────────────────────────────────────────────────
+
+test("customCode array of valid snippets parses", () => {
+  const r = StoreSettingsSchema.safeParse({
+    customCode: [
+      { id: "a", label: "GA4", code: "<script></script>", placement: "head", pages: ["*"], enabled: true },
+      { id: "b", label: "Chat", code: "x", placement: "body-end", pages: ["home", "contact"], enabled: false },
+    ],
+  });
+  bexpect(r.success).toBe(true);
+});
+
+test("customCode rejects unknown placement and extra keys", () => {
+  bexpect(
+    StoreSettingsSchema.safeParse({
+      customCode: [{ id: "a", label: "x", code: "y", placement: "footer", pages: [], enabled: true }],
+    }).success,
+  ).toBe(false);
+  bexpect(
+    StoreSettingsSchema.safeParse({
+      customCode: [{ id: "a", label: "x", code: "y", placement: "head", pages: [], enabled: true, evil: 1 }],
+    }).success,
+  ).toBe(false);
+});

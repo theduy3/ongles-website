@@ -9,6 +9,8 @@ export const site = {
   url: "https://www.onglescharlesbourg.com",
   // TODO: confirm SalonX widget store code for Charlesbourg.
   storeId: "OC",
+  // SalonX widget origin (no trailing slash). Admin can override per deploy.
+  widgetHost: "https://app.onglesmaily.com",
   booking: "/book-online",
   booker: {
     brand: "https://www.onglescharlesbourg.com/reservation/",

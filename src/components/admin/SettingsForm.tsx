@@ -16,7 +16,7 @@ import { ContactHoursSection } from "./settings/ContactHoursSection";
 import { BookingServicesSection } from "./settings/BookingServicesSection";
 
 function emptyState(): SettingsDraftState {
-  return { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft() };
+  return { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft(), customCode: [] };
 }
 
 function stateFromSettings(s: StoreSettings | null): SettingsDraftState {
@@ -26,6 +26,7 @@ function stateFromSettings(s: StoreSettings | null): SettingsDraftState {
     services: s.services ?? [],
     seoFr: extractSeo(s.seo?.fr as Record<string, unknown> | undefined),
     seoEn: extractSeo(s.seo?.en as Record<string, unknown> | undefined),
+    customCode: s.customCode ?? [],
   };
 }
 

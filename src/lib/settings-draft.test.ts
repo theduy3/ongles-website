@@ -11,6 +11,7 @@ const empty: SettingsDraftState = {
   services: [],
   seoFr: emptySeoDraft(),
   seoEn: emptySeoDraft(),
+  customCode: [],
 };
 
 describe("buildSparseDoc", () => {
@@ -116,7 +117,7 @@ describe("buildSparseDoc", () => {
 // ── Task 3: nested SeoDraft model ─────────────────────────────────────────────
 
 function baseDraft(): SettingsDraftState {
-  return { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft() };
+  return { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft(), customCode: [] };
 }
 
 describe("extractSeo", () => {
@@ -160,4 +161,34 @@ describe("buildSparseDoc — seo", () => {
     });
     expect(doc.seo?.en).toBeUndefined();
   });
+});
+
+// ── Task 1: widgetHost sparse persistence ─────────────────────────────────────
+
+import { test } from "bun:test";
+
+test("buildSparseDoc persists widgetHost when set, omits when empty", () => {
+  const base = { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft(), customCode: [] };
+  const withHost = buildSparseDoc({ ...base, site: { widgetHost: "https://x.io" } });
+  expect(withHost.site?.widgetHost).toBe("https://x.io");
+
+  const without = buildSparseDoc({ ...base, site: { widgetHost: "" } });
+  expect(without.site?.widgetHost).toBeUndefined();
+});
+
+// ── Task 6: customCode sparse build ──────────────────────────────────────────
+
+test("buildSparseDoc keeps non-empty customCode, drops empty-code rows, omits when none", () => {
+  const base = { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft(), customCode: [] };
+
+  expect(buildSparseDoc(base).customCode).toBeUndefined();
+
+  const withRows = buildSparseDoc({
+    ...base,
+    customCode: [
+      { id: "a", label: "GA4", code: "<script></script>", placement: "head", pages: ["*"], enabled: true },
+      { id: "b", label: "blank", code: "   ", placement: "head", pages: ["*"], enabled: true },
+    ],
+  });
+  expect(withRows.customCode?.map((s) => s.id)).toEqual(["a"]);
 });

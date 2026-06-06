@@ -10,6 +10,8 @@ export const site = {
   url: "https://onglesmaily.com",
   // SalonX widget store code.
   storeId: "OM",
+  // SalonX widget origin (no trailing slash). Admin can override per deploy.
+  widgetHost: "https://app.onglesmaily.com",
   // All primary "Book now" CTAs route to the in-app booking page, which links
   // out to the online reservation system. Locale-agnostic base path (callers prefix /{locale}).
   booking: "/book-online",

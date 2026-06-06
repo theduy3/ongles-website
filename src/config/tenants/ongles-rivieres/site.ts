@@ -7,6 +7,8 @@ export const site = {
   url: "https://www.onglesrivieres.com",
   // TODO: confirm SalonX widget store code for Rivières.
   storeId: "OR",
+  // SalonX widget origin (no trailing slash). Admin can override per deploy.
+  widgetHost: "https://app.onglesmaily.com",
   booking: "/book-online",
   booker: {
     brand: "https://www.onglesrivieres.com/reservation/",

@@ -77,6 +77,9 @@ const SiteSectionSchema = z
     name: z.string().optional(),
     url: z.string().optional(),
     storeId: z.string().optional(),
+    // SalonX widget origin (no trailing slash). Lets the admin re-point booking /
+    // check-in / queue widgets without a rebuild.
+    widgetHost: z.string().optional(),
     booking: z.string().optional(),
     booker: BookerSchema.optional(),
     priceRange: z.string().optional(),
@@ -156,6 +159,25 @@ const SeoOverrideSchema = z.object({
   en: z.record(z.string(), z.unknown()).optional(),
 });
 
+// ── custom code section ──────────────────────────────────────────────────────
+// Admin-authored third-party snippets (analytics, pixels, chat, embeds). Unlike
+// the other sections this is NOT a sparse override of static defaults — the array
+// IS the source of truth (deepMerge arrays replace wholesale). Injected client-side
+// by CustomCodeHost. `pages` holds canonical route keys or ["*"] for all pages.
+
+const CustomCodeSnippetSchema = z
+  .object({
+    id: z.string(),
+    label: z.string(),
+    code: z.string(),
+    placement: z.enum(["head", "body-end"]),
+    pages: z.array(z.string()),
+    enabled: z.boolean(),
+  })
+  .strict();
+
+export type CustomCodeSnippet = z.infer<typeof CustomCodeSnippetSchema>;
+
 // ── outer schema ─────────────────────────────────────────────────────────────
 
 export const StoreSettingsSchema = z
@@ -165,6 +187,7 @@ export const StoreSettingsSchema = z
     services: z.array(ServiceOverrideSchema).optional(),
     content: ContentSectionSchema.optional(),
     seo: SeoOverrideSchema.optional(),
+    customCode: z.array(CustomCodeSnippetSchema).optional(),
   })
   .strict();
 

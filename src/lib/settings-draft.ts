@@ -1,4 +1,4 @@
-import type { StoreSettings } from "@/lib/store-settings-schema";
+import type { StoreSettings, CustomCodeSnippet } from "@/lib/store-settings-schema";
 
 // Assembles a sparse StoreSettings doc from the form's working state.
 // Only sections / fields that carry a real value are included so that
@@ -21,6 +21,7 @@ export interface SettingsDraftState {
   // namespace (not `content`). Pruned sparsely by buildSparseDoc.
   seoFr: SeoDraft;
   seoEn: SeoDraft;
+  customCode: CustomCodeSnippet[];
 }
 
 export function emptySeoDraft(): SeoDraft {
@@ -63,6 +64,7 @@ export function buildSparseDoc(draft: SettingsDraftState): StoreSettings {
   if (rawSite.name) site.name = rawSite.name;
   if (rawSite.url) site.url = rawSite.url;
   if (rawSite.storeId) site.storeId = rawSite.storeId;
+  if (rawSite.widgetHost) site.widgetHost = rawSite.widgetHost;
   if (rawSite.booking) site.booking = rawSite.booking;
   if (rawSite.priceRange) site.priceRange = rawSite.priceRange;
 
@@ -122,6 +124,12 @@ export function buildSparseDoc(draft: SettingsDraftState): StoreSettings {
   const enSeo = buildSeoLocale(draft.seoEn);
   if (hasKeys(enSeo)) seo.en = enSeo;
   if (hasKeys(seo)) doc.seo = seo;
+
+  // ── customCode ────────────────────────────────────────────────────────────
+  // The array is the source of truth (not a sparse override). Drop rows with no
+  // code; omit the section entirely when nothing remains.
+  const validCode = draft.customCode.filter((s) => s.code.trim() !== "");
+  if (validCode.length > 0) doc.customCode = validCode;
 
   return doc;
 }

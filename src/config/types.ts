@@ -57,6 +57,8 @@ export type TenantSite = {
   url: string;
   // SalonX widget store code (booking / check-in / queue widgets).
   storeId: string;
+  // SalonX widget origin (no trailing slash), e.g. "https://app.onglesmaily.com".
+  widgetHost: string;
   booking: string;
   booker: { brand: string; giftCertificate: string };
   socialProfiles: readonly string[];
