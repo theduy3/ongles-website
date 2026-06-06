@@ -7,13 +7,14 @@ import type { StoreSettings } from "@/lib/store-settings-schema";
 // → omit).  This is the ONLY place that decides what gets persisted —
 // the server re-validates via StoreSettingsSchema before writing.
 
-type ContentMeta = Record<string, unknown>;
+type SeoMeta = Record<string, unknown>;
 
 export interface SettingsDraftState {
   site: NonNullable<StoreSettings["site"]>;
   services: NonNullable<StoreSettings["services"]>;
-  contentFr: ContentMeta;
-  contentEn: ContentMeta;
+  // SEO meta overrides, persisted to the SEPARATE `seo` namespace (not `content`).
+  seoFr: SeoMeta;
+  seoEn: SeoMeta;
 }
 
 /** Remove undefined / empty-string values from a shallow record. */
@@ -98,23 +99,24 @@ export function buildSparseDoc(draft: SettingsDraftState): StoreSettings {
   );
   if (validServices.length > 0) doc.services = validServices;
 
-  // ── content ───────────────────────────────────────────────────────────
-  const content: NonNullable<StoreSettings["content"]> = {};
-  const frMeta = omitEmpty(draft.contentFr);
-  if (hasKeys(frMeta)) content.fr = { meta: frMeta };
-  const enMeta = omitEmpty(draft.contentEn);
-  if (hasKeys(enMeta)) content.en = { meta: enMeta };
-  if (hasKeys(content)) doc.content = content;
+  // ── seo ───────────────────────────────────────────────────────────────
+  // SEO meta lives in its own top-level namespace, separate from UI `content`.
+  const seo: NonNullable<StoreSettings["seo"]> = {};
+  const frMeta = omitEmpty(draft.seoFr);
+  if (hasKeys(frMeta)) seo.fr = { meta: frMeta };
+  const enMeta = omitEmpty(draft.seoEn);
+  if (hasKeys(enMeta)) seo.en = { meta: enMeta };
+  if (hasKeys(seo)) doc.seo = seo;
 
   return doc;
 }
 
-/** Extract flat meta record from a content locale override (may be absent). */
-export function extractMeta(locale: Record<string, unknown> | undefined): ContentMeta {
+/** Extract flat meta record from a seo locale override (may be absent). */
+export function extractSeoMeta(locale: Record<string, unknown> | undefined): SeoMeta {
   if (!locale) return {};
   const meta = locale["meta"];
   if (meta && typeof meta === "object" && !Array.isArray(meta)) {
-    return meta as ContentMeta;
+    return meta as SeoMeta;
   }
   return {};
 }

@@ -1,28 +1,4 @@
 {
-  "meta": {
-    "homeTitle": "Ongles Maily — Salon de manucure au Carrefour Beauport, Québec",
-    "homeDescription": "Salon d'ongles au Carrefour Beauport, Québec. Pose d'ongles, remplissage, soins des mains et des pieds. Hygiène irréprochable, 15 ans+. Sans rendez-vous.",
-    "servicesTitle": "Services d'ongles à Beauport, Québec | Ongles Maily",
-    "servicesDescription": "Pose d'ongles, remplissage, manucure et pédicure chez Ongles Maily, Carrefour Beauport, Québec. Trois postes de désinfection, outils désinfectés après chaque utilisation.",
-    "aboutTitle": "À propos de notre salon à Beauport | Ongles Maily",
-    "aboutDescription": "Ongles Maily est un salon d'ongles axé sur l'hygiène au Carrefour Beauport, Québec. Plus de 15 ans d'expérience, ambiance chaleureuse et familiale. Vous êtes notre famille.",
-    "bookOnlineTitle": "Réserver un rendez-vous à Beauport | Ongles Maily",
-    "bookOnlineDescription": "Réservez votre rendez-vous chez Ongles Maily, Carrefour Beauport, Québec. Réservez en ligne ou venez sans rendez-vous — les deux sont bienvenus.",
-    "contactTitle": "Contact et itinéraire, Beauport | Ongles Maily",
-    "contactDescription": "Communiquez avec Ongles Maily au Carrefour Beauport, Québec. Questions sur les services ou les réservations — envoyez-nous un message.",
-    "faqTitle": "FAQ — Salon d'ongles à Beauport | Ongles Maily",
-    "faqDescription": "Heures, réservations, services, hygiène et plus — réponses aux questions fréquentes sur Ongles Maily, Carrefour Beauport.",
-    "reviewsTitle": "Avis clients — Salon d'ongles Beauport | Ongles Maily",
-    "reviewsDescription": "Découvrez pourquoi nos clientes adorent Ongles Maily — pose d'ongles, remplissage, manucure et pédicure au Carrefour Beauport, Québec.",
-    "galleryTitle": "Galerie nail art, Beauport | Ongles Maily",
-    "galleryDescription": "Parcourez nos derniers nail art, manucures et poses d'ongles chez Ongles Maily, Carrefour Beauport.",
-    "locationsTitle": "Nous trouver — Carrefour Beauport | Ongles Maily",
-    "locationsDescription": "Trouvez Ongles Maily au Carrefour Beauport — 3333 rue du Carrefour, Entrées 4 ou 5, Québec, QC G1C 5R9.",
-    "termsTitle": "Conditions générales — Ongles Maily",
-    "termsDescription": "Politiques du salon Ongles Maily : rendez-vous, annulations, dépôts, certificats cadeaux, santé et sécurité et plus encore.",
-    "privacyTitle": "Politique de confidentialité — Ongles Maily",
-    "privacyDescription": "Comment Ongles Maily collecte, utilise et protège vos renseignements personnels."
-  },
   "nav": {
     "home": "Accueil",
     "services": "Services",
@@ -337,7 +313,6 @@
   "serviceDetails": {
     "pose-ongles": {
       "title": "Pose d'ongles chez Ongles Maily, Québec",
-      "heroAlt": "Belle pose d'ongles complète chez Ongles Maily, Carrefour Beauport",
       "intro": [
         "Notre service de pose d'ongles offre un set complet de beaux ongles durables — avec ou sans rallonges. Que vous préfériez un look naturel et épuré ou que vous souhaitiez ajouter de la longueur et du nail art, notre équipe expérimentée façonne, construit et finit vos ongles exactement comme vous le souhaitez.",
         "Nous ne précipitions jamais le processus. Chaque pose est réalisée avec soin et précision à l'aide de produits professionnels, dans le respect de notre protocole d'hygiène strict — trois postes de désinfection, outils désinfectés après chaque utilisation et capteurs de poussière à chaque poste de manucure."
@@ -374,13 +349,10 @@
           "q": "Offrez-vous le retrait de prothèse?",
           "a": "Oui. Le retrait de prothèse est disponible en option pour 20 $. Nous recommandons toujours un retrait professionnel pour préserver la santé de vos ongles naturels."
         }
-      ],
-      "metaTitle": "Pose d'ongles chez Ongles Maily | Carrefour Beauport, Québec",
-      "metaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles Maily, Carrefour Beauport. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $."
+      ]
     },
     "remplissage": {
       "title": "Remplissage chez Ongles Maily, Québec",
-      "heroAlt": "Remplissage d'ongles professionnel en cours chez Ongles Maily, Carrefour Beauport",
       "intro": [
         "Un remplissage professionnel toutes les 2 à 3 semaines garde votre pose d'ongles fraîche, solide et impeccable. Au fur et à mesure que vos ongles naturels poussent, un espace apparaît à la base — un remplissage opportun prévient le soulèvement, maintient la structure et garde vos ongles à leur meilleur.",
         "Notre équipe adopte la même approche soignée et sans précipitation pour les remplissages que pour une pose complète — nettoyant, façonnant et finissant chaque ongle correctement avec des produits professionnels."
@@ -415,13 +387,10 @@
           "q": "Et si l'un de mes ongles se brise avant mon remplissage?",
           "a": "Appelez-nous ou venez sans rendez-vous — nous pouvons réparer un ongle brisé. Il est toujours préférable de le faire réparer rapidement pour protéger l'ongle naturel sous-jacent."
         }
-      ],
-      "metaTitle": "Remplissage chez Ongles Maily | Carrefour Beauport, Québec",
-      "metaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles Maily, Carrefour Beauport. Gardez votre pose fraîche et solide. À partir de 45 $."
+      ]
     },
     "soins-mains": {
       "title": "Soins des mains chez Ongles Maily, Québec",
-      "heroAlt": "Manucure professionnelle avec vernis chez Ongles Maily, Carrefour Beauport",
       "intro": [
         "Une manucure classique chez Ongles Maily est rigoureuse, précise et relaxante. Nous façonnons vos ongles, prenons soin de vos cuticules et terminons avec le vernis de votre choix — laissant vos mains propres, soignées et bien entretenues.",
         "Que vous souhaitiez un simple changement de vernis ou un traitement complet des mains, notre équipe expérimentée prend le temps de bien faire les choses. Pas de précipitation, pas de raccourcis."
@@ -456,13 +425,10 @@
           "q": "Puis-je avoir du vernis gel sur une manucure?",
           "a": "Oui. Le vernis gel est disponible en option pour une finition résistante aux écailles qui dure 2 à 3 semaines. Parlez-en à notre équipe lors de votre rendez-vous."
         }
-      ],
-      "metaTitle": "Soins des mains chez Ongles Maily | Carrefour Beauport, Québec",
-      "metaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles Maily, Carrefour Beauport, Québec. À partir de 30 $."
+      ]
     },
     "soins-pieds": {
       "title": "Soins des pieds chez Ongles Maily, Québec",
-      "heroAlt": "Pédicure professionnelle dans un poste assaini chez Ongles Maily, Carrefour Beauport",
       "intro": [
         "Notre service de soins des pieds est un vrai régal pour vos pieds — et un traitement complet. Nous façonnons vos ongles d'orteils, prenons soin de vos cuticules et terminons avec le vernis de votre choix. Chaque pédicure est réalisée dans nos postes de pédicure assainis pour votre totale tranquillité d'esprit.",
         "Que vous souhaitiez un traitement complet des pieds ou un simple changement de vernis, notre équipe expérimentée travaille soigneusement et efficacement pour que vous repartiez fraîche et bien chouchoutée."
@@ -497,9 +463,7 @@
           "q": "À quelle fréquence devrais-je faire une pédicure?",
           "a": "Toutes les 4 à 6 semaines est typique pour des pieds bien entretenus. De nombreuses clientes viennent plus souvent en été ou avant des occasions spéciales."
         }
-      ],
-      "metaTitle": "Soins des pieds chez Ongles Maily | Carrefour Beauport, Québec",
-      "metaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles Maily, Carrefour Beauport, Québec. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $."
+      ]
     }
   },
   "serviceLabels": {
@@ -576,27 +540,21 @@
     "intro": "Un aperçu de nos derniers designs, des tendances actuelles et des transformations de nos clientes.",
     "photos": {
       "nail-art-1": {
-        "alt": "Design de nail art peint à la main chez Ongles Maily",
         "caption": "Nail Art"
       },
       "nail-art-2": {
-        "alt": "Nail art élaboré avec motifs détaillés chez Ongles Maily",
         "caption": "Nail Art"
       },
       "nail-art-3": {
-        "alt": "Design tendance chez Ongles Maily, Carrefour Beauport",
         "caption": "Nail Art"
       },
       "nail-art-4": {
-        "alt": "Nail art créatif et ornements chez Ongles Maily",
         "caption": "Nail Art"
       },
       "gel-mani": {
-        "alt": "Manucure professionnelle chez Ongles Maily",
         "caption": "Manucure"
       },
       "spa-pedi": {
-        "alt": "Résultat de pédicure chez Ongles Maily, Carrefour Beauport",
         "caption": "Pédicure"
       }
     }

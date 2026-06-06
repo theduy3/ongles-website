@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { servicePath } from "@/lib/services";
 import { getStoreConfig } from "@/lib/store-config";
 import { getDictionary } from "../dictionaries";
+import { getSeo } from "../seo-content";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata, servicesGraph, breadcrumbGraph } from "@/lib/seo";
 import { formatFromPrice } from "@/lib/format";
@@ -18,11 +19,11 @@ export async function generateMetadata({
 }: LangParams): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, "/services", {
-    title: dict.meta.servicesTitle,
-    description: dict.meta.servicesDescription,
+    title: seo.meta.servicesTitle,
+    description: seo.meta.servicesDescription,
   }, { site, locations });
 }
 
@@ -30,12 +31,13 @@ export default async function ServicesPage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   const { site, locations, services } = await getStoreConfig();
 
-  // Hub ItemList schema: build ServiceItem[] from registry + dict.
+  // Hub ItemList schema: build ServiceItem[] from registry + dict (UI title) + seo (schema text).
   const items = services.map((s) => ({
     name: dict.serviceDetails[s.id].title,
-    description: dict.serviceDetails[s.id].metaDescription,
+    description: seo.services[s.id].schemaDescription,
     price: s.price,
     priceTo: s.priceTo,
     path: servicePath(s, lang),
@@ -63,8 +65,8 @@ export default async function ServicesPage({ params }: LangParams) {
         </Reveal>
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((svc, i) => {
-            const d = dict.serviceDetails[svc.id];
             const card = dict.services[i];
+            const heroAlt = seo.services[svc.id].heroAlt;
             const href = `/${lang}${servicePath(svc, lang)}`;
             const priceDisplay = formatFromPrice(
               lang,
@@ -78,7 +80,7 @@ export default async function ServicesPage({ params }: LangParams) {
                     <ServicePhoto
                       id={svc.id}
                       photo={svc.photo}
-                      alt={d.heroAlt}
+                      alt={heroAlt}
                       label={card.title}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="h-full w-full"

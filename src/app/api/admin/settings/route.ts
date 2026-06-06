@@ -38,6 +38,7 @@ export async function PUT(request: Request) {
 
   revalidateTag(`store-config:${tenant.id}`, "default");
   revalidateTag(`store-content:${tenant.id}`, "default");
+  revalidateTag(`store-seo:${tenant.id}`, "default");
 
   return NextResponse.json({ success: true, data: result.data });
 }

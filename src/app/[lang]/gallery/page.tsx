@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { getDictionary } from "../dictionaries";
+import { getSeo } from "../seo-content";
 import { pageMetadata, imageGalleryGraph, breadcrumbGraph } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHeader } from "@/components/PageHeader";
@@ -13,10 +14,10 @@ export async function generateMetadata({
 }: LangParams): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   return pageMetadata(lang, "/gallery", {
-    title: dict.meta.galleryTitle,
-    description: dict.meta.galleryDescription,
+    title: seo.meta.galleryTitle,
+    description: seo.meta.galleryDescription,
   });
 }
 
@@ -24,19 +25,28 @@ export default async function GalleryPage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
 
-  const slides = galleryImages.map((img) => {
-    const { alt, caption } =
-      dict.gallery.photos[img.id as keyof typeof dict.gallery.photos];
-    return { id: img.id, file: img.file, alt, caption };
-  });
+  // alt is SEO-owned (seo.gallery), caption is UI-owned (dict.gallery.photos).
+  const altFor = (id: string) =>
+    (seo.gallery as Record<string, { alt: string }>)[id]?.alt ?? "";
+  const captionFor = (id: string) =>
+    dict.gallery.photos[id as keyof typeof dict.gallery.photos].caption;
+
+  const slides = galleryImages.map((img) => ({
+    id: img.id,
+    file: img.file,
+    alt: altFor(img.id),
+    caption: captionFor(img.id),
+  }));
 
   return (
     <>
       <JsonLd
-        data={imageGalleryGraph(dict.gallery.title, galleryImages, (id) =>
-          dict.gallery.photos[id as keyof typeof dict.gallery.photos],
-        )}
+        data={imageGalleryGraph(dict.gallery.title, galleryImages, (id) => ({
+          alt: altFor(id),
+          caption: captionFor(id),
+        }))}
       />
       <JsonLd
         data={breadcrumbGraph(lang, [

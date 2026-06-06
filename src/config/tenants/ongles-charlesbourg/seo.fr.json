@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "homeTitle": "Ongles Charlesbourg — Salon de manucure au Carrefour Charlesbourg, Québec",
+    "homeDescription": "Salon d'ongles au Carrefour Charlesbourg, Québec. Pose d'ongles, remplissage, soins des mains et des pieds. Hygiène irréprochable, 15 ans+. Sans rendez-vous.",
+    "servicesTitle": "Services d'ongles à Charlesbourg, Québec | Ongles Charlesbourg",
+    "servicesDescription": "Pose d'ongles, remplissage, manucure et pédicure chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. Trois postes de désinfection, outils désinfectés après chaque utilisation.",
+    "aboutTitle": "À propos de notre salon à Charlesbourg | Ongles Charlesbourg",
+    "aboutDescription": "Ongles Charlesbourg est un salon d'ongles axé sur l'hygiène au Carrefour Charlesbourg, Québec. Plus de 15 ans d'expérience, ambiance chaleureuse et familiale. Vous êtes notre famille.",
+    "bookOnlineTitle": "Réserver un rendez-vous à Charlesbourg | Ongles Charlesbourg",
+    "bookOnlineDescription": "Réservez votre rendez-vous chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. Réservez en ligne ou venez sans rendez-vous — les deux sont bienvenus.",
+    "contactTitle": "Contact et itinéraire, Charlesbourg | Ongles Charlesbourg",
+    "contactDescription": "Communiquez avec Ongles Charlesbourg au Carrefour Charlesbourg, Québec. Questions sur les services ou les réservations — envoyez-nous un message.",
+    "faqTitle": "FAQ — Salon d'ongles à Charlesbourg | Ongles Charlesbourg",
+    "faqDescription": "Heures, réservations, services, hygiène et plus — réponses aux questions fréquentes sur Ongles Charlesbourg, Carrefour Charlesbourg.",
+    "reviewsTitle": "Avis clients — Salon d'ongles Charlesbourg | Ongles Charlesbourg",
+    "reviewsDescription": "Découvrez pourquoi nos clientes adorent Ongles Charlesbourg — pose d'ongles, remplissage, manucure et pédicure au Carrefour Charlesbourg, Québec.",
+    "galleryTitle": "Galerie nail art, Charlesbourg | Ongles Charlesbourg",
+    "galleryDescription": "Parcourez nos derniers nail art, manucures et poses d'ongles chez Ongles Charlesbourg, Carrefour Charlesbourg.",
+    "locationsTitle": "Nous trouver — Carrefour Charlesbourg | Ongles Charlesbourg",
+    "locationsDescription": "Trouvez Ongles Charlesbourg au Carrefour Charlesbourg — 3333 rue du Carrefour, Entrées 4 ou 5, Québec, QC G1G 5X1.",
+    "termsTitle": "Conditions générales — Ongles Charlesbourg",
+    "termsDescription": "Politiques du salon Ongles Charlesbourg : rendez-vous, annulations, dépôts, certificats cadeaux, santé et sécurité et plus encore.",
+    "privacyTitle": "Politique de confidentialité — Ongles Charlesbourg",
+    "privacyDescription": "Comment Ongles Charlesbourg collecte, utilise et protège vos renseignements personnels."
+  },
+  "services": {
+    "pose-ongles": {
+      "metaTitle": "Pose d'ongles chez Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
+      "metaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles Charlesbourg, Carrefour Charlesbourg. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
+      "schemaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles Charlesbourg, Carrefour Charlesbourg. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
+      "heroAlt": "Belle pose d'ongles complète chez Ongles Charlesbourg, Carrefour Charlesbourg"
+    },
+    "remplissage": {
+      "metaTitle": "Remplissage chez Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
+      "metaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles Charlesbourg, Carrefour Charlesbourg. Gardez votre pose fraîche et solide. À partir de 45 $.",
+      "schemaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles Charlesbourg, Carrefour Charlesbourg. Gardez votre pose fraîche et solide. À partir de 45 $.",
+      "heroAlt": "Remplissage d'ongles professionnel en cours chez Ongles Charlesbourg, Carrefour Charlesbourg"
+    },
+    "soins-mains": {
+      "metaTitle": "Soins des mains chez Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
+      "metaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. À partir de 30 $.",
+      "schemaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. À partir de 30 $.",
+      "heroAlt": "Manucure professionnelle avec vernis chez Ongles Charlesbourg, Carrefour Charlesbourg"
+    },
+    "soins-pieds": {
+      "metaTitle": "Soins des pieds chez Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
+      "metaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
+      "schemaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
+      "heroAlt": "Pédicure professionnelle dans un poste assaini chez Ongles Charlesbourg, Carrefour Charlesbourg"
+    }
+  },
+  "org": {
+    "description": "Salon d'ongles au Carrefour Charlesbourg, Québec. Pose d'ongles, remplissage, soins des mains et des pieds. Hygiène irréprochable, 15 ans+. Sans rendez-vous."
+  },
+  "gallery": {
+    "nail-art-1": {
+      "alt": "Design de nail art peint à la main chez Ongles Charlesbourg"
+    },
+    "nail-art-2": {
+      "alt": "Nail art élaboré avec motifs détaillés chez Ongles Charlesbourg"
+    },
+    "nail-art-3": {
+      "alt": "Design tendance chez Ongles Charlesbourg, Carrefour Charlesbourg"
+    },
+    "nail-art-4": {
+      "alt": "Nail art créatif et ornements chez Ongles Charlesbourg"
+    },
+    "gel-mani": {
+      "alt": "Manucure professionnelle chez Ongles Charlesbourg"
+    },
+    "spa-pedi": {
+      "alt": "Résultat de pédicure chez Ongles Charlesbourg, Carrefour Charlesbourg"
+    }
+  }
+}

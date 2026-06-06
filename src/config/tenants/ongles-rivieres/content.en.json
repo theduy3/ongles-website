@@ -1,28 +1,4 @@
 {
-  "meta": {
-    "homeTitle": "Ongles Rivières — Nail Salon at Centre Les Rivières, Québec",
-    "homeDescription": "Professional nail salon at Centre Les Rivières, Québec. Nail enhancements, fills, manicures & pedicures. Hygiene-first, 15+ years. Walk-ins welcome.",
-    "servicesTitle": "Nail Services in Rivières, Québec | Ongles Rivières",
-    "servicesDescription": "Nail enhancements, fills, manicures and pedicures at Ongles Rivières, Centre Les Rivières, Québec. Three disinfection stations, tools sanitized after every use.",
-    "aboutTitle": "About Our Rivières Nail Salon | Ongles Rivières",
-    "aboutDescription": "Ongles Rivières is a hygiene-first nail salon at Centre Les Rivières, Québec City. 15+ years of experience, warm family atmosphere. You are our family.",
-    "bookOnlineTitle": "Book a Nail Appointment in Rivières | Ongles Rivières",
-    "bookOnlineDescription": "Book your nail appointment at Ongles Rivières, Centre Les Rivières, Québec. Reserve online or walk in — we welcome both.",
-    "contactTitle": "Contact & Directions, Rivières | Ongles Rivières",
-    "contactDescription": "Get in touch with Ongles Rivières at Centre Les Rivières, Québec. Questions about services, bookings — send us a message.",
-    "faqTitle": "Nail Salon FAQ, Rivières Québec | Ongles Rivières",
-    "faqDescription": "Hours, booking, services, hygiene and more — answers to common questions about Ongles Rivières, Centre Les Rivières.",
-    "reviewsTitle": "Client Reviews, Rivières Nail Salon | Ongles Rivières",
-    "reviewsDescription": "See why clients love Ongles Rivières — nail enhancements, fills, manicures and pedicures at Centre Les Rivières, Québec.",
-    "galleryTitle": "Nail Art Gallery, Rivières | Ongles Rivières",
-    "galleryDescription": "Browse our latest nail art, manicures and nail enhancements at Ongles Rivières, Centre Les Rivières.",
-    "locationsTitle": "Find Us at Centre Les Rivières | Ongles Rivières",
-    "locationsDescription": "Find Ongles Rivières at Centre Les Rivières — 4225 boulevard des Forges, Entrées 4 ou 5, Trois-Rivières, QC G8Y 1W2.",
-    "termsTitle": "Terms & Conditions — Ongles Rivières",
-    "termsDescription": "Salon policies for Ongles Rivières: appointments, cancellations, deposits, gift cards, health & safety and more.",
-    "privacyTitle": "Privacy Policy — Ongles Rivières",
-    "privacyDescription": "How Ongles Rivières collects, uses and protects your personal information."
-  },
   "hero": {
     "subtitle": "Nail Salon at Centre Les Rivières, Québec",
     "alt": "Beautiful nail enhancements and manicure at Ongles Rivières, Centre Les Rivières"
@@ -100,37 +76,25 @@
   "serviceDetails": {
     "pose-ongles": {
       "title": "Nail Enhancements at Ongles Rivières, Québec",
-      "heroAlt": "Beautiful nail enhancements — full set at Ongles Rivières, Centre Les Rivières",
       "whyUs": "Clients at Centre Les Rivières trust Ongles Rivières for consistent, high-quality results. Our team's 15+ years of experience means you'll leave with nails that look exactly how you imagined — and a salon experience that puts your safety first.",
-      "hygiene": "Your safety is our priority. We operate three dedicated disinfection stations, sanitize every tool after each use, and use dust collectors at every manicure station — the hygiene standard behind every Ongles Rivières service.",
-      "metaTitle": "Nail Enhancements at Ongles Rivières | Centre Les Rivières, Québec",
-      "metaDescription": "Full set nail enhancements with or without extensions at Ongles Rivières, Centre Les Rivières. Nail art, multiple colours, hygiene-first. From $60."
+      "hygiene": "Your safety is our priority. We operate three dedicated disinfection stations, sanitize every tool after each use, and use dust collectors at every manicure station — the hygiene standard behind every Ongles Rivières service."
     },
     "remplissage": {
       "title": "Nail Fill at Ongles Rivières, Québec",
-      "heroAlt": "Professional nail fill in progress at Ongles Rivières, Centre Les Rivières",
       "whyUs": "Regular fills at Ongles Rivières maintain the quality and longevity of your enhancements. Our 15+ years of experience means we'll assess your nails at each visit and recommend the right approach to keep them strong and beautiful.",
-      "hygiene": "Every tool is disinfected after each use at our three dedicated disinfection stations. Your safety comes first at every Ongles Rivières appointment.",
-      "metaTitle": "Nail Fill at Ongles Rivières | Centre Les Rivières, Québec",
-      "metaDescription": "Professional nail fill every 2–3 weeks at Ongles Rivières, Centre Les Rivières. Keep your enhancements fresh and strong. From $45."
+      "hygiene": "Every tool is disinfected after each use at our three dedicated disinfection stations. Your safety comes first at every Ongles Rivières appointment."
     },
     "soins-mains": {
       "title": "Manicure at Ongles Rivières, Québec",
-      "heroAlt": "Professional manicure with polish at Ongles Rivières, Centre Les Rivières",
       "intro": [
         "A classic manicure at Ongles Rivières is thorough, precise and relaxing. We shape your nails, care for your cuticles and finish with your choice of polish — leaving your hands looking clean, polished and well-groomed.",
         "Whether you want a simple polish change or a complete hand care treatment, our experienced team takes the time to do it properly. No rushing, no cutting corners."
       ],
-      "whyUs": "With 15+ years of experience and an unwavering commitment to hygiene, Ongles Rivières delivers manicure results you can count on. Our sanitized tools and careful technique mean every visit is as safe as it is beautiful.",
-      "metaTitle": "Manicure at Ongles Rivières | Centre Les Rivières, Québec",
-      "metaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Rivières, Centre Les Rivières, Québec. From $30."
+      "whyUs": "With 15+ years of experience and an unwavering commitment to hygiene, Ongles Rivières delivers manicure results you can count on. Our sanitized tools and careful technique mean every visit is as safe as it is beautiful."
     },
     "soins-pieds": {
       "title": "Pedicure at Ongles Rivières, Québec",
-      "heroAlt": "Professional pedicure in a sanitized station at Ongles Rivières, Centre Les Rivières",
-      "whyUs": "Sanitized pedicure stations are a non-negotiable at Ongles Rivières. Combined with 15+ years of experience and tools disinfected after every use, you can relax knowing your treatment is as hygienic as it is enjoyable.",
-      "metaTitle": "Pedicure at Ongles Rivières | Centre Les Rivières, Québec",
-      "metaDescription": "Professional pedicure in sanitized stations at Ongles Rivières, Centre Les Rivières, Québec. Toenail care, cuticle treatment and polish. From $35."
+      "whyUs": "Sanitized pedicure stations are a non-negotiable at Ongles Rivières. Combined with 15+ years of experience and tools disinfected after every use, you can relax knowing your treatment is as hygienic as it is enjoyable."
     }
   },
   "serviceLabels": {
@@ -187,28 +151,6 @@
   },
   "reviewsPage": {
     "intro": "Hear from the clients who trust us with their nails at Ongles Rivières."
-  },
-  "gallery": {
-    "photos": {
-      "nail-art-1": {
-        "alt": "Hand-painted nail art design at Ongles Rivières"
-      },
-      "nail-art-2": {
-        "alt": "Intricate nail art with detailed patterns at Ongles Rivières"
-      },
-      "nail-art-3": {
-        "alt": "Trending nail design at Ongles Rivières, Centre Les Rivières"
-      },
-      "nail-art-4": {
-        "alt": "Creative nail art and embellishments at Ongles Rivières"
-      },
-      "gel-mani": {
-        "alt": "Professional manicure at Ongles Rivières"
-      },
-      "spa-pedi": {
-        "alt": "Pedicure result at Ongles Rivières, Centre Les Rivières"
-      }
-    }
   },
   "legal": {
     "terms": {

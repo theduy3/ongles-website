@@ -111,23 +111,24 @@ describe("composeDictionary (pure unit)", () => {
 // readStoreSettings returns null (no Supabase), so the DB layer is a no-op.
 // We verify the static base+tenant merge still works end-to-end.
 describe("getDictionary (integration — no DB in test env)", () => {
-  it("returns a dictionary with a meta key for fr locale", async () => {
+  it("returns a dictionary with a nav key for fr locale", async () => {
     // WHY: Without a DB row, getDictionary must still return the full
-    // base+tenant merged dictionary. meta is present in every tenant content
-    // file, confirming the static merge path runs successfully.
+    // base+tenant merged dictionary. nav is UI copy present in the base content
+    // file (SEO meta now lives in the separate seo layer), confirming the static
+    // merge path runs successfully.
     const dict = await getDictionary("fr");
     expect(dict).toBeDefined();
     expect(typeof dict).toBe("object");
-    expect(dict.meta).toBeDefined();
+    expect(dict.nav).toBeDefined();
   });
 
-  it("returns a dictionary with a meta key for en locale", async () => {
+  it("returns a dictionary with a nav key for en locale", async () => {
     // WHY: Locale parity — the en path must work identically to fr even when
     // there is no DB override. Catches missing en content files or import errors.
     const dict = await getDictionary("en");
     expect(dict).toBeDefined();
     expect(typeof dict).toBe("object");
-    expect(dict.meta).toBeDefined();
+    expect(dict.nav).toBeDefined();
   });
 
   it("fr and en dictionaries are independent objects", async () => {

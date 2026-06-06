@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { getDictionary } from "../dictionaries";
+import { getSeo } from "../seo-content";
 import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHeader } from "@/components/PageHeader";
@@ -15,11 +16,11 @@ export async function generateMetadata({
 }: LangParams): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, "/reviews", {
-    title: dict.meta.reviewsTitle,
-    description: dict.meta.reviewsDescription,
+    title: seo.meta.reviewsTitle,
+    description: seo.meta.reviewsDescription,
   }, { site, locations });
 }
 

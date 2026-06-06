@@ -3,15 +3,16 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { StoreSettings } from "@/lib/store-settings-schema";
-import { buildSparseDoc, extractMeta, type SettingsDraftState } from "@/lib/settings-draft";
+import { buildSparseDoc, extractSeoMeta, type SettingsDraftState } from "@/lib/settings-draft";
 import { BrandSeoSection } from "./settings/BrandSeoSection";
+import { SeoSection } from "./settings/SeoSection";
 import { ContactHoursSection } from "./settings/ContactHoursSection";
 import { BookingServicesSection } from "./settings/BookingServicesSection";
 
-type ContentMeta = Record<string, unknown>;
+type SeoMeta = Record<string, unknown>;
 
 function emptyState(): SettingsDraftState {
-  return { site: {}, services: [], contentFr: {}, contentEn: {} };
+  return { site: {}, services: [], seoFr: {}, seoEn: {} };
 }
 
 function stateFromSettings(s: StoreSettings | null): SettingsDraftState {
@@ -19,8 +20,8 @@ function stateFromSettings(s: StoreSettings | null): SettingsDraftState {
   return {
     site: s.site ?? {},
     services: s.services ?? [],
-    contentFr: extractMeta(s.content?.fr as Record<string, unknown> | undefined),
-    contentEn: extractMeta(s.content?.en as Record<string, unknown> | undefined),
+    seoFr: extractSeoMeta(s.seo?.fr as Record<string, unknown> | undefined),
+    seoEn: extractSeoMeta(s.seo?.en as Record<string, unknown> | undefined),
   };
 }
 
@@ -68,13 +69,13 @@ export function SettingsForm({
     setSaved(false);
   }
 
-  function setContentFr(next: ContentMeta) {
-    setDraft((prev) => ({ ...prev, contentFr: next }));
+  function setSeoFr(next: SeoMeta) {
+    setDraft((prev) => ({ ...prev, seoFr: next }));
     setSaved(false);
   }
 
-  function setContentEn(next: ContentMeta) {
-    setDraft((prev) => ({ ...prev, contentEn: next }));
+  function setSeoEn(next: SeoMeta) {
+    setDraft((prev) => ({ ...prev, seoEn: next }));
     setSaved(false);
   }
 
@@ -135,13 +136,12 @@ export function SettingsForm({
         <p className="text-sm text-tan">Loading…</p>
       ) : (
         <form onSubmit={save} className="flex flex-col gap-6">
-          <BrandSeoSection
-            site={draft.site}
-            contentFr={draft.contentFr}
-            contentEn={draft.contentEn}
-            onSiteChange={patchSite}
-            onContentFrChange={setContentFr}
-            onContentEnChange={setContentEn}
+          <BrandSeoSection site={draft.site} onSiteChange={patchSite} />
+          <SeoSection
+            seoFr={draft.seoFr}
+            seoEn={draft.seoEn}
+            onSeoFrChange={setSeoFr}
+            onSeoEnChange={setSeoEn}
           />
           <ContactHoursSection site={draft.site} onSiteChange={patchSite} />
           <BookingServicesSection

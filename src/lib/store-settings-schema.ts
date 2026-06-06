@@ -137,10 +137,21 @@ const ServiceOverrideSchema = z
   .strict();
 
 // ── content section ──────────────────────────────────────────────────────────
-// Loose per-locale free-form records for SEO meta text. No strict() here since
-// the key set grows as new meta fields are added in the editor.
+// Loose per-locale free-form records for UI copy overrides. No strict() here
+// since the key set grows as new fields are added in the editor.
 
 const ContentSectionSchema = z.object({
+  fr: z.record(z.string(), z.unknown()).optional(),
+  en: z.record(z.string(), z.unknown()).optional(),
+});
+
+// ── seo section ──────────────────────────────────────────────────────────────
+// SEO override is a SEPARATE top-level namespace from `content` so SEO is edited
+// independently of UI copy (see src/app/[lang]/seo-content.ts). Loose per-locale
+// records like content — the SEO key set (meta, services, org, gallery) grows as
+// new fields are added. Merged over the static base+tenant seo JSON at read time.
+
+const SeoOverrideSchema = z.object({
   fr: z.record(z.string(), z.unknown()).optional(),
   en: z.record(z.string(), z.unknown()).optional(),
 });
@@ -153,6 +164,7 @@ export const StoreSettingsSchema = z
     location: LocationSectionSchema.optional(),
     services: z.array(ServiceOverrideSchema).optional(),
     content: ContentSectionSchema.optional(),
+    seo: SeoOverrideSchema.optional(),
   })
   .strict();
 

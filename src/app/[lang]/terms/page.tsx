@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { LegalDocument } from "@/components/LegalDocument";
 import { JsonLd } from "@/components/JsonLd";
 import { getDictionary } from "../dictionaries";
+import { getSeo } from "../seo-content";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
 
@@ -11,10 +12,10 @@ export async function generateMetadata({
 }: LangParams): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   return pageMetadata(lang, "/terms", {
-    title: dict.meta.termsTitle,
-    description: dict.meta.termsDescription,
+    title: seo.meta.termsTitle,
+    description: seo.meta.termsDescription,
   });
 }
 

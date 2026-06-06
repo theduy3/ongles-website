@@ -1,28 +1,4 @@
 {
-  "meta": {
-    "homeTitle": "Ongles Rivières — Salon de manucure au Centre Les Rivières, Québec",
-    "homeDescription": "Salon d'ongles au Centre Les Rivières, Québec. Pose d'ongles, remplissage, soins des mains et des pieds. Hygiène irréprochable, 15 ans+. Sans rendez-vous.",
-    "servicesTitle": "Services d'ongles à Rivières, Québec | Ongles Rivières",
-    "servicesDescription": "Pose d'ongles, remplissage, manucure et pédicure chez Ongles Rivières, Centre Les Rivières, Québec. Trois postes de désinfection, outils désinfectés après chaque utilisation.",
-    "aboutTitle": "À propos de notre salon à Rivières | Ongles Rivières",
-    "aboutDescription": "Ongles Rivières est un salon d'ongles axé sur l'hygiène au Centre Les Rivières, Québec. Plus de 15 ans d'expérience, ambiance chaleureuse et familiale. Vous êtes notre famille.",
-    "bookOnlineTitle": "Réserver un rendez-vous à Rivières | Ongles Rivières",
-    "bookOnlineDescription": "Réservez votre rendez-vous chez Ongles Rivières, Centre Les Rivières, Québec. Réservez en ligne ou venez sans rendez-vous — les deux sont bienvenus.",
-    "contactTitle": "Contact et itinéraire, Rivières | Ongles Rivières",
-    "contactDescription": "Communiquez avec Ongles Rivières au Centre Les Rivières, Québec. Questions sur les services ou les réservations — envoyez-nous un message.",
-    "faqTitle": "FAQ — Salon d'ongles à Rivières | Ongles Rivières",
-    "faqDescription": "Heures, réservations, services, hygiène et plus — réponses aux questions fréquentes sur Ongles Rivières, Centre Les Rivières.",
-    "reviewsTitle": "Avis clients — Salon d'ongles Rivières | Ongles Rivières",
-    "reviewsDescription": "Découvrez pourquoi nos clientes adorent Ongles Rivières — pose d'ongles, remplissage, manucure et pédicure au Centre Les Rivières, Québec.",
-    "galleryTitle": "Galerie nail art, Rivières | Ongles Rivières",
-    "galleryDescription": "Parcourez nos derniers nail art, manucures et poses d'ongles chez Ongles Rivières, Centre Les Rivières.",
-    "locationsTitle": "Nous trouver — Centre Les Rivières | Ongles Rivières",
-    "locationsDescription": "Trouvez Ongles Rivières au Centre Les Rivières — 3333 rue du Carrefour, Entrées 4 ou 5, Trois-Rivières, QC G8Y 1W2.",
-    "termsTitle": "Conditions générales — Ongles Rivières",
-    "termsDescription": "Politiques du salon Ongles Rivières : rendez-vous, annulations, dépôts, certificats cadeaux, santé et sécurité et plus encore.",
-    "privacyTitle": "Politique de confidentialité — Ongles Rivières",
-    "privacyDescription": "Comment Ongles Rivières collecte, utilise et protège vos renseignements personnels."
-  },
   "hero": {
     "subtitle": "Salon d'ongles au Centre Les Rivières, Québec",
     "alt": "Belle pose d'ongles et manucure chez Ongles Rivières, Centre Les Rivières"
@@ -100,37 +76,25 @@
   "serviceDetails": {
     "pose-ongles": {
       "title": "Pose d'ongles chez Ongles Rivières, Québec",
-      "heroAlt": "Belle pose d'ongles complète chez Ongles Rivières, Centre Les Rivières",
       "whyUs": "Les clientes au Centre Les Rivières font confiance à Ongles Rivières pour des résultats constants et de haute qualité. Les plus de 15 ans d'expérience de notre équipe font que vous repartirez avec des ongles exactement comme vous les aviez imaginés — et une expérience en salon qui place votre sécurité au premier plan.",
-      "hygiene": "Votre sécurité est notre priorité. Nous disposons de trois postes de désinfection dédiés, désinfectons chaque outil après utilisation et utilisons des capteurs de poussière à chaque poste de manucure — le standard d'hygiène derrière chaque service Ongles Rivières.",
-      "metaTitle": "Pose d'ongles chez Ongles Rivières | Centre Les Rivières, Québec",
-      "metaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles Rivières, Centre Les Rivières. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $."
+      "hygiene": "Votre sécurité est notre priorité. Nous disposons de trois postes de désinfection dédiés, désinfectons chaque outil après utilisation et utilisons des capteurs de poussière à chaque poste de manucure — le standard d'hygiène derrière chaque service Ongles Rivières."
     },
     "remplissage": {
       "title": "Remplissage chez Ongles Rivières, Québec",
-      "heroAlt": "Remplissage d'ongles professionnel en cours chez Ongles Rivières, Centre Les Rivières",
       "whyUs": "Les remplissages réguliers chez Ongles Rivières maintiennent la qualité et la longévité de votre pose. Nos plus de 15 ans d'expérience signifient que nous évaluerons vos ongles à chaque visite et recommanderons la meilleure approche pour les garder solides et beaux.",
-      "hygiene": "Chaque outil est désinfecté après chaque utilisation dans nos trois postes de désinfection dédiés. Votre sécurité passe en premier à chaque rendez-vous chez Ongles Rivières.",
-      "metaTitle": "Remplissage chez Ongles Rivières | Centre Les Rivières, Québec",
-      "metaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles Rivières, Centre Les Rivières. Gardez votre pose fraîche et solide. À partir de 45 $."
+      "hygiene": "Chaque outil est désinfecté après chaque utilisation dans nos trois postes de désinfection dédiés. Votre sécurité passe en premier à chaque rendez-vous chez Ongles Rivières."
     },
     "soins-mains": {
       "title": "Soins des mains chez Ongles Rivières, Québec",
-      "heroAlt": "Manucure professionnelle avec vernis chez Ongles Rivières, Centre Les Rivières",
       "intro": [
         "Une manucure classique chez Ongles Rivières est rigoureuse, précise et relaxante. Nous façonnons vos ongles, prenons soin de vos cuticules et terminons avec le vernis de votre choix — laissant vos mains propres, soignées et bien entretenues.",
         "Que vous souhaitiez un simple changement de vernis ou un traitement complet des mains, notre équipe expérimentée prend le temps de bien faire les choses. Pas de précipitation, pas de raccourcis."
       ],
-      "whyUs": "Avec plus de 15 ans d'expérience et un engagement inébranlable envers l'hygiène, Ongles Rivières offre des résultats de manucure sur lesquels vous pouvez compter. Nos outils assainis et notre technique soignée font de chaque visite une expérience aussi sécuritaire que belle.",
-      "metaTitle": "Soins des mains chez Ongles Rivières | Centre Les Rivières, Québec",
-      "metaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles Rivières, Centre Les Rivières, Québec. À partir de 30 $."
+      "whyUs": "Avec plus de 15 ans d'expérience et un engagement inébranlable envers l'hygiène, Ongles Rivières offre des résultats de manucure sur lesquels vous pouvez compter. Nos outils assainis et notre technique soignée font de chaque visite une expérience aussi sécuritaire que belle."
     },
     "soins-pieds": {
       "title": "Soins des pieds chez Ongles Rivières, Québec",
-      "heroAlt": "Pédicure professionnelle dans un poste assaini chez Ongles Rivières, Centre Les Rivières",
-      "whyUs": "Les postes de pédicure assainis sont non négociables chez Ongles Rivières. Combinés à plus de 15 ans d'expérience et à des outils désinfectés après chaque utilisation, vous pouvez vous détendre en sachant que votre traitement est aussi hygiénique qu'agréable.",
-      "metaTitle": "Soins des pieds chez Ongles Rivières | Centre Les Rivières, Québec",
-      "metaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles Rivières, Centre Les Rivières, Québec. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $."
+      "whyUs": "Les postes de pédicure assainis sont non négociables chez Ongles Rivières. Combinés à plus de 15 ans d'expérience et à des outils désinfectés après chaque utilisation, vous pouvez vous détendre en sachant que votre traitement est aussi hygiénique qu'agréable."
     }
   },
   "serviceLabels": {
@@ -187,28 +151,6 @@
   },
   "reviewsPage": {
     "intro": "Lisez les témoignages des clientes qui nous font confiance chez Ongles Rivières."
-  },
-  "gallery": {
-    "photos": {
-      "nail-art-1": {
-        "alt": "Design de nail art peint à la main chez Ongles Rivières"
-      },
-      "nail-art-2": {
-        "alt": "Nail art élaboré avec motifs détaillés chez Ongles Rivières"
-      },
-      "nail-art-3": {
-        "alt": "Design tendance chez Ongles Rivières, Centre Les Rivières"
-      },
-      "nail-art-4": {
-        "alt": "Nail art créatif et ornements chez Ongles Rivières"
-      },
-      "gel-mani": {
-        "alt": "Manucure professionnelle chez Ongles Rivières"
-      },
-      "spa-pedi": {
-        "alt": "Résultat de pédicure chez Ongles Rivières, Centre Les Rivières"
-      }
-    }
   },
   "legal": {
     "terms": {

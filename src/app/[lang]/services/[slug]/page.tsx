@@ -13,6 +13,7 @@ import {
   servicePathsByLocale,
 } from "@/lib/services";
 import { getDictionary } from "../../dictionaries";
+import { getSeo } from "../../seo-content";
 import { isLocale } from "@/lib/i18n";
 import {
   pageMetadata,
@@ -36,11 +37,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!isLocale(lang)) return {};
   const service = serviceBySlug(lang, slug);
   if (!service) return {};
-  const d = (await getDictionary(lang)).serviceDetails[service.id];
+  const s = (await getSeo(lang)).services[service.id];
   const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, servicePath(service, lang), {
-    title: d.metaTitle,
-    description: d.metaDescription,
+    title: s.metaTitle,
+    description: s.metaDescription,
     routeByLocale: servicePathsByLocale(service),
   }, { site, locations });
 }
@@ -52,8 +53,10 @@ export default async function ServiceDetailPage({ params }: Params) {
   if (!service) notFound();
 
   const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
   const d = dict.serviceDetails[service.id];
+  const s = seo.services[service.id];
   const labels = dict.serviceLabels;
   const bookHref = `/${lang}${site.booking}`;
   const priceDisplay = formatFromPrice(lang, service.price, labels.priceFrom);
@@ -63,7 +66,7 @@ export default async function ServiceDetailPage({ params }: Params) {
       <JsonLd
         data={serviceGraph(lang, {
           name: d.title,
-          description: d.metaDescription,
+          description: s.schemaDescription,
           price: service.price,
           priceTo: service.priceTo,
           path: servicePath(service, lang),
@@ -96,7 +99,7 @@ export default async function ServiceDetailPage({ params }: Params) {
             <ServicePhoto
               id={service.id}
               photo={service.photo}
-              alt={d.heroAlt}
+              alt={s.heroAlt}
               label={d.title}
               sizes="(max-width: 768px) 100vw, 1024px"
               className="h-full w-full"

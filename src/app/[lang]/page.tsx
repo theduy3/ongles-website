@@ -13,6 +13,7 @@ import { galleryImages } from "@/lib/gallery";
 import { getStoreConfig } from "@/lib/store-config";
 import { buildSalonCards } from "@/components/SalonCard";
 import { getDictionary } from "./dictionaries";
+import { getSeo } from "./seo-content";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 
@@ -61,11 +62,11 @@ export async function generateMetadata({
 }: LangParams): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
   return pageMetadata(lang, "", {
-    title: dict.meta.homeTitle,
-    description: dict.meta.homeDescription,
+    title: seo.meta.homeTitle,
+    description: seo.meta.homeDescription,
   }, { site, locations });
 }
 
@@ -73,6 +74,7 @@ export default async function Home({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
   const salonCards = buildSalonCards(dict, lang, site, locations);
 
@@ -84,7 +86,8 @@ export default async function Home({ params }: LangParams) {
   const gallerySlides = galleryImages.map((img) => ({
     id: img.id,
     file: img.file,
-    alt: dict.gallery.photos[img.id as keyof typeof dict.gallery.photos].alt,
+    // alt is SEO-owned (seo.gallery), caption is UI-owned (dict.gallery.photos).
+    alt: (seo.gallery as Record<string, { alt: string }>)[img.id]?.alt ?? "",
     caption:
       dict.gallery.photos[img.id as keyof typeof dict.gallery.photos].caption,
   }));

@@ -1,12 +1,12 @@
 import { describe, it, expect } from "bun:test";
-import { buildSparseDoc, extractMeta } from "./settings-draft";
+import { buildSparseDoc, extractSeoMeta } from "./settings-draft";
 import type { SettingsDraftState } from "./settings-draft";
 
 const empty: SettingsDraftState = {
   site: {},
   services: [],
-  contentFr: {},
-  contentEn: {},
+  seoFr: {},
+  seoEn: {},
 };
 
 describe("buildSparseDoc", () => {
@@ -59,20 +59,20 @@ describe("buildSparseDoc", () => {
     expect(doc.services?.[0].price).toBe(60);
   });
 
-  it("wraps content meta under { meta: ... }", () => {
+  it("wraps seo meta under { meta: ... }", () => {
     const doc = buildSparseDoc({
       ...empty,
-      contentEn: { homeTitle: "My Title" },
+      seoEn: { homeTitle: "My Title" },
     });
-    expect(doc.content?.en).toEqual({ meta: { homeTitle: "My Title" } });
+    expect(doc.seo?.en).toEqual({ meta: { homeTitle: "My Title" } });
   });
 
-  it("omits content when all meta values are empty", () => {
+  it("omits seo when all meta values are empty", () => {
     const doc = buildSparseDoc({
       ...empty,
-      contentEn: { homeTitle: "" },
+      seoEn: { homeTitle: "" },
     });
-    expect(doc.content).toBeUndefined();
+    expect(doc.seo).toBeUndefined();
   });
 
   it("includes booker only when at least one field is set", () => {
@@ -109,18 +109,18 @@ describe("buildSparseDoc", () => {
   });
 });
 
-describe("extractMeta", () => {
+describe("extractSeoMeta", () => {
   it("returns empty object when undefined", () => {
-    expect(extractMeta(undefined)).toEqual({});
+    expect(extractSeoMeta(undefined)).toEqual({});
   });
 
   it("extracts meta key from locale object", () => {
-    expect(extractMeta({ meta: { homeTitle: "Hello" } })).toEqual({
+    expect(extractSeoMeta({ meta: { homeTitle: "Hello" } })).toEqual({
       homeTitle: "Hello",
     });
   });
 
   it("returns empty object when meta is not an object", () => {
-    expect(extractMeta({ meta: "bad" })).toEqual({});
+    expect(extractSeoMeta({ meta: "bad" })).toEqual({});
   });
 });

@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { getDictionary } from "./dictionaries";
+import { getSeo } from "./seo-content";
 import { locales, isLocale, dirFor, type LangParams } from "@/lib/i18n";
 import { PopupHost } from "@/components/PopupHost";
 import { FloatingCTA } from "@/components/FloatingCTA";
@@ -38,14 +39,14 @@ export async function generateMetadata({
 }: LangParams): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   const { site } = await getStoreConfig();
   return {
     // Sitewide base URL — every relative metadata field (canonical, hreflang, og:url,
     // og:image) on every page composes against this. Set once, here.
     metadataBase: new URL(site.url),
-    title: dict.meta.homeTitle,
-    description: dict.meta.homeDescription,
+    title: seo.meta.homeTitle,
+    description: seo.meta.homeDescription,
     robots: { index: true, follow: true },
     // Local-SEO geo signals for the primary (Carrefour Beauport) location.
     other: {
@@ -73,6 +74,7 @@ export default async function RootLayout({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
 
   return (
@@ -86,7 +88,7 @@ export default async function RootLayout({
         <JsonLd
           data={organizationGraph(lang, {
             name: site.name,
-            description: dict.meta.homeDescription,
+            description: seo.org.description,
           }, { site, locations })}
         />
         <Header dict={dict} locale={lang} site={site} />
