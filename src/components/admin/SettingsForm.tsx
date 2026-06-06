@@ -3,16 +3,20 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { StoreSettings } from "@/lib/store-settings-schema";
-import { buildSparseDoc, extractSeoMeta, type SettingsDraftState } from "@/lib/settings-draft";
+import {
+  buildSparseDoc,
+  extractSeo,
+  emptySeoDraft,
+  type SeoDraft,
+  type SettingsDraftState,
+} from "@/lib/settings-draft";
 import { BrandSeoSection } from "./settings/BrandSeoSection";
 import { SeoSection } from "./settings/SeoSection";
 import { ContactHoursSection } from "./settings/ContactHoursSection";
 import { BookingServicesSection } from "./settings/BookingServicesSection";
 
-type SeoMeta = Record<string, unknown>;
-
 function emptyState(): SettingsDraftState {
-  return { site: {}, services: [], seoFr: {}, seoEn: {} };
+  return { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft() };
 }
 
 function stateFromSettings(s: StoreSettings | null): SettingsDraftState {
@@ -20,8 +24,8 @@ function stateFromSettings(s: StoreSettings | null): SettingsDraftState {
   return {
     site: s.site ?? {},
     services: s.services ?? [],
-    seoFr: extractSeoMeta(s.seo?.fr as Record<string, unknown> | undefined),
-    seoEn: extractSeoMeta(s.seo?.en as Record<string, unknown> | undefined),
+    seoFr: extractSeo(s.seo?.fr as Record<string, unknown> | undefined),
+    seoEn: extractSeo(s.seo?.en as Record<string, unknown> | undefined),
   };
 }
 
@@ -69,12 +73,12 @@ export function SettingsForm({
     setSaved(false);
   }
 
-  function setSeoFr(next: SeoMeta) {
+  function setSeoFr(next: SeoDraft) {
     setDraft((prev) => ({ ...prev, seoFr: next }));
     setSaved(false);
   }
 
-  function setSeoEn(next: SeoMeta) {
+  function setSeoEn(next: SeoDraft) {
     setDraft((prev) => ({ ...prev, seoEn: next }));
     setSaved(false);
   }
