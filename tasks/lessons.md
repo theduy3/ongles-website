@@ -9,6 +9,9 @@
 - **Worktree builds need their own `node_modules`.** `turbopack.root` is pinned to the project dir, so Turbopack won't resolve `next` up-tree the way `bun` does; a relative `node_modules` symlink is rejected ("points out of filesystem root"). Run `bun install` inside the worktree (gitignored). (admin-store-settings)
 - **`bun test` collides with Playwright** (both define global `test()`). Scope unit tests to `bun test src/`; keep Playwright on `test:e2e`. (admin-store-settings)
 
+## Adding a tenant
+- **Registering a tenant takes THREE files, not one.** `src/config/index.ts` is the obvious registry, but `src/app/[lang]/dictionaries.ts` and `src/app/[lang]/seo-content.ts` each hold their own hardcoded tenant→JSON import maps. The base dict has no page-level keys (`about`, `faq`, …) — they come entirely from the tenant content layer — so a tenant missing from those maps build-fails at render with `Cannot read properties of undefined (reading 'heading')`. New tenant ⇒ add to all three. (template-baseline-and-custom-code, 2026-06-06)
+
 ## Multi-tenant RLS rollout (pending — commit c6606dc)
 
 One Supabase project serves all 3 branded containers; rows are partitioned by

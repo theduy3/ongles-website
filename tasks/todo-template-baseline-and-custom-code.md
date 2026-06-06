@@ -1,7 +1,7 @@
 <!-- s1 metadata
 task-name: template-baseline-and-custom-code
 scope: medium
-status: plan-approved
+status: implemented
 repo: /Users/theduy/Repo/ongles-website
 created-at: 2026-06-06
 -->
