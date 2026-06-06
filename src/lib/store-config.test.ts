@@ -41,6 +41,16 @@ describe("getStoreConfig (no DB in test env)", () => {
   });
 });
 
+describe("getStoreConfig customCode", () => {
+  it("returns an empty customCode array when no DB override exists", async () => {
+    // WHY: The resolver must always expose customCode so consumers can iterate
+    // without null-checking. When no DB row is present (test env), it must be [].
+    const config = await getStoreConfig();
+    expect(Array.isArray(config.customCode)).toBe(true);
+    expect(config.customCode).toEqual([]);
+  });
+});
+
 describe("mergeServicesById (unit)", () => {
   const base = staticServices as typeof staticServices;
 

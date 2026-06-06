@@ -5,6 +5,7 @@ import { tenant } from "@/config";
 import { deepMerge } from "@/config/deep-merge";
 import { readStoreSettings } from "@/lib/store-settings-store";
 import type { TenantSite, Location, Service } from "@/config/types";
+import type { StoreSettings } from "@/lib/store-settings-schema";
 
 // Merge layer: merges sparse Supabase override doc over static tenant config.
 // Caching strategy:
@@ -50,6 +51,7 @@ async function resolveStoreConfig(): Promise<{
   site: TenantSite;
   locations: Location[];
   services: readonly Service[];
+  customCode: NonNullable<StoreSettings["customCode"]>;
 }> {
   const override = await readStoreSettings();
 
@@ -59,6 +61,7 @@ async function resolveStoreConfig(): Promise<{
       site: staticSite,
       locations: staticLocations,
       services: staticServices,
+      customCode: [],
     };
   }
 
@@ -79,6 +82,7 @@ async function resolveStoreConfig(): Promise<{
     site: mergedSite,
     locations: [mergedLocation],
     services: mergedServices,
+    customCode: override.customCode ?? [],
   };
 }
 
