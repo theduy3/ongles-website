@@ -83,6 +83,9 @@ const SiteSectionSchema = z
     // Header logo image URL (Supabase public bucket). Falls back to the static
     // /images/logo.png default when unset. Admin-uploaded via /api/admin/upload.
     logo: z.string().optional(),
+    // Favicon image URL (Supabase public bucket). Falls back to the static
+    // app/icon.png default when unset. Admin-uploaded via /api/admin/upload.
+    favicon: z.string().optional(),
     booking: z.string().optional(),
     booker: BookerSchema.optional(),
     priceRange: z.string().optional(),
