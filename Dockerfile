@@ -11,17 +11,9 @@ WORKDIR /app
 RUN apk add --no-cache libc6-compat
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-# NEXT_PUBLIC_* are baked into the client bundle at BUILD time:
-ARG NEXT_PUBLIC_SUPABASE_URL
-ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
-ARG NEXT_PUBLIC_SITE_URL
-ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL \
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
-    NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
-# Selects which branded tenant this image is built for (one image per domain).
-# Defaults to ongles-maily so an un-parameterized build matches the original site.
-ARG TENANT=ongles-maily
-ENV TENANT=$TENANT
+# Tenant-agnostic build: NO TENANT or NEXT_PUBLIC_* build-args. The image bundles
+# every tenant; the running container selects one at RUNTIME via its TENANT env var,
+# and SUPABASE_* are server-only runtime env. One universal image serves all domains.
 RUN npm run build
 
 # --- runner: minimal Node runtime serving standalone output ---
