@@ -65,6 +65,7 @@ export function buildSparseDoc(draft: SettingsDraftState): StoreSettings {
   if (rawSite.url) site.url = rawSite.url;
   if (rawSite.storeId) site.storeId = rawSite.storeId;
   if (rawSite.widgetHost) site.widgetHost = rawSite.widgetHost;
+  if (rawSite.logo) site.logo = rawSite.logo;
   if (rawSite.booking) site.booking = rawSite.booking;
   if (rawSite.priceRange) site.priceRange = rawSite.priceRange;
 
