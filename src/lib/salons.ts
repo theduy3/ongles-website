@@ -26,6 +26,34 @@ export type SisterSalon = {
 
 export const sisterSalons: readonly SisterSalon[] = [
   {
+    id: "maily",
+    brand: "Ongles Maily",
+    landmark: "Carrefour Beauport — Entrées 4 ou 5",
+    website: "https://onglesmaily.com",
+    address: {
+      line1: "3333 Rue du Carrefour",
+      line2: "Québec, QC G1C 5R9",
+      query: "Ongles Maily, 3333 Rue du Carrefour, Québec, QC G1C 5R9",
+    },
+    phone: "(418) 660-8228",
+    phoneHref: "tel:+14186608228",
+    booking: "https://onglesmaily.com/book-online",
+    hours: {
+      fr: [
+        { label: "Lun – Mer", value: "9 h 00 – 17 h 30" },
+        { label: "Jeu – Ven", value: "9 h 00 – 21 h 00" },
+        { label: "Sam", value: "9 h 00 – 17 h 00" },
+        { label: "Dim", value: "10 h 00 – 17 h 00" },
+      ],
+      en: [
+        { label: "Mon – Wed", value: "9:00 AM – 5:30 PM" },
+        { label: "Thu – Fri", value: "9:00 AM – 9:00 PM" },
+        { label: "Sat", value: "9:00 AM – 5:00 PM" },
+        { label: "Sun", value: "10:00 AM – 5:00 PM" },
+      ],
+    },
+  },
+  {
     id: "charlesbourg",
     brand: "Ongles Charlesbourg",
     landmark: "Carrefour Charlesbourg — Entrées 5",

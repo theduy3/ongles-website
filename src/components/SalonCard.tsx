@@ -149,6 +149,7 @@ export function buildSalonCards(
   lang: Locale,
   site: TenantSite = staticSite,
   locations: Location[] = staticLocations,
+  activeTenantId: string = tenant.id,
 ): SalonCardProps[] {
   const l = dict.locations;
   const labels = {
@@ -181,10 +182,11 @@ export function buildSalonCards(
   // TODO: when sibling domains go live, also surface Ongles Maily as a cross-promo
   // candidate (sisterSalons has no Maily entry today).
   const selfSisterId: Record<string, string> = {
+    "ongles-maily": "maily",
     "ongles-charlesbourg": "charlesbourg",
     "ongles-rivieres": "rivieres",
   };
-  const excludeId = selfSisterId[tenant.id];
+  const excludeId = selfSisterId[activeTenantId];
 
   const sisters: SalonCardProps[] = sisterSalons
     .filter((s) => s.id !== excludeId)
