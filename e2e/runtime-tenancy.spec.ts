@@ -22,3 +22,26 @@ test("active tenant renders its own hero", async ({ page }) => {
   await page.goto("/en");
   await expect(page.locator("body")).toContainText(expected);
 });
+
+// The "New Store in Quebec City" coming-soon card is hidden for now — no tenant,
+// in either locale, should render it.
+test("hides the Quebec coming-soon card", async ({ page }) => {
+  for (const path of ["/en", "/fr"]) {
+    await page.goto(path);
+    const body = page.locator("body");
+    await expect(body).not.toContainText("New Store in Quebec City");
+    await expect(body).not.toContainText("Nouveau salon à Québec");
+  }
+});
+
+// The own-store "Book Now" routes to the internal /book-online page (the tenant's
+// SalonX widget) — never the stale bluehost placeholder that was Maily's booker URL.
+test("own-store Book Now is internal, not the placeholder reservation URL", async ({
+  page,
+}) => {
+  await page.goto("/en");
+  await expect(page.locator("body")).not.toContainText("mybluehost.me");
+  await expect(
+    page.locator('a[href="/en/book-online"]').first(),
+  ).toBeVisible();
+});

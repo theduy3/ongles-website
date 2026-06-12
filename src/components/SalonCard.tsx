@@ -1,6 +1,5 @@
 import { Button } from "./Button";
 import {
-  bookerServiceMenu,
   mapEmbedSrc,
   mapEmbedUrl,
   mapLink,
@@ -169,7 +168,9 @@ export function buildSalonCards(
     hours: l.hours,
     phone: loc.phone,
     phoneHref: loc.phoneHref,
-    bookHref: bookerServiceMenu(loc),
+    // Own-store booking → internal /book-online page (renders this tenant's
+    // SalonX widget). Sister cards below keep their external reservation URLs.
+    bookHref: `/${lang}${site.booking}`,
     bookLabel: l.bookNow,
     labels,
   }));

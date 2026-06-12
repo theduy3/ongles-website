@@ -84,13 +84,4 @@ export const sisterSalons: readonly SisterSalon[] = [
       ],
     },
   },
-  {
-    id: "quebec",
-    brand: "New Store in Quebec City",
-    brandByLocale: {
-      en: "New Store in Quebec City",
-      fr: "Nouveau salon à Québec",
-    },
-    comingSoon: true,
-  },
 ];
