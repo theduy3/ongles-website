@@ -126,6 +126,22 @@ test("site.widgetHost is accepted", () => {
   bexpect(r.success).toBe(true);
 });
 
+// ── Task: per-tenant logo ─────────────────────────────────────────────────────
+
+test("site.logo is accepted", () => {
+  const r = StoreSettingsSchema.safeParse({
+    site: { logo: "https://cdn.example.com/logo.png" },
+  });
+  bexpect(r.success).toBe(true);
+});
+
+test("site rejects an unknown sibling key next to logo", () => {
+  const r = StoreSettingsSchema.safeParse({
+    site: { logo: "https://x/y.png", logoo: "typo" },
+  });
+  bexpect(r.success).toBe(false);
+});
+
 // ── Task 3: customCode section ────────────────────────────────────────────────
 
 test("customCode array of valid snippets parses", () => {
