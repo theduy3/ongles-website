@@ -176,6 +176,15 @@ test("buildSparseDoc persists widgetHost when set, omits when empty", () => {
   expect(without.site?.widgetHost).toBeUndefined();
 });
 
+test("buildSparseDoc persists logo when set, omits when empty", () => {
+  const base = { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft(), customCode: [] };
+  const withLogo = buildSparseDoc({ ...base, site: { logo: "https://cdn/x.png" } });
+  expect(withLogo.site?.logo).toBe("https://cdn/x.png");
+
+  const without = buildSparseDoc({ ...base, site: { logo: "" } });
+  expect(without.site?.logo).toBeUndefined();
+});
+
 // ── Task 6: customCode sparse build ──────────────────────────────────────────
 
 test("buildSparseDoc keeps non-empty customCode, drops empty-code rows, omits when none", () => {

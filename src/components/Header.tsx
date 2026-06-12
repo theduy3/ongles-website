@@ -10,8 +10,16 @@ import type { Locale } from "@/lib/i18n";
 import { Button } from "./Button";
 import { LocaleSwitch } from "./LocaleSwitch";
 
-// Brand logo (real wordmark PNG, transparent bg) sized for the light header.
-function Logo({ name }: { name: string }) {
+// Brand logo. A custom uploaded logo (Supabase URL, arbitrary aspect ratio) renders
+// as a height-constrained <img> — no next.config remote-domain allowlist needed and
+// any ratio scales. The static default keeps next/image optimization.
+function Logo({ name, src }: { name: string; src?: string }) {
+  if (src) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- admin-supplied remote URL, height-constrained
+      <img src={src} alt={name} className="h-10 w-auto sm:h-12" />
+    );
+  }
   return (
     <Image
       src="/images/logo.png"
@@ -48,7 +56,7 @@ export function Header({
           aria-label={site.name}
           className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
         >
-          <Logo name={site.name} />
+          <Logo name={site.name} src={site.logo} />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

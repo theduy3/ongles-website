@@ -80,6 +80,9 @@ const SiteSectionSchema = z
     // SalonX widget origin (no trailing slash). Lets the admin re-point booking /
     // check-in / queue widgets without a rebuild.
     widgetHost: z.string().optional(),
+    // Header logo image URL (Supabase public bucket). Falls back to the static
+    // /images/logo.png default when unset. Admin-uploaded via /api/admin/upload.
+    logo: z.string().optional(),
     booking: z.string().optional(),
     booker: BookerSchema.optional(),
     priceRange: z.string().optional(),
