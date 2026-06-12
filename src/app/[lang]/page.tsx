@@ -112,11 +112,11 @@ export default async function Home({ params }: LangParams) {
                 {dict.hero.description}
               </p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <Button href={`/${lang}/book-online`}>
+                <Button href={`/${lang}${site.booking}`}>
                   {dict.cta.book}
                   <ArrowIcon />
                 </Button>
-                <Button href={`/${lang}#location`} variant="ghost">
+                <Button href={site.contact.phoneHref} variant="ghost">
                   <PhoneIcon />
                   {dict.cta.callNow}
                 </Button>
@@ -210,7 +210,7 @@ export default async function Home({ params }: LangParams) {
                     </p>
                     <div className="mt-5">
                       <Button
-                        href={`/${lang}/book-online`}
+                        href={`/${lang}${site.booking}`}
                         variant="outline"
                         className="w-full"
                       >
@@ -307,11 +307,11 @@ export default async function Home({ params }: LangParams) {
               {dict.home.bookingIntro}
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href={`/${lang}/book-online`}>
+              <Button href={`/${lang}${site.booking}`}>
                 {dict.cta.book}
                 <ArrowIcon />
               </Button>
-              <Button href={`/${lang}#location`} variant="ghost">
+              <Button href={site.contact.phoneHref} variant="ghost">
                 <PhoneIcon />
                 {dict.cta.callNow}
               </Button>
