@@ -34,6 +34,16 @@ test("hides the Quebec coming-soon card", async ({ page }) => {
   }
 });
 
+// Every tenant cross-promotes the full network: all three salon brands render on
+// each tenant's homepage (satellites must now include Ongles Maily).
+test("shows all three salon brands", async ({ page }) => {
+  await page.goto("/en");
+  const body = page.locator("body");
+  for (const brand of ["Ongles Maily", "Ongles Charlesbourg", "Ongles Rivières"]) {
+    await expect(body).toContainText(brand);
+  }
+});
+
 // The own-store "Book Now" routes to the internal /book-online page (the tenant's
 // SalonX widget) — never the stale bluehost placeholder that was Maily's booker URL.
 test("own-store Book Now is internal, not the placeholder reservation URL", async ({
