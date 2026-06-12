@@ -142,6 +142,26 @@ test("site rejects an unknown sibling key next to logo", () => {
   bexpect(r.success).toBe(false);
 });
 
+// ── Task: per-tenant favicon ──────────────────────────────────────────────────
+
+test("site.favicon is accepted", () => {
+  // WHY: favicon is a runtime value-only override like logo; it must pass the
+  // strict site schema so the admin can persist it without a 400.
+  const r = StoreSettingsSchema.safeParse({
+    site: { favicon: "https://cdn.example.com/favicon.png" },
+  });
+  bexpect(r.success).toBe(true);
+});
+
+test("site rejects an unknown sibling key next to favicon", () => {
+  // WHY: .strict() must still catch typos (faviconn) so a misnamed field is
+  // never silently stored and then ignored at render time.
+  const r = StoreSettingsSchema.safeParse({
+    site: { favicon: "https://x/y.png", faviconn: "typo" },
+  });
+  bexpect(r.success).toBe(false);
+});
+
 // ── Task 3: customCode section ────────────────────────────────────────────────
 
 test("customCode array of valid snippets parses", () => {

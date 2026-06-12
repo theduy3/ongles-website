@@ -58,6 +58,9 @@ export type TenantSite = {
   // Optional header logo image URL. Merged from the Supabase override; when
   // absent the header uses the static /images/logo.png default.
   logo?: string;
+  // Optional favicon image URL. Merged from the Supabase override; when absent
+  // the site uses the static app/icon.png default.
+  favicon?: string;
   // SalonX widget store code (booking / check-in / queue widgets).
   storeId: string;
   // SalonX widget origin (no trailing slash), e.g. "https://app.onglesmaily.com".

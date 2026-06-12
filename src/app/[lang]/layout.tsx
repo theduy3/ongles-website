@@ -50,6 +50,9 @@ export async function generateMetadata({
     title: seo.meta.homeTitle,
     description: seo.meta.homeDescription,
     robots: { index: true, follow: true },
+    // Per-tenant favicon (admin-uploaded, Supabase URL). When unset, omit `icons`
+    // so Next falls back to the built-in app/icon.png default (ongles-maily etc.).
+    ...(site.favicon ? { icons: { icon: site.favicon } } : {}),
     // Local-SEO geo signals for the primary (Carrefour Beauport) location.
     other: {
       "geo.region": "CA-QC",
