@@ -1,5 +1,36 @@
 # Lessons
 
+## Self-hosted Supabase storage 401 (popup-images logo bug)
+
+- **A 401 on `/storage/v1/object/public/...` is a Kong gateway problem, not the
+  `bucket.public` flag.** The pasted runbook blamed `bucket.public=false` (from the
+  `on conflict do nothing` seed). Wrong — the bucket was already `public=t` and the
+  object existed. The 401 came from Kong: `www-authenticate: Key realm="kong"`,
+  `{"message":"No API key found in request"}`, `x-kong-response-latency: 0`
+  (rejected before storage-api). This stack's `kong.yml` `storage-v1` service had
+  `key-auth`+`acl` on the only route, so browser `<img src>` requests (which carry
+  NO `apikey` header) were blocked. Default upstream Supabase puts only `cors` on
+  storage so public URLs work. Fix: add a `storage-v1-public` route for
+  `/storage/v1/object/public/` with key-auth omitted (mirrors the existing
+  `functions-v1-public`/`r2-storage-v1` precedent in the same file); use
+  `url: http://storage:5000/object/public/` + `strip_path: true` so the upstream
+  path rebuilds correctly. Diagnostic rule: `curl -i` the public object and read
+  the response `server:`/`www-authenticate:` headers BEFORE touching the DB.
+  (kong gateway, /root/supabase-setup/ongles-shared/volumes/kong/kong.yml)
+- **Single-FILE docker bind mount + editor atomic-rename = stale container.**
+  Editing the host `kong.yml` (Edit/Write replaces the inode via temp+rename) does
+  NOT reach a container that bind-mounts that single file — the mount tracks the
+  original inode. `kong reload` re-read the OLD content; `grep -c` inside the
+  container showed 0 matches while the host had the edit. Fix: `docker restart` the
+  container (re-resolves the bind to the current host path). Rule: after editing a
+  bind-mounted single file, verify with `docker exec <c> grep` before reload; if
+  stale, restart rather than reload. (kong gateway)
+- **`api-supabase-ongles.onglesmaily.com` (the `supabase-ongles` stack /
+  `supabase-ongles-db`) backs all three ongles tenant sites: charlesbourg,
+  rivieres, maily.** Map a site to its stack via the website container's
+  `NEXT_PUBLIC_SUPABASE_URL`, not by guessing from the name. The `ongles` Kong is
+  shared — gateway edits affect all three. (multi-tenant)
+
 ## Verification
 - **Grep the rendered FIELD, not lookalike copy.** Debugging admin-store-settings, I concluded "live price edit broken" because `grep "From $60"` still matched after editing to $199. Reality: `From $60.` is **static marketing copy** inside `dict.serviceDetails[id].metaDescription` (and JSON-LD), while the live price renders as lowercase `from $199` in a specific `<span>`. Case + lookalike text produced a false negative that triggered an unnecessary `force-dynamic` refactor (later reverted). Rule: when a value "won't update," log/inspect the exact rendered field before concluding failure. (admin-store-settings, 2026-06-05)
 - **ISR + revalidateTag is stale-while-revalidate.** First request after a tag purge serves STALE and regenerates in the background; the fresh value appears on the **2nd** request. Poll ≥2 times before declaring it broken. (admin-store-settings)
