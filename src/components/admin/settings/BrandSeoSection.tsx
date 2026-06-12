@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { StoreSettings } from "@/lib/store-settings-schema";
 
 export const inputClass =
@@ -18,6 +19,28 @@ interface Props {
 }
 
 export function BrandSeoSection({ site, onSiteChange }: Props) {
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  async function onPickLogo(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadError(null);
+    setUploading(true);
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: form });
+      const data = await res.json();
+      if (res.ok && data.success) onSiteChange({ logo: data.data.url });
+      else setUploadError(data.error ?? "Upload failed");
+    } catch {
+      setUploadError("Upload network error");
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
     <fieldset className="rounded-xl border border-fog bg-beige/60 p-4">
       <legend className="px-1 text-xs font-semibold uppercase tracking-wide text-mocha">
@@ -67,6 +90,26 @@ export function BrandSeoSection({ site, onSiteChange }: Props) {
             onChange={(e) => onSiteChange({ priceRange: e.target.value || undefined })}
           />
         </label>
+      </div>
+
+      <div className="mt-3 flex flex-col gap-2 border-t border-fog pt-3">
+        <span className={spanClass}>Logo</span>
+        <input type="file" accept="image/*" onChange={onPickLogo} className="text-xs" />
+        {uploading && <p className="text-xs text-tan">Uploading…</p>}
+        {uploadError && <p className="text-xs text-red-600">{uploadError}</p>}
+        {site.logo && (
+          <div className="flex items-center gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element -- preview only */}
+            <img src={site.logo} alt="" className="h-10 w-auto rounded bg-white p-1" />
+            <button
+              type="button"
+              className="text-xs text-red-600 underline"
+              onClick={() => onSiteChange({ logo: undefined })}
+            >
+              Remove
+            </button>
+          </div>
+        )}
       </div>
     </fieldset>
   );
