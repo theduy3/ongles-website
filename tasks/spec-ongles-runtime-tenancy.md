@@ -79,14 +79,19 @@ Success criteria:
   (dynamic wins for rendering; params list still valid for routing). If they conflict,
   drop `generateStaticParams` and rely on `dynamicParams`.
 
-### 2. Client propagation
-- New `src/components/TenantProvider.tsx` (`"use client"`): React context carrying the
-  minimal brand fields the client needs (site name, nav items, locations summary — scope
-  to what `Header`/`SeoSection` actually read).
-- Server root layout (`src/app/[lang]/layout.tsx`) reads `tenant`/`site` (runtime) and
-  wraps children in `<TenantProvider value={…}>`.
-- `Header.tsx` + `SeoSection.tsx`: replace `import … "@/config"` with `useTenant()`.
-- Re-verify transitively that no other `"use client"` file reads `@/config` (current: 2).
+### 2. Client propagation — ALREADY HANDLED (verify only)
+Re-checked during planning: client components do **not** import the runtime tenant value.
+- `getStoreConfig()` (`src/lib/store-config.ts`, server) is the single tenant resolver; it
+  reads `tenant`/`site` from `@/config`, merges DB overrides, and the layout passes the
+  result down as a **prop**: `<Header dict={dict} locale={lang} site={site} />`.
+- `Header.tsx` (`"use client"`) imports only the **type** `TenantSite` from
+  `@/config/types` and consumes `site` via prop — no build-inlined tenant value.
+- `SeoSection.tsx` imports a static `@/config/seo/seo.en.json` (admin default seed), not
+  the tenant resolver.
+- **No `TenantProvider` needed.** Prop-drilling from the server resolver already isolates
+  the client from build-time tenant. Task: re-grep all `"use client"` files for any direct
+  `@/config` / `@/lib/site` / `@/lib/locations` **value** import (current: none) and add a
+  unit/lint guard so a future one is caught.
 
 ### 3. Env rename (server-only runtime)
 - `NEXT_PUBLIC_SUPABASE_URL` → `SUPABASE_URL`
