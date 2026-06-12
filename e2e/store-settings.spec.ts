@@ -63,4 +63,33 @@ test.describe("live store-settings edit (no rebuild)", () => {
     await page.goto("/en/services");
     await expect(page.getByText(new RegExp(`\\$?${PRICE}`))).toBeVisible();
   });
+
+  test("setting a custom logo shows it in the public header without a rebuild", async ({
+    page,
+    request,
+  }) => {
+    const login = await request.post("/api/admin/login", {
+      data: { password: process.env.ADMIN_PASSWORD },
+    });
+    expect(login.ok()).toBeTruthy();
+
+    const LOGO = "https://example.com/custom-logo.png";
+    const put = await request.put("/api/admin/settings", {
+      data: { site: { logo: LOGO } },
+    });
+    expect(put.ok()).toBeTruthy();
+
+    await page.goto("/en");
+    await expect(page.locator(`header a img[src="${LOGO}"]`)).toBeVisible();
+  });
+});
+
+// Public header always renders a brand logo image (static default when no override).
+// CI-safe — no admin/Supabase credentials needed.
+test.describe("public header logo", () => {
+  test("renders a logo image in the header by default", async ({ page }) => {
+    await page.goto("/en");
+    const logo = page.locator("header a img").first();
+    await expect(logo).toBeVisible();
+  });
 });
