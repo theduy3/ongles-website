@@ -14,10 +14,14 @@ type Status = "loading" | "ready" | "error";
 export function WidgetEmbed({
   src,
   store,
+  storeAttr = "data-store",
   fallbackLabel,
 }: {
   src: string;
   store: string;
+  // Attribute the widget script reads its store id from. SalonX kiosk widgets
+  // use "data-store"; the client-account widget uses "data-account-store".
+  storeAttr?: string;
   // Names the widget in the error message, e.g. "check-in" or "queue".
   fallbackLabel: string;
 }) {
@@ -38,7 +42,7 @@ export function WidgetEmbed({
     const script = document.createElement("script");
     script.src = src;
     script.async = true;
-    script.setAttribute("data-store", store);
+    script.setAttribute(storeAttr, store);
     script.onload = () => {
       if (!cancelled) setStatus("ready");
     };
@@ -51,7 +55,7 @@ export function WidgetEmbed({
       cancelled = true;
       container.replaceChildren();
     };
-  }, [src, store, attempt]);
+  }, [src, store, storeAttr, attempt]);
 
   return (
     <div className="relative min-h-screen">
