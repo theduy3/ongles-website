@@ -34,4 +34,17 @@ test.describe("homepage enhancements (/fr)", () => {
         .getByRole("img", { name: "Sans Souci Ongles & Spa" }),
     ).toBeVisible();
   });
+
+  test("Call-to-Book buttons dial the configured number (tel:), not #location", async ({
+    page,
+  }) => {
+    await page.goto("/fr");
+    // Hero + booking-section "Appeler pour réserver" buttons (dict.cta.callNow).
+    const calls = page.getByRole("link", { name: "Appeler pour réserver" });
+    const count = await calls.count();
+    expect(count).toBeGreaterThanOrEqual(1);
+    for (let i = 0; i < count; i++) {
+      await expect(calls.nth(i)).toHaveAttribute("href", /^tel:\+?\d+$/);
+    }
+  });
 });
