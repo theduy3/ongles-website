@@ -1,0 +1,52 @@
+# Self-managed (NOT Dokploy-generated): apex -> www 301 redirects for all 3 ongles tenants.
+# Apex routers get their own LE cert via the global websecure certResolver; redirect middleware
+# short-circuits before the dummy service is ever dialed. Do not let Dokploy overwrite this file.
+http:
+  middlewares:
+    ongles-redirect-to-www:
+      redirectRegex:
+        regex: '^https?://(?:www\.)?(onglesmaily\.com|onglescharlesbourg\.com|onglesrivieres\.com)(/.*)?$'
+        replacement: 'https://www.${1}${2}'
+        permanent: true
+  routers:
+    ongles-maily-apex-web:
+      rule: Host(`onglesmaily.com`)
+      entryPoints: [web]
+      middlewares: [ongles-redirect-to-www]
+      service: ongles-apex-dummy
+    ongles-maily-apex-websecure:
+      rule: Host(`onglesmaily.com`)
+      entryPoints: [websecure]
+      middlewares: [ongles-redirect-to-www]
+      service: ongles-apex-dummy
+      tls:
+        certResolver: letsencrypt
+    ongles-charlesbourg-apex-web:
+      rule: Host(`onglescharlesbourg.com`)
+      entryPoints: [web]
+      middlewares: [ongles-redirect-to-www]
+      service: ongles-apex-dummy
+    ongles-charlesbourg-apex-websecure:
+      rule: Host(`onglescharlesbourg.com`)
+      entryPoints: [websecure]
+      middlewares: [ongles-redirect-to-www]
+      service: ongles-apex-dummy
+      tls:
+        certResolver: letsencrypt
+    ongles-rivieres-apex-web:
+      rule: Host(`onglesrivieres.com`)
+      entryPoints: [web]
+      middlewares: [ongles-redirect-to-www]
+      service: ongles-apex-dummy
+    ongles-rivieres-apex-websecure:
+      rule: Host(`onglesrivieres.com`)
+      entryPoints: [websecure]
+      middlewares: [ongles-redirect-to-www]
+      service: ongles-apex-dummy
+      tls:
+        certResolver: letsencrypt
+  services:
+    ongles-apex-dummy:
+      loadBalancer:
+        servers:
+          - url: http://127.0.0.1:9

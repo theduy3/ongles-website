@@ -52,3 +52,24 @@ Notes:
   identical caveat to the UI `Dictionary` type (see AGENTS.md). Parity is enforced
   only by `src/config/seo/seo-parity.test.ts`; keep it green when adding keys.
   (seo-layer-followups)
+
+## Deploy / Traefik (VPS, Dokploy)
+
+- **Dokploy registers only the `www.` host per tenant — the bare apex has no Traefik
+  router, so apex TLS handshakes fail.** Dokploy owns `*-<hash>.yml` in
+  `/etc/dokploy/traefik/dynamic/` and regenerates them on every redeploy, so apex
+  routers hand-added there get clobbered. Fix lives in a **separate, non-Dokploy
+  file** (`infra/traefik/ongles-apex-redirect.yml`, scp'd to the VPS): per-tenant
+  web+websecure apex routers, a `redirectRegex` apex→www middleware (`permanent:true`
+  → **301**, not 308), websecure cert via the global `certResolver`, and a dummy
+  unreachable service the redirect short-circuits before dialing. ACME HTTP-01
+  outranks the redirect on `/.well-known/acme-challenge/*`, so apex certs still issue.
+  (apex-www-redirects, 2026-06-12)
+- **Traefik ACME backoff is in-memory and not reset by `touch`ing a dynamic file.**
+  rivieres' early challenges 404'd because DNS hadn't propagated past Wix yet; Traefik
+  then sat in backoff and never retried even after DNS was clean. A no-op `touch`
+  (mtime-only, identical content) does **not** dislodge it — the file provider dedups
+  unchanged config. Only a `docker restart dokploy-traefik` clears the backoff (certs
+  persist on-disk in `acme.json`, so all sites return valid immediately; ~2-5s blip).
+  Check `dig`, port-80 reachability, and a working sibling's `/.well-known/...` (it 404s
+  too — that's normal "no active token") before blaming routing. (rivieres-cert, 2026-06-12)
