@@ -8,7 +8,6 @@ import { JsonLd } from "@/components/JsonLd";
 import { getStoreConfig } from "@/lib/store-config";
 import {
   serviceBySlug,
-  slugParams,
   servicePath,
   servicePathsByLocale,
 } from "@/lib/services";
@@ -25,12 +24,9 @@ import { formatFromPrice } from "@/lib/format";
 
 type Params = { params: Promise<{ lang: string; slug: string }> };
 
-// Emit only THIS locale's slugs. A wrong-locale slug (e.g. /fr/services/lash-extensions)
-// is never generated → 404.
-export function generateStaticParams({ params }: { params: { lang: string } }) {
-  if (!isLocale(params.lang)) return [];
-  return slugParams(params.lang);
-}
+// No generateStaticParams: service slugs come from the runtime tenant's catalog, so
+// pages render on demand (parent [lang] layout is force-dynamic). serviceBySlug →
+// notFound() handles unknown or wrong-locale slugs at request time.
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { lang, slug } = await params;

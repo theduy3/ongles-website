@@ -1,6 +1,7 @@
-# Per-tenant build matrix. One commit to main rebuilds every live tenant, so a
-# shared code/design change propagates to all branded sites at once. Each tenant
-# produces its own Docker image (TENANT build-arg) for its own domain.
+# Build the single tenant-agnostic image. One commit to main produces ONE universal
+# image that bundles every tenant; each container picks its brand at RUNTIME via its
+# TENANT env var (plus server-only SUPABASE_*), configured per app in Dokploy. There
+# is no per-tenant build and no build-args — the same image serves every domain.
 #
 # NOTE: the registry login + deploy steps are infra-specific and left as TODO —
 # fill in your container registry and host (the build + tag steps are ready).
@@ -14,12 +15,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        # Add a tenant here (and a domain mapping) when it goes live. Quebec City
-        # joins once it has a domain + confirmed NAP.
-        tenant: [ongles-maily, ongles-charlesbourg, ongles-rivieres]
     steps:
       - uses: actions/checkout@v4
 
@@ -33,16 +28,12 @@ jobs:
       #     username: ${{ secrets.REGISTRY_USER }}
       #     password: ${{ secrets.REGISTRY_TOKEN }}
 
-      - name: Build image for ${{ matrix.tenant }}
+      - name: Build universal image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: false # TODO: set true once registry login is configured
-          tags: maily-website:${{ matrix.tenant }}
-          build-args: |
-            TENANT=${{ matrix.tenant }}
-            NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-            NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-            NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          tags: maily-website:latest
 
-      # TODO: deploy maily-website:${{ matrix.tenant }} to that tenant's host/domain.
+      # TODO: deploy maily-website:latest to every tenant's host/domain. TENANT and
+      # SUPABASE_* are RUNTIME env (set per app in Dokploy), not build-args.

@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { getDictionary } from "./dictionaries";
 import { getSeo } from "./seo-content";
-import { locales, isLocale, dirFor, type LangParams } from "@/lib/i18n";
+import { isLocale, dirFor, type LangParams } from "@/lib/i18n";
 import { PopupHost } from "@/components/PopupHost";
 import { FloatingCTA } from "@/components/FloatingCTA";
 import { CustomCodeHost } from "@/components/CustomCodeHost";
@@ -30,10 +30,11 @@ const jost = Jost({
   display: "swap",
 });
 
-// Pre-render both locales at build time so /en and /fr stay static.
-export function generateStaticParams() {
-  return locales.map((lang) => ({ lang }));
-}
+// Render at runtime so the container's TENANT env selects the active brand.
+// No generateStaticParams: static pre-render would pin the build-time tenant into
+// the HTML. dynamicParams lets the [lang] segment match en/fr at request time.
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
