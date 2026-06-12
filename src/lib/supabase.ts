@@ -7,8 +7,8 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 // Both are created lazily and return null when their env is missing so the app
 // degrades gracefully (build, local dev, and e2e fall back to popups.json).
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const url = process.env.SUPABASE_URL;
+const anonKey = process.env.SUPABASE_ANON_KEY;
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 // Per-tenant JWT for public reads. When set (one per branded container), it
@@ -16,7 +16,7 @@ const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 // anon reads to this container's rows. Falls back to the shared anon key when
 // unset so local dev and pre-RLS-migration deploys keep working unchanged.
 // See supabase/migrations/20260606000000_tenant_aware_rls.sql.
-const tenantJwt = process.env.NEXT_PUBLIC_SUPABASE_TENANT_JWT;
+const tenantJwt = process.env.SUPABASE_TENANT_JWT;
 const publicKey = tenantJwt ?? anonKey;
 
 // Server-only clients: never persist a session or refresh tokens.
