@@ -10,7 +10,12 @@ import { locales, isLocale, matchLocale } from "@/lib/i18n";
 const LOCALE_COOKIE = "NEXT_LOCALE";
 const SESSION_COOKIE = "bn_admin";
 const LOGIN_PATHS = new Set(["/admin/login", "/api/admin/login"]);
-const STANDALONE_PATHS = new Set(["/checkin", "/queue"]);
+const STANDALONE_PATHS = new Set([
+  "/checkin",
+  "/queue",
+  "/clientportal",
+  "/subscription",
+]);
 
 // Kept self-contained (reads + unseals the cookie directly, no shared modules)
 // per the proxy guidance. Admin handlers re-check via isAuthed() too.
@@ -45,7 +50,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
-  // 1b. Standalone, un-localized kiosk pages (check-in, queue). No locale prefix.
+  // 1b. Standalone, un-localized widget pages (check-in, queue, client portal,
+  // subscription). These live at the app root, not under [lang]. No locale prefix.
   if (STANDALONE_PATHS.has(pathname)) return NextResponse.next();
 
   // 2. Locale routing for public pages.
