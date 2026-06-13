@@ -104,3 +104,15 @@ Notes:
   persist on-disk in `acme.json`, so all sites return valid immediately; ~2-5s blip).
   Check `dig`, port-80 reachability, and a working sibling's `/.well-known/...` (it 404s
   too — that's normal "no active token") before blaming routing. (rivieres-cert, 2026-06-12)
+
+## Routing / locale proxy (src/proxy.ts)
+
+- **New standalone root-level routes (kiosk/widget pages outside `[lang]`) MUST be
+  added to `STANDALONE_PATHS` in `src/proxy.ts` or they 404.** The locale proxy
+  (Next.js 16 renamed middleware) redirects any path not in that allowlist to
+  `/{locale}{path}`. Since these pages live at the app root, not under `[lang]/`,
+  the redirected `/fr/clientportal` has no matching route → 404. `/clientportal`
+  (PR #9) and `/subscription` (PR #10) both shipped broken because the page files
+  were added without touching the allowlist. Checklist: any time you add
+  `src/app/<name>/page.tsx` as a standalone page, add `"/<name>"` to
+  `STANDALONE_PATHS`. (standalone-route-allowlist, 2026-06-13)
