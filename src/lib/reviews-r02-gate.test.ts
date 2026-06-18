@@ -34,7 +34,7 @@ function makeCfg(
 }
 
 function findBusinessNode(graph: ReturnType<typeof organizationGraph>) {
-  const node = (graph["@graph"] as Record<string, unknown>[]).find(
+  const node = (graph["@graph"] as unknown as Record<string, unknown>[]).find(
     (n) => n["@id"] && String(n["@id"]).endsWith("#business"),
   );
   if (!node) throw new Error("Business node not found in @graph");

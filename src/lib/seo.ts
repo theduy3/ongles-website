@@ -7,6 +7,19 @@
 // exactly one place (src/lib/site.ts `url`).
 
 import type { Metadata } from "next";
+import type {
+  NailSalon,
+  WebSite,
+  Organization,
+  Service as SchemaService,
+  FAQPage,
+  BreadcrumbList,
+  ItemList,
+  ImageGallery,
+  WithContext,
+  AggregateOffer,
+  Offer,
+} from "schema-dts";
 import type { Locale } from "@/lib/i18n";
 import { locales, defaultLocale } from "@/lib/i18n";
 import { site } from "@/lib/site";
@@ -14,6 +27,16 @@ import { locations, mapLink } from "@/lib/locations";
 import { reviewsFetchedAt, aggregate } from "@/lib/reviews";
 import type { GalleryImage } from "@/lib/gallery";
 import type { TenantSite, Location } from "@/config/types";
+
+/**
+ * Local graph wrapper type for organizationGraph — schema-dts 2.0.0 does not
+ * export a @graph-wrapped root type; we define it locally to carry the
+ * compile-time type without changing the runtime shape.
+ */
+interface SeoGraph {
+  "@context": "https://schema.org";
+  "@graph": Array<NailSalon | WebSite | Organization>;
+}
 
 /** Injected store config for SEO builders. Callers that pass this override the
  *  static module-level defaults — enabling live DB config to flow through.
@@ -126,10 +149,12 @@ export function pageMetadata(
 // NOTE: BUSINESS_ID and WEBSITE_ID are computed per-call inside builders that
 // accept an injected SeoConfig, so the site.url can be overridden at runtime.
 
-function offer(price: number, priceTo?: number) {
+function offer(price: number, priceTo?: number): AggregateOffer | Offer {
   // When a real upper bound exists, emit an AggregateOffer price range
   // (lowPrice = base "from" price; highPrice = base + top add-on). Otherwise
   // a plain Offer with the single price.
+  // Casts required: schema-dts expects literal "@type" strings narrower than
+  // what TypeScript infers from object literals. Runtime shape is unchanged.
   if (priceTo !== undefined && priceTo > price) {
     return {
       "@type": "AggregateOffer",
@@ -137,14 +162,14 @@ function offer(price: number, priceTo?: number) {
       highPrice: priceTo,
       priceCurrency: "CAD",
       availability: "https://schema.org/InStock",
-    };
+    } as unknown as AggregateOffer;
   }
   return {
     "@type": "Offer",
     price,
     priceCurrency: "CAD",
     availability: "https://schema.org/InStock",
-  };
+  } as unknown as Offer;
 }
 
 /** Sitewide LocalBusiness (NailSalon) + WebSite graph — render once in the layout. */
@@ -152,7 +177,7 @@ export function organizationGraph(
   lang: Locale,
   { name, description }: { name: string; description: string },
   cfg: SeoConfig = { site, locations },
-) {
+): SeoGraph {
   // All @id URIs derive from canonicalUrl (stable production origin, I-01).
   // Human-facing `url:` fields on nodes remain cfg.site.url (runtime-overridable).
   const CANONICAL = cfg.site.canonicalUrl;
@@ -205,6 +230,8 @@ export function organizationGraph(
       ? { sameAs: cfg.site.socialProfiles }
       : {};
 
+  // Cast required: internal objects use string-inferred @type literals; schema-dts
+  // expects literal string union types. Runtime shape is identical (no behavioral change).
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -277,7 +304,7 @@ export function organizationGraph(
       },
       ...departments,
     ],
-  };
+  } as unknown as SeoGraph;
 }
 
 type ServiceItem = {
@@ -296,7 +323,7 @@ export function servicesGraph(
   lang: Locale,
   items: readonly ServiceItem[],
   cfg: SeoConfig = { site, locations },
-) {
+): WithContext<ItemList> {
   // Use canonicalUrl so the provider @id resolves to the same stable business node (I-01).
   const BUSINESS_ID = `${cfg.site.canonicalUrl}/#business`;
   return {
@@ -312,7 +339,7 @@ export function servicesGraph(
       areaServed: cfg.site.contact.address.city,
       offers: offer(item.price, item.priceTo),
     })),
-  };
+  } as unknown as WithContext<ItemList>;
 }
 
 /** Single Service node + Offer for an individual service page. */
@@ -320,7 +347,7 @@ export function serviceGraph(
   lang: Locale,
   { name, description, price, priceTo, path }: ServiceItem,
   cfg: SeoConfig = { site, locations },
-) {
+): WithContext<SchemaService> {
   // Use canonicalUrl so the provider @id resolves to the same stable business node (I-01).
   const BUSINESS_ID = `${cfg.site.canonicalUrl}/#business`;
   return {
@@ -332,11 +359,11 @@ export function serviceGraph(
     provider: { "@id": BUSINESS_ID },
     areaServed: cfg.site.contact.address.city,
     offers: offer(price, priceTo),
-  };
+  } as unknown as WithContext<SchemaService>;
 }
 
 /** FAQPage — render on /faq. Feeds Google rich results / AI answers. */
-export function faqPageGraph(items: readonly { q: string; a: string }[]) {
+export function faqPageGraph(items: readonly { q: string; a: string }[]): WithContext<FAQPage> {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -345,7 +372,7 @@ export function faqPageGraph(items: readonly { q: string; a: string }[]) {
       name: item.q,
       acceptedAnswer: { "@type": "Answer", text: item.a },
     })),
-  };
+  } as unknown as WithContext<FAQPage>;
 }
 
 /** ImageGallery + ImageObject[] — render on /gallery. */
@@ -354,7 +381,7 @@ export function imageGalleryGraph(
   images: readonly GalleryImage[],
   textFor: (id: string) => { alt: string; caption: string },
   cfg: SeoConfig = { site, locations },
-) {
+): WithContext<ImageGallery> {
   return {
     "@context": "https://schema.org",
     "@type": "ImageGallery",
@@ -368,7 +395,7 @@ export function imageGalleryGraph(
         caption: t.caption,
       };
     }),
-  };
+  } as unknown as WithContext<ImageGallery>;
 }
 
 /** BreadcrumbList for a sub-page (Home → … → leaf). */
@@ -376,7 +403,7 @@ export function breadcrumbGraph(
   lang: Locale,
   crumbs: { name: string; route: string }[],
   cfg: SeoConfig = { site, locations },
-) {
+): WithContext<BreadcrumbList> {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -386,5 +413,5 @@ export function breadcrumbGraph(
       name: crumb.name,
       item: `${cfg.site.url}/${lang}${crumb.route}`,
     })),
-  };
+  } as unknown as WithContext<BreadcrumbList>;
 }
