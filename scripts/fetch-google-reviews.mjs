@@ -1,7 +1,7 @@
 // Build-time fetch of real Google reviews via the Google Business Profile
 // (My Business v4) API. Keeps only 5-star reviews that have written text and
 // writes them — plus the TRUE aggregate (averageRating / totalReviewCount) — to
-// src/data/google-reviews.json, which the site reads at build time.
+// src/config/tenants/${TENANT}/google-reviews.json for the active tenant.
 //
 // Reviews are display-only (no per-review schema.org markup); the aggregate
 // reflects ALL reviews, so the JSON-LD AggregateRating stays honest. See
@@ -10,18 +10,25 @@
 // This is a BUILD TOOL: it fails loud on misconfiguration rather than writing
 // empty data, so a broken fetch can never silently wipe the committed reviews.
 //
-// Run:  bun run fetch:reviews   (reads .env.local if present, else exported GOOGLE_* vars)
-// Or:   node --env-file=.env.local scripts/fetch-google-reviews.mjs
+// Run:  TENANT=ongles-maily bun run fetch:reviews
+// Or:   TENANT=ongles-charlesbourg node --env-file=.env.local scripts/fetch-google-reviews.mjs
+// TENANT defaults to "ongles-maily" when not set (with a log warning so the
+// target is always visible — see pitfall 6 in 02-RESEARCH.md).
 
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
+const tenantId = process.env.TENANT ?? "ongles-maily";
+console.log(`[reviews] writing to tenant: ${tenantId}`);
+
 const OUT = join(
   dirname(fileURLToPath(import.meta.url)),
   "..",
   "src",
-  "data",
+  "config",
+  "tenants",
+  tenantId,
   "google-reviews.json",
 );
 
