@@ -116,3 +116,13 @@ Notes:
   were added without touching the allowlist. Checklist: any time you add
   `src/app/<name>/page.tsx` as a standalone page, add `"/<name>"` to
   `STANDALONE_PATHS`. (standalone-route-allowlist, 2026-06-13)
+
+## Build-guard / integration truths must be proven by running the command, not asserted
+A gsd-executor (Plan 01-1) reported the `next.config.ts` build guard verified ("next build
+would succeed") but never ran a real `next build`. Ground truth: every build failed
+(MODULE_NOT_FOUND) — a dynamic `await import()` of a `.ts` module bypasses Next 16's
+SWC require-hook; only a static import (→ `require(`) registers the hook. The broken guard
+shipped to `main` and would have failed the Dokploy deploy.
+Rule: any truth of the form "build aborts/passes" or "integration works" must be backed by
+actual command output (success path AND forced-failure path), captured in the SUMMARY. Treat
+an executor's unproven "verified" claim as unverified — re-run it. (fix: bbc5718)
