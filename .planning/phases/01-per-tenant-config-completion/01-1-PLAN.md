@@ -139,7 +139,12 @@ modified next.config.ts.
     - `import z from "zod"` (default import, project idiom) and import { TENANT_REGISTRY }
       from "./index". Per RESEARCH Pitfall 1, use ONLY TENANT_REGISTRY — never the
       runtime-resolved `site`/`services`/`locations` exports.
-    - EXCLUDED_TENANTS = new Set(["template"]) (D-03).
+    - EXCLUDED_TENANTS = new Set(["template"]) (D-03). Add a one-line code comment on this
+      Set documenting the behavior (RESEARCH Open Question 2): any tenant NOT in this set with
+      incomplete required-core will FAIL the production build — so a new tenant added before its
+      config is filled must either be completed or temporarily added here. Accepted as the
+      intended strong-guard behavior for this milestone; a `draft: true` registry flag is
+      deferred (not Phase 1 scope).
     - Write a zod schema from scratch covering ONLY required-core (do NOT z.infer from the
       readonly TS types — RESEARCH says they don't map cleanly):
       site.name (min 1), site.url (url), site.storeId (min 1 AND refine v !== "XX" per D-06 +
@@ -163,7 +168,7 @@ modified next.config.ts.
   </action>
   <files>src/config/config-completeness.ts (created)</files>
   <verify>
-    <automated>bun test src/config/config-completeness.test.ts 2>&1 | grep -v '^#' | grep -E "template tenant is excluded|placeholder|geo|storeId"</automated>
+    <automated>bun test src/config/config-completeness.test.ts 2>&1 | grep -E '[0-9]+ pass|[0-9]+ fail'; echo "EXPECTED at this stage: machinery tests (template-exclusion + placeholder-rejection) PASS; the all-tenants test FAILS (RED) until 01-2 fills data. A fully-green run here = assertions too weak."</automated>
   </verify>
   <done>
     Module compiles and imports cleanly. The template-exclusion test and the negative

@@ -188,7 +188,7 @@ Output: filled checklist + completed tenant config files; GREEN bun:test; passin
   </action>
   <files>(no source changes — verification + transient scratch edit reverted)</files>
   <verify>
-    <automated>bun test src/config/config-completeness.test.ts && TENANT=ongles-charlesbourg PHASE_PRODUCTION_BUILD=1 npm run build</automated>
+    <automated>bun test src/config/config-completeness.test.ts && TENANT=ongles-charlesbourg PHASE_PRODUCTION_BUILD=1 npm run build && TENANT=ongles-rivieres PHASE_PRODUCTION_BUILD=1 npm run build</automated>
   </verify>
   <done>
     `bun test src/config/config-completeness.test.ts` is fully GREEN (all tenants pass, template
