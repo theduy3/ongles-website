@@ -11,6 +11,9 @@ const injectedSite: TenantSite = {
   ...staticSite,
   name: "Injected Salon Name",
   url: "https://injected.example.com",
+  // canonicalUrl is the stable @id base (I-01) — distinct from url to verify
+  // that @id derives from canonicalUrl, not the runtime-overridable url.
+  canonicalUrl: "https://canonical.injected.example.com",
 };
 
 const injectedCfg: SeoConfig = {
@@ -43,17 +46,27 @@ describe("organizationGraph — dependency injection", () => {
     expect(business.name).toBe("Injected Salon Name");
   });
 
-  it("uses injected site.url in @id and department urls", () => {
-    // WHY: All schema.org @id and url fields must reflect the injected origin
-    // so tenants on different domains emit correct structured data.
+  it("derives @id from canonicalUrl (not runtime site.url) and places Organization first", () => {
+    // WHY: I-01 — schema.org @id must derive from the stable canonicalUrl, never
+    // from the runtime-overridable site.url. This guards against a Supabase
+    // site.url override silently destabilising all entity URIs (T-02-04).
+    // O-01 — the brand Organization node must be the first @graph member.
     const graph = organizationGraph(
       "fr",
       { name: injectedSite.name, description: "Test" },
       injectedCfg,
     );
-    const graphArr = graph["@graph"] as { "@id"?: string }[];
-    const business = graphArr[0];
-    expect(business["@id"]).toBe("https://injected.example.com/#business");
+    const graphArr = graph["@graph"] as { "@type"?: string; "@id"?: string }[];
+    // Organization node is first (O-01).
+    expect(graphArr[0]["@type"]).toBe("Organization");
+    expect(graphArr[0]["@id"]).toBe(
+      "https://canonical.injected.example.com/#organization",
+    );
+    // Business @id derives from canonicalUrl, NOT from site.url.
+    const biz = graphArr.find((n) => n["@id"]?.endsWith("/#business"));
+    expect(biz?.["@id"]).toBe(
+      "https://canonical.injected.example.com/#business",
+    );
   });
 });
 

@@ -153,8 +153,12 @@ export function organizationGraph(
   { name, description }: { name: string; description: string },
   cfg: SeoConfig = { site, locations },
 ) {
-  const BUSINESS_ID = `${cfg.site.url}/#business`;
-  const WEBSITE_ID = `${cfg.site.url}/#website`;
+  // All @id URIs derive from canonicalUrl (stable production origin, I-01).
+  // Human-facing `url:` fields on nodes remain cfg.site.url (runtime-overridable).
+  const CANONICAL = cfg.site.canonicalUrl;
+  const ORGANIZATION_ID = `${CANONICAL}/#organization`;
+  const BUSINESS_ID = `${CANONICAL}/#business`;
+  const WEBSITE_ID = `${CANONICAL}/#website`;
 
   const openingHoursSpecification = cfg.site.hours.map((block) => ({
     "@type": "OpeningHoursSpecification",
@@ -165,10 +169,10 @@ export function organizationGraph(
 
   // One NailSalon node per physical location, linked to the brand as a
   // `department`. Each carries its own address, geo, phone and hours so search
-  // engines understand each Ongles Maily salon location.
+  // engines understand each salon location.
   const departments = cfg.locations.map((loc) => ({
     "@type": "NailSalon",
-    "@id": `${cfg.site.url}/#location-${loc.id}`,
+    "@id": `${CANONICAL}/#location-${loc.id}`,
     name: `${cfg.site.name} — ${loc.name}`,
     parentOrganization: { "@id": BUSINESS_ID },
     url: mapLink(loc, cfg.site),
@@ -195,9 +199,24 @@ export function organizationGraph(
     })),
   }));
 
+  // I-03: only emit sameAs when socialProfiles is non-empty; never sameAs: [].
+  const sameAsSpread =
+    cfg.site.socialProfiles.length > 0
+      ? { sameAs: cfg.site.socialProfiles }
+      : {};
+
   return {
     "@context": "https://schema.org",
     "@graph": [
+      // O-01: top-level brand Organization node — first @graph member.
+      // Locations/business link back via parentOrganization.
+      {
+        "@type": "Organization",
+        "@id": ORGANIZATION_ID,
+        name: cfg.site.name,
+        url: cfg.site.canonicalUrl,
+        ...sameAsSpread,
+      },
       {
         "@type": "NailSalon",
         "@id": BUSINESS_ID,
@@ -208,6 +227,8 @@ export function organizationGraph(
         email: cfg.site.contact.email,
         image: `${cfg.site.url}${OG_IMAGE}`,
         priceRange: cfg.site.priceRange,
+        // O-01: link this business node to the brand Organization.
+        parentOrganization: { "@id": ORGANIZATION_ID },
         department: departments.map((d) => ({ "@id": d["@id"] })),
         // R-02 gate: only emit AggregateRating once real reviews have been
         // fetched (fetchedAt set) AND the fetched aggregate has at least 5
@@ -244,7 +265,7 @@ export function organizationGraph(
           longitude: cfg.site.geo.lng,
         },
         openingHoursSpecification,
-        sameAs: cfg.site.socialProfiles,
+        ...sameAsSpread,
       },
       {
         "@type": "WebSite",
@@ -276,7 +297,8 @@ export function servicesGraph(
   items: readonly ServiceItem[],
   cfg: SeoConfig = { site, locations },
 ) {
-  const BUSINESS_ID = `${cfg.site.url}/#business`;
+  // Use canonicalUrl so the provider @id resolves to the same stable business node (I-01).
+  const BUSINESS_ID = `${cfg.site.canonicalUrl}/#business`;
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -299,7 +321,8 @@ export function serviceGraph(
   { name, description, price, priceTo, path }: ServiceItem,
   cfg: SeoConfig = { site, locations },
 ) {
-  const BUSINESS_ID = `${cfg.site.url}/#business`;
+  // Use canonicalUrl so the provider @id resolves to the same stable business node (I-01).
+  const BUSINESS_ID = `${cfg.site.canonicalUrl}/#business`;
   return {
     "@context": "https://schema.org",
     "@type": "Service",
