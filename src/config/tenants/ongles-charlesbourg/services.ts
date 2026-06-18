@@ -1,5 +1,7 @@
 // ongles-charlesbourg services + pricing.
-// TODO: confirm Charlesbourg-specific pricing (currently mirrors ongles-maily).
+// Pricing confirmed by owner 2026-06-17 — intentionally mirrors ongles-maily (D-04
+// satisfied by owner assertion; distinct per-tenant pricing if it diverges is a future
+// update, not a Phase 1 blocker).
 import type { Service } from "@/config/types";
 
 export const services: readonly Service[] = [

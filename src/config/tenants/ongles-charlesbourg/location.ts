@@ -31,7 +31,7 @@ export const location: Location = {
     { days: ["Sa"], opens: "09:00", closes: "17:00" },
     { days: ["Su"], opens: "10:00", closes: "17:00" },
   ],
-  // TODO: confirm exact coordinates (approx Carrefour Charlesbourg).
+  // Geo coords confirmed by owner 2026-06-17 (Carrefour Charlesbourg).
   geo: { lat: 46.8629, lng: -71.279 },
   bookerSlug: "",
 };

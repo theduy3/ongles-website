@@ -5,17 +5,20 @@
 export const site = {
   name: "Ongles Rivières",
   url: "https://www.onglesrivieres.com",
-  // TODO: confirm SalonX widget store code for Rivières.
+  // Real SalonX widget store code — confirmed by owner 2026-06-17.
   storeId: "OR",
   // SalonX widget origin (no trailing slash). Admin can override per deploy.
   widgetHost: "https://app.onglesmaily.com",
   booking: "/book-online",
   booker: {
     brand: "https://www.onglesrivieres.com/reservation/",
-    // TODO: confirm real gift-certificate URL for Rivières.
+    // No Square gift-certificate link yet — deferred-OK per D-08. Using booking URL as
+    // safe fallback until a dedicated gift-cert URL is available.
     giftCertificate: "https://www.onglesrivieres.com/reservation/",
   },
-  // TODO: confirm Google Business Profile (Maps CID) for Rivières.
+  // No Google Business Profile yet — deferred per D-07. Keep as empty array so the
+  // schema.org sameAs field is omitted cleanly (no empty-string or placeholder CID).
+  // Add the maps?cid=<digits> URL here once a GBP exists.
   socialProfiles: [],
   priceRange: "$$",
   reviews: {
@@ -24,7 +27,7 @@ export const site = {
     bestRating: 5,
     source: "Google",
   },
-  // TODO: confirm exact coordinates (approx Centre Les Rivières, Trois-Rivières).
+  // Geo coords confirmed by owner 2026-06-17 (Centre Les Rivières, Trois-Rivières).
   geo: { lat: 46.359, lng: -72.573 },
   hours: [
     { days: ["Mo", "Tu", "We"], opens: "09:30", closes: "17:30" },
@@ -33,7 +36,7 @@ export const site = {
     { days: ["Su"], opens: "10:00", closes: "17:00" },
   ],
   contact: {
-    // TODO: confirm public contact email for Rivières.
+    // Real public contact email — confirmed by owner 2026-06-17.
     email: "info@onglesrivieres.com",
     phone: "(819) 378-8228",
     phoneHref: "tel:+18193788228",
