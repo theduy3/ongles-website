@@ -30,9 +30,25 @@
 //                (verified from services array directly — SCHEMA-02)
 
 import { TENANT_REGISTRY } from "./index";
+// F-01 FAQ completeness reads the per-locale FAQ source directly from the
+// dictionaries. These are STATIC, alias-free JSON imports (resolveJsonModule
+// is true) — safe for the next.config.ts build-guard SWC require-hook. We must
+// NOT import faqPageGraph from src/lib/seo.ts here (it pulls @/lib/* runtime
+// aliases that MODULE_NOT_FOUND in the Docker build — see header note + #02-03).
+// faqPageGraph is a pure 1:1 `items.map`, so source-item q/a non-emptiness is
+// equivalent to emitted-node non-emptiness; the 1:1 mainEntity-count contract
+// is pinned by schema-invariants.test.ts (which may import faqPageGraph freely).
+import frDict from "../dictionaries/fr.json";
+import enDict from "../dictionaries/en.json";
 
 /** Tenants excluded from schema invariant checks (clone sources, not live deployments). */
 const EXCLUDED_TENANTS = new Set(["template"]);
+
+/** Live locales whose FAQ dictionaries feed FAQPage schema (ES deferred to v2). */
+const FAQ_LOCALES = [
+  { locale: "fr", items: frDict.faq.items },
+  { locale: "en", items: enDict.faq.items },
+] as const;
 
 // ─── Public types ─────────────────────────────────────────────────────────────
 
@@ -258,6 +274,45 @@ function checkOfferTypes(tenantId: string, cfg: TenantEntry): SchemaInvariantErr
   return errors;
 }
 
+/**
+ * F-01 — FAQ completeness: every FAQ source item has a non-empty question (q)
+ * and answer (a). `faqPageGraph` maps items 1:1 (`name: item.q`,
+ * `acceptedAnswer.text: item.a`), so a non-empty source item is equivalent to a
+ * non-empty emitted Question node, and `mainEntity.length === items.length`
+ * holds structurally. The 1:1 count contract is pinned by schema-invariants.test.ts
+ * (which imports faqPageGraph directly); this check stays alias-free so it is
+ * safe to run inside the next.config.ts build guard.
+ */
+export function validateFaqCompleteness(
+  tenantId: string,
+  locale: string,
+  items: readonly { q: string; a: string }[],
+): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+  if (!Array.isArray(items) || items.length === 0) {
+    errors.push(err(tenantId, "F-01", `faq.items (${locale}) is empty — no FAQ entries to emit`));
+    return errors;
+  }
+  items.forEach((item, i) => {
+    if (!item?.q?.trim()) {
+      errors.push(err(tenantId, "F-01", `faq item ${i} (${locale}) has an empty question (q)`));
+    }
+    if (!item?.a?.trim()) {
+      errors.push(err(tenantId, "F-01", `faq item ${i} (${locale}) has an empty answer (a)`));
+    }
+  });
+  return errors;
+}
+
+/** Runs F-01 across every live FAQ locale (FR + EN; ES deferred). */
+function checkFaqCompleteness(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+  for (const { locale, items } of FAQ_LOCALES) {
+    errors.push(...validateFaqCompleteness(`dictionaries/${locale}`, locale, items));
+  }
+  return errors;
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 /**
@@ -273,6 +328,9 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
 
   // I-02 uniqueness check is cross-tenant — run once before the per-tenant loop.
   errors.push(...checkIdUniqueness());
+
+  // F-01 FAQ completeness is per-locale (global dictionaries), not per-tenant.
+  errors.push(...checkFaqCompleteness());
 
   for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
