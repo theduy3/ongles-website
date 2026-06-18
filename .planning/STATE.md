@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: phase-1-complete
-last_updated: "2026-06-18T15:16:30.681Z"
+status: phase-2-in-progress
+last_updated: "2026-06-18T22:32:00Z"
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
-  percent: 17
+  total_plans: 6
+  completed_plans: 3
+  percent: 19
 ---
 
 # Project State — ongles-website AI-Search Optimization
@@ -35,16 +35,18 @@ progress:
 
 | Field | Value |
 |-------|-------|
-| Phase | 1 |
-| Phase name | Per-Tenant Config Completion |
-| Plan | 2 of 2 complete (owner-confirmed data; build guard fixed + proven) |
-| Status | ✅ Phase 1 COMPLETE — UAT 5/5 PASS; live deploy green (63196c4) |
-| Progress | 1/6 phases complete |
+| Field | Value |
+|-------|-------|
+| Phase | 2 |
+| Phase name | Schema Completeness + Correctness |
+| Plan | 1 of 4 complete (02-01: per-tenant ReviewData + R-02 gate) |
+| Status | In progress — wave 1 complete |
+| Progress | 1/6 phases complete, phase 2 wave 1/4 done |
 
 ```
-Progress: [##        ] 17%
+Progress: [##        ] 19%
 Phase 1: [##########] Complete (UAT 5/5; deployed)
-Phase 2: [          ] Not started
+Phase 2: [##        ] In progress (1/4 plans complete)
 Phase 3: [          ] Not started
 Phase 4: [          ] Not started
 Phase 5: [          ] Not started
@@ -52,6 +54,17 @@ Phase 6: [          ] Not started
 ```
 
 ---
+
+## Performance Metrics (02-01)
+
+| Metric | Value |
+|--------|-------|
+| Plan | 02-01 |
+| Duration | 413s (~7min) |
+| Tasks completed | 3 |
+| Files changed | 13 |
+| Test count after | 157 pass / 0 fail |
+| Completed | 2026-06-18 |
 
 ## Performance Metrics
 
@@ -99,6 +112,8 @@ Phase 6: [          ] Not started
 | next.config.ts as sole build guard (not prebuild script) | Node 20/Docker cannot transpile .ts imports; Next.js SWC require-hooks make next.config.ts the correct context | 2026-06-18 |
 | Config validator Test 1 is GREEN (not RED as planned) | charlesbourg/rivieres configs have non-"XX" storeIds and non-zero geo — structurally complete, just unconfirmed. Validator correctly passes them. Plan 01-2 replaces approximate values with confirmed real data. | 2026-06-18 |
 | Review schema guarded against stub data | Eligibility cliff + manual-action penalty risk | 2026-06-17 |
+| SeoConfig gets optional reviewData for DI | Avoids process.env manipulation in tests; enables isolated R-02 gate testing per-cfg | 2026-06-18 |
+| ReviewData.reviews typed as readonly unknown[] | Avoids circular dep: reviews.ts imports tenant config which imports ReviewData | 2026-06-18 |
 | Keep FAQPage schema despite SERP deprecation | Still crawled by PerplexityBot/Bingbot; removal loses AI citation surface | 2026-06-17 |
 | Off-site link-building out of scope | Marketing-ops, not on-site engineering | 2026-06-17 |
 | LOCAL-01 assigned to Phase 5 | Phase 5 is the implementation phase; Phase 6 is verification | 2026-06-17 |
@@ -117,10 +132,10 @@ None at roadmap creation.
 
 ## Session Continuity
 
-**Last session:** 2026-06-18T15:16:30.672Z
-**Completed this session:** Phase 2 PLANNED — research (Q1 no offline schema.org validator → hand-rolled `schema-invariants.ts`; Q2 per-tenant `reviewData`; Q3 `canonicalUrl` field) + VALIDATION strategy + 4 wave-sequenced plans, plan-checker PASS (commits 4e3fa42 + docs)
+**Last session:** 2026-06-18T22:32:00Z
+**Completed this session:** Phase 2 plan 02-01 executed — per-tenant ReviewData type, google-reviews.json stubs for all 4 tenants, R-02 gate (fetchedAt !== null && reviewCount >= 5) in organizationGraph, tenant-aware fetch script. 157 tests pass. Commits: 40fb1c9, af12fea, ce8ca0c, 6736e8b.
 
-**Next action:** Execute Phase 2 — `/gsd-execute-phase 2` (start wave 1: 02-1 per-tenant reviewData + R-02 suppression). `/clear` first for a fresh context window.
+**Next action:** Execute Phase 2 plan 02-02 — `02-02-canonical-id-organization-PLAN.md` (stable canonicalUrl + brand Organization node + sameAs omit).
 
 ---
 
