@@ -1,3 +1,17 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: unknown
+last_updated: "2026-06-18T00:28:25.134Z"
+progress:
+  total_phases: 6
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
+---
+
 # Project State — ongles-website AI-Search Optimization
 
 **Last updated:** 2026-06-17
@@ -55,6 +69,7 @@ Phase 6: [          ] Not started
 ## Accumulated Context
 
 ### Architecture Constraints
+
 - Brownfield — do not rebuild schema scaffolding, extend it
 - All JSON-LD stays in `src/lib/seo.ts` as pure functions; never inline schema in `page.tsx`
 - All tenant routes are `force-dynamic` — no build-time tenant baking
@@ -63,6 +78,7 @@ Phase 6: [          ] Not started
 - Deploys via Dokploy VPS webhook on push to main — every phase must leave the site deployable
 
 ### Known Risks (from research)
+
 - **Cross-tenant llms.txt leak:** route handler hardcodes "Carrefour Beauport" prose — fix in Phase 5 (LLMS-01)
 - **Stub review schema:** `google-reviews.json` is a stub; aggregateRating must be suppressed until `fetchedAt` non-null + `reviewCount >= 5` — fix in Phase 2 (SCHEMA-04)
 - **Near-me duplicate content:** target ≥150 words unique opening copy per tenant, <30% sentence overlap — enforce in Phase 4 (PAGE-03)
@@ -70,11 +86,13 @@ Phase 6: [          ] Not started
 - **GA4 AI-referral mis-attribution:** 35-70% of AI traffic lands in Direct; Perplexity needs custom regex channel — addressed in Phase 5 (MEAS-01)
 
 ### Package Additions (approved by research)
+
 - `schema-dts@2.0.0` (dev): TypeScript types for JSON-LD — zero runtime cost
 - `web-vitals@5.3.0` (runtime, via `useReportWebVitals`): real-user INP at P75
 - Do NOT add: `next-seo` (Pages-Router artifact), `@vercel/speed-insights` (Vercel-only)
 
 ### Decisions
+
 | Decision | Rationale | Date |
 |----------|-----------|------|
 | Phase 1 = config gate | Schema/answer blocks emit facts that must exist first; wrong data = bad citations | 2026-06-17 |
@@ -84,18 +102,20 @@ Phase 6: [          ] Not started
 | LOCAL-01 assigned to Phase 5 | Phase 5 is the implementation phase; Phase 6 is verification | 2026-06-17 |
 
 ### Todos
+
 - [ ] Plan Phase 1 (`/gsd-plan-phase 1`)
 - [ ] Identify all secondary-tenant config TODOs (15+ flagged in PROJECT.md)
 - [ ] Confirm real vs suppress-schema decision for secondary-tenant review data
 
 ### Blockers
+
 None at roadmap creation.
 
 ---
 
 ## Session Continuity
 
-**Last session:** Roadmap created 2026-06-17
+**Last session:** 2026-06-18T00:28:25.126Z
 **Completed this session:** PROJECT.md + REQUIREMENTS.md read; ROADMAP.md + STATE.md written; REQUIREMENTS.md traceability updated
 
 **Next action:** Run `/gsd-plan-phase 1` to plan Phase 1 — Per-Tenant Config Completion
