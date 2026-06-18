@@ -54,7 +54,11 @@
 4. AggregateRating / Review schema is absent (suppressed) when `google-reviews.json` has `fetchedAt: null` or `reviewCount < 5`; it appears correctly when real data is present
 5. CI test suite includes `schema-dts` compile-time typing and a `seo-parity` test that fails when FR `seo.json` keys diverge from EN — and this test passes on all tenants
 
-**Plans**: TBD
+**Plans**: 4 plans (4 waves)
+- [ ] 02-01-review-data-suppression-PLAN.md — per-tenant review data + AggregateRating suppression gate (SCHEMA-04)
+- [ ] 02-02-canonical-id-organization-PLAN.md — stable canonicalUrl  + brand Organization node + sameAs omit (SCHEMA-01, SCHEMA-05)
+- [ ] 02-03-invariants-build-guard-PLAN.md — schema-dts typing + offline invariant module + next.config.ts build guard (SCHEMA-01/02/04/05/06)
+- [ ] 02-04-faq-completeness-parity-PLAN.md — FAQPage completeness (F-01) + dictionary FR/EN FAQ parity (F-02) (SCHEMA-03, SCHEMA-06)
 
 ---
 
