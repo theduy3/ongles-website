@@ -16,10 +16,12 @@
  *   - Required NailSalon fields present
  *   - Distinct Organization node present in organizationGraph (O-01)
  *   - offer() emits AggregateOffer when priceTo > price, else Offer
+ *   - F-01: faqPageGraph mainEntity count equals dict.faq.items count per locale (no items dropped)
+ *   - F-01: every FAQ question/answer is non-empty
  */
 
 import { describe, it, expect } from "bun:test";
-import { validateSchemaInvariants, assertSchemaInvariants } from "./schema-invariants";
+import { validateSchemaInvariants, assertSchemaInvariants, validateFaqCompleteness } from "./schema-invariants";
 
 // ─── Main invariant runner ────────────────────────────────────────────────────
 
@@ -278,5 +280,74 @@ describe("offer() — AggregateOffer when priceTo > price, else Offer (SCHEMA-02
     const graph = serviceGraph("fr", { name: "Pose ongles", description: "d", price: 40, priceTo: 40 }, cfg);
     const offersNode = graph["offers"] as Record<string, unknown>;
     expect(offersNode["@type"]).toBe("Offer");
+  });
+});
+
+// ─── F-01: FAQ count + non-empty invariant ───────────────────────────────────
+
+import frDict from "@/dictionaries/fr.json";
+import enDict from "@/dictionaries/en.json";
+import { faqPageGraph } from "@/lib/seo";
+
+describe("F-01: validateFaqCompleteness — FAQ count and non-empty invariant", () => {
+  it("returns [] for valid items (all q/a non-empty)", () => {
+    const items = [
+      { q: "Question?", a: "Answer." },
+      { q: "Another?", a: "Another answer." },
+    ];
+    expect(validateFaqCompleteness("test-tenant", "fr", items)).toEqual([]);
+  });
+
+  it("returns error when an item has an empty question", () => {
+    const items = [
+      { q: "", a: "Answer." },
+      { q: "Good?", a: "Good." },
+    ];
+    const errors = validateFaqCompleteness("test-tenant", "fr", items);
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].invariant).toBe("F-01");
+    expect(errors[0].message).toMatch(/empty.*q/i);
+  });
+
+  it("returns error when an item has an empty answer", () => {
+    const items = [
+      { q: "Question?", a: "" },
+    ];
+    const errors = validateFaqCompleteness("test-tenant", "fr", items);
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].invariant).toBe("F-01");
+    expect(errors[0].message).toMatch(/empty.*a/i);
+  });
+
+  it("count invariant: faqPageGraph mainEntity length equals items length (fr)", () => {
+    const items = frDict.faq.items;
+    const graph = faqPageGraph(items);
+    const entities = (graph as unknown as { mainEntity: unknown[] }).mainEntity;
+    expect(entities.length).toBe(items.length);
+  });
+
+  it("count invariant: faqPageGraph mainEntity length equals items length (en)", () => {
+    const items = enDict.faq.items;
+    const graph = faqPageGraph(items);
+    const entities = (graph as unknown as { mainEntity: unknown[] }).mainEntity;
+    expect(entities.length).toBe(items.length);
+  });
+
+  it("non-empty invariant: all fr dict faq items have non-empty q and a", () => {
+    const errors = validateFaqCompleteness("dictionaries/fr", "fr", frDict.faq.items);
+    expect(errors).toEqual([]);
+  });
+
+  it("non-empty invariant: all en dict faq items have non-empty q and a", () => {
+    const errors = validateFaqCompleteness("dictionaries/en", "en", enDict.faq.items);
+    expect(errors).toEqual([]);
+  });
+
+  it("validateSchemaInvariants includes FAQ completeness for all locales", () => {
+    // After GREEN: validateSchemaInvariants must call checkFaqCompleteness.
+    // This verifies no FAQ errors exist on the current dict data.
+    const errors = validateSchemaInvariants();
+    const faqErrors = errors.filter((e) => e.invariant === "F-01");
+    expect(faqErrors).toEqual([]);
   });
 });
