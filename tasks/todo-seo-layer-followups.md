@@ -1,7 +1,7 @@
 <!-- s1 metadata
 task-name: seo-layer-followups
 scope: medium
-status: plan-approved
+status: complete
 repo: /Users/theduy/Repo/maily-website
 created-at: 2026-06-06
 -->
