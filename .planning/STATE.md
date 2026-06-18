@@ -37,13 +37,13 @@ progress:
 |-------|-------|
 | Phase | 1 |
 | Phase name | Per-Tenant Config Completion |
-| Plan | None (phase not yet planned) |
-| Status | Not started |
-| Progress | 0/6 phases complete |
+| Plan | 1 of 2 complete |
+| Status | In progress |
+| Progress | 0/6 phases complete (Phase 1: 1/2 plans) |
 
 ```
-Progress: [          ] 0%
-Phase 1: [          ] Not started
+Progress: [>         ] 8%
+Phase 1: [#####     ] In progress (1/2 plans)
 Phase 2: [          ] Not started
 Phase 3: [          ] Not started
 Phase 4: [          ] Not started
@@ -96,6 +96,8 @@ Phase 6: [          ] Not started
 | Decision | Rationale | Date |
 |----------|-----------|------|
 | Phase 1 = config gate | Schema/answer blocks emit facts that must exist first; wrong data = bad citations | 2026-06-17 |
+| next.config.ts as sole build guard (not prebuild script) | Node 20/Docker cannot transpile .ts imports; Next.js SWC require-hooks make next.config.ts the correct context | 2026-06-18 |
+| Config validator Test 1 is GREEN (not RED as planned) | charlesbourg/rivieres configs have non-"XX" storeIds and non-zero geo — structurally complete, just unconfirmed. Validator correctly passes them. Plan 01-2 replaces approximate values with confirmed real data. | 2026-06-18 |
 | Review schema guarded against stub data | Eligibility cliff + manual-action penalty risk | 2026-06-17 |
 | Keep FAQPage schema despite SERP deprecation | Still crawled by PerplexityBot/Bingbot; removal loses AI citation surface | 2026-06-17 |
 | Off-site link-building out of scope | Marketing-ops, not on-site engineering | 2026-06-17 |
@@ -115,10 +117,10 @@ None at roadmap creation.
 
 ## Session Continuity
 
-**Last session:** 2026-06-18T00:28:25.126Z
-**Completed this session:** PROJECT.md + REQUIREMENTS.md read; ROADMAP.md + STATE.md written; REQUIREMENTS.md traceability updated
+**Last session:** 2026-06-18T01:15:45Z
+**Completed this session:** Plan 01-1 executed — config-completeness validator + bun:test + next.config.ts build guard (commits 953d286, 34dbd41, 3b29887)
 
-**Next action:** Run `/gsd-plan-phase 1` to plan Phase 1 — Per-Tenant Config Completion
+**Next action:** Execute Plan 01-2 — fill real per-tenant data for ongles-charlesbourg and ongles-rivieres (human checklist D-02 must be completed first)
 
 ---
 
