@@ -11,6 +11,13 @@ import { PHASE_PRODUCTION_BUILD } from "next/constants";
 // assertAllTenantsComplete() is called inside the PHASE_PRODUCTION_BUILD guard, so
 // `next dev` is never blocked.
 import { assertAllTenantsComplete } from "./src/config/config-completeness";
+// Static import (NOT a dynamic `await import()`). Same SWC require-hook
+// constraint as assertAllTenantsComplete — schema-invariants.ts and its entire
+// transitive chain (TENANT_REGISTRY → tenant dirs, seo.ts) must be pure static
+// imports so the hook resolves `.ts` under node:20-alpine. Calling
+// assertSchemaInvariants() here aborts the Dokploy deploy (C-02) whenever any
+// tenant violates a schema invariant (T-02-07/T-02-08).
+import { assertSchemaInvariants } from "./src/config/schema-invariants";
 
 // Baseline security headers applied to every route. These are non-breaking and
 // improve the Lighthouse "Best Practices"/trust signals.
@@ -48,6 +55,7 @@ const securityHeaders = [
 export default async function config(phase: string): Promise<NextConfig> {
   if (phase === PHASE_PRODUCTION_BUILD) {
     assertAllTenantsComplete();
+    assertSchemaInvariants();
   }
 
   return {

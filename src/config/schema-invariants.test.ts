@@ -44,12 +44,9 @@ import {
   servicesGraph,
   serviceGraph,
   faqPageGraph,
-  breadcrumbGraph,
-  offer as _offer,
 } from "@/lib/seo";
 
-// Re-export offer for testing — it's unexported, so we test via schema-invariants
-// which calls it internally. For direct offer() tests, we test via serviceGraph.
+// offer() is not exported from seo.ts — tested indirectly via serviceGraph.
 
 const EXCLUDED = new Set(["template"]);
 
