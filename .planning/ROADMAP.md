@@ -141,7 +141,7 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Per-Tenant Config Completion | 0/2 | Not started | - |
-| 2. Schema Completeness + Correctness | 0/? | Not started | - |
+| 2. Schema Completeness + Correctness | 0/4 | Planned | - |
 | 3. Content Depth | 0/? | Not started | - |
 | 4. Net-New Pages | 0/? | Not started | - |
 | 5. llms.txt Depth + Measurement | 0/? | Not started | - |

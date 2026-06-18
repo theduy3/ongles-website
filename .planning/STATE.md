@@ -118,9 +118,9 @@ None at roadmap creation.
 ## Session Continuity
 
 **Last session:** 2026-06-18T15:16:30.672Z
-**Completed this session:** Plan 01-1 executed — config-completeness validator + bun:test + next.config.ts build guard (commits 953d286, 34dbd41, 3b29887)
+**Completed this session:** Phase 2 PLANNED — research (Q1 no offline schema.org validator → hand-rolled `schema-invariants.ts`; Q2 per-tenant `reviewData`; Q3 `canonicalUrl` field) + VALIDATION strategy + 4 wave-sequenced plans, plan-checker PASS (commits 4e3fa42 + docs)
 
-**Next action:** Execute Plan 01-2 — fill real per-tenant data for ongles-charlesbourg and ongles-rivieres (human checklist D-02 must be completed first)
+**Next action:** Execute Phase 2 — `/gsd-execute-phase 2` (start wave 1: 02-1 per-tenant reviewData + R-02 suppression). `/clear` first for a fresh context window.
 
 ---
 
