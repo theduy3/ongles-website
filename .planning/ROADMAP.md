@@ -58,7 +58,7 @@
 - [x] 02-01-review-data-suppression-PLAN.md — per-tenant review data + AggregateRating suppression gate (SCHEMA-04) ✅ 2026-06-18
 - [x] 02-02-canonical-id-organization-PLAN.md — stable canonicalUrl + brand Organization node + sameAs omit (SCHEMA-01, SCHEMA-05) ✅ 2026-06-18
 - [x] 02-03-invariants-build-guard-PLAN.md — schema-dts typing + offline invariant module + next.config.ts build guard (SCHEMA-01/02/04/05/06) ✅ 2026-06-18
-- [ ] 02-04-faq-completeness-parity-PLAN.md — FAQPage completeness (F-01) + dictionary FR/EN FAQ parity (F-02) (SCHEMA-03, SCHEMA-06)
+- [x] 02-04-faq-completeness-parity-PLAN.md — F-01 FAQ completeness invariant (build-guard) + F-02 dictionaries FR/EN parity (SCHEMA-03/SCHEMA-06) ✅ 2026-06-18 — FAQPage completeness (F-01) + dictionary FR/EN FAQ parity (F-02) (SCHEMA-03, SCHEMA-06)
 
 ---
 
