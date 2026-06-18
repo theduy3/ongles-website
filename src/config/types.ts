@@ -96,9 +96,23 @@ export type TenantSite = {
   routes: readonly string[];
 };
 
+// Per-tenant review data. Written by scripts/fetch-google-reviews.mjs into
+// src/config/tenants/{id}/google-reviews.json. The stub scaffold has
+// fetchedAt: null and zero counts — the R-02 gate in seo.ts suppresses
+// AggregateRating until a genuine fetch has occurred (fetchedAt set AND
+// reviewCount >= 5). reviews is typed `readonly unknown[]` here to avoid
+// importing the Review type from @/lib/reviews (which would create a
+// circular dep: reviews.ts imports tenant config).
+export type ReviewData = {
+  fetchedAt: string | null;
+  aggregate: { ratingValue: number; reviewCount: number };
+  reviews: readonly unknown[];
+};
+
 export type TenantConfig = {
   id: string;
   site: TenantSite;
   location: Location;
   services: readonly Service[];
+  reviewData: ReviewData;
 };
