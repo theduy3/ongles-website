@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: phase-2-in-progress
-last_updated: "2026-06-18T22:32:00Z"
+last_updated: "2026-06-18T22:40:57Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 6
-  completed_plans: 3
-  percent: 19
+  completed_plans: 4
+  percent: 25
 ---
 
 # Project State — ongles-website AI-Search Optimization
@@ -39,14 +39,14 @@ progress:
 |-------|-------|
 | Phase | 2 |
 | Phase name | Schema Completeness + Correctness |
-| Plan | 1 of 4 complete (02-01: per-tenant ReviewData + R-02 gate) |
-| Status | In progress — wave 1 complete |
-| Progress | 1/6 phases complete, phase 2 wave 1/4 done |
+| Plan | 2 of 4 complete (02-01: per-tenant ReviewData + R-02 gate; 02-02: canonical @id + Organization node) |
+| Status | In progress — wave 2 complete |
+| Progress | 1/6 phases complete, phase 2 wave 2/4 done |
 
 ```
-Progress: [##        ] 19%
+Progress: [###       ] 25%
 Phase 1: [##########] Complete (UAT 5/5; deployed)
-Phase 2: [##        ] In progress (1/4 plans complete)
+Phase 2: [####      ] In progress (2/4 plans complete)
 Phase 3: [          ] Not started
 Phase 4: [          ] Not started
 Phase 5: [          ] Not started
@@ -63,6 +63,17 @@ Phase 6: [          ] Not started
 | Duration | 413s (~7min) |
 | Tasks completed | 3 |
 | Files changed | 13 |
+| Test count after | 157 pass / 0 fail |
+| Completed | 2026-06-18 |
+
+## Performance Metrics (02-02)
+
+| Metric | Value |
+|--------|-------|
+| Plan | 02-02 |
+| Duration | ~15min |
+| Tasks completed | 2 |
+| Files changed | 7 |
 | Test count after | 157 pass / 0 fail |
 | Completed | 2026-06-18 |
 
@@ -114,6 +125,9 @@ Phase 6: [          ] Not started
 | Review schema guarded against stub data | Eligibility cliff + manual-action penalty risk | 2026-06-17 |
 | SeoConfig gets optional reviewData for DI | Avoids process.env manipulation in tests; enables isolated R-02 gate testing per-cfg | 2026-06-18 |
 | ReviewData.reviews typed as readonly unknown[] | Avoids circular dep: reviews.ts imports tenant config which imports ReviewData | 2026-06-18 |
+| canonicalUrl excluded from SiteSectionSchema (.strict()) | Supabase admin cannot override @id base; structural exclusion enforces T-02-04 mitigation | 2026-06-18 |
+| Organization brand node placed first in @graph | Google recommends declaring entities before referencing them; O-01 contract | 2026-06-18 |
+| sameAs conditional on non-empty socialProfiles | Emitting sameAs: [] is a schema.org error; I-03 — omit entirely when no profiles exist | 2026-06-18 |
 | Keep FAQPage schema despite SERP deprecation | Still crawled by PerplexityBot/Bingbot; removal loses AI citation surface | 2026-06-17 |
 | Off-site link-building out of scope | Marketing-ops, not on-site engineering | 2026-06-17 |
 | LOCAL-01 assigned to Phase 5 | Phase 5 is the implementation phase; Phase 6 is verification | 2026-06-17 |
@@ -132,10 +146,10 @@ None at roadmap creation.
 
 ## Session Continuity
 
-**Last session:** 2026-06-18T22:32:00Z
-**Completed this session:** Phase 2 plan 02-01 executed — per-tenant ReviewData type, google-reviews.json stubs for all 4 tenants, R-02 gate (fetchedAt !== null && reviewCount >= 5) in organizationGraph, tenant-aware fetch script. 157 tests pass. Commits: 40fb1c9, af12fea, ce8ca0c, 6736e8b.
+**Last session:** 2026-06-18T22:40:57Z
+**Completed this session:** Phase 2 plan 02-02 executed — canonicalUrl field on TenantSite (excluded from SiteSectionSchema override surface), per-tenant canonical values, all @id URIs in seo.ts derived from canonicalUrl, new top-level Organization brand node (first @graph member), parentOrganization link on NailSalon business node, conditional sameAs (omit when socialProfiles empty). 157 tests pass. Commits: 7d6d0ab, 1667356.
 
-**Next action:** Execute Phase 2 plan 02-02 — `02-02-canonical-id-organization-PLAN.md` (stable canonicalUrl + brand Organization node + sameAs omit).
+**Next action:** Execute Phase 2 plan 02-03 — `02-03-schema-validator-PLAN.md` (build-time schema validator, cross-tenant @id uniqueness guard I-02).
 
 ---
 
