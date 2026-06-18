@@ -55,6 +55,11 @@ export type Location = {
 export type TenantSite = {
   name: string;
   url: string;
+  /** Stable production origin for schema.org `@id` URIs. NEVER overridden by
+   *  Supabase admin config — `canonicalUrl` is deliberately absent from
+   *  `SiteSectionSchema` so the `.strict()` override surface rejects it (I-01).
+   *  No trailing slash. Example: `"https://onglesmaily.com"`. */
+  canonicalUrl: string;
   // Optional header logo image URL. Merged from the Supabase override; when
   // absent the header uses the static /images/logo.png default.
   logo?: string;

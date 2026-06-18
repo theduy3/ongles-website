@@ -6,6 +6,10 @@ export const site = {
   // Canonical production origin — feeds metadataBase, sitemap, robots and JSON-LD @id.
   // No trailing slash; relative metadata paths compose against this.
   url: "https://example.com",
+  // Stable origin for schema.org @id URIs. NOT in SiteSectionSchema → cannot be
+  // overridden by Supabase admin config (I-01). No trailing slash. Replace with
+  // the real production domain before deploying.
+  canonicalUrl: "https://example.com",
   // SalonX widget store code.
   storeId: "XX",
   // SalonX widget origin (no trailing slash). Admin can override per deploy.

@@ -7,6 +7,9 @@
 export const site = {
   name: "Ongles Charlesbourg",
   url: "https://www.onglescharlesbourg.com",
+  // Stable origin for schema.org @id URIs. NOT in SiteSectionSchema → cannot be
+  // overridden by Supabase admin config (I-01). No trailing slash.
+  canonicalUrl: "https://www.onglescharlesbourg.com",
   // Real SalonX widget store code — confirmed by owner 2026-06-17.
   storeId: "OC",
   // SalonX widget origin (no trailing slash). Admin can override per deploy.
