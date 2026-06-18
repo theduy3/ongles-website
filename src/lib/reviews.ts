@@ -1,28 +1,27 @@
 import type { Locale } from "@/lib/i18n";
-import data from "@/data/google-reviews.json";
+import { tenant } from "@/config";
 
 export type Review = {
   id: string;
-  author: string; // first name + last initial (privacy)
-  rating: number; // 1–5 (only 5★ are fetched)
-  dateISO: string; // e.g. "2025-11-03"
-  // Original language. The Business Profile API doesn't return it reliably, so
-  // it's optional; text is shown verbatim regardless (no MT of user content).
-  lang?: Locale;
+  author: string;
+  /** Rating 1–5 (only 5★ reviews are stored in fetched data) */
+  rating: number;
+  dateISO: string; // "2025-11-03"
+  lang: Locale;
   text: string;
 };
 
-// Real 5★ Google reviews, fetched at build time by scripts/fetch-google-reviews.mjs
-// into src/data/google-reviews.json. Empty until the first fetch (display-only —
-// these emit no per-review schema.org markup).
-export const reviews: readonly Review[] = data.reviews as readonly Review[];
+// Per-tenant Google reviews, fetched by scripts/fetch-google-reviews.mjs and
+// stored in src/config/tenants/{id}/google-reviews.json.
+// The stub scaffold has reviews:[] until a genuine fetch runs.
+export const reviews: readonly Review[] = tenant.reviewData.reviews as readonly Review[];
 
-// TRUE Google totals (averageRating / totalReviewCount), independent of the 5★
-// display filter. Backs the schema.org AggregateRating so it stays honest.
+// TRUE Google totals (averageRating / totalReviewCount), independent of 5★ filter.
+// Backs the R-02 gate in seo.ts (authoritative fetched count, not static config).
 export const aggregate: { ratingValue: number; reviewCount: number } =
-  data.aggregate;
+  tenant.reviewData.aggregate;
 
-// ISO timestamp of the last real Google fetch; null in the committed scaffold.
-// Gates the schema.org AggregateRating so we never emit rating markup that
-// isn't backed by a genuine fetch.
-export const reviewsFetchedAt: string | null = data.fetchedAt;
+// ISO timestamp set when fetch-google-reviews.mjs last ran successfully.
+// null = stub / never fetched. The R-02 gate in seo.ts requires this to be
+// non-null AND aggregate.reviewCount >= 5 before emitting AggregateRating.
+export const reviewsFetchedAt: string | null = tenant.reviewData.fetchedAt;

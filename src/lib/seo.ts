@@ -11,13 +11,23 @@ import type { Locale } from "@/lib/i18n";
 import { locales, defaultLocale } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import { locations, mapLink } from "@/lib/locations";
-import { reviewsFetchedAt } from "@/lib/reviews";
+import { reviewsFetchedAt, aggregate } from "@/lib/reviews";
 import type { GalleryImage } from "@/lib/gallery";
 import type { TenantSite, Location } from "@/config/types";
 
 /** Injected store config for SEO builders. Callers that pass this override the
- *  static module-level defaults — enabling live DB config to flow through. */
-export type SeoConfig = { site: TenantSite; locations: Location[] };
+ *  static module-level defaults — enabling live DB config to flow through.
+ *  `reviewData` is optional: when present it overrides the module-level singleton
+ *  from reviews.ts (used in tests for isolated R-02 gate verification). */
+export type SeoConfig = {
+  site: TenantSite;
+  locations: Location[];
+  reviewData?: {
+    fetchedAt: string | null;
+    aggregate: { ratingValue: number; reviewCount: number };
+    reviews: readonly unknown[];
+  };
+};
 
 // Default social-share image (absolute path; resolved against metadataBase).
 // JPEG (not WebP) for universal social-scraper compatibility.
@@ -199,20 +209,27 @@ export function organizationGraph(
         image: `${cfg.site.url}${OG_IMAGE}`,
         priceRange: cfg.site.priceRange,
         department: departments.map((d) => ({ "@id": d["@id"] })),
-        // Only emit AggregateRating once real reviews have been fetched from
-        // Google (fetchedAt set). The placeholder scaffold has no genuine
-        // totals, so we omit the rating markup rather than assert unverified
-        // numbers — keeps the structured data honest.
-        ...(reviewsFetchedAt
-          ? {
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: cfg.site.reviews.ratingValue,
-                reviewCount: cfg.site.reviews.reviewCount,
-                bestRating: cfg.site.reviews.bestRating,
-              },
-            }
-          : {}),
+        // R-02 gate: only emit AggregateRating once real reviews have been
+        // fetched (fetchedAt set) AND the fetched aggregate has at least 5
+        // reviews. The authoritative count comes from reviewData.aggregate
+        // (fetched data), NOT from cfg.site.reviews (static display config).
+        // Suppressing stub data keeps the JSON-LD honest (T-02-01).
+        // cfg.reviewData overrides the module singleton for DI in tests.
+        ...((() => {
+          const rd = cfg.reviewData ?? { fetchedAt: reviewsFetchedAt, aggregate };
+          const hasRealRating =
+            rd.fetchedAt !== null && rd.aggregate.reviewCount >= 5;
+          return hasRealRating
+            ? {
+                aggregateRating: {
+                  "@type": "AggregateRating",
+                  ratingValue: rd.aggregate.ratingValue,
+                  reviewCount: rd.aggregate.reviewCount,
+                  bestRating: cfg.site.reviews.bestRating,
+                },
+              }
+            : {};
+        })()),
         address: {
           "@type": "PostalAddress",
           streetAddress: cfg.site.contact.address.street,
