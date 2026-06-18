@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: phase-2-in-progress
-last_updated: "2026-06-18T22:40:57Z"
+last_updated: "2026-06-18T23:15:00Z"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
-  percent: 25
+  completed_plans: 5
+  percent: 29
 ---
 
 # Project State — ongles-website AI-Search Optimization
@@ -35,18 +35,16 @@ progress:
 
 | Field | Value |
 |-------|-------|
-| Field | Value |
-|-------|-------|
 | Phase | 2 |
 | Phase name | Schema Completeness + Correctness |
-| Plan | 2 of 4 complete (02-01: per-tenant ReviewData + R-02 gate; 02-02: canonical @id + Organization node) |
-| Status | In progress — wave 2 complete |
-| Progress | 1/6 phases complete, phase 2 wave 2/4 done |
+| Plan | 3 of 4 complete (02-01: per-tenant ReviewData + R-02 gate; 02-02: canonical @id + Organization node; 02-03: schema-dts typing + offline invariants + next.config.ts build guard) |
+| Status | In progress — wave 3 complete (next build green; guard live) |
+| Progress | 1/6 phases complete, phase 2 wave 3/4 done |
 
 ```
-Progress: [###       ] 25%
+Progress: [###       ] 29%
 Phase 1: [##########] Complete (UAT 5/5; deployed)
-Phase 2: [####      ] In progress (2/4 plans complete)
+Phase 2: [#######   ] In progress (3/4 plans complete)
 Phase 3: [          ] Not started
 Phase 4: [          ] Not started
 Phase 5: [          ] Not started
