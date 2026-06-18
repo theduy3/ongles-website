@@ -1,5 +1,16 @@
 import type { NextConfig } from "next";
 import { PHASE_PRODUCTION_BUILD } from "next/constants";
+// Static import (NOT a dynamic `await import()`). Next's next.config.ts loader
+// (next/dist/build/next-config-ts/transpile-config.js) SWC-transforms this file to
+// CJS and only registers its `.ts`/`.tsx` require-hook when the compiled code
+// contains `require(`. A static import compiles to `require(...)`, which triggers
+// the hook and resolves this validator + its transitive `.ts` chain (index.ts →
+// tenant dirs) — no tsx/ts-node, works under node:20-alpine (Docker build stage).
+// A dynamic `import()` is preserved as native ESM import() and BYPASSES the hook →
+// MODULE_NOT_FOUND. Importing here is side-effect-free; validation only runs when
+// assertAllTenantsComplete() is called inside the PHASE_PRODUCTION_BUILD guard, so
+// `next dev` is never blocked.
+import { assertAllTenantsComplete } from "./src/config/config-completeness";
 
 // Baseline security headers applied to every route. These are non-breaking and
 // improve the Lighthouse "Best Practices"/trust signals.
@@ -26,26 +37,16 @@ const securityHeaders = [
 
 // Config-completeness build guard (D-09/D-10).
 //
-// The import lives INSIDE the async function and is gated on PHASE_PRODUCTION_BUILD
-// so it NEVER runs during `next dev` (config is loaded on dev startup too). This
-// allows configs to be intentionally incomplete while Plan 01-2 data is mid-fill.
+// assertAllTenantsComplete() runs ONLY when phase === PHASE_PRODUCTION_BUILD, so it
+// never fires during `next dev` (config is loaded on dev startup too) — configs may
+// stay intentionally incomplete while Plan 01-2 data is mid-fill. Throwing here
+// propagates through normalizeConfig() to next-build.js .catch() → printAndExit() →
+// process.exit(1), aborting the Dokploy deploy on incomplete config.
 //
-// The await import() uses Next.js SWC require-hooks which transpile the .ts source
-// at build time — no tsx/ts-node needed, works in node:20-alpine (Docker build stage).
-// Throwing inside this function propagates through normalizeConfig() to next-build.js
-// .catch() → printAndExit() → process.exit(1), aborting the Dokploy deploy.
-//
-// NOTE: plain `next build` without PHASE_PRODUCTION_BUILD set also triggers the
-// guard — PHASE_PRODUCTION_BUILD is set automatically by Next.js when running
-// `next build`, not a custom env var. The env var PHASE_PRODUCTION_BUILD used in
-// the plan notes refers to the Next.js constant value 'phase-production-build'
-// that the framework passes as the `phase` argument to this function.
+// PHASE_PRODUCTION_BUILD is the Next.js phase constant ('phase-production-build')
+// that the framework passes as `phase` for every `next build` — not a custom env var.
 export default async function config(phase: string): Promise<NextConfig> {
   if (phase === PHASE_PRODUCTION_BUILD) {
-    // Dynamic import keeps the validator out of dev-server module graph entirely.
-    const { assertAllTenantsComplete } = await import(
-      "./src/config/config-completeness"
-    );
     assertAllTenantsComplete();
   }
 
