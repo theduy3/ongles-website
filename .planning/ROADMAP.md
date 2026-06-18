@@ -34,7 +34,9 @@
 3. No schema builder or page component falls back to a placeholder, empty string, or undefined when rendering any tenant
 4. A local dev run with TENANT=ongles-charlesbourg (and any other secondary tenant) produces fully populated service listings and NAP data with no console warnings about missing config keys
 
-**Plans**: TBD
+**Plans**: 2 plans
+- [ ] 01-1-PLAN.md — Config-completeness validator + failing bun:test + next.config.ts build guard (TDD machinery, autonomous)
+- [ ] 01-2-PLAN.md — Human checkpoint (filled data checklist) then copy real values into Charlesbourg + Rivières config; turn guard GREEN
 
 ---
 
@@ -134,7 +136,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Per-Tenant Config Completion | 0/? | Not started | - |
+| 1. Per-Tenant Config Completion | 0/2 | Not started | - |
 | 2. Schema Completeness + Correctness | 0/? | Not started | - |
 | 3. Content Depth | 0/? | Not started | - |
 | 4. Net-New Pages | 0/? | Not started | - |
