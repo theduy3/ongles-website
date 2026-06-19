@@ -1,5 +1,19 @@
 # Lessons
 
+## i18n: type-source dict ≠ runtime-source dict (Phase 4 comparison 500)
+
+- **A new dictionary key must go in `src/config/base/content.{fr,en}.json` (the RUNTIME
+  source `getDictionary` composes), not `src/dictionaries/{fr,en}.json` (only the TYPE
+  source: `type Dictionary = typeof en`).** Phase-4 added `comparison.decisionHeading` to
+  the type-source file only. `dict.comparison.decisionHeading` *type-checked* but
+  `dict.comparison` was `undefined` at request time → every comparison page 500'd.
+- **Why nothing caught it:** comparison routes are dynamic (`ƒ`), so `bun run build` never
+  renders them; no unit test rendered the page with the composed dict; seo-parity only checks
+  `seo.json`, not the UI dict. Green build + green tests, dead page.
+- Rule: when adding a UI dict key, add it to `config/base/content.*` (or tenant override),
+  and back it with a test on the **composed** dict (`getDictionary(locale)`), not the type.
+  Caught only by serving the prod build and curling the dynamic route. (fix: this session)
+
 ## Self-hosted Supabase storage 401 (popup-images logo bug)
 
 - **A 401 on `/storage/v1/object/public/...` is a Kong gateway problem, not the

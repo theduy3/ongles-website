@@ -58,3 +58,13 @@ The automated layer cannot self-verify these — see `04-UAT.md` for the full ma
 5. AI-citation carry-forward check (ChatGPT/Perplexity citing answer blocks) — deferred, long-horizon.
 
 **Next:** run `/gsd-verify-work 4` to walk the UAT items; phase auto-completes when UAT passes.
+
+## Live UAT addendum — 2026-06-19
+`/gsd-verify-work 4` ran the local-verifiable gates against a production build. It found and
+fixed a **runtime blocker the automated layer could not see**: all comparison pages 500'd
+(`dict.comparison.decisionHeading` undefined) because the key was added to the *type-source*
+dict (`src/dictionaries/*.json`) but not the *runtime-source* (`src/config/base/content.*.json`).
+Fixed both base content files + added composed-dict regression tests (357 pass). All 8
+comparison routes now 200 across 2 tenants. Still held `human_needed` for: visual render,
+Google Rich Results (post-deploy), ComparisonColumns design decision, rivieres rebuild, and
+the push-to-deploy step.

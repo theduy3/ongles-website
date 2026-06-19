@@ -5,6 +5,62 @@
 
 ---
 
+## Live UAT Run — 2026-06-19 (local, pre-deploy)
+
+Ran the local-verifiable gates against a production build served on localhost
+(`bun run start`) for two tenants (ongles-maily, ongles-charlesbourg).
+
+| Gate | Result |
+|------|--------|
+| `bun test src/` | **357 pass / 0 fail** (was 355 + 2 new regression tests) |
+| Build guard (maily, charlesbourg) | **green** (rivieres not re-built this run) |
+| SC1 pricing routes `/fr/tarifs` `/en/pricing` | **200 / 200**; `/en/tarifs` `/fr/pricing` → **404** (locale guard correct) |
+| SC2 comparison routes (4 FR + 4 EN) | **200 ×8** after fix (see BLOCKER below); wrong-locale → 404 |
+| SC3 near-me `/fr/beauport` (maily) `/fr/charlesbourg` (cb) | **200** |
+| SC4 sitemap entries (tarifs/pricing/comparaisons/comparisons/beauport) | **present**; no `en/tarifs`/`fr/pricing` leak |
+
+### BLOCKER found & fixed — comparison pages 500'd at runtime
+
+- **Symptom:** all 4 comparison pages (FR + EN, every tenant) returned **HTTP 500**.
+  `TypeError: Cannot read properties of undefined (reading 'decisionHeading')`.
+- **Root cause:** `dict.comparison.decisionHeading` (comparison `page.tsx:87`) was added
+  only to `src/dictionaries/{fr,en}.json` — which is the *type* source
+  (`type Dictionary = typeof en`), not the runtime source. The runtime dict is composed
+  by `getDictionary` from `src/config/base/content.{fr,en}.json` (+ tenant/DB layers),
+  which had **no** `comparison` key. So it type-checked but `dict.comparison` was `undefined`
+  at request time. Build missed it (comparison routes are dynamic `ƒ`, never rendered at
+  build); tests missed it (none rendered the page with the composed dict).
+- **Fix:** added top-level `comparison.decisionHeading` to
+  `src/config/base/content.fr.json` + `content.en.json`. Added 2 RED→GREEN regression
+  tests in `dictionaries.test.ts` asserting the **composed runtime** dict exposes the key
+  (fr + en) — guards the whole class, not just the type.
+- **Verified:** all 8 comparison routes → 200 across 2 tenants; heading renders
+  ("Laquelle choisir ?" / "Which should you choose?"); no regressions.
+- **Deploy note:** not yet live — local main is ~39 commits ahead of `origin/main`, so
+  prod never served the 500. Caught pre-deploy.
+
+### Gaps
+
+```yaml
+- truth: "comparison pages render (dict.comparison.decisionHeading resolves at runtime)"
+  status: fixed
+  reason: "comparison key was in the type-source dict only, not config/base runtime source — 500 at request time"
+  severity: blocker
+  test: SC2
+  artifacts: [src/config/base/content.fr.json, src/config/base/content.en.json, "src/app/[lang]/dictionaries.test.ts"]
+  missing: []
+```
+
+### Remaining for human (still post-deploy / judgment)
+
+1. Visual render per tenant (gold prices, mobile no-scroll, answer-first layout).
+2. Google Rich Results on a pricing + a comparison page (needs public deploy).
+3. **Decision:** are two-column `ComparisonColumns` cards required before phase close? (see SC2 gate below).
+4. `TENANT=ongles-rivieres bun run build` — third tenant not re-built this run.
+5. Push to `origin/main` (triggers Dokploy deploy) — then run the post-deploy curls in this file.
+
+---
+
 ## Phase Success Criteria
 
 From ROADMAP.md Phase 4:
