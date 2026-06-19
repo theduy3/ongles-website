@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 current_phase: 3
-status: phase-3-planned
-stopped_at: Phase 3 planned (5 plans, plan-checker verified)
-last_updated: "2026-06-19T03:40:00.000Z"
+status: phase-3-complete
+stopped_at: Phase 3 complete (5/5 plans; D-05/D-11 guards live; pushed 2f77d85 → Dokploy deploy; SC-4 AI-citation spot-check pending indexing)
+last_updated: "2026-06-19T05:00:00.000Z"
 progress:
   total_phases: 6
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 11
-  completed_plans: 6
-  percent: 33
+  completed_plans: 11
+  percent: 50
 ---
 
 # Project State — ongles-website AI-Search Optimization
@@ -37,17 +37,17 @@ progress:
 
 | Field | Value |
 |-------|-------|
-| Phase | 2 |
-| Phase name | Schema Completeness + Correctness |
-| Plan | 4 of 4 complete (02-01: ReviewData + R-02 gate; 02-02: canonical @id + Organization; 02-03: schema-dts + invariants + build guard; 02-04: FAQ completeness F-01 + dict parity F-02) |
-| Status | Implementation complete — all 4 plans landed; suite 202 pass, next build green, guard live. Pending: manual UAT (Google Rich Results Test per tenant, C-03) + push to deploy |
-| Progress | 1/6 phases complete, phase 2 implementation 4/4 done |
+| Phase | 3 |
+| Phase name | Content Depth |
+| Plan | 5 of 5 complete (03-01 RED foundation; 03-02 shared runtime; 03-03 FAQ depth; 03-04 answer blocks; 03-05 gate activation + UAT) |
+| Status | Complete — 282 tests pass, build green with D-05/D-11 guards live & build-blocking. Pushed 2f77d85 → Dokploy deploy. Pending: SC-4 ChatGPT/Perplexity AI-citation spot-check (post-indexing, per 03-UAT.md) |
+| Progress | 3/6 phases complete |
 
 ```
-Progress: [###       ] 33%
+Progress: [#####     ] 50%
 Phase 1: [##########] Complete (UAT 5/5; deployed)
-Phase 2: [##########] Implementation complete (4/4 plans; pending UAT + deploy)
-Phase 3: [#         ] Planned (5 plans; verified, ready to execute)
+Phase 2: [##########] Complete (4/4 plans; UAT verified live)
+Phase 3: [##########] Complete (5/5 plans; guards live; deployed; SC-4 spot-check pending)
 Phase 4: [          ] Not started
 Phase 5: [          ] Not started
 Phase 6: [          ] Not started
@@ -146,13 +146,13 @@ None at roadmap creation.
 
 ## Session Continuity
 
-**Stopped at:** Phase 3 planned (5 plans, plan-checker verified)
-**Resume file:** .planning/phases/03-content-depth/03-01-PLAN.md
+**Stopped at:** Phase 3 complete — executed end-to-end (waves 1→2→3→4), pushed 2f77d85 → Dokploy deploy. Blocking checkpoint (03-05 Task 4) approved by user (push now). SC-4 manual AI-citation spot-check pending indexing.
+**Resume file:** .planning/phases/03-content-depth/03-UAT.md (run SC-4 once live)
 
-**Last session:** 2026-06-19T03:40:00.000Z
-**Completed this session:** Phase 3 (Content Depth) planned end-to-end via /gsd-plan-phase 3 — research (03-RESEARCH.md, HIGH confidence), 5 wave-sequenced MVP plans (03-01…03-05), plan-checker gate (0 blockers, 2 warnings; Warning-1 fixed by marking RESEARCH Open Questions RESOLVED per D-08 override). Covers CONTENT-01 (answer blocks) + CONTENT-02 (deepened FAQ), all D-01…D-30, 4 success criteria. Commits: d0c9be3 (plans+roadmap).
+**Last session:** 2026-06-19T05:00:00.000Z
+**Completed this session:** Phase 3 (Content Depth) executed inline (Opus, TDD). 03-01 RED foundation (splitter D-13, unwired D-05/D-11 guards, stubs, parity); 03-02 shared runtime (FaqItem, getTenantFaq, AnswerBlock, Accordion link); 03-03 FAQ depth (base de-tenanted to 9, per-tenant faq ≥13 → union 22/tenant/locale, /faq union F-01); 03-04 answer blocks (distinct copy + AnswerBlock first-in-main, single h1 on 4 page types); 03-05 guards wired build-blocking + gate-bites tests + 03-UAT.md. 282 tests pass, build green, frozen-lockfile OK. 15 commits (bce3d8b…2f77d85).
 
-**Next action:** Execute Phase 3 — `/gsd-execute-phase 3` (or start with 03-01-PLAN.md, Wave 1 RED foundation). Waves: 1→2→3 (03-03 ∥ 03-04)→4.
+**Next action:** Verify live deploy on the 3 tenant hosts + run 03-UAT.md SC-4 spot-check. Then Phase 4 (Net-New Pages) — `/gsd-plan-phase 4`.
 
 ---
 

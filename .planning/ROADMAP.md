@@ -12,7 +12,7 @@
 
 - [ ] **Phase 1: Per-Tenant Config Completion** - Gate: complete NAP, hours, and full service menu with pricing for every tenant
 - [x] **Phase 2: Schema Completeness + Correctness** - Fill and validate all JSON-LD types per tenant on the existing builder boundary ✅ 2026-06-18 (UAT verified live; deploy unblocked via bun.lock sync 898100b)
-- [ ] **Phase 3: Content Depth** - Direct-answer blocks on key pages + deepened FAQ content across locales
+- [x] **Phase 3: Content Depth** - Direct-answer blocks on key pages + deepened FAQ content across locales ✅ 2026-06-18 (282 tests green; D-05/D-11 guards live & build-blocking; pushed 2f77d85 → deploy; SC-4 AI-citation spot-check pending indexing)
 - [ ] **Phase 4: Net-New Pages** - Pricing, comparison/decision, and near-me neighborhood pages
 - [ ] **Phase 5: llms.txt Depth + Measurement** - Fix cross-tenant llms.txt leak, deepen per-tenant agent layer, wire GA4 AI-referrer + conversion tracking + CWV
 - [ ] **Phase 6: Cross-Tenant Correctness Audit** - Verify per-tenant/per-locale schema, NAP, and conversion correctness across all brands
@@ -76,11 +76,11 @@
 4. A manual spot-check of ChatGPT or Perplexity for "[salon name] services [city]" returns at least one factual sentence drawn from the site's answer blocks or FAQ content
 
 **Plans**: 5 plans
-- [ ] 03-01-PLAN.md — RED foundation: offline sentence-splitter, unwired FAQ-floor (D-05) + answer-block (D-11) guards, stub faq/seo JSON, extended FR/EN parity (wave 1)
-- [ ] 03-02-PLAN.md — Shared runtime: FaqItem type, get-tenant-faq loader (D-06 merge), AnswerBlock server component (D-18), Accordion inline-link (D-30) (wave 2)
-- [ ] 03-03-PLAN.md — FAQ depth slice: de-tenant base (D-03), author per-tenant faq.{locale}.json >=20/tenant/locale (D-04), wire /faq to union (F-01) (wave 3)
-- [ ] 03-04-PLAN.md — Answer-block slice: author answerBlock/answerHeading copy (D-08), wire AnswerBlock first-in-main + single-h1 across 4 page types (D-17/D-19) (wave 3)
-- [ ] 03-05-PLAN.md — Activate guards into build gate (D-05/D-11), fail-fixture proof, full verify, 03-UAT.md Criterion-4 manual spot-check (wave 4)
+- [x] 03-01-PLAN.md — RED foundation: offline sentence-splitter, unwired FAQ-floor (D-05) + answer-block (D-11) guards, stub faq/seo JSON, extended FR/EN parity (wave 1) ✅ 2026-06-18
+- [x] 03-02-PLAN.md — Shared runtime: FaqItem type, get-tenant-faq loader (D-06 merge), AnswerBlock server component (D-18), Accordion inline-link (D-30) (wave 2) ✅ 2026-06-18
+- [x] 03-03-PLAN.md — FAQ depth slice: de-tenant base (D-03), author per-tenant faq.{locale}.json >=20/tenant/locale (D-04), wire /faq to union (F-01) (wave 3) ✅ 2026-06-18
+- [x] 03-04-PLAN.md — Answer-block slice: author answerBlock/answerHeading copy (D-08), wire AnswerBlock first-in-main + single-h1 across 4 page types (D-17/D-19) (wave 3) ✅ 2026-06-18
+- [x] 03-05-PLAN.md — Activate guards into build gate (D-05/D-11), fail-fixture proof, full verify, 03-UAT.md Criterion-4 manual spot-check (wave 4) ✅ 2026-06-18
 **UI hint**: yes
 
 ---
@@ -147,7 +147,7 @@
 |-------|----------------|--------|-----------|
 | 1. Per-Tenant Config Completion | 0/2 | Not started | - |
 | 2. Schema Completeness + Correctness | 4/4 | Complete | 2026-06-18 |
-| 3. Content Depth | 0/? | Not started | - |
+| 3. Content Depth | 5/5 | Complete | 2026-06-18 |
 | 4. Net-New Pages | 0/? | Not started | - |
 | 5. llms.txt Depth + Measurement | 0/? | Not started | - |
 | 6. Cross-Tenant Correctness Audit | 0/? | Not started | - |
