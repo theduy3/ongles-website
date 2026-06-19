@@ -741,5 +741,10 @@
   },
   "comparison": {
     "decisionHeading": "Which should you choose?"
+  },
+  "consent": {
+    "banner": "We use cookies to measure site performance and improve our service. We do not use cookies for advertising.",
+    "accept": "Accept",
+    "decline": "Decline"
   }
 }

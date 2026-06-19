@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Cormorant_Garamond, Jost } from "next/font/google";
+import Script from "next/script";
 import "../globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -11,8 +12,11 @@ import { isLocale, dirFor, type LangParams } from "@/lib/i18n";
 import { PopupHost } from "@/components/PopupHost";
 import { FloatingCTA } from "@/components/FloatingCTA";
 import { CustomCodeHost } from "@/components/CustomCodeHost";
+import { ConsentBanner } from "@/components/ConsentBanner";
+import { WebVitalsReporter } from "@/components/WebVitalsReporter";
 import { getStoreConfig } from "@/lib/store-config";
 import { organizationGraph } from "@/lib/seo";
+import { shouldInjectGA4, buildConsentInitScript } from "@/lib/ga4-scripts";
 
 // Cormorant Garamond — elegant serif for headings (light/regular weights).
 const cormorant = Cormorant_Garamond({
@@ -103,6 +107,39 @@ export default async function RootLayout({
         <FloatingCTA dict={dict} locale={lang} />
         <PopupHost locale={lang} />
         <CustomCodeHost snippets={customCode.filter((s) => s.enabled)} />
+        {/* GA4 + Consent Mode v2 — rendered only when ga4MeasurementId is configured. */}
+        {shouldInjectGA4(site.ga4MeasurementId) && (
+          <>
+            {/*
+             * 1. Inline beforeInteractive: runs before any Next.js module.
+             *    Initialises window.dataLayer, defines gtag(), fires consent 'default'
+             *    with analytics_storage/ad_storage = 'denied'. The 'wait_for_update'
+             *    gives ConsentBanner time to fire the 'update' before gtag.js sends hits.
+             *    id prop is REQUIRED for React 19 deduplication of inline scripts.
+             */}
+            <Script
+              id="gtag-consent-init"
+              strategy="beforeInteractive"
+            >
+              {buildConsentInitScript(site.ga4MeasurementId)}
+            </Script>
+            {/*
+             * 2. afterInteractive: loads gtag.js from Google after initial hydration.
+             *    Loads after consent init so Consent Mode v2 signals are already queued.
+             */}
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${site.ga4MeasurementId}`}
+              strategy="afterInteractive"
+            />
+          </>
+        )}
+        {/* ConsentBanner: client island — shows on first visit, persists to localStorage. */}
+        <ConsentBanner
+          measurementId={site.ga4MeasurementId}
+          dict={dict.consent}
+        />
+        {/* WebVitalsReporter: client island — wires CWV metrics to GA4 via gtag(). */}
+        <WebVitalsReporter measurementId={site.ga4MeasurementId} />
       </body>
     </html>
   );
