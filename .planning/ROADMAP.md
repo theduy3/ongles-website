@@ -106,7 +106,7 @@
 3. Near-me / neighborhood pages exist per tenant with ≥150 words of unique opening copy — sentence overlap across tenants is below 30% (no cross-tenant duplication)
 4. All new routes are included in `sitemap.ts` output and are reachable without a 404 or redirect on both FR and EN locales
 
-**Plans**: 3/5 plans executed
+**Plans**: 4/5 plans executed
 **Wave 1**
 
 - [x] 04-01-PLAN.md — Foundation (TDD): unwired word-count/overlap/route-presence guards + measureSentenceOverlap + pages.* seo key scaffold + parity extension + pricingGraph wrapper + ItemList shape test (wave 1)
@@ -121,7 +121,7 @@
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 04-04-PLAN.md — Comparison slice (PAGE-02): comparison registry + [slug] FR/EN routes + two-column cards, 4 pages ≥200 words, comparison word-count branch live (wave 4)
+- [x] 04-04-PLAN.md — Comparison slice (PAGE-02): comparison registry + [slug] FR/EN routes + two-column cards, 4 pages ≥200 words, comparison word-count branch live (wave 4)
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
@@ -178,7 +178,7 @@
 | 1. Per-Tenant Config Completion | 0/2 | Not started | - |
 | 2. Schema Completeness + Correctness | 4/4 | Complete | 2026-06-18 |
 | 3. Content Depth | 5/5 | Complete | 2026-06-18 |
-| 4. Net-New Pages | 3/5 | In Progress|  |
+| 4. Net-New Pages | 4/5 | In Progress|  |
 | 5. llms.txt Depth + Measurement | 0/? | Not started | - |
 | 6. Cross-Tenant Correctness Audit | 0/? | Not started | - |
 
