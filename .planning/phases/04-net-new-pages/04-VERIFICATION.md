@@ -1,5 +1,5 @@
 ---
-status: human_needed
+status: verified
 phase: 04-net-new-pages
 goal: "Pricing, comparison, and near-me pages exist per tenant with structured schema and unique copy, covering high-intent search and AI-citation patterns not served by existing routes"
 requirements: [PAGE-01, PAGE-02, PAGE-03]
@@ -10,11 +10,13 @@ automated_gate: "bun run build green; bun run test 355 pass / 0 fail"
 
 # Phase 04 — Goal Verification (Net-New Pages)
 
-**Verdict:** Goal achieved in code; **all automated must-haves pass**. Phase is held
-`human_needed` pending the manual UAT gates in `04-UAT.md` (visual render, Google Rich
-Results, locale-404 spot-checks, and one design decision). Method: goal-backward against
-the actual codebase — the verifier subagent truncated before writing, so the orchestrator
-(which executed and gate-verified every wave) completed the assessment inline.
+**Verdict:** Goal achieved and **verified live**. All automated must-haves pass; the live UAT
+run (2026-06-19) found and fixed a runtime blocker (comparison pages 500 — see addendum), then
+confirmed all SC1–SC4 gates against the three live tenant domains: pricing/comparison/borough
+routes 200 FR+EN, wrong-locale → 404, sitemap entries present with no wrong-locale leak,
+ItemList JSON-LD live, decision heading renders. ComparisonColumns gate resolved (answer-first
+is final). Remaining items are non-blocking: subjective visual polish and the Google Rich
+Results UI tool (JSON-LD substance already verified live).
 
 ## Requirement traceability — every phase req ID accounted for
 

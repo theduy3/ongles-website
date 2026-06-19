@@ -4,15 +4,15 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 04
 current_phase_name: net-new-pages
-status: executing
-stopped_at: Phase 4 context gathered
-last_updated: "2026-06-19T06:57:26.161Z"
+status: complete
+stopped_at: Phase 4 complete — UAT verified live (all 3 tenants), deployed
+last_updated: "2026-06-19T10:45:00.000Z"
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 16
-  completed_plans: 11
-  percent: 50
+  completed_plans: 16
+  percent: 67
 ---
 
 # Project State — ongles-website AI-Search Optimization
@@ -26,7 +26,7 @@ progress:
 
 **Core Value:** Each tenant's pages are factual, structured, and trust-heavy enough that both humans and AI answer engines can extract the salon's services, pricing, location, and booking path — and act on them.
 
-**Current Focus:** Phase 04 — net-new-pages
+**Current Focus:** Phase 04 complete — next: Phase 05
 
 **Tenants in scope:** ongles-maily, ongles-charlesbourg (+ others added to TENANT_REGISTRY)
 
@@ -38,18 +38,18 @@ progress:
 
 | Field | Value |
 |-------|-------|
-| Phase | 04 (net-new-pages) — EXECUTING |
-| Phase name | Content Depth |
-| Plan | 1 of 5 |
-| Status | Executing Phase 04 |
-| Progress | 3/6 phases complete |
+| Phase | 04 (net-new-pages) — COMPLETE |
+| Phase name | Net-New Pages |
+| Plan | 5 of 5 |
+| Status | Complete — UAT verified live, deployed |
+| Progress | 4/6 phases complete |
 
 ```
-Progress: [#####     ] 50%
+Progress: [#######   ] 67%
 Phase 1: [##########] Complete (UAT 5/5; deployed)
 Phase 2: [##########] Complete (4/4 plans; UAT verified live)
 Phase 3: [##########] Complete (5/5 plans; guards live; deployed; SC-4 spot-check pending)
-Phase 4: [          ] Not started
+Phase 4: [##########] Complete (5/5 plans; UAT verified live all 3 tenants; deployed; comparison-500 blocker fixed)
 Phase 5: [          ] Not started
 Phase 6: [          ] Not started
 ```
