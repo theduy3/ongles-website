@@ -11,7 +11,7 @@
 ## Phases
 
 - [ ] **Phase 1: Per-Tenant Config Completion** - Gate: complete NAP, hours, and full service menu with pricing for every tenant
-- [ ] **Phase 2: Schema Completeness + Correctness** - Fill and validate all JSON-LD types per tenant on the existing builder boundary
+- [x] **Phase 2: Schema Completeness + Correctness** - Fill and validate all JSON-LD types per tenant on the existing builder boundary ✅ 2026-06-18 (UAT verified live; deploy unblocked via bun.lock sync 898100b)
 - [ ] **Phase 3: Content Depth** - Direct-answer blocks on key pages + deepened FAQ content across locales
 - [ ] **Phase 4: Net-New Pages** - Pricing, comparison/decision, and near-me neighborhood pages
 - [ ] **Phase 5: llms.txt Depth + Measurement** - Fix cross-tenant llms.txt leak, deepen per-tenant agent layer, wire GA4 AI-referrer + conversion tracking + CWV
@@ -141,7 +141,7 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Per-Tenant Config Completion | 0/2 | Not started | - |
-| 2. Schema Completeness + Correctness | 0/4 | Planned | - |
+| 2. Schema Completeness + Correctness | 4/4 | Complete | 2026-06-18 |
 | 3. Content Depth | 0/? | Not started | - |
 | 4. Net-New Pages | 0/? | Not started | - |
 | 5. llms.txt Depth + Measurement | 0/? | Not started | - |
