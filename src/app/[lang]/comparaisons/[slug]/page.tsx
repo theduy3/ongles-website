@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
   const c = seo.pages.comparison[record.id as keyof typeof seo.pages.comparison];
+  if (!c) return {};
   return pageMetadata(
     lang,
     comparisonPath(record, lang),
@@ -55,6 +56,7 @@ export default async function ComparisonPage({ params }: Params) {
   const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
   const c = seo.pages.comparison[record.id as keyof typeof seo.pages.comparison];
+  if (!c) notFound();
   const bookHref = `/${lang}${site.booking}`;
 
   // Cross-links (P-19): the real services this comparison weighs, plus pricing.

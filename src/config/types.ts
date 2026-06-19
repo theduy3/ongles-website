@@ -19,7 +19,7 @@ export type Service = {
   id: ServiceId;
   slug: Record<Locale, string>;
   price: number; // CAD — feeds Offer schema + display
-  priceTo: number; // upper bound for AggregateOffer range
+  priceTo?: number; // optional upper bound for AggregateOffer range (absent → single price)
   photo: boolean; // true once public/images/services/<id>.webp exists
 };
 
