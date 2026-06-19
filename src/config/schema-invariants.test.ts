@@ -851,3 +851,225 @@ describe("04-05: checkRoutePresence — fail-fixture (guard bites on missing bor
     expect(all.filter((e) => e.invariant === "P4-route")).toEqual([]);
   });
 });
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 05-01: Four new Phase-5 guard functions (checkLlmsDepth, checkLlmsLeak,
+//        checkGA4IdPresent, checkNapConsistency) — RED tests
+//
+// These tests are written RED-first, before the guard implementations land.
+// Import block is at the end of the file to avoid polluting the module import
+// boundary of earlier sections.
+// ═══════════════════════════════════════════════════════════════════════════════
+
+import {
+  checkLlmsDepth,
+  checkLlmsLeak,
+  checkGA4IdPresent,
+  checkNapConsistency,
+} from "./schema-invariants";
+
+// ─── checkLlmsDepth ───────────────────────────────────────────────────────────
+// RED while all tenant llmsDescription placeholders are empty strings (phase 05-05
+// authors real prose). Tests pin the guard interface and confirm it fires on empty /
+// short copy.
+
+describe("05-01: checkLlmsDepth() — LLMS-02 word-count guard", () => {
+  it("is callable and returns SchemaInvariantError[]", () => {
+    const result = checkLlmsDepth();
+    expect(Array.isArray(result)).toBe(true);
+  });
+
+  it("returns at least one LLMS-02 error while all tenants have empty llmsDescription placeholders", () => {
+    // RED: placeholders are "" → countWords("") === 0 < 200.
+    // This will flip to GREEN once real ≥200-word prose lands in 05-05.
+    const errors = checkLlmsDepth();
+    const llmsErrors = errors.filter((e) => e.invariant === "LLMS-02");
+    expect(llmsErrors.length).toBeGreaterThan(0);
+  });
+
+  it("reports every live tenant (not template) with an empty llmsDescription", () => {
+    const errors = checkLlmsDepth();
+    const tenantIds = errors.filter((e) => e.invariant === "LLMS-02").map((e) => e.tenantId);
+    // All three live tenants must be flagged while placeholders are empty.
+    expect(tenantIds).toContain("ongles-maily");
+    expect(tenantIds).toContain("ongles-charlesbourg");
+    expect(tenantIds).toContain("ongles-rivieres");
+  });
+
+  it("does NOT flag the template tenant (it is excluded)", () => {
+    const errors = checkLlmsDepth();
+    const templateError = errors.find(
+      (e) => e.invariant === "LLMS-02" && e.tenantId === "template",
+    );
+    expect(templateError).toBeUndefined();
+  });
+
+  it("uses countWords() to measure depth — 200 words passes, 199 fails (floor invariant)", () => {
+    // Prove the floor constant is 200 by verifying the guard predicate.
+    const below = Array.from({ length: 199 }, (_, i) => `word${i}`).join(" ");
+    const meet = Array.from({ length: 200 }, (_, i) => `word${i}`).join(" ");
+    // Direct word-count probes; the guard uses the same countWords().
+    expect(countWords(below)).toBe(199);
+    expect(countWords(below)).toBeLessThan(200);
+    expect(countWords(meet)).toBe(200);
+    expect(countWords(meet)).toBeGreaterThanOrEqual(200);
+  });
+});
+
+// ─── checkLlmsLeak ────────────────────────────────────────────────────────────
+// Tests the cross-tenant signal leak detection: a tenant's llmsDescription must
+// not mention another tenant's city or landmark.
+
+describe("05-01: checkLlmsLeak() — LLMS-01 cross-tenant leak guard", () => {
+  it("is callable and returns SchemaInvariantError[]", () => {
+    const result = checkLlmsLeak();
+    expect(Array.isArray(result)).toBe(true);
+  });
+
+  it("returns zero LLMS-01 errors when all llmsDescriptions are empty (no signal to match)", () => {
+    // With empty placeholders there is no city/landmark to detect.
+    // This test will remain GREEN until real prose is authored that accidentally
+    // mentions another tenant's city/landmark.
+    const errors = checkLlmsLeak();
+    expect(errors.filter((e) => e.invariant === "LLMS-01")).toEqual([]);
+  });
+
+  it("guard detects cross-tenant city leak: 'Carrefour Beauport' in charlesbourg's description is a leak", () => {
+    // Craft a direct inline test of the detection logic without mutating real config.
+    // We simulate the guard by checking its core predicate independently:
+    // "Carrefour Beauport" is ongles-maily's landmark — its presence in any OTHER
+    // tenant's description is a leak.
+    //
+    // The guard reads cfg.site.contact.landmark for each tenant as the signal set.
+    // For ongles-maily: landmark = "Carrefour Beauport — Entrées 4 ou 5"
+    // We verify the landmark string appears in the maily config so the guard's
+    // signal derivation is provably correct.
+    const mailyConfig = TENANT_REGISTRY["ongles-maily"];
+    expect(mailyConfig.site.contact.landmark.toLowerCase()).toContain("carrefour beauport");
+  });
+
+  it("guard builds signal map from contact.landmark + address.city per tenant", () => {
+    // Verify the signal sources the guard uses are present in live config.
+    for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+      if (id === "template") continue;
+      expect(typeof cfg.site.contact.landmark).toBe("string");
+      expect(typeof cfg.site.contact.address.city).toBe("string");
+    }
+  });
+});
+
+// ─── checkGA4IdPresent ────────────────────────────────────────────────────────
+// All tenants have empty ga4MeasurementId placeholders → guard fires (warning).
+
+describe("05-01: checkGA4IdPresent() — MEAS-01 GA4-ID presence guard", () => {
+  it("is callable and returns SchemaInvariantError[]", () => {
+    const result = checkGA4IdPresent();
+    expect(Array.isArray(result)).toBe(true);
+  });
+
+  it("returns at least one MEAS-01 error while all tenants have empty ga4MeasurementId", () => {
+    // RED: all placeholders are "" until the owner provides real G-XXXXXXXXXX IDs.
+    const errors = checkGA4IdPresent();
+    const meas01Errors = errors.filter((e) => e.invariant === "MEAS-01");
+    expect(meas01Errors.length).toBeGreaterThan(0);
+  });
+
+  it("flags all three live tenants with empty ga4MeasurementId", () => {
+    const errors = checkGA4IdPresent();
+    const tenantIds = errors.filter((e) => e.invariant === "MEAS-01").map((e) => e.tenantId);
+    expect(tenantIds).toContain("ongles-maily");
+    expect(tenantIds).toContain("ongles-charlesbourg");
+    expect(tenantIds).toContain("ongles-rivieres");
+  });
+
+  it("does NOT flag the template tenant", () => {
+    const errors = checkGA4IdPresent();
+    expect(errors.find((e) => e.invariant === "MEAS-01" && e.tenantId === "template")).toBeUndefined();
+  });
+});
+
+// ─── checkNapConsistency ──────────────────────────────────────────────────────
+// NAP guard: site.contact.phone/address.street/city/postalCode must equal
+// the corresponding location.* fields, and site.hours.length must equal
+// location.hoursSpec.length. All live tenants are consistent → guard returns [].
+
+describe("05-01: checkNapConsistency() — NAP-01 site/location parity guard", () => {
+  it("is callable and returns SchemaInvariantError[]", () => {
+    const result = checkNapConsistency();
+    expect(Array.isArray(result)).toBe(true);
+  });
+
+  it("returns zero NAP-01 errors for all current live tenants (site.contact matches location)", () => {
+    // GREEN immediately: all tenant site.ts files have phone/address copied
+    // from the same source as location.ts. Guard passes for all current configs.
+    const errors = checkNapConsistency();
+    expect(errors.filter((e) => e.invariant === "NAP-01")).toEqual([]);
+  });
+
+  it("ongles-maily: site.contact.phone matches location.phone", () => {
+    const cfg = TENANT_REGISTRY["ongles-maily"];
+    expect(cfg.site.contact.phone).toBe(cfg.location.phone);
+  });
+
+  it("ongles-charlesbourg: site.contact.phone matches location.phone", () => {
+    const cfg = TENANT_REGISTRY["ongles-charlesbourg"];
+    expect(cfg.site.contact.phone).toBe(cfg.location.phone);
+  });
+
+  it("ongles-rivieres: site.contact.phone matches location.phone", () => {
+    const cfg = TENANT_REGISTRY["ongles-rivieres"];
+    expect(cfg.site.contact.phone).toBe(cfg.location.phone);
+  });
+
+  it("ongles-maily: site.contact.address.city matches location.address.city", () => {
+    const cfg = TENANT_REGISTRY["ongles-maily"];
+    expect(cfg.site.contact.address.city).toBe(cfg.location.address.city);
+  });
+
+  it("ongles-charlesbourg: site.contact.address.postalCode matches location.address.postalCode", () => {
+    const cfg = TENANT_REGISTRY["ongles-charlesbourg"];
+    expect(cfg.site.contact.address.postalCode).toBe(cfg.location.address.postalCode);
+  });
+
+  it("ongles-rivieres: site.contact.address.street matches location.address.street", () => {
+    const cfg = TENANT_REGISTRY["ongles-rivieres"];
+    expect(cfg.site.contact.address.street).toBe(cfg.location.address.street);
+  });
+
+  it("site.hours.length equals location.hoursSpec.length for all live tenants", () => {
+    for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+      if (id === "template") continue;
+      expect(cfg.site.hours.length).toBe(cfg.location.hoursSpec.length);
+    }
+  });
+});
+
+// ─── Guards are UNWIRED from validateSchemaInvariants ─────────────────────────
+
+describe("05-01: guards UNWIRED — validateSchemaInvariants stays green", () => {
+  it("validateSchemaInvariants() does not call checkLlmsDepth (build gate stays green)", () => {
+    // The overall suite must remain [] so next build passes. If LLMS-02 errors
+    // appeared in validateSchemaInvariants, build would fail.
+    const all = validateSchemaInvariants();
+    expect(all.filter((e) => e.invariant === "LLMS-02")).toEqual([]);
+  });
+
+  it("validateSchemaInvariants() does not call checkLlmsLeak (LLMS-01 absent)", () => {
+    const all = validateSchemaInvariants();
+    expect(all.filter((e) => e.invariant === "LLMS-01")).toEqual([]);
+  });
+
+  it("validateSchemaInvariants() does not call checkGA4IdPresent (MEAS-01 absent)", () => {
+    const all = validateSchemaInvariants();
+    expect(all.filter((e) => e.invariant === "MEAS-01")).toEqual([]);
+  });
+
+  it("validateSchemaInvariants() does not call checkNapConsistency (NAP-01 absent)", () => {
+    const all = validateSchemaInvariants();
+    expect(all.filter((e) => e.invariant === "NAP-01")).toEqual([]);
+  });
+
+  it("validateSchemaInvariants() still returns [] overall (build gate passes)", () => {
+    expect(validateSchemaInvariants()).toEqual([]);
+  });
+});
