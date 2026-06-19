@@ -2,6 +2,15 @@
 
 import { useState, type FormEvent } from "react";
 import type { Dictionary } from "@/lib/dictionary";
+import { ga4Events } from "@/lib/gtag";
+
+// ─── Exported pure helper ─────────────────────────────────────────────────────
+// Exported so bun:test can unit-test the GA4 event without DOM rendering.
+
+/** Fire the contact_form_submit GA4 event (M-03 secondary engagement). */
+export function fireContactFormSubmitEvent(): void {
+  ga4Events.contactFormSubmit();
+}
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -31,6 +40,7 @@ export function ContactForm({ dict }: { dict: Pick<Dictionary, "form" | "cta"> }
       if (!res.ok || !json.success) {
         throw new Error(json.error ?? "Something went wrong. Please try again.");
       }
+      fireContactFormSubmitEvent();
       setStatus("success");
       form.reset();
     } catch (err) {

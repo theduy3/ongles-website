@@ -1,4 +1,5 @@
 import { Button } from "./Button";
+import { DirectionsLink } from "./DirectionsLink";
 import {
   mapEmbedSrc,
   mapEmbedUrl,
@@ -21,6 +22,8 @@ export type SalonCardProps = {
   name: string;
   nameHref?: string; // map link (Maily) or website (sister); omit → plain text
   external?: boolean; // open nameHref / book in a new tab
+  /** When set, the name anchor is a directions/map link and fires ga4Events.directionsClick. */
+  directionsLocation?: string;
   landmark?: string;
   mapSrc?: string; // Google Maps embed src; omit → no iframe
   mapTitle?: string;
@@ -40,6 +43,7 @@ export function SalonCard(props: SalonCardProps) {
     name,
     nameHref,
     external,
+    directionsLocation,
     landmark,
     mapSrc,
     mapTitle,
@@ -74,13 +78,24 @@ export function SalonCard(props: SalonCardProps) {
       </div>
       <div className="flex flex-1 flex-col p-6">
         {nameHref ? (
-          <a
-            href={nameHref}
-            {...ext}
-            className="text-2xl text-espresso underline-offset-4 hover:underline"
-          >
-            {name}
-          </a>
+          directionsLocation ? (
+            <DirectionsLink
+              href={nameHref}
+              salonLocation={directionsLocation}
+              className="text-2xl text-espresso underline-offset-4 hover:underline"
+              {...ext}
+            >
+              {name}
+            </DirectionsLink>
+          ) : (
+            <a
+              href={nameHref}
+              {...ext}
+              className="text-2xl text-espresso underline-offset-4 hover:underline"
+            >
+              {name}
+            </a>
+          )
         ) : (
           <span className="text-2xl text-espresso">{name}</span>
         )}
@@ -162,6 +177,7 @@ export function buildSalonCards(
     name: site.name,
     nameHref: mapLink(loc, site),
     external: true,
+    directionsLocation: loc.name,
     landmark: loc.landmark,
     mapSrc: mapEmbedUrl(loc),
     mapTitle: `${site.name} — ${loc.name}`,
