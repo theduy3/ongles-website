@@ -179,6 +179,12 @@ const ANSWER_BLOCK_ROUTES = [
   "locations",
 ] as const;
 
+/**
+ * P4 — Comparison route identifiers that must carry a non-empty answerBlock
+ * (≥ ANSWER_BLOCK_MIN_SENTENCES). Activated from 04-04 once all tenant copy lands.
+ */
+const COMPARISON_ANSWER_BLOCK_ROUTES = NEW_COMPARISON_SLUGS;
+
 type FaqStub = { items: readonly { q?: string; a?: string }[] };
 type SeoAnswerSource = {
   meta?: Record<string, string | undefined>;
@@ -217,6 +223,9 @@ function answerBlockForRoute(seo: SeoAnswerSource, route: string): string {
   if (route === "home") return seo.meta?.homeAnswerBlock ?? "";
   if (route === "services") return seo.meta?.servicesAnswerBlock ?? "";
   if (route === "locations") return seo.locations?.answerBlock ?? "";
+  // P4: comparison route answerBlock (pages.comparison[slug].answerBlock)
+  const compKeys = NEW_COMPARISON_SLUGS as readonly string[];
+  if (compKeys.includes(route)) return seo.pages?.comparison?.[route]?.answerBlock ?? "";
   return seo.services?.[route]?.answerBlock ?? "";
 }
 
@@ -464,6 +473,39 @@ export function checkRoutePresence(): SchemaInvariantError[] {
     }
   }
 
+  return errors;
+}
+
+/**
+ * P4 04-04 — Comparison answerBlock presence guard.
+ *
+ * Checks pages.comparison[slug].answerBlock for each comparison slug has at
+ * least ANSWER_BLOCK_MIN_SENTENCES (2) sentences, per tenant per locale.
+ * Uses the COMPARISON_ANSWER_BLOCK_ROUTES constant (= NEW_COMPARISON_SLUGS).
+ * Called from validateSchemaInvariants() once all comparison copy lands (04-04).
+ */
+function checkComparisonAnswerBlockPresence(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+  for (const id of Object.keys(TENANT_SEO)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    for (const locale of CONTENT_LOCALES) {
+      const seo = TENANT_SEO[id]?.[locale];
+      if (!seo) continue;
+      for (const slug of COMPARISON_ANSWER_BLOCK_ROUTES) {
+        const raw = answerBlockForRoute(seo, slug);
+        if (isAnswerBlockInsufficient(raw)) {
+          const text = raw.trim();
+          const detail =
+            text.length === 0
+              ? "is empty"
+              : `has ${splitSentences(text).length} sentence(s) — needs >= ${ANSWER_BLOCK_MIN_SENTENCES}`;
+          errors.push(
+            err(id, "D-11", `answerBlock for comparison route "${slug}" (${locale}) ${detail}`),
+          );
+        }
+      }
+    }
+  }
   return errors;
 }
 
@@ -765,10 +807,13 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
   errors.push(...checkFaqFloor());
   errors.push(...checkAnswerBlockPresence());
 
-  // P4 04-03 — nearMe word-count + cross-tenant overlap gates, now LIVE.
-  // Comparison body word-count is deferred to 04-05 (bodies empty until then).
-  errors.push(...checkNearMeWordCount());
+  // P4 04-03/04-04 — nearMe + comparison word-count + cross-tenant overlap gates, now LIVE.
+  // checkWordCount() covers both nearMe.answerBlock (≥150) and comparison.body (≥200).
+  // checkNearMeWordCount() is superseded by checkWordCount() for the nearMe scope.
+  errors.push(...checkWordCount());
   errors.push(...checkCrossTenantOverlap());
+  // P4 04-04 — comparison answerBlock presence (≥2 sentences per comparison route).
+  errors.push(...checkComparisonAnswerBlockPresence());
 
   for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
