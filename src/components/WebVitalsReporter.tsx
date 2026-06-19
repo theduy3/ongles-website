@@ -17,7 +17,39 @@
 import { useCallback } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 
-type WebVitalsMetric = Parameters<typeof useReportWebVitals>[0];
+// Inline the subset of the web-vitals Metric shape we use, to avoid importing
+// from next/dist/compiled/web-vitals which has no bundled .d.ts in this version.
+export interface WebVitalMetric {
+  name: string;
+  id: string;
+  value: number;
+  rating: "good" | "needs-improvement" | "poor";
+}
+
+/**
+ * Pure metric handler — exported for unit testing without a React renderer.
+ * Emits a GA4 event via window.gtag when measurementId is non-empty.
+ *
+ * CLS is scaled x1000 (GA4 requires integer values; CLS is a fraction, e.g. 0.12).
+ * All other CWV metrics are already in milliseconds.
+ */
+export function handleWebVitalMetric(
+  metric: WebVitalMetric,
+  measurementId: string,
+): void {
+  if (!measurementId) return;
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", metric.name, {
+      // Source: Next.js docs → useReportWebVitals → Sending results to Google Analytics.
+      value: Math.round(
+        metric.name === "CLS" ? metric.value * 1000 : metric.value,
+      ),
+      event_label: metric.id,     // unique to current page load — enables percentile calc
+      non_interaction: true,       // does not affect bounce rate
+      metric_rating: metric.rating, // 'good' | 'needs-improvement' | 'poor'
+    });
+  }
+}
 
 /**
  * WebVitalsReporter — mounts in the root layout as a 'use client' island.
@@ -29,27 +61,7 @@ export function WebVitalsReporter({
   measurementId: string;
 }) {
   const handleMetric = useCallback(
-    (metric: WebVitalsMetric) => {
-      // Guard: do not emit if GA4 is not configured for this tenant.
-      if (!measurementId) return;
-
-      // window.gtag is injected by the inline beforeInteractive consent Script.
-      // Optional chaining is a no-op when gtag has not loaded yet; queued calls
-      // are replayed when gtag.js loads (via window.dataLayer).
-      if (typeof window !== "undefined" && typeof window.gtag === "function") {
-        window.gtag("event", metric.name, {
-          // CLS is a fraction (e.g. 0.12); GA4 requires integer values — scale x1000.
-          // All other metrics are already in milliseconds (integers).
-          // Source: Next.js docs → useReportWebVitals → Sending results to Google Analytics.
-          value: Math.round(
-            metric.name === "CLS" ? metric.value * 1000 : metric.value,
-          ),
-          event_label: metric.id, // unique to current page load — enables percentile calc
-          non_interaction: true, // does not affect bounce rate
-          metric_rating: metric.rating, // 'good' | 'needs-improvement' | 'poor'
-        });
-      }
-    },
+    (metric: WebVitalMetric) => handleWebVitalMetric(metric, measurementId),
     [measurementId],
   );
 

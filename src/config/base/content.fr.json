@@ -448,5 +448,10 @@
   },
   "comparison": {
     "decisionHeading": "Laquelle choisir ?"
+  },
+  "consent": {
+    "banner": "Nous utilisons des témoins pour mesurer les performances du site et améliorer notre service. Nous n'utilisons pas de témoins à des fins publicitaires.",
+    "accept": "Accepter",
+    "decline": "Refuser"
   }
 }
