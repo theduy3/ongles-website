@@ -171,6 +171,11 @@ SC2 measurable success criterion (answer-first ≥200-word unique copy FR+EN + s
 - **If NO:** the current answer-first layout is the final design. Close this gate by marking it resolved.
 - **If YES:** author per-side `{name, descriptor, bullets}` content in `seo.{fr,en}.json` for the 2 applicable comparisons, wire `ComparisonColumns` in `src/app/[lang]/comparaisons/[slug]/page.tsx`, re-run guards.
 
+**RESOLVED 2026-06-19 — NO.** Answer-first layout is the final design for Phase 4.
+Two-column `ComparisonColumns` cards are not required to close this phase; SC2 (answer-first
+≥200-word unique copy FR+EN + schema) is met. `ComparisonColumns.tsx` stays unwired (available
+for a future enhancement if per-side content is later authored).
+
 ---
 
 ## SC3 — Near-Me Borough Pages (PAGE-03)

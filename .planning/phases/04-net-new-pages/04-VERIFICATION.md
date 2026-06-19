@@ -54,7 +54,7 @@ The automated layer cannot self-verify these — see `04-UAT.md` for the full ma
 1. Visual render of each new page (FR + EN) per tenant — answer-first layout, gold prices, mobile no-scroll.
 2. Google Rich Results Test on a pricing page (ItemList + AggregateOffer) and a comparison page.
 3. Locale-guard 404 spot-checks (`/en/tarifs`, `/fr/pricing`, wrong-locale comparison slugs → 404).
-4. Decision: are two-column comparison cards required before phase close? (PAGE-02 deviation above.)
+4. ~~Decision: are two-column comparison cards required before phase close?~~ **RESOLVED 2026-06-19 — NO.** Answer-first layout is final; ComparisonColumns stays unwired. SC2 met.
 5. AI-citation carry-forward check (ChatGPT/Perplexity citing answer blocks) — deferred, long-horizon.
 
 **Next:** run `/gsd-verify-work 4` to walk the UAT items; phase auto-completes when UAT passes.
