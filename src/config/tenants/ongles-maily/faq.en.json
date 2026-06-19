@@ -1,3 +1,56 @@
 {
-  "items": []
+  "items": [
+    {
+      "q": "Where is Ongles Maily located?",
+      "a": "Ongles Maily is at Carrefour Beauport, 3333 Rue du Carrefour, Entrances 4 or 5, Québec, QC G1C 5R9. You'll find us inside the mall, with plenty of free on-site parking."
+    },
+    {
+      "q": "What are your opening hours?",
+      "a": "We're open Monday to Wednesday 9 a.m.–5:30 p.m., Thursday and Friday 9 a.m.–9 p.m., Saturday 9 a.m.–5 p.m., and Sunday 10 a.m.–5 p.m."
+    },
+    {
+      "q": "How do I book an appointment?",
+      "a": "Book online any time from our Book Online page, or call us at (418) 660-8228. Walk-ins are also welcome based on availability."
+    },
+    {
+      "q": "Is there parking?",
+      "a": "Yes. Carrefour Beauport has plenty of free parking, and Entrances 4 and 5 lead you right next to the salon."
+    },
+    {
+      "q": "How do I get there by public transit?",
+      "a": "Carrefour Beauport is served by several RTC bus routes. Get off at the mall stop, then come in through Entrance 4 or 5 to reach us."
+    },
+    {
+      "q": "Should I expect a wait on weekends?",
+      "a": "Weekends are our busiest time, especially Saturday. Walk-ins are accepted based on availability, but we recommend booking ahead to avoid waiting."
+    },
+    {
+      "q": "Do I need to pay a deposit to book?",
+      "a": "For most regular services, no deposit is required. A deposit may be requested for group appointments or longer services; we'll let you know when you book."
+    },
+    {
+      "q": "What is your cancellation policy?",
+      "a": "You can cancel or reschedule your appointment. Please give us at least a few hours' notice so we can offer the spot to someone else. A quick call is all it takes."
+    },
+    {
+      "q": "How much does a full set cost?",
+      "a": "Pricing depends on the service and finishes you choose. A full set starts in an affordable range, and a fill costs less than a new set. See our Services page for current details."
+    },
+    {
+      "q": "Is nail art included or charged extra?",
+      "a": "Solid colours and simple finishes are included. More elaborate nail-art designs may carry an extra charge based on time and complexity; just ask for an estimate before we start."
+    },
+    {
+      "q": "Can I choose my technician?",
+      "a": "Absolutely. Mention your preference when booking and we'll do our best to match you with the same technician, subject to availability."
+    },
+    {
+      "q": "Do you offer gel polish for manicures?",
+      "a": "Yes. Manicures can be done with regular polish or long-wearing gel polish. Tell us your preference and we'll recommend the best option for you."
+    },
+    {
+      "q": "What services do you offer?",
+      "a": "We offer nail enhancements (full set), fills, manicures (hand care) and pedicures (foot care). See our Services page for full details."
+    }
+  ]
 }

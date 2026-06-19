@@ -481,35 +481,19 @@
   },
   "faq": {
     "title": "Frequently asked questions",
-    "intro": "Everything you need to know before your visit to Ongles Maily at Carrefour Beauport.",
+    "intro": "Everything you need to know before your visit to the salon.",
     "items": [
       {
-        "q": "Where is Ongles Maily located?",
-        "a": "We are at Carrefour Beauport — 3333 Rue du Carrefour, Entrées 4 ou 5, Québec, QC G1C 5R9. Parking is available at the mall."
-      },
-      {
-        "q": "What are your hours?",
-        "a": "Monday–Wednesday 9:00–17:30, Thursday–Friday 9:00–21:00, Saturday 9:00–17:00, Sunday 10:00–17:00."
-      },
-      {
         "q": "Do you take walk-ins or is it appointment only?",
-        "a": "Both. We welcome walk-ins when we have availability, and we encourage booking ahead to guarantee your time — especially evenings and weekends."
-      },
-      {
-        "q": "How do I book an appointment?",
-        "a": "Book online any time through our Book Online page, or call us at (418) 660-8228. Walk-ins are always welcome too."
-      },
-      {
-        "q": "What services do you offer?",
-        "a": "Nail enhancements (full set), fills, manicures and pedicures. See our Services page for details and pricing."
+        "a": "Both. We welcome walk-ins when we have availability, and we recommend booking ahead to guarantee your time slot, especially evenings and weekends."
       },
       {
         "q": "How do you keep tools and stations clean?",
-        "a": "Hygiene is our top priority. We have three dedicated disinfection stations, tools are disinfected after every use, pedicure stations are sanitized between clients, and dust collectors are installed at every manicure station."
+        "a": "Hygiene is our priority. Tools are disinfected after every use, pedicure stations are sanitized between clients, and we use dedicated disinfection stations."
       },
       {
         "q": "Do you sell gift cards?",
-        "a": "Yes — gift cards are available online via Square for any amount (delivered by email), or you can purchase one in person at the salon."
+        "a": "Yes. Gift cards are available online for any amount you choose (delivered by email) or in person at the salon."
       },
       {
         "q": "Do you speak French and English?",
@@ -525,7 +509,15 @@
       },
       {
         "q": "What payment methods do you accept?",
-        "a": "We accept all common payment methods: cash, debit, major credit cards, and contactless or mobile payments (Apple Pay, Google Pay)."
+        "a": "We accept common payment methods: cash, debit, major credit cards, and contactless or mobile payments (Apple Pay, Google Pay)."
+      },
+      {
+        "q": "Do you reduce dust during filing?",
+        "a": "Yes. Every manicure station has a dust collector that draws in particles during filing, for cleaner air and a more comfortable service."
+      },
+      {
+        "q": "What if I have sensitive nails or allergies?",
+        "a": "Let your technician know before your appointment. We can adapt products and techniques, and offer options free of certain common ingredients on request."
       }
     ]
   },

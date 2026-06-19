@@ -1,3 +1,56 @@
 {
-  "items": []
+  "items": [
+    {
+      "q": "Where is Ongles Rivières located?",
+      "a": "Ongles Rivières is at Centre Les Rivières, 4225 boulevard des Forges, Trois-Rivières, QC G8Y 1W2. The salon is accessible directly from the shopping centre."
+    },
+    {
+      "q": "What are your opening hours?",
+      "a": "We're open Monday to Wednesday 9:30 a.m.–5:30 p.m., Thursday and Friday 9 a.m.–9 p.m., Saturday 9 a.m.–5 p.m., and Sunday 10 a.m.–5 p.m."
+    },
+    {
+      "q": "How do I book an appointment?",
+      "a": "Book online from our Book Online page, or phone (819) 378-8228. Walk-in visits are accepted based on availability."
+    },
+    {
+      "q": "Is there parking?",
+      "a": "Yes. Centre Les Rivières offers plenty of free parking, just steps from the salon entrance."
+    },
+    {
+      "q": "How do I get there by public transit?",
+      "a": "Centre Les Rivières is served by the Trois-Rivières bus network. Get off at the shopping-centre stop, then head to the salon inside."
+    },
+    {
+      "q": "Should I expect a wait on weekends?",
+      "a": "Weekends are busier, especially Saturday. Walk-ins are welcome based on availability, but a reservation secures your time slot."
+    },
+    {
+      "q": "Do I need to leave a deposit?",
+      "a": "Most everyday services require no deposit. For group appointments or extended services a deposit may be requested; we'll let you know when you book."
+    },
+    {
+      "q": "What is your cancellation policy?",
+      "a": "You can reschedule or cancel your appointment. A few hours' notice helps us offer the slot to another client; a phone call is enough."
+    },
+    {
+      "q": "How much does a full set cost?",
+      "a": "The price varies with the service and finishes you choose. A full set starts at an affordable rate, and a fill costs less than a new set. See the Services page for current pricing."
+    },
+    {
+      "q": "Does nail art cost extra?",
+      "a": "Solid colours are included. Elaborate nail-art designs may carry an extra charge based on time and complexity; ask for an estimate before we begin."
+    },
+    {
+      "q": "Can I choose my technician?",
+      "a": "Yes. Share your preference when booking and we'll try to pair you with the same technician, subject to availability."
+    },
+    {
+      "q": "Do you offer gel polish for manicures?",
+      "a": "Yes. Manicures are available with regular polish or long-wearing gel polish. Tell us your choice and we'll suggest the most suitable option."
+    },
+    {
+      "q": "What services do you offer?",
+      "a": "We offer nail enhancements (full set), fills, hand care and foot care. All the details are on our Services page."
+    }
+  ]
 }

@@ -1,3 +1,56 @@
 {
-  "items": []
+  "items": [
+    {
+      "q": "Où se trouve Ongles Charlesbourg?",
+      "a": "Notre salon est situé au Carrefour Charlesbourg, 8500 boulevard Henri-Bourassa, Québec, QC G1G 5X1. Entrez par les Entrées 5 du centre commercial pour nous rejoindre facilement."
+    },
+    {
+      "q": "Quelles sont vos heures d'ouverture?",
+      "a": "Nous accueillons la clientèle du lundi au mercredi de 9 h à 17 h 30, le jeudi et le vendredi de 9 h à 20 h, le samedi de 9 h à 17 h et le dimanche de 10 h à 17 h."
+    },
+    {
+      "q": "Comment réserver une visite?",
+      "a": "Réservez en ligne à partir de notre page Réserver en ligne, ou composez le (581) 981-8228. Nous prenons aussi les clientes sans rendez-vous lorsque l'horaire le permet."
+    },
+    {
+      "q": "Le stationnement est-il disponible?",
+      "a": "Oui. Le Carrefour Charlesbourg dispose d'un vaste stationnement gratuit, et l'accès par les Entrées 5 vous rapproche du salon."
+    },
+    {
+      "q": "Comment venir en transport en commun?",
+      "a": "Plusieurs circuits du RTC desservent le Carrefour Charlesbourg sur le boulevard Henri-Bourassa. Descendez à l'arrêt du centre commercial, puis suivez les indications vers les Entrées 5."
+    },
+    {
+      "q": "Y a-t-il de l'attente la fin de semaine?",
+      "a": "Le samedi est généralement notre journée la plus achalandée. Les sans rendez-vous sont les bienvenus selon les disponibilités, mais réserver d'avance vous garantit votre plage horaire."
+    },
+    {
+      "q": "Un dépôt est-il requis à la réservation?",
+      "a": "Aucun dépôt n'est requis pour la majorité des services courants. Pour les rendez-vous de groupe ou les prestations plus longues, un dépôt peut s'appliquer; nous vous le préciserons à la réservation."
+    },
+    {
+      "q": "Quelle est la politique d'annulation?",
+      "a": "Vous pouvez modifier ou annuler votre rendez-vous. Un préavis de quelques heures nous permet d'offrir la plage à une autre cliente — un appel rapide suffit."
+    },
+    {
+      "q": "Quel est le prix d'une pose complète?",
+      "a": "Le tarif varie selon le service et les finitions. La pose débute à un prix raisonnable et le remplissage revient moins cher qu'une nouvelle pose. Les détails à jour se trouvent sur notre page Services."
+    },
+    {
+      "q": "Le nail art coûte-t-il un supplément?",
+      "a": "Les teintes unies sont comprises dans le service. Les motifs de nail art plus complexes peuvent occasionner un supplément selon le temps requis; demandez un estimé avant le rendez-vous."
+    },
+    {
+      "q": "Puis-je demander une technicienne en particulier?",
+      "a": "Oui. Indiquez votre préférence au moment de réserver et nous tenterons de vous attribuer la même technicienne, selon les disponibilités."
+    },
+    {
+      "q": "Faites-vous le vernis gel en manucure?",
+      "a": "Oui. Nos manucures sont offertes avec un vernis régulier ou un vernis gel longue durée. Précisez votre choix et nous vous guiderons vers la meilleure option."
+    },
+    {
+      "q": "Quels services proposez-vous?",
+      "a": "Nous proposons la pose d'ongles (set complet), le remplissage, les soins des mains et les soins des pieds. Visitez notre page Services pour le détail complet."
+    }
+  ]
 }

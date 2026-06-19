@@ -481,35 +481,19 @@
   },
   "faq": {
     "title": "Questions fréquentes",
-    "intro": "Tout ce que vous devez savoir avant votre visite chez Ongles Maily au Carrefour Beauport.",
+    "intro": "Tout ce que vous devez savoir avant votre visite au salon.",
     "items": [
       {
-        "q": "Où est situé Ongles Maily?",
-        "a": "Nous sommes au Carrefour Beauport — 3333 rue du Carrefour, Entrées 4 ou 5, Québec, QC G1C 5R9. Le stationnement est disponible au centre commercial."
-      },
-      {
-        "q": "Quelles sont vos heures d'ouverture?",
-        "a": "Lundi–mercredi 9 h à 17 h 30, jeudi–vendredi 9 h à 21 h, samedi 9 h à 17 h, dimanche 10 h à 17 h."
-      },
-      {
-        "q": "Acceptez-vous les clients sans rendez-vous ou uniquement sur rendez-vous?",
-        "a": "Les deux. Nous accueillons les clients sans rendez-vous selon la disponibilité, et nous encourageons la réservation à l'avance pour garantir votre heure — surtout en soirée et les fins de semaine."
-      },
-      {
-        "q": "Comment prendre un rendez-vous?",
-        "a": "Réservez en ligne en tout temps via notre page Réserver en ligne, ou appelez-nous au (418) 660-8228. Les clients sans rendez-vous sont toujours bienvenus."
-      },
-      {
-        "q": "Quels services offrez-vous?",
-        "a": "Pose d'ongles (set complet), remplissage, soins des mains (manucure) et soins des pieds (pédicure). Consultez notre page Services pour les détails et les prix."
+        "q": "Acceptez-vous les clients sans rendez-vous ou est-ce uniquement sur rendez-vous?",
+        "a": "Les deux. Nous accueillons les clients sans rendez-vous selon la disponibilité, et nous recommandons de réserver à l'avance pour garantir votre plage horaire, surtout en soirée et la fin de semaine."
       },
       {
         "q": "Comment gardez-vous les outils et les postes propres?",
-        "a": "L'hygiène est notre priorité absolue. Nous avons trois postes de désinfection dédiés, les outils sont désinfectés après chaque utilisation, les postes de pédicure sont assainis entre les clientes, et des capteurs de poussière sont installés à chaque poste de manucure."
+        "a": "L'hygiène est notre priorité. Les outils sont désinfectés après chaque utilisation, les postes de pédicure sont assainis entre chaque cliente et nous utilisons des postes de désinfection dédiés."
       },
       {
         "q": "Vendez-vous des certificats cadeaux?",
-        "a": "Oui — les certificats cadeaux sont disponibles en ligne via Square pour tout montant (livrés par courriel), ou vous pouvez en acheter un directement au salon."
+        "a": "Oui. Des certificats cadeaux sont offerts en ligne pour le montant de votre choix (livrés par courriel) ou directement au salon."
       },
       {
         "q": "Parlez-vous français et anglais?",
@@ -517,15 +501,23 @@
       },
       {
         "q": "À quelle fréquence dois-je faire un remplissage?",
-        "a": "En général toutes les 2 à 3 semaines, pour garder votre pose nette et solide."
+        "a": "En général toutes les 2 à 3 semaines, afin de garder votre pose nette et solide."
       },
       {
-        "q": "Que se passe-t-il si je ne suis pas entièrement satisfaite?",
+        "q": "Que faire si je ne suis pas entièrement satisfaite?",
         "a": "Dites-le-nous avant de partir — nous corrigerons avec plaisir tout détail qui ne vous convient pas."
       },
       {
         "q": "Quels modes de paiement acceptez-vous?",
-        "a": "Nous acceptons tous les modes de paiement courants : argent comptant, carte de débit, principales cartes de crédit et paiements sans contact ou mobiles (Apple Pay, Google Pay)."
+        "a": "Nous acceptons les modes de paiement courants : argent comptant, carte de débit, principales cartes de crédit et paiements sans contact ou mobiles (Apple Pay, Google Pay)."
+      },
+      {
+        "q": "Réduisez-vous la poussière pendant le limage?",
+        "a": "Oui. Chaque poste de manucure est muni d'un capteur de poussière qui aspire les particules pendant le limage, pour un air plus propre et un service plus confortable."
+      },
+      {
+        "q": "Que faire si j'ai les ongles sensibles ou des allergies?",
+        "a": "Prévenez votre technicienne avant le rendez-vous. Nous pouvons adapter les produits et les techniques, et offrir des options sans certains ingrédients courants sur demande."
       }
     ]
   },

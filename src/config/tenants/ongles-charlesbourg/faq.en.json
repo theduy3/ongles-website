@@ -1,3 +1,56 @@
 {
-  "items": []
+  "items": [
+    {
+      "q": "Where is Ongles Charlesbourg located?",
+      "a": "Our salon is at Carrefour Charlesbourg, 8500 boulevard Henri-Bourassa, Québec, QC G1G 5X1. Come in through the mall's Entrances 5 to reach us easily."
+    },
+    {
+      "q": "What are your opening hours?",
+      "a": "We welcome clients Monday to Wednesday 9 a.m.–5:30 p.m., Thursday and Friday 9 a.m.–8 p.m., Saturday 9 a.m.–5 p.m., and Sunday 10 a.m.–5 p.m."
+    },
+    {
+      "q": "How do I book a visit?",
+      "a": "Book online from our Book Online page, or call (581) 981-8228. We also take walk-ins when the schedule allows."
+    },
+    {
+      "q": "Is parking available?",
+      "a": "Yes. Carrefour Charlesbourg has ample free parking, and coming in through Entrances 5 brings you close to the salon."
+    },
+    {
+      "q": "How do I get there by public transit?",
+      "a": "Several RTC bus routes serve Carrefour Charlesbourg on boulevard Henri-Bourassa. Get off at the mall stop, then follow the signs toward Entrances 5."
+    },
+    {
+      "q": "Is there a wait on weekends?",
+      "a": "Saturday is usually our busiest day. Walk-ins are welcome based on availability, but booking ahead guarantees your time slot."
+    },
+    {
+      "q": "Is a deposit required to book?",
+      "a": "No deposit is required for most everyday services. For group appointments or longer treatments a deposit may apply; we'll let you know when you book."
+    },
+    {
+      "q": "What is the cancellation policy?",
+      "a": "You're welcome to change or cancel your appointment. A few hours' notice lets us offer the slot to another client — a quick call is enough."
+    },
+    {
+      "q": "How much is a full set?",
+      "a": "The price depends on the service and finishes. A full set starts at a reasonable rate, and a fill costs less than a new set. Current details are on our Services page."
+    },
+    {
+      "q": "Does nail art cost extra?",
+      "a": "Solid shades are included in the service. More complex nail-art designs may carry an extra charge based on the time involved; ask for an estimate before your appointment."
+    },
+    {
+      "q": "Can I request a specific technician?",
+      "a": "Yes. Note your preference when booking and we'll try to assign you the same technician, subject to availability."
+    },
+    {
+      "q": "Do you do gel polish for manicures?",
+      "a": "Yes. Our manicures come with regular polish or long-lasting gel polish. Let us know your choice and we'll guide you to the best option."
+    },
+    {
+      "q": "What services do you offer?",
+      "a": "We offer nail enhancements (full set), fills, hand care and foot care. Visit our Services page for the full list."
+    }
+  ]
 }

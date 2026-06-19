@@ -1,3 +1,56 @@
 {
-  "items": []
+  "items": [
+    {
+      "q": "Où se trouve Ongles Maily?",
+      "a": "Ongles Maily est au Carrefour Beauport, 3333 Rue du Carrefour, Entrées 4 ou 5, Québec, QC G1C 5R9. Vous nous trouverez à l'intérieur du centre commercial, avec un grand stationnement gratuit sur place."
+    },
+    {
+      "q": "Quelles sont les heures d'ouverture?",
+      "a": "Nous sommes ouverts du lundi au mercredi de 9 h à 17 h 30, le jeudi et le vendredi de 9 h à 21 h, le samedi de 9 h à 17 h et le dimanche de 10 h à 17 h."
+    },
+    {
+      "q": "Comment prendre rendez-vous?",
+      "a": "Réservez en ligne en tout temps depuis notre page Réserver en ligne, ou appelez-nous au (418) 660-8228. Les visites sans rendez-vous sont aussi les bienvenues selon la disponibilité."
+    },
+    {
+      "q": "Y a-t-il du stationnement?",
+      "a": "Oui. Le Carrefour Beauport offre un grand stationnement gratuit, et les entrées 4 et 5 vous mènent directement près du salon."
+    },
+    {
+      "q": "Comment se rendre au salon en transport en commun?",
+      "a": "Le Carrefour Beauport est desservi par plusieurs circuits du RTC. Descendez à l'arrêt du centre commercial, puis entrez par l'entrée 4 ou 5 pour nous rejoindre."
+    },
+    {
+      "q": "Faut-il prévoir de l'attente la fin de semaine?",
+      "a": "La fin de semaine est notre période la plus occupée, surtout le samedi. Les sans rendez-vous sont acceptés selon la disponibilité, mais nous vous recommandons de réserver à l'avance pour éviter l'attente."
+    },
+    {
+      "q": "Faut-il verser un dépôt pour réserver?",
+      "a": "Pour la plupart des services réguliers, aucun dépôt n'est exigé. Un dépôt peut être demandé pour les rendez-vous de groupe ou les services plus longs; nous vous en informerons au moment de la réservation."
+    },
+    {
+      "q": "Quelle est votre politique d'annulation?",
+      "a": "Vous pouvez annuler ou déplacer votre rendez-vous. Prévenez-nous au moins quelques heures à l'avance pour que nous puissions offrir la plage à une autre cliente. Un simple appel suffit."
+    },
+    {
+      "q": "Combien coûte une pose d'ongles complète?",
+      "a": "Le prix dépend du service et des finitions choisies. La pose d'ongles débute dans une gamme abordable, et le remplissage coûte moins cher qu'une nouvelle pose. Consultez notre page Services pour les détails à jour."
+    },
+    {
+      "q": "Le nail art est-il inclus ou facturé en plus?",
+      "a": "Les couleurs unies et les finitions simples sont incluses. Les designs de nail art plus élaborés peuvent entraîner un supplément selon le temps et la complexité; demandez un estimé avant de commencer."
+    },
+    {
+      "q": "Puis-je choisir ma technicienne?",
+      "a": "Bien sûr. Mentionnez votre préférence lors de la réservation et nous ferons de notre mieux pour vous jumeler à la même technicienne, selon les disponibilités."
+    },
+    {
+      "q": "Offrez-vous le vernis gel pour la manucure?",
+      "a": "Oui. La manucure peut être faite avec un vernis régulier ou un vernis gel longue tenue. Dites-nous votre préférence et nous vous conseillerons l'option la mieux adaptée."
+    },
+    {
+      "q": "Quels services offrez-vous?",
+      "a": "Nous offrons la pose d'ongles (set complet), le remplissage, les soins des mains (manucure) et les soins des pieds (pédicure). Consultez notre page Services pour tous les détails."
+    }
+  ]
 }
