@@ -96,3 +96,71 @@ describe("pageMetadata — dependency injection", () => {
     );
   });
 });
+
+// ─── Phase 4: pricingGraph — ItemList wrapper (RED until 04-02 implements) ───
+// These tests import pricingGraph which doesn't exist yet in src/lib/seo.ts.
+// They MUST fail until Task 2 (GREEN) adds the export.
+
+import { pricingGraph } from "@/lib/seo";
+
+describe("Phase 4: pricingGraph — ItemList with AggregateOffer/Offer per item", () => {
+  // Minimal ServiceItem fixtures — shapes already defined in seo.ts (ServiceItem type).
+  type ServiceItem = {
+    name: string;
+    description: string;
+    price: number;
+    priceTo?: number;
+    path?: string;
+  };
+
+  const items: readonly ServiceItem[] = [
+    // priceTo > price → AggregateOffer
+    { name: "Pose d'ongles", description: "Full set", price: 60, priceTo: 80 },
+    // priceTo === price → Offer (not a range)
+    { name: "Manucure", description: "Basic mani", price: 30, priceTo: 30 },
+    // no priceTo → Offer
+    { name: "Remplissage", description: "Fill", price: 45 },
+  ];
+
+  it("pricingGraph @type is ItemList", () => {
+    const graph = pricingGraph("fr", items, injectedCfg);
+    expect(graph["@type"]).toBe("ItemList");
+  });
+
+  it("pricingGraph @context is https://schema.org", () => {
+    const graph = pricingGraph("fr", items, injectedCfg);
+    expect(graph["@context"]).toBe("https://schema.org");
+  });
+
+  it("pricingGraph itemListElement has same length as items", () => {
+    const graph = pricingGraph("fr", items, injectedCfg);
+    const elements = (graph as unknown as { itemListElement: unknown[] }).itemListElement;
+    expect(elements).toHaveLength(items.length);
+  });
+
+  it("emits AggregateOffer with lowPrice/highPrice when priceTo > price", () => {
+    const graph = pricingGraph("fr", items, injectedCfg);
+    const elements = (graph as unknown as { itemListElement: Array<Record<string, unknown>> }).itemListElement;
+    const firstItem = elements[0] as Record<string, unknown>;
+    const offers = firstItem["offers"] as Record<string, unknown>;
+    expect(offers["@type"]).toBe("AggregateOffer");
+    expect(offers["lowPrice"]).toBe(60);
+    expect(offers["highPrice"]).toBe(80);
+  });
+
+  it("emits Offer (not AggregateOffer) when priceTo === price", () => {
+    const graph = pricingGraph("fr", items, injectedCfg);
+    const elements = (graph as unknown as { itemListElement: Array<Record<string, unknown>> }).itemListElement;
+    const secondItem = elements[1] as Record<string, unknown>;
+    const offers = secondItem["offers"] as Record<string, unknown>;
+    expect(offers["@type"]).toBe("Offer");
+  });
+
+  it("emits Offer (not AggregateOffer) when priceTo is absent", () => {
+    const graph = pricingGraph("fr", items, injectedCfg);
+    const elements = (graph as unknown as { itemListElement: Array<Record<string, unknown>> }).itemListElement;
+    const thirdItem = elements[2] as Record<string, unknown>;
+    const offers = thirdItem["offers"] as Record<string, unknown>;
+    expect(offers["@type"]).toBe("Offer");
+  });
+});

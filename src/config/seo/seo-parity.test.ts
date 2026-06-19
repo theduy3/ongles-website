@@ -163,3 +163,80 @@ describe("F-02 extension: per-tenant faq.{locale}.json key parity", () => {
     });
   }
 });
+
+// ─── Phase 4: pages.* key parity — base + tenant seo JSON ───────────────────
+// RED: these keys don't exist yet in base seo.{fr,en}.json or tenant seo files.
+// Task 2 (GREEN) scaffolds them in all files. The tests below will FAIL until then.
+
+// Widen SeoDoc to include the new pages namespace.
+type SeoDocWithPages = SeoDoc & {
+  pages?: {
+    pricing?: {
+      answerHeading?: string;
+      answerBlock?: string;
+    };
+    comparison?: Record<string, {
+      answerHeading?: string;
+      answerBlock?: string;
+      body?: string;
+    }>;
+    nearMe?: {
+      answerHeading?: string;
+      answerBlock?: string;
+    };
+  };
+};
+
+const COMPARISON_SLUGS = [
+  "pose-vs-remplissage",
+  "manucure-vs-pedicure",
+  "gel-vs-acrylique",
+  "meilleur-pour",
+] as const;
+
+// All files checked: base + 3 tenants.
+const allPairs: Array<[string, SeoDocWithPages, SeoDocWithPages]> = [
+  ["base", baseFr as unknown as SeoDocWithPages, baseEn as unknown as SeoDocWithPages],
+  ["ongles-maily", mailyFr as unknown as SeoDocWithPages, mailyEn as unknown as SeoDocWithPages],
+  ["ongles-charlesbourg", charlesbourgFr as unknown as SeoDocWithPages, charlesbourgEn as unknown as SeoDocWithPages],
+  ["ongles-rivieres", rivieresFr as unknown as SeoDocWithPages, rivieresEn as unknown as SeoDocWithPages],
+];
+
+describe("Phase 4: pages.pricing keys — typeof string in fr+en (base + 3 tenants)", () => {
+  for (const [name, fr, en] of allPairs) {
+    it(`${name}: pages.pricing.answerBlock is typeof string in both locales`, () => {
+      expect(typeof fr.pages?.pricing?.answerBlock).toBe("string");
+      expect(typeof en.pages?.pricing?.answerBlock).toBe("string");
+    });
+
+    it(`${name}: pages.pricing.answerHeading is typeof string in both locales`, () => {
+      expect(typeof fr.pages?.pricing?.answerHeading).toBe("string");
+      expect(typeof en.pages?.pricing?.answerHeading).toBe("string");
+    });
+  }
+});
+
+describe("Phase 4: pages.comparison keys — typeof string in fr+en (base + 3 tenants)", () => {
+  for (const [name, fr, en] of allPairs) {
+    for (const slug of COMPARISON_SLUGS) {
+      it(`${name}: pages.comparison.${slug}.body is typeof string in both locales`, () => {
+        expect(typeof fr.pages?.comparison?.[slug]?.body).toBe("string");
+        expect(typeof en.pages?.comparison?.[slug]?.body).toBe("string");
+      });
+    }
+  }
+});
+
+describe("Phase 4: pages.nearMe keys — typeof string in fr+en (base + 3 tenants)", () => {
+  for (const [name, fr, en] of allPairs) {
+    it(`${name}: pages.nearMe.answerBlock is typeof string in both locales`, () => {
+      expect(typeof fr.pages?.nearMe?.answerBlock).toBe("string");
+      expect(typeof en.pages?.nearMe?.answerBlock).toBe("string");
+    });
+
+    it(`${name}: pages.nearMe.answerHeading is typeof string in both locales`, () => {
+      expect(typeof fr.pages?.nearMe?.answerHeading).toBe("string");
+      expect(typeof en.pages?.nearMe?.answerHeading).toBe("string");
+    });
+  }
+});

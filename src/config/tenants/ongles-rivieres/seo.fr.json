@@ -87,5 +87,51 @@
   "locations": {
     "answerBlock": "Ongles Rivières est situé au Centre Les Rivières, 4225 boulevard des Forges, à Trois-Rivières, avec un grand stationnement gratuit. Réservez en ligne ou téléphonez au (819) 378-8228; les visites sans rendez-vous sont les bienvenues selon la disponibilité.",
     "answerHeading": "Nous trouver et réserver"
+  },
+  "pages": {
+    "pricing": {
+      "answerHeading": "",
+      "answerBlock": "",
+      "metaTitle": "",
+      "metaDescription": ""
+    },
+    "comparison": {
+      "pose-vs-remplissage": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "manucure-vs-pedicure": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "gel-vs-acrylique": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "meilleur-pour": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      }
+    },
+    "nearMe": {
+      "answerHeading": "",
+      "answerBlock": "",
+      "boroughName": "",
+      "body": "",
+      "metaTitle": "",
+      "metaDescription": ""
+    }
   }
 }

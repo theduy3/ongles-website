@@ -87,5 +87,51 @@
   "locations": {
     "answerBlock": "Ongles Charlesbourg se trouve au Carrefour Charlesbourg, 8500 boulevard Henri-Bourassa, à Québec, avec stationnement gratuit. Réservez en ligne ou composez le (581) 981-8228; les sans rendez-vous sont acceptés selon les disponibilités.",
     "answerHeading": "Nous trouver et réserver"
+  },
+  "pages": {
+    "pricing": {
+      "answerHeading": "",
+      "answerBlock": "",
+      "metaTitle": "",
+      "metaDescription": ""
+    },
+    "comparison": {
+      "pose-vs-remplissage": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "manucure-vs-pedicure": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "gel-vs-acrylique": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "meilleur-pour": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      }
+    },
+    "nearMe": {
+      "answerHeading": "",
+      "answerBlock": "",
+      "boroughName": "",
+      "body": "",
+      "metaTitle": "",
+      "metaDescription": ""
+    }
   }
 }

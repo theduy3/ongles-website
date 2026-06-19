@@ -362,6 +362,25 @@ export function serviceGraph(
   } as unknown as WithContext<SchemaService>;
 }
 
+/**
+ * Pricing hub graph — named entry point for the /tarifs page (Phase 4).
+ *
+ * Delegates to servicesGraph() unchanged so every Phase 2 offer() invariant
+ * (AggregateOffer when priceTo > price, Offer otherwise — SCHEMA-02) is
+ * preserved without duplicating logic. Phase 2 builders are untouched (D-28).
+ *
+ * @param lang - Locale ("fr" | "en")
+ * @param items - Services to list on the pricing page
+ * @param cfg - Optional SeoConfig (defaults to module-level site/locations)
+ */
+export function pricingGraph(
+  lang: Locale,
+  items: readonly ServiceItem[],
+  cfg?: SeoConfig,
+): WithContext<ItemList> {
+  return servicesGraph(lang, items, cfg);
+}
+
 /** FAQPage — render on /faq. Feeds Google rich results / AI answers. */
 export function faqPageGraph(items: readonly { q: string; a: string }[]): WithContext<FAQPage> {
   return {

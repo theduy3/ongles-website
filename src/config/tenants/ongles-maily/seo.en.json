@@ -87,5 +87,51 @@
   "locations": {
     "answerBlock": "Ongles Maily is located at Carrefour Beauport, 3333 Rue du Carrefour, in Québec City, with plenty of free parking. Book online any time or call (418) 660-8228; walk-ins are welcome too.",
     "answerHeading": "Find us & book"
+  },
+  "pages": {
+    "pricing": {
+      "answerHeading": "",
+      "answerBlock": "",
+      "metaTitle": "",
+      "metaDescription": ""
+    },
+    "comparison": {
+      "pose-vs-remplissage": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "manucure-vs-pedicure": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "gel-vs-acrylique": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "meilleur-pour": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      }
+    },
+    "nearMe": {
+      "answerHeading": "",
+      "answerBlock": "",
+      "boroughName": "",
+      "body": "",
+      "metaTitle": "",
+      "metaDescription": ""
+    }
   }
 }

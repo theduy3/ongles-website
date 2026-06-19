@@ -87,5 +87,51 @@
   "locations": {
     "answerBlock": "Ongles Charlesbourg is at Carrefour Charlesbourg, 8500 boulevard Henri-Bourassa, in Québec City, with free parking. Book online or call (581) 981-8228; walk-ins are accepted based on availability.",
     "answerHeading": "Find us & book"
+  },
+  "pages": {
+    "pricing": {
+      "answerHeading": "",
+      "answerBlock": "",
+      "metaTitle": "",
+      "metaDescription": ""
+    },
+    "comparison": {
+      "pose-vs-remplissage": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "manucure-vs-pedicure": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "gel-vs-acrylique": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      },
+      "meilleur-pour": {
+        "answerHeading": "",
+        "answerBlock": "",
+        "body": "",
+        "metaTitle": "",
+        "metaDescription": ""
+      }
+    },
+    "nearMe": {
+      "answerHeading": "",
+      "answerBlock": "",
+      "boroughName": "",
+      "body": "",
+      "metaTitle": "",
+      "metaDescription": ""
+    }
   }
 }
