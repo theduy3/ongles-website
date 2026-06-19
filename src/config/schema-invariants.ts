@@ -807,6 +807,160 @@ function checkNearMeWordCount(): SchemaInvariantError[] {
   return errors;
 }
 
+// ─── Phase-5 guard functions (05-01) — EXPORTED but UNWIRED ──────────────────
+// These four functions are intentionally NOT called from validateSchemaInvariants()
+// until 05-05 wires them once owner content lands (mirror the 03/04
+// unwired-until-activation pattern in this same file).
+//
+// ALIAS-FREE: same constraints as the rest of this module.
+
+/**
+ * LLMS-02 — llmsDescription depth guard.
+ *
+ * Returns an error for every non-template tenant whose `site.llmsDescription`
+ * is absent or has fewer than 200 words. Currently RED (empty placeholders)
+ * until real hand-authored prose is added in 05-05.
+ */
+export function checkLlmsDepth(): SchemaInvariantError[] {
+  const LLMS_WORD_FLOOR = 200;
+  const errors: SchemaInvariantError[] = [];
+  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    const desc = (cfg.site as { llmsDescription?: string }).llmsDescription ?? "";
+    const wc = countWords(desc);
+    if (wc < LLMS_WORD_FLOOR) {
+      errors.push(
+        err(
+          id,
+          "LLMS-02",
+          `site.llmsDescription has ${wc} words — below floor ${LLMS_WORD_FLOOR} (wire in 05-05 once prose is authored)`,
+        ),
+      );
+    }
+  }
+  return errors;
+}
+
+/**
+ * LLMS-01 — Cross-tenant llmsDescription leak guard.
+ *
+ * Builds a per-tenant "signal" set from each tenant's contact.landmark and
+ * contact.address.city. Flags any tenant whose llmsDescription (case-insensitive)
+ * contains another tenant's signal strings — indicating a copy-paste leak.
+ *
+ * Returns zero errors when all descriptions are empty (no signal to match).
+ * Run against real prose once authored in 05-05.
+ */
+export function checkLlmsLeak(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+
+  // Build signal map: tenantId → Set<lowercase signal strings>
+  const signals = new Map<string, string[]>();
+  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    const s = cfg.site.contact;
+    const sigs: string[] = [];
+    if (s.landmark) sigs.push(s.landmark.toLowerCase());
+    if (s.address.city) sigs.push(s.address.city.toLowerCase());
+    signals.set(id, sigs);
+  }
+
+  // Check each tenant's llmsDescription against all OTHER tenants' signals.
+  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    const desc = ((cfg.site as { llmsDescription?: string }).llmsDescription ?? "").toLowerCase();
+    if (!desc) continue; // empty placeholder — nothing to leak
+
+    for (const [otherId, otherSigs] of signals.entries()) {
+      if (otherId === id) continue;
+      for (const sig of otherSigs) {
+        if (sig && desc.includes(sig)) {
+          errors.push(
+            err(
+              id,
+              "LLMS-01",
+              `site.llmsDescription contains "${sig}" — this is a signal belonging to tenant "${otherId}" (cross-tenant leak)`,
+            ),
+          );
+          break; // one error per other-tenant is enough
+        }
+      }
+    }
+  }
+  return errors;
+}
+
+/**
+ * MEAS-01 — GA4 measurement ID presence guard (warning-class).
+ *
+ * Returns an error for every non-template tenant whose `site.ga4MeasurementId`
+ * is missing or empty. Currently fires for all live tenants (placeholders).
+ * Real G-XXXXXXXXXX IDs are collected in the 05-05 human-verify step.
+ *
+ * This is intentionally a WARNING guard — an empty ID degrades analytics but
+ * does not break the site. It becomes a hard build-fail when wired in 05-05.
+ */
+export function checkGA4IdPresent(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    const ga4Id = (cfg.site as { ga4MeasurementId?: string }).ga4MeasurementId ?? "";
+    if (!ga4Id.trim()) {
+      errors.push(
+        err(
+          id,
+          "MEAS-01",
+          `site.ga4MeasurementId is empty — no GA4 analytics for this tenant (collect real G-XXXXXXXXXX in 05-05)`,
+        ),
+      );
+    }
+  }
+  return errors;
+}
+
+/**
+ * NAP-01 — site.contact / location NAP parity guard.
+ *
+ * Asserts that the on-site NAP is consistent between the TenantSite and the
+ * physical Location objects (both resolved from the same source in practice, but
+ * a copy-paste divergence would be a silent correctness bug).
+ *
+ * Checks per non-template tenant:
+ *   - site.contact.phone === location.phone
+ *   - site.contact.address.street === location.address.street
+ *   - site.contact.address.city === location.address.city
+ *   - site.contact.address.postalCode === location.address.postalCode
+ *   - site.hours.length === location.hoursSpec.length
+ *
+ * Returns [] for all current live tenants (all fields match).
+ */
+export function checkNapConsistency(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    const sc = cfg.site.contact;
+    const lc = cfg.location;
+
+    if (sc.phone !== lc.phone) {
+      errors.push(err(id, "NAP-01", `site.contact.phone "${sc.phone}" !== location.phone "${lc.phone}"`));
+    }
+    if (sc.address.street !== lc.address.street) {
+      errors.push(err(id, "NAP-01", `site.contact.address.street "${sc.address.street}" !== location.address.street "${lc.address.street}"`));
+    }
+    if (sc.address.city !== lc.address.city) {
+      errors.push(err(id, "NAP-01", `site.contact.address.city "${sc.address.city}" !== location.address.city "${lc.address.city}"`));
+    }
+    if (sc.address.postalCode !== lc.address.postalCode) {
+      errors.push(err(id, "NAP-01", `site.contact.address.postalCode "${sc.address.postalCode}" !== location.address.postalCode "${lc.address.postalCode}"`));
+    }
+    const siteHoursLen = cfg.site.hours.length;
+    if (siteHoursLen !== lc.hoursSpec.length) {
+      errors.push(err(id, "NAP-01", `site.hours has ${siteHoursLen} blocks but location.hoursSpec has ${lc.hoursSpec.length} — hours-schedule parity mismatch`));
+    }
+  }
+  return errors;
+}
+
 export function validateSchemaInvariants(): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
 

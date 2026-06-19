@@ -107,6 +107,17 @@ export type TenantSite = {
       country: string;
     };
   };
+  /** GA4 measurement ID for this tenant's property (format: "G-XXXXXXXXXX").
+   *  Empty string = no analytics configured for this tenant — guarded by
+   *  checkGA4IdPresent() (warning-level, not a hard build fail).
+   *  NEVER added to SiteSectionSchema — mirror canonicalUrl I-01 exclusion. */
+  ga4MeasurementId: string;
+  /** Hand-authored AI-discovery intro for this tenant's llms.txt.
+   *  Must be ≥200 unique words, zero hardcoded references to other tenants'
+   *  cities or landmarks. Guarded by checkLlmsDepth() + checkLlmsLeak()
+   *  (wired in 05-05 once owner prose is authored).
+   *  NEVER added to SiteSectionSchema — remote content injection is prohibited. */
+  llmsDescription: string;
   nav: readonly {
     key: string;
     /** Default href (locale-prefixed by Header). Used for anchor links and same-slug routes. */
