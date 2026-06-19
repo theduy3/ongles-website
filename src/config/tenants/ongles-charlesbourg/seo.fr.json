@@ -21,32 +21,44 @@
     "termsTitle": "Conditions générales — Ongles Charlesbourg",
     "termsDescription": "Politiques du salon Ongles Charlesbourg : rendez-vous, annulations, dépôts, certificats cadeaux, santé et sécurité et plus encore.",
     "privacyTitle": "Politique de confidentialité — Ongles Charlesbourg",
-    "privacyDescription": "Comment Ongles Charlesbourg collecte, utilise et protège vos renseignements personnels."
+    "privacyDescription": "Comment Ongles Charlesbourg collecte, utilise et protège vos renseignements personnels.",
+    "homeAnswerBlock": "",
+    "homeAnswerHeading": "",
+    "servicesAnswerBlock": "",
+    "servicesAnswerHeading": ""
   },
   "services": {
     "pose-ongles": {
       "metaTitle": "Pose d'ongles chez Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
       "metaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles Charlesbourg, Carrefour Charlesbourg. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
       "schemaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles Charlesbourg, Carrefour Charlesbourg. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
-      "heroAlt": "Belle pose d'ongles complète chez Ongles Charlesbourg, Carrefour Charlesbourg"
+      "heroAlt": "Belle pose d'ongles complète chez Ongles Charlesbourg, Carrefour Charlesbourg",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "remplissage": {
       "metaTitle": "Remplissage chez Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
       "metaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles Charlesbourg, Carrefour Charlesbourg. Gardez votre pose fraîche et solide. À partir de 45 $.",
       "schemaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles Charlesbourg, Carrefour Charlesbourg. Gardez votre pose fraîche et solide. À partir de 45 $.",
-      "heroAlt": "Remplissage d'ongles professionnel en cours chez Ongles Charlesbourg, Carrefour Charlesbourg"
+      "heroAlt": "Remplissage d'ongles professionnel en cours chez Ongles Charlesbourg, Carrefour Charlesbourg",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "soins-mains": {
       "metaTitle": "Soins des mains chez Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
       "metaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. À partir de 30 $.",
       "schemaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. À partir de 30 $.",
-      "heroAlt": "Manucure professionnelle avec vernis chez Ongles Charlesbourg, Carrefour Charlesbourg"
+      "heroAlt": "Manucure professionnelle avec vernis chez Ongles Charlesbourg, Carrefour Charlesbourg",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "soins-pieds": {
       "metaTitle": "Soins des pieds chez Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
       "metaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
       "schemaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles Charlesbourg, Carrefour Charlesbourg, Québec. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
-      "heroAlt": "Pédicure professionnelle dans un poste assaini chez Ongles Charlesbourg, Carrefour Charlesbourg"
+      "heroAlt": "Pédicure professionnelle dans un poste assaini chez Ongles Charlesbourg, Carrefour Charlesbourg",
+      "answerBlock": "",
+      "answerHeading": ""
     }
   },
   "org": {
@@ -71,5 +83,9 @@
     "spa-pedi": {
       "alt": "Résultat de pédicure chez Ongles Charlesbourg, Carrefour Charlesbourg"
     }
+  },
+  "locations": {
+    "answerBlock": "",
+    "answerHeading": ""
   }
 }

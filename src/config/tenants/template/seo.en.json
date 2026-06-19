@@ -21,32 +21,44 @@
     "termsTitle": "Terms & Conditions — Your Salon",
     "termsDescription": "Salon policies for Your Salon: appointments, cancellations, deposits, gift cards, health & safety and more.",
     "privacyTitle": "Privacy Policy — Your Salon",
-    "privacyDescription": "How Your Salon collects, uses and protects your personal information."
+    "privacyDescription": "How Your Salon collects, uses and protects your personal information.",
+    "homeAnswerBlock": "",
+    "homeAnswerHeading": "",
+    "servicesAnswerBlock": "",
+    "servicesAnswerHeading": ""
   },
   "services": {
     "pose-ongles": {
       "metaTitle": "Nail Enhancements at Your Salon",
       "metaDescription": "Full set nail enhancements with or without extensions at Your Salon. Nail art, multiple colours, hygiene-first. From $60.",
       "schemaDescription": "Full set nail enhancements with or without extensions at Your Salon. Nail art, multiple colours, hygiene-first. From $60.",
-      "heroAlt": "Beautiful nail enhancements — full set at Your Salon"
+      "heroAlt": "Beautiful nail enhancements — full set at Your Salon",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "remplissage": {
       "metaTitle": "Nail Fill at Your Salon",
       "metaDescription": "Professional nail fill every 2–3 weeks at Your Salon. Keep your enhancements fresh and strong. From $45.",
       "schemaDescription": "Professional nail fill every 2–3 weeks at Your Salon. Keep your enhancements fresh and strong. From $45.",
-      "heroAlt": "Professional nail fill in progress at Your Salon"
+      "heroAlt": "Professional nail fill in progress at Your Salon",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "soins-mains": {
       "metaTitle": "Manicure at Your Salon",
       "metaDescription": "Professional manicure with polish, cuticle care and nail shaping at Your Salon. From $30.",
       "schemaDescription": "Professional manicure with polish, cuticle care and nail shaping at Your Salon. From $30.",
-      "heroAlt": "Professional manicure with polish at Your Salon"
+      "heroAlt": "Professional manicure with polish at Your Salon",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "soins-pieds": {
       "metaTitle": "Pedicure at Your Salon",
       "metaDescription": "Professional pedicure in sanitized stations at Your Salon. Toenail care, cuticle treatment and polish. From $35.",
       "schemaDescription": "Professional pedicure in sanitized stations at Your Salon. Toenail care, cuticle treatment and polish. From $35.",
-      "heroAlt": "Professional pedicure in a sanitized station at Your Salon"
+      "heroAlt": "Professional pedicure in a sanitized station at Your Salon",
+      "answerBlock": "",
+      "answerHeading": ""
     }
   },
   "org": {
@@ -71,5 +83,9 @@
     "spa-pedi": {
       "alt": "Pedicure result at Your Salon"
     }
+  },
+  "locations": {
+    "answerBlock": "",
+    "answerHeading": ""
   }
 }

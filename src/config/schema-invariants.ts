@@ -40,6 +40,20 @@ import { TENANT_REGISTRY } from "./index";
 // is pinned by schema-invariants.test.ts (which may import faqPageGraph freely).
 import frDict from "../dictionaries/fr.json";
 import enDict from "../dictionaries/en.json";
+// D-05/D-11 — per-tenant FAQ + answer-block sources for the build-time floor and
+// presence guards. RELATIVE, alias-free imports only (next.config.ts SWC hook).
+import mailyFaqFr from "./tenants/ongles-maily/faq.fr.json";
+import mailyFaqEn from "./tenants/ongles-maily/faq.en.json";
+import charlesbourgFaqFr from "./tenants/ongles-charlesbourg/faq.fr.json";
+import charlesbourgFaqEn from "./tenants/ongles-charlesbourg/faq.en.json";
+import rivieresFaqFr from "./tenants/ongles-rivieres/faq.fr.json";
+import rivieresFaqEn from "./tenants/ongles-rivieres/faq.en.json";
+import mailySeoFr from "./tenants/ongles-maily/seo.fr.json";
+import mailySeoEn from "./tenants/ongles-maily/seo.en.json";
+import charlesbourgSeoFr from "./tenants/ongles-charlesbourg/seo.fr.json";
+import charlesbourgSeoEn from "./tenants/ongles-charlesbourg/seo.en.json";
+import rivieresSeoFr from "./tenants/ongles-rivieres/seo.fr.json";
+import rivieresSeoEn from "./tenants/ongles-rivieres/seo.en.json";
 
 /** Tenants excluded from schema invariant checks (clone sources, not live deployments). */
 const EXCLUDED_TENANTS = new Set(["template"]);
@@ -124,6 +138,119 @@ export function countWords(text: string): number {
   const t = text.trim();
   if (t.length === 0) return 0;
   return t.split(/\s+/).length;
+}
+
+// ─── D-05 FAQ floor + D-11 answer-block presence guards (UNWIRED until 03-05) ───
+// These run offline over per-tenant JSON. They are NOT yet called from
+// validateSchemaInvariants() — plan 03-05 flips the build gate once content lands,
+// so `next build` stays green between 03-01 and 03-04.
+
+/** Live content locales (ES deferred to v2 per D-25). */
+const CONTENT_LOCALES = ["fr", "en"] as const;
+
+/** Routes that must carry a non-empty answer block (D-11/D-17). */
+const ANSWER_BLOCK_ROUTES = [
+  "home",
+  "services",
+  "pose-ongles",
+  "remplissage",
+  "soins-mains",
+  "soins-pieds",
+  "locations",
+] as const;
+
+type FaqStub = { items: readonly { q?: string; a?: string }[] };
+type SeoAnswerSource = {
+  meta?: Record<string, string | undefined>;
+  services?: Record<string, Record<string, string | undefined> | undefined>;
+  locations?: { answerBlock?: string; answerHeading?: string };
+};
+
+/** Base (shared) FAQ items per locale — de-tenanted generic answers (D-03). */
+const BASE_FAQ_BY_LOCALE: Record<string, readonly { q: string; a: string }[]> = {
+  fr: frDict.faq.items,
+  en: enDict.faq.items,
+};
+
+/** Per-tenant FAQ stubs/content keyed by tenant id then locale (template excluded). */
+const TENANT_FAQ: Record<string, Record<string, FaqStub>> = {
+  "ongles-maily": { fr: mailyFaqFr as FaqStub, en: mailyFaqEn as FaqStub },
+  "ongles-charlesbourg": { fr: charlesbourgFaqFr as FaqStub, en: charlesbourgFaqEn as FaqStub },
+  "ongles-rivieres": { fr: rivieresFaqFr as FaqStub, en: rivieresFaqEn as FaqStub },
+};
+
+/** Per-tenant SEO answer-block sources keyed by tenant id then locale. */
+const TENANT_SEO: Record<string, Record<string, SeoAnswerSource>> = {
+  "ongles-maily": { fr: mailySeoFr as unknown as SeoAnswerSource, en: mailySeoEn as unknown as SeoAnswerSource },
+  "ongles-charlesbourg": { fr: charlesbourgSeoFr as unknown as SeoAnswerSource, en: charlesbourgSeoEn as unknown as SeoAnswerSource },
+  "ongles-rivieres": { fr: rivieresSeoFr as unknown as SeoAnswerSource, en: rivieresSeoEn as unknown as SeoAnswerSource },
+};
+
+/** Extracts the answer-block string for a route from a tenant SEO source. */
+function answerBlockForRoute(seo: SeoAnswerSource, route: string): string {
+  if (route === "home") return seo.meta?.homeAnswerBlock ?? "";
+  if (route === "services") return seo.meta?.servicesAnswerBlock ?? "";
+  if (route === "locations") return seo.locations?.answerBlock ?? "";
+  return seo.services?.[route]?.answerBlock ?? "";
+}
+
+/**
+ * D-05 — merged (base + per-tenant) FAQ count is >= FAQ_FLOOR for every live
+ * tenant in each content locale. Reports one error per shortfall.
+ */
+export function checkFaqFloor(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+  for (const id of Object.keys(TENANT_FAQ)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    for (const locale of CONTENT_LOCALES) {
+      const base = BASE_FAQ_BY_LOCALE[locale]?.length ?? 0;
+      const perTenant = TENANT_FAQ[id]?.[locale]?.items?.length ?? 0;
+      const merged = base + perTenant;
+      if (merged < FAQ_FLOOR) {
+        errors.push(
+          err(
+            id,
+            "D-05",
+            `merged FAQ count (${locale}) is ${merged} (base ${base} + tenant ${perTenant}) — below floor ${FAQ_FLOOR}`,
+          ),
+        );
+      }
+    }
+  }
+  return errors;
+}
+
+/**
+ * D-11 — every required route's answer block is non-empty AND has at least
+ * ANSWER_BLOCK_MIN_SENTENCES sentences, per live tenant per content locale.
+ */
+export function checkAnswerBlockPresence(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+  for (const id of Object.keys(TENANT_SEO)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    for (const locale of CONTENT_LOCALES) {
+      const seo = TENANT_SEO[id]?.[locale];
+      if (!seo) continue;
+      for (const route of ANSWER_BLOCK_ROUTES) {
+        const text = answerBlockForRoute(seo, route).trim();
+        if (text.length === 0) {
+          errors.push(err(id, "D-11", `answerBlock for route "${route}" (${locale}) is empty`));
+          continue;
+        }
+        const sentences = splitSentences(text).length;
+        if (sentences < ANSWER_BLOCK_MIN_SENTENCES) {
+          errors.push(
+            err(
+              id,
+              "D-11",
+              `answerBlock for route "${route}" (${locale}) has ${sentences} sentence(s) — needs >= ${ANSWER_BLOCK_MIN_SENTENCES}`,
+            ),
+          );
+        }
+      }
+    }
+  }
+  return errors;
 }
 
 // ─── Per-invariant checkers ───────────────────────────────────────────────────

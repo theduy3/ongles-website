@@ -21,32 +21,44 @@
     "termsTitle": "Terms & Conditions — Ongles Rivières",
     "termsDescription": "Salon policies for Ongles Rivières: appointments, cancellations, deposits, gift cards, health & safety and more.",
     "privacyTitle": "Privacy Policy — Ongles Rivières",
-    "privacyDescription": "How Ongles Rivières collects, uses and protects your personal information."
+    "privacyDescription": "How Ongles Rivières collects, uses and protects your personal information.",
+    "homeAnswerBlock": "",
+    "homeAnswerHeading": "",
+    "servicesAnswerBlock": "",
+    "servicesAnswerHeading": ""
   },
   "services": {
     "pose-ongles": {
       "metaTitle": "Nail Enhancements at Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Full set nail enhancements with or without extensions at Ongles Rivières, Centre Les Rivières. Nail art, multiple colours, hygiene-first. From $60.",
       "schemaDescription": "Full set nail enhancements with or without extensions at Ongles Rivières, Centre Les Rivières. Nail art, multiple colours, hygiene-first. From $60.",
-      "heroAlt": "Beautiful nail enhancements — full set at Ongles Rivières, Centre Les Rivières"
+      "heroAlt": "Beautiful nail enhancements — full set at Ongles Rivières, Centre Les Rivières",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "remplissage": {
       "metaTitle": "Nail Fill at Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Professional nail fill every 2–3 weeks at Ongles Rivières, Centre Les Rivières. Keep your enhancements fresh and strong. From $45.",
       "schemaDescription": "Professional nail fill every 2–3 weeks at Ongles Rivières, Centre Les Rivières. Keep your enhancements fresh and strong. From $45.",
-      "heroAlt": "Professional nail fill in progress at Ongles Rivières, Centre Les Rivières"
+      "heroAlt": "Professional nail fill in progress at Ongles Rivières, Centre Les Rivières",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "soins-mains": {
       "metaTitle": "Manicure at Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Rivières, Centre Les Rivières, Québec. From $30.",
       "schemaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Rivières, Centre Les Rivières, Québec. From $30.",
-      "heroAlt": "Professional manicure with polish at Ongles Rivières, Centre Les Rivières"
+      "heroAlt": "Professional manicure with polish at Ongles Rivières, Centre Les Rivières",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "soins-pieds": {
       "metaTitle": "Pedicure at Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Professional pedicure in sanitized stations at Ongles Rivières, Centre Les Rivières, Québec. Toenail care, cuticle treatment and polish. From $35.",
       "schemaDescription": "Professional pedicure in sanitized stations at Ongles Rivières, Centre Les Rivières, Québec. Toenail care, cuticle treatment and polish. From $35.",
-      "heroAlt": "Professional pedicure in a sanitized station at Ongles Rivières, Centre Les Rivières"
+      "heroAlt": "Professional pedicure in a sanitized station at Ongles Rivières, Centre Les Rivières",
+      "answerBlock": "",
+      "answerHeading": ""
     }
   },
   "org": {
@@ -71,5 +83,9 @@
     "spa-pedi": {
       "alt": "Pedicure result at Ongles Rivières, Centre Les Rivières"
     }
+  },
+  "locations": {
+    "answerBlock": "",
+    "answerHeading": ""
   }
 }

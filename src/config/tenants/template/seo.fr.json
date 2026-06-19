@@ -21,32 +21,44 @@
     "termsTitle": "Conditions générales — Your Salon",
     "termsDescription": "Politiques du salon Your Salon : rendez-vous, annulations, dépôts, certificats cadeaux, santé et sécurité et plus encore.",
     "privacyTitle": "Politique de confidentialité — Your Salon",
-    "privacyDescription": "Comment Your Salon collecte, utilise et protège vos renseignements personnels."
+    "privacyDescription": "Comment Your Salon collecte, utilise et protège vos renseignements personnels.",
+    "homeAnswerBlock": "",
+    "homeAnswerHeading": "",
+    "servicesAnswerBlock": "",
+    "servicesAnswerHeading": ""
   },
   "services": {
     "pose-ongles": {
       "metaTitle": "Pose d'ongles chez Your Salon",
       "metaDescription": "Pose d'ongles complète avec ou sans rallonges chez Your Salon. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
       "schemaDescription": "Pose d'ongles complète avec ou sans rallonges chez Your Salon. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
-      "heroAlt": "Belle pose d'ongles complète chez Your Salon"
+      "heroAlt": "Belle pose d'ongles complète chez Your Salon",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "remplissage": {
       "metaTitle": "Remplissage chez Your Salon",
       "metaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Your Salon. Gardez votre pose fraîche et solide. À partir de 45 $.",
       "schemaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Your Salon. Gardez votre pose fraîche et solide. À partir de 45 $.",
-      "heroAlt": "Remplissage d'ongles professionnel en cours chez Your Salon"
+      "heroAlt": "Remplissage d'ongles professionnel en cours chez Your Salon",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "soins-mains": {
       "metaTitle": "Soins des mains chez Your Salon",
       "metaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Your Salon. À partir de 30 $.",
       "schemaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Your Salon. À partir de 30 $.",
-      "heroAlt": "Manucure professionnelle avec vernis chez Your Salon"
+      "heroAlt": "Manucure professionnelle avec vernis chez Your Salon",
+      "answerBlock": "",
+      "answerHeading": ""
     },
     "soins-pieds": {
       "metaTitle": "Soins des pieds chez Your Salon",
       "metaDescription": "Pédicure professionnelle dans des postes assainis chez Your Salon. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
       "schemaDescription": "Pédicure professionnelle dans des postes assainis chez Your Salon. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
-      "heroAlt": "Pédicure professionnelle dans un poste assaini chez Your Salon"
+      "heroAlt": "Pédicure professionnelle dans un poste assaini chez Your Salon",
+      "answerBlock": "",
+      "answerHeading": ""
     }
   },
   "org": {
@@ -71,5 +83,9 @@
     "spa-pedi": {
       "alt": "Résultat de pédicure chez Your Salon"
     }
+  },
+  "locations": {
+    "answerBlock": "",
+    "answerHeading": ""
   }
 }

@@ -403,3 +403,76 @@ describe("F-01: validateFaqCompleteness — FAQ count and non-empty invariant", 
     expect(faqErrors).toEqual([]);
   });
 });
+
+// ─── D-05: merged FAQ floor >= 20 + D-11: answer-block presence ───────────────
+// RED-foundation: these assert the Phase-3 END state and stay RED against the
+// 03-01 empty stubs. 03-03 (FAQ content) flips D-05 GREEN; 03-04 (answer blocks)
+// flips D-11 GREEN. They are the automated contract for D-05/D-11.
+
+import mailyFaqFrStub from "@/config/tenants/ongles-maily/faq.fr.json";
+import mailyFaqEnStub from "@/config/tenants/ongles-maily/faq.en.json";
+import charlesbourgFaqFrStub from "@/config/tenants/ongles-charlesbourg/faq.fr.json";
+import charlesbourgFaqEnStub from "@/config/tenants/ongles-charlesbourg/faq.en.json";
+import rivieresFaqFrStub from "@/config/tenants/ongles-rivieres/faq.fr.json";
+import rivieresFaqEnStub from "@/config/tenants/ongles-rivieres/faq.en.json";
+import mailySeoFrStub from "@/config/tenants/ongles-maily/seo.fr.json";
+import mailySeoEnStub from "@/config/tenants/ongles-maily/seo.en.json";
+import charlesbourgSeoFrStub from "@/config/tenants/ongles-charlesbourg/seo.fr.json";
+import charlesbourgSeoEnStub from "@/config/tenants/ongles-charlesbourg/seo.en.json";
+import rivieresSeoFrStub from "@/config/tenants/ongles-rivieres/seo.fr.json";
+import rivieresSeoEnStub from "@/config/tenants/ongles-rivieres/seo.en.json";
+
+type FaqLocaleStub = { items: { q?: string; a?: string }[] };
+type SeoLocaleStub = {
+  meta?: Record<string, string | undefined>;
+  services?: Record<string, Record<string, string | undefined> | undefined>;
+  locations?: { answerBlock?: string };
+};
+
+const LIVE_FAQ: Record<string, Record<"fr" | "en", FaqLocaleStub>> = {
+  "ongles-maily": { fr: mailyFaqFrStub as FaqLocaleStub, en: mailyFaqEnStub as FaqLocaleStub },
+  "ongles-charlesbourg": { fr: charlesbourgFaqFrStub as FaqLocaleStub, en: charlesbourgFaqEnStub as FaqLocaleStub },
+  "ongles-rivieres": { fr: rivieresFaqFrStub as FaqLocaleStub, en: rivieresFaqEnStub as FaqLocaleStub },
+};
+
+const LIVE_SEO: Record<string, Record<"fr" | "en", SeoLocaleStub>> = {
+  "ongles-maily": { fr: mailySeoFrStub as unknown as SeoLocaleStub, en: mailySeoEnStub as unknown as SeoLocaleStub },
+  "ongles-charlesbourg": { fr: charlesbourgSeoFrStub as unknown as SeoLocaleStub, en: charlesbourgSeoEnStub as unknown as SeoLocaleStub },
+  "ongles-rivieres": { fr: rivieresSeoFrStub as unknown as SeoLocaleStub, en: rivieresSeoEnStub as unknown as SeoLocaleStub },
+};
+
+const BASE_FAQ = { fr: frDict.faq.items, en: enDict.faq.items } as const;
+const ROUTES = ["home", "services", "pose-ongles", "remplissage", "soins-mains", "soins-pieds", "locations"] as const;
+const LOCALES = ["fr", "en"] as const;
+
+function answerBlockFor(seo: SeoLocaleStub, route: string): string {
+  if (route === "home") return seo.meta?.homeAnswerBlock ?? "";
+  if (route === "services") return seo.meta?.servicesAnswerBlock ?? "";
+  if (route === "locations") return seo.locations?.answerBlock ?? "";
+  return seo.services?.[route]?.answerBlock ?? "";
+}
+
+describe("D-05: merged FAQ floor >= 20 per tenant per locale", () => {
+  for (const id of Object.keys(LIVE_FAQ)) {
+    for (const loc of LOCALES) {
+      it(`${id}/${loc}: base + tenant FAQ count >= ${FAQ_FLOOR}`, () => {
+        const merged = BASE_FAQ[loc].length + LIVE_FAQ[id][loc].items.length;
+        expect(merged).toBeGreaterThanOrEqual(FAQ_FLOOR);
+      });
+    }
+  }
+});
+
+describe("D-11: answerBlock present and >= 2 sentences per route", () => {
+  for (const id of Object.keys(LIVE_SEO)) {
+    for (const loc of LOCALES) {
+      for (const route of ROUTES) {
+        it(`${id}/${loc}/${route}: non-empty + >= ${ANSWER_BLOCK_MIN_SENTENCES} sentences`, () => {
+          const text = answerBlockFor(LIVE_SEO[id][loc], route).trim();
+          expect(text.length, `answerBlock ${id}/${loc}/${route} is empty`).toBeGreaterThan(0);
+          expect(splitSentences(text).length).toBeGreaterThanOrEqual(ANSWER_BLOCK_MIN_SENTENCES);
+        });
+      }
+    }
+  }
+});
