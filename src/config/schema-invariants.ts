@@ -442,32 +442,45 @@ export function checkCrossTenantOverlap(): SchemaInvariantError[] {
 }
 
 /**
- * P4 — Route presence guard: asserts the pricing route slug is registered for
- * each live tenant. The exact route-registration scheme is finalized in 04-05;
- * for now this checks that site.routes (from TENANT_REGISTRY) contains the
- * FR pricing route marker or reports a structured absence.
+ * P4 04-05 — Route presence guard: asserts each live tenant has its required
+ * borough near-me route slug registered in `site.routes`.
  *
- * Returns an empty array for tenants whose routes already include "tarifs"
- * (FR pricing slug). Returns a warning error for tenants that don't define it yet
- * (content scaffolded in later waves). UNWIRED from validateSchemaInvariants() until 04-05.
+ * Pricing (/tarifs, /pricing) and comparison routes (/comparaisons/*, /comparisons/*)
+ * are managed centrally via `LOCALIZED_PAGE_PAIRS` in sitemap.ts and are NOT added
+ * to per-tenant `site.routes` (per 04-05 plan prohibition). Only the borough
+ * near-me route is per-tenant and belongs in site.routes.
+ *
+ * Borough slug mapping (canonical, locale-agnostic proper nouns — same slug FR+EN):
+ *   ongles-maily        → /beauport
+ *   ongles-charlesbourg → /charlesbourg
+ *   ongles-rivieres     → /trois-rivieres
+ *
+ * Wired into validateSchemaInvariants() from 04-05.
  */
+
+/** Per-tenant required borough near-me route slug (proper noun — same FR+EN). */
+const TENANT_BOROUGH_ROUTE: Record<string, string> = {
+  "ongles-maily": "/beauport",
+  "ongles-charlesbourg": "/charlesbourg",
+  "ongles-rivieres": "/trois-rivieres",
+};
+
 export function checkRoutePresence(): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
 
   for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
 
-    // site.routes may be absent on older tenant configs — use optional chaining.
-    // The pricing slug in FR is "tarifs"; near-me is "salon-pres-de-moi".
-    const routes = (cfg.site as unknown as { routes?: Record<string, string> }).routes ?? {};
-    const routeValues = Object.values(routes);
+    const expectedSlug = TENANT_BOROUGH_ROUTE[id];
+    if (!expectedSlug) continue; // no required borough route for this tenant (future tenant)
 
-    if (!routeValues.includes("tarifs") && !routeValues.includes("/tarifs")) {
+    const routes: readonly string[] = cfg.site.routes;
+    if (!routes.includes(expectedSlug)) {
       errors.push(
         err(
           id,
           "P4-route",
-          `site.routes missing pricing route ("tarifs") — expected before Phase 4 goes live`,
+          `site.routes missing required borough near-me route "${expectedSlug}" — add it to routes[] (not nav[])`,
         ),
       );
     }
@@ -814,6 +827,8 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
   errors.push(...checkCrossTenantOverlap());
   // P4 04-04 — comparison answerBlock presence (≥2 sentences per comparison route).
   errors.push(...checkComparisonAnswerBlockPresence());
+  // P4 04-05 — route presence: borough near-me slug in site.routes per tenant.
+  errors.push(...checkRoutePresence());
 
   for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
