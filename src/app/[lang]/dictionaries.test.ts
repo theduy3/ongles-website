@@ -138,4 +138,23 @@ describe("getDictionary (integration — no DB in test env)", () => {
     const en = await getDictionary("en");
     expect(fr).not.toBe(en);
   });
+
+  // WHY: Phase-04 comparison pages render `dict.comparison.decisionHeading` at
+  // request time. The `Dictionary` TYPE derives from src/dictionaries/en.json, so
+  // adding a key there type-checks even when the RUNTIME source (config/base
+  // content) lacks it — the page then 500s on `dict.comparison` undefined. These
+  // assert the key exists in the composed runtime dict, not just the type.
+  it("fr runtime dict exposes comparison.decisionHeading (renders Phase-04 pages)", async () => {
+    const dict = await getDictionary("fr");
+    expect(dict.comparison?.decisionHeading).toBeDefined();
+    expect(typeof dict.comparison.decisionHeading).toBe("string");
+    expect(dict.comparison.decisionHeading.length).toBeGreaterThan(0);
+  });
+
+  it("en runtime dict exposes comparison.decisionHeading (locale parity)", async () => {
+    const dict = await getDictionary("en");
+    expect(dict.comparison?.decisionHeading).toBeDefined();
+    expect(typeof dict.comparison.decisionHeading).toBe("string");
+    expect(dict.comparison.decisionHeading.length).toBeGreaterThan(0);
+  });
 });
