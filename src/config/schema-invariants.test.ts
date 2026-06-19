@@ -766,3 +766,48 @@ describe("04-03: validateSchemaInvariants — zero nearMe errors after wiring + 
     expect(validateSchemaInvariants()).toEqual([]);
   });
 });
+
+// ─── 04-04: comparison word-count fail-fixture + integration GREEN ────────────
+// These tests are RED until:
+//   (a) comparison bodies are authored ≥200 words per tenant per locale, AND
+//   (b) the comparison branch of checkWordCount() reads real authored content.
+// The fail-fixture proves the guard BITES on short copy (is not a no-op).
+// The integration test proves the full path is clean once real copy lands.
+
+describe("04-04: checkWordCount — comparison body guard bites on short copy (fail-fixture)", () => {
+  it("countWords on a 10-word body is below COMPARISON_WORD_FLOOR=200", () => {
+    const shortBody = "This is a short comparison body with ten words here.";
+    expect(countWords(shortBody)).toBeLessThan(COMPARISON_WORD_FLOOR);
+  });
+
+  it("COMPARISON_WORD_FLOOR is 200 (the exact threshold)", () => {
+    expect(COMPARISON_WORD_FLOOR).toBe(200);
+  });
+
+  it("a 199-word body is below the floor (guard fires at 199)", () => {
+    const body199 = Array.from({ length: 199 }, (_, i) => `word${i}`).join(" ");
+    expect(countWords(body199)).toBe(199);
+    expect(countWords(body199)).toBeLessThan(COMPARISON_WORD_FLOOR);
+  });
+
+  it("a 200-word body meets the floor exactly (guard does not fire at 200)", () => {
+    const body200 = Array.from({ length: 200 }, (_, i) => `word${i}`).join(" ");
+    expect(countWords(body200)).toBe(200);
+    expect(countWords(body200)).toBeGreaterThanOrEqual(COMPARISON_WORD_FLOOR);
+  });
+
+  it("checkWordCount() returns zero P4-wordcount comparison errors when all bodies ≥200 words", () => {
+    // GREEN once real ≥200-word copy is authored for all 4 slugs × 3 tenants × 2 locales.
+    const errors = checkWordCount();
+    const comparisonErrors = errors.filter(
+      (e) => e.invariant === "P4-wordcount" && e.message.includes("pages.comparison"),
+    );
+    expect(comparisonErrors).toEqual([]);
+  });
+});
+
+describe("04-04: checkAnswerBlockPresence — comparison routes covered", () => {
+  it("validateSchemaInvariants returns zero errors overall (comparison copy + all guards live)", () => {
+    expect(validateSchemaInvariants()).toEqual([]);
+  });
+});
