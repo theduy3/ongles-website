@@ -23,6 +23,16 @@ export type Service = {
   photo: boolean; // true once public/images/services/<id>.webp exists
 };
 
+// A single FAQ entry. `a` is ALWAYS clean plain text so faqPageGraph's
+// acceptedAnswer.text stays link-free (D-30); an optional `link` is rendered as a
+// separate inline anchor by the Accordion, never spliced into `a`. Compatible with
+// the base dictionaries `{q,a}` shape (link is optional).
+export type FaqItem = {
+  q: string;
+  a: string;
+  link?: { href: string; label: string };
+};
+
 export type Location = {
   id: string;
   name: string;
