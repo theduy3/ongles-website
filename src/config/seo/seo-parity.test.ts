@@ -94,3 +94,72 @@ describe("F-02: dictionaries faq.items FR/EN parity", () => {
     }
   });
 });
+
+// ─── F-02 extension: Phase-3 answerBlock + per-tenant FAQ parity ──────────────
+// Guards FR/EN drift as 03-04 authors answerBlock/answerHeading and 03-03 authors
+// per-tenant faq.{locale}.json. Passes now (identical empty strings / 0 items).
+
+import mailyFaqFr from "../tenants/ongles-maily/faq.fr.json";
+import mailyFaqEn from "../tenants/ongles-maily/faq.en.json";
+import charlesbourgFaqFr from "../tenants/ongles-charlesbourg/faq.fr.json";
+import charlesbourgFaqEn from "../tenants/ongles-charlesbourg/faq.en.json";
+import rivieresFaqFr from "../tenants/ongles-rivieres/faq.fr.json";
+import rivieresFaqEn from "../tenants/ongles-rivieres/faq.en.json";
+
+type SeoDoc = {
+  meta: Record<string, string>;
+  services: Record<string, Record<string, string>>;
+  locations: { answerBlock: string; answerHeading: string };
+};
+type FaqDoc = { items: Array<Record<string, string>> };
+
+const seoTenantPairs: Array<[string, SeoDoc, SeoDoc]> = [
+  ["ongles-maily", mailyFr as unknown as SeoDoc, mailyEn as unknown as SeoDoc],
+  ["ongles-charlesbourg", charlesbourgFr as unknown as SeoDoc, charlesbourgEn as unknown as SeoDoc],
+  ["ongles-rivieres", rivieresFr as unknown as SeoDoc, rivieresEn as unknown as SeoDoc],
+];
+
+const faqTenantPairs: Array<[string, FaqDoc, FaqDoc]> = [
+  ["ongles-maily", mailyFaqFr as FaqDoc, mailyFaqEn as FaqDoc],
+  ["ongles-charlesbourg", charlesbourgFaqFr as FaqDoc, charlesbourgFaqEn as FaqDoc],
+  ["ongles-rivieres", rivieresFaqFr as FaqDoc, rivieresFaqEn as FaqDoc],
+];
+
+describe("F-02 extension: seo answerBlock/answerHeading key parity FR/EN per tenant", () => {
+  for (const [name, fr, en] of seoTenantPairs) {
+    it(`${name}: service keyPaths identical fr/en for all service ids`, () => {
+      for (const slug of SERVICE_IDS) {
+        expect(keyPaths(fr.services[slug])).toEqual(keyPaths(en.services[slug]));
+      }
+    });
+
+    it(`${name}: home/services/locations + per-service answer keys defined in both locales`, () => {
+      for (const doc of [fr, en]) {
+        expect(typeof doc.meta.homeAnswerBlock).toBe("string");
+        expect(typeof doc.meta.homeAnswerHeading).toBe("string");
+        expect(typeof doc.meta.servicesAnswerBlock).toBe("string");
+        expect(typeof doc.meta.servicesAnswerHeading).toBe("string");
+        expect(typeof doc.locations.answerBlock).toBe("string");
+        expect(typeof doc.locations.answerHeading).toBe("string");
+        for (const slug of SERVICE_IDS) {
+          expect(typeof doc.services[slug].answerBlock).toBe("string");
+          expect(typeof doc.services[slug].answerHeading).toBe("string");
+        }
+      }
+    });
+  }
+});
+
+describe("F-02 extension: per-tenant faq.{locale}.json key parity", () => {
+  for (const [name, fr, en] of faqTenantPairs) {
+    it(`${name}: faq items arrays have the same length`, () => {
+      expect(fr.items.length).toBe(en.items.length);
+    });
+
+    it(`${name}: every faq item has identical key structure fr/en`, () => {
+      for (let i = 0; i < en.items.length; i++) {
+        expect(keyPaths(fr.items[i])).toEqual(keyPaths(en.items[i]));
+      }
+    });
+  }
+});
