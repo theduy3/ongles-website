@@ -47,6 +47,13 @@ export function Header({
   // Anchor hrefs prefixed with the active locale so they scroll from any route.
   const href = (h: string) => (h === "/" ? `/${locale}` : `/${locale}${h}`);
 
+  // For nav items with locale-distinct slugs (e.g. /tarifs vs /pricing),
+  // resolve the correct href for the active locale before applying the prefix.
+  const navHref = (item: (typeof site.nav)[number]) => {
+    const resolved = item.hrefByLocale?.[locale] ?? item.href;
+    return href(resolved);
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-espresso/10 bg-cream/90 text-espresso backdrop-blur">
       <div className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -63,7 +70,7 @@ export function Header({
           {site.nav.map((item) => (
             <Link
               key={item.key}
-              href={href(item.href)}
+              href={navHref(item)}
               className="text-[13px] uppercase tracking-[0.12em] text-espresso/80 transition-colors hover:text-espresso"
             >
               {dict.nav[item.key as keyof typeof dict.nav]}
@@ -109,7 +116,7 @@ export function Header({
               {site.nav.map((item) => (
                 <Link
                   key={item.key}
-                  href={href(item.href)}
+                  href={navHref(item)}
                   onClick={() => setOpen(false)}
                   className="py-2 text-sm uppercase tracking-[0.12em] text-espresso/80 transition-colors hover:text-espresso"
                 >
