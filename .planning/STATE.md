@@ -5,8 +5,8 @@ milestone_name: milestone
 current_phase: 04
 current_phase_name: net-new-pages
 status: complete
-stopped_at: Phase 4 complete — UAT verified live (all 3 tenants), deployed
-last_updated: "2026-06-19T10:45:00.000Z"
+stopped_at: Phase 5 context gathered
+last_updated: "2026-06-19T12:21:57.159Z"
 progress:
   total_phases: 6
   completed_phases: 4
@@ -147,10 +147,10 @@ None at roadmap creation.
 
 ## Session Continuity
 
-**Stopped at:** Phase 4 context gathered
-**Resume file:** .planning/phases/04-net-new-pages/04-CONTEXT.md
+**Stopped at:** Phase 5 context gathered
+**Resume file:** .planning/phases/05-llms-txt-depth-measurement/05-CONTEXT.md
 
-**Last session:** 2026-06-19T06:01:04.876Z
+**Last session:** 2026-06-19T12:21:57.154Z
 **Completed this session:** Phase 3 (Content Depth) executed inline (Opus, TDD). 03-01 RED foundation (splitter D-13, unwired D-05/D-11 guards, stubs, parity); 03-02 shared runtime (FaqItem, getTenantFaq, AnswerBlock, Accordion link); 03-03 FAQ depth (base de-tenanted to 9, per-tenant faq ≥13 → union 22/tenant/locale, /faq union F-01); 03-04 answer blocks (distinct copy + AnswerBlock first-in-main, single h1 on 4 page types); 03-05 guards wired build-blocking + gate-bites tests + 03-UAT.md. 282 tests pass, build green, frozen-lockfile OK. 15 commits (bce3d8b…2f77d85).
 
 **Next action:** Verify live deploy on the 3 tenant hosts + run 03-UAT.md SC-4 spot-check. Then Phase 4 (Net-New Pages) — `/gsd-plan-phase 4`.
