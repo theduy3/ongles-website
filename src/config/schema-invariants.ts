@@ -719,6 +719,39 @@ function checkFaqCompleteness(): SchemaInvariantError[] {
  * Pure function — no process.env reads, no network, no side effects.
  * Alias-free — safe to call from next.config.ts (SWC require-hook constraint).
  */
+/**
+ * P4 — nearMe word-count gate (LIVE from 04-03).
+ *
+ * Checks only pages.nearMe.answerBlock >= NEAR_ME_WORD_FLOOR per tenant per
+ * locale. The comparison body floor is deferred to 04-05 (activated once all
+ * comparison page bodies are authored).
+ *
+ * This is a narrow scope of checkWordCount() called from validateSchemaInvariants()
+ * so the build gate applies to nearMe content only this slice.
+ */
+function checkNearMeWordCount(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+  for (const id of Object.keys(TENANT_SEO)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    for (const locale of CONTENT_LOCALES) {
+      const seo = TENANT_SEO[id]?.[locale];
+      if (!seo || !seo.pages) continue;
+      const nearMeBlock = seo.pages.nearMe?.answerBlock ?? "";
+      const nearMeWc = countWords(nearMeBlock);
+      if (nearMeWc < NEAR_ME_WORD_FLOOR) {
+        errors.push(
+          err(
+            id,
+            "P4-wordcount",
+            `pages.nearMe.answerBlock (${locale}) has ${nearMeWc} words — below floor ${NEAR_ME_WORD_FLOOR}`,
+          ),
+        );
+      }
+    }
+  }
+  return errors;
+}
+
 export function validateSchemaInvariants(): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
 
@@ -731,6 +764,11 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
   // D-05 / D-11 — Phase 3 content-depth gates, now LIVE (build-blocking).
   errors.push(...checkFaqFloor());
   errors.push(...checkAnswerBlockPresence());
+
+  // P4 04-03 — nearMe word-count + cross-tenant overlap gates, now LIVE.
+  // Comparison body word-count is deferred to 04-05 (bodies empty until then).
+  errors.push(...checkNearMeWordCount());
+  errors.push(...checkCrossTenantOverlap());
 
   for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
