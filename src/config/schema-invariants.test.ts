@@ -21,7 +21,59 @@
  */
 
 import { describe, it, expect } from "bun:test";
-import { validateSchemaInvariants, assertSchemaInvariants, validateFaqCompleteness } from "./schema-invariants";
+import {
+  validateSchemaInvariants,
+  assertSchemaInvariants,
+  validateFaqCompleteness,
+  splitSentences,
+  countWords,
+  FAQ_FLOOR,
+  ANSWER_BLOCK_MIN_SENTENCES,
+} from "./schema-invariants";
+
+// ─── D-13: offline sentence splitter + word counter ──────────────────────────
+// Pure-TS, dependency-free. Must NOT split on Quebec postal codes, French/English
+// abbreviations, or decimals — those are the failure modes that wrongly inflate
+// the answer-block sentence count (D-11). RED until splitSentences/countWords land.
+
+describe("D-13: offline sentence splitter", () => {
+  it("does not split on a Quebec postal code (G1C 5R9)", () => {
+    expect(splitSentences("Le salon est au G1C 5R9. Venez nous voir.")).toHaveLength(2);
+  });
+
+  it("does not split on the abbreviation 'etc.'", () => {
+    expect(splitSentences("Ouvert 7 jours, etc. Réservez en ligne.")).toHaveLength(2);
+  });
+
+  it("does not split on a decimal price (40.50)", () => {
+    expect(splitSentences("Le forfait coûte 40.50 $ environ. Aucun dépôt requis.")).toHaveLength(2);
+  });
+
+  it("does not split on the abbreviation 'Mme'", () => {
+    expect(splitSentences("Mme Tremblay vous accueille. Bienvenue.")).toHaveLength(2);
+  });
+
+  it("counts a single sentence as 1", () => {
+    expect(splitSentences("Une seule phrase ici.")).toHaveLength(1);
+  });
+
+  it("counts an empty string as 0 sentences", () => {
+    expect(splitSentences("")).toHaveLength(0);
+  });
+
+  it("counts a whitespace-only string as 0 sentences", () => {
+    expect(splitSentences("   \n  ")).toHaveLength(0);
+  });
+
+  it("countWords('from around 40 dollars') === 4", () => {
+    expect(countWords("from around 40 dollars")).toBe(4);
+  });
+
+  it("exposes FAQ_FLOOR=20 and ANSWER_BLOCK_MIN_SENTENCES=2 as named constants", () => {
+    expect(FAQ_FLOOR).toBe(20);
+    expect(ANSWER_BLOCK_MIN_SENTENCES).toBe(2);
+  });
+});
 
 // ─── Main invariant runner ────────────────────────────────────────────────────
 

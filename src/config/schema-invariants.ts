@@ -71,6 +71,61 @@ function err(
   return { tenantId, invariant, message };
 }
 
+// ─── Phase 3 content-depth constants + offline text utils (D-05/D-11/D-13) ──────
+
+/** D-05 — minimum merged (base + tenant) FAQ items per tenant per locale. */
+export const FAQ_FLOOR = 20 as const;
+/** D-11 — minimum sentences in a non-empty answer block. */
+export const ANSWER_BLOCK_MIN_SENTENCES = 2 as const;
+
+/**
+ * D-13 — abbreviation periods that must NOT be read as sentence boundaries.
+ * These are titles/units that always precede a noun (e.g. "Mme. Tremblay",
+ * "av. Royale"). "etc" is deliberately EXCLUDED: it commonly closes a sentence
+ * ("…, etc. Réservez …" is two sentences), pinned by schema-invariants.test.ts.
+ */
+const PROTECTED_ABBREVS = [
+  "M", "Mme", "Mlle", "Me", "Dr", "Dre",
+  "St", "Ste", "av", "bd", "boul", "no", "vol", "vs", "env", "approx", "p", "pp",
+] as const;
+
+const DOT = ""; // placeholder for a protected period
+const ELLIPSIS = ""; // placeholder for a protected "..."
+
+/**
+ * Pure, dependency-free sentence splitter (D-13). Protects decimals, ellipsis,
+ * and title/unit abbreviation periods, then splits on sentence-ending punctuation
+ * followed by whitespace and a capital/opening-quote. Alias-free so it is safe to
+ * run inside the next.config.ts build guard (SWC require-hook constraint).
+ */
+export function splitSentences(text: string): string[] {
+  if (typeof text !== "string") return [];
+  const trimmed = text.trim();
+  if (trimmed.length === 0) return [];
+
+  let s = trimmed
+    .replace(/(\d)\.(\d)/g, `$1${DOT}$2`) // decimals: 40.50
+    .replace(/\.\.\./g, ELLIPSIS); // ellipsis
+
+  const abbrevRe = new RegExp(`\\b(${PROTECTED_ABBREVS.join("|")})\\.`, "g");
+  s = s.replace(abbrevRe, `$1${DOT}`);
+
+  return s
+    .split(/(?<=[.!?])\s+(?=[A-ZÀÂÄÉÈÊËÎÏÔÙÛÜ"«])/)
+    .map((part) =>
+      part.replaceAll(DOT, ".").replaceAll(ELLIPSIS, "...").trim(),
+    )
+    .filter((part) => part.length > 0);
+}
+
+/** Pure word counter (D-13) — whitespace-delimited tokens, 0 for empty input. */
+export function countWords(text: string): number {
+  if (typeof text !== "string") return 0;
+  const t = text.trim();
+  if (t.length === 0) return 0;
+  return t.split(/\s+/).length;
+}
+
 // ─── Per-invariant checkers ───────────────────────────────────────────────────
 
 /**
