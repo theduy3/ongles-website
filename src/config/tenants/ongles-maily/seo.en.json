@@ -22,10 +22,10 @@
     "termsDescription": "Salon policies for Ongles Maily: appointments, cancellations, deposits, gift cards, health & safety and more.",
     "privacyTitle": "Privacy Policy — Ongles Maily",
     "privacyDescription": "How Ongles Maily collects, uses and protects your personal information.",
-    "homeAnswerBlock": "",
-    "homeAnswerHeading": "",
-    "servicesAnswerBlock": "",
-    "servicesAnswerHeading": ""
+    "homeAnswerBlock": "Ongles Maily is a nail salon at Carrefour Beauport in Québec City, offering nail enhancements, fills, manicures and pedicures. The salon is hygiene-focused, with tools disinfected after every client, and welcomes both walk-ins and appointments.",
+    "homeAnswerHeading": "Ongles Maily — nail salon at Carrefour Beauport",
+    "servicesAnswerBlock": "Ongles Maily offers four core services: nail enhancements (full set), fills, hand care and foot care. Pricing depends on the service and finishes; a full set sits in an affordable range and a fill costs less than a new set.",
+    "servicesAnswerHeading": "Nail services at Ongles Maily"
   },
   "services": {
     "pose-ongles": {
@@ -33,32 +33,32 @@
       "metaDescription": "Full set nail enhancements with or without extensions at Ongles Maily, Carrefour Beauport. Nail art, multiple colours, hygiene-first. From $60.",
       "schemaDescription": "Full set nail enhancements with or without extensions at Ongles Maily, Carrefour Beauport. Nail art, multiple colours, hygiene-first. From $60.",
       "heroAlt": "Beautiful nail enhancements — full set at Ongles Maily, Carrefour Beauport",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A nail enhancement is a full set, with or without extensions, shaped and finished to your taste. At Ongles Maily, in Carrefour Beauport, the service includes shaping and colour at an affordable price range.",
+      "answerHeading": "Nail enhancements at Carrefour Beauport"
     },
     "remplissage": {
       "metaTitle": "Nail Fill at Ongles Maily | Carrefour Beauport, Québec",
       "metaDescription": "Professional nail fill every 2–3 weeks at Ongles Maily, Carrefour Beauport. Keep your enhancements fresh and strong. From $45.",
       "schemaDescription": "Professional nail fill every 2–3 weeks at Ongles Maily, Carrefour Beauport. Keep your enhancements fresh and strong. From $45.",
       "heroAlt": "Professional nail fill in progress at Ongles Maily, Carrefour Beauport",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A fill maintains an existing set by filling in regrowth at the base of the nail, usually every 2 to 3 weeks. At Ongles Maily it costs less than a new set and keeps your nails neat and strong for longer.",
+      "answerHeading": "Nail fills"
     },
     "soins-mains": {
       "metaTitle": "Manicure at Ongles Maily | Carrefour Beauport, Québec",
       "metaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Maily, Carrefour Beauport, Québec. From $30.",
       "schemaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Maily, Carrefour Beauport, Québec. From $30.",
       "heroAlt": "Professional manicure with polish at Ongles Maily, Carrefour Beauport",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A manicure includes nail shaping, cuticle care and a regular or gel polish finish. At Ongles Maily it is an affordable, quick service, ideal for keeping your hands well-groomed.",
+      "answerHeading": "Manicures & hand care"
     },
     "soins-pieds": {
       "metaTitle": "Pedicure at Ongles Maily | Carrefour Beauport, Québec",
       "metaDescription": "Professional pedicure in sanitized stations at Ongles Maily, Carrefour Beauport, Québec. Toenail care, cuticle treatment and polish. From $35.",
       "schemaDescription": "Professional pedicure in sanitized stations at Ongles Maily, Carrefour Beauport, Québec. Toenail care, cuticle treatment and polish. From $35.",
       "heroAlt": "Professional pedicure in a sanitized station at Ongles Maily, Carrefour Beauport",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A pedicure takes place in a sanitized station and covers toenail care, cuticles and a polish finish. At Ongles Maily, in Beauport, hygiene is rigorous and the service leaves your feet clean and comfortable.",
+      "answerHeading": "Pedicures & foot care"
     }
   },
   "org": {
@@ -85,7 +85,7 @@
     }
   },
   "locations": {
-    "answerBlock": "",
-    "answerHeading": ""
+    "answerBlock": "Ongles Maily is located at Carrefour Beauport, 3333 Rue du Carrefour, in Québec City, with plenty of free parking. Book online any time or call (418) 660-8228; walk-ins are welcome too.",
+    "answerHeading": "Find us & book"
   }
 }

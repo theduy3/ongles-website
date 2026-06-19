@@ -22,10 +22,10 @@
     "termsDescription": "Salon policies for Ongles Rivières: appointments, cancellations, deposits, gift cards, health & safety and more.",
     "privacyTitle": "Privacy Policy — Ongles Rivières",
     "privacyDescription": "How Ongles Rivières collects, uses and protects your personal information.",
-    "homeAnswerBlock": "",
-    "homeAnswerHeading": "",
-    "servicesAnswerBlock": "",
-    "servicesAnswerHeading": ""
+    "homeAnswerBlock": "Ongles Rivières is a nail salon at Centre Les Rivières in Trois-Rivières. It offers nail enhancements, fills, manicures and pedicures, with rigorous hygiene and a welcome for walk-ins and appointments alike.",
+    "homeAnswerHeading": "Ongles Rivières — nail salon at Centre Les Rivières",
+    "servicesAnswerBlock": "Ongles Rivières offers nail enhancements (full set), fills, hand care and foot care. The price varies with the service and finishes; a full set starts at an affordable rate and a fill costs less than a new set.",
+    "servicesAnswerHeading": "Nail services at Ongles Rivières"
   },
   "services": {
     "pose-ongles": {
@@ -33,32 +33,32 @@
       "metaDescription": "Full set nail enhancements with or without extensions at Ongles Rivières, Centre Les Rivières. Nail art, multiple colours, hygiene-first. From $60.",
       "schemaDescription": "Full set nail enhancements with or without extensions at Ongles Rivières, Centre Les Rivières. Nail art, multiple colours, hygiene-first. From $60.",
       "heroAlt": "Beautiful nail enhancements — full set at Ongles Rivières, Centre Les Rivières",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A nail enhancement is a full set, with or without extensions, shaped and coloured to your taste. At Centre Les Rivières the service includes shaping and finishing at an affordable rate.",
+      "answerHeading": "Nail enhancements at Centre Les Rivières"
     },
     "remplissage": {
       "metaTitle": "Nail Fill at Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Professional nail fill every 2–3 weeks at Ongles Rivières, Centre Les Rivières. Keep your enhancements fresh and strong. From $45.",
       "schemaDescription": "Professional nail fill every 2–3 weeks at Ongles Rivières, Centre Les Rivières. Keep your enhancements fresh and strong. From $45.",
       "heroAlt": "Professional nail fill in progress at Ongles Rivières, Centre Les Rivières",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A fill maintains a set by filling regrowth at the base of the nail, usually every 2 to 3 weeks. At Ongles Rivières it costs less than a new set and keeps your nails strong.",
+      "answerHeading": "Nail fills"
     },
     "soins-mains": {
       "metaTitle": "Manicure at Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Rivières, Centre Les Rivières, Québec. From $30.",
       "schemaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Rivières, Centre Les Rivières, Québec. From $30.",
       "heroAlt": "Professional manicure with polish at Ongles Rivières, Centre Les Rivières",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A manicure includes nail shaping, cuticle care and a regular or gel polish finish. At the Trois-Rivières salon it is a quick, affordable service for well-groomed hands.",
+      "answerHeading": "Manicures & hand care"
     },
     "soins-pieds": {
       "metaTitle": "Pedicure at Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Professional pedicure in sanitized stations at Ongles Rivières, Centre Les Rivières, Québec. Toenail care, cuticle treatment and polish. From $35.",
       "schemaDescription": "Professional pedicure in sanitized stations at Ongles Rivières, Centre Les Rivières, Québec. Toenail care, cuticle treatment and polish. From $35.",
       "heroAlt": "Professional pedicure in a sanitized station at Ongles Rivières, Centre Les Rivières",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A pedicure takes place in a sanitized station and includes toenail care, cuticles and polish. At Ongles Rivières, hygiene is a priority for clean, refreshed feet.",
+      "answerHeading": "Pedicures & foot care"
     }
   },
   "org": {
@@ -85,7 +85,7 @@
     }
   },
   "locations": {
-    "answerBlock": "",
-    "answerHeading": ""
+    "answerBlock": "Ongles Rivières is located at Centre Les Rivières, 4225 boulevard des Forges, in Trois-Rivières, with plenty of free parking. Book online or phone (819) 378-8228; walk-in visits are welcome based on availability.",
+    "answerHeading": "Find us & book"
   }
 }

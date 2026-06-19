@@ -22,10 +22,10 @@
     "termsDescription": "Politiques du salon Ongles Rivières : rendez-vous, annulations, dépôts, certificats cadeaux, santé et sécurité et plus encore.",
     "privacyTitle": "Politique de confidentialité — Ongles Rivières",
     "privacyDescription": "Comment Ongles Rivières collecte, utilise et protège vos renseignements personnels.",
-    "homeAnswerBlock": "",
-    "homeAnswerHeading": "",
-    "servicesAnswerBlock": "",
-    "servicesAnswerHeading": ""
+    "homeAnswerBlock": "Ongles Rivières est un salon d'ongles au Centre Les Rivières, à Trois-Rivières. Il propose la pose d'ongles, le remplissage, la manucure et la pédicure, avec une hygiène rigoureuse et un accueil avec ou sans rendez-vous.",
+    "homeAnswerHeading": "Ongles Rivières — salon d'ongles au Centre Les Rivières",
+    "servicesAnswerBlock": "Ongles Rivières offre la pose d'ongles (set complet), le remplissage, les soins des mains et les soins des pieds. Le prix varie selon le service et les finitions; la pose débute à un tarif abordable et le remplissage coûte moins qu'une nouvelle pose.",
+    "servicesAnswerHeading": "Services d'ongles chez Ongles Rivières"
   },
   "services": {
     "pose-ongles": {
@@ -33,32 +33,32 @@
       "metaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles Rivières, Centre Les Rivières. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
       "schemaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles Rivières, Centre Les Rivières. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
       "heroAlt": "Belle pose d'ongles complète chez Ongles Rivières, Centre Les Rivières",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "La pose d'ongles est l'application d'un set complet, avec ou sans rallonges, façonné et coloré à votre goût. Au Centre Les Rivières, le service comprend la mise en forme et la finition, à un tarif abordable.",
+      "answerHeading": "Pose d'ongles au Centre Les Rivières"
     },
     "remplissage": {
       "metaTitle": "Remplissage chez Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles Rivières, Centre Les Rivières. Gardez votre pose fraîche et solide. À partir de 45 $.",
       "schemaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles Rivières, Centre Les Rivières. Gardez votre pose fraîche et solide. À partir de 45 $.",
       "heroAlt": "Remplissage d'ongles professionnel en cours chez Ongles Rivières, Centre Les Rivières",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "Le remplissage entretient une pose en comblant la repousse à la base de l'ongle, en général toutes les 2 à 3 semaines. Chez Ongles Rivières, il revient moins cher qu'une nouvelle pose et garde vos ongles solides.",
+      "answerHeading": "Remplissage d'ongles"
     },
     "soins-mains": {
       "metaTitle": "Soins des mains chez Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles Rivières, Centre Les Rivières, Québec. À partir de 30 $.",
       "schemaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles Rivières, Centre Les Rivières, Québec. À partir de 30 $.",
       "heroAlt": "Manucure professionnelle avec vernis chez Ongles Rivières, Centre Les Rivières",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "La manucure comprend la mise en forme des ongles, le soin des cuticules et un vernis régulier ou gel. Au salon de Trois-Rivières, c'est un service rapide et abordable pour des mains soignées.",
+      "answerHeading": "Manucure et soins des mains"
     },
     "soins-pieds": {
       "metaTitle": "Soins des pieds chez Ongles Rivières | Centre Les Rivières, Québec",
       "metaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles Rivières, Centre Les Rivières, Québec. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
       "schemaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles Rivières, Centre Les Rivières, Québec. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
       "heroAlt": "Pédicure professionnelle dans un poste assaini chez Ongles Rivières, Centre Les Rivières",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "La pédicure se déroule dans un poste assaini et comprend le soin des ongles d'orteils, des cuticules et la pose de vernis. Chez Ongles Rivières, l'hygiène est une priorité pour des pieds propres et reposés.",
+      "answerHeading": "Pédicure et soins des pieds"
     }
   },
   "org": {
@@ -85,7 +85,7 @@
     }
   },
   "locations": {
-    "answerBlock": "",
-    "answerHeading": ""
+    "answerBlock": "Ongles Rivières est situé au Centre Les Rivières, 4225 boulevard des Forges, à Trois-Rivières, avec un grand stationnement gratuit. Réservez en ligne ou téléphonez au (819) 378-8228; les visites sans rendez-vous sont les bienvenues selon la disponibilité.",
+    "answerHeading": "Nous trouver et réserver"
   }
 }

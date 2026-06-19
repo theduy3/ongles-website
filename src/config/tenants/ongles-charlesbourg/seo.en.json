@@ -22,10 +22,10 @@
     "termsDescription": "Salon policies for Ongles Charlesbourg: appointments, cancellations, deposits, gift cards, health & safety and more.",
     "privacyTitle": "Privacy Policy — Ongles Charlesbourg",
     "privacyDescription": "How Ongles Charlesbourg collects, uses and protects your personal information.",
-    "homeAnswerBlock": "",
-    "homeAnswerHeading": "",
-    "servicesAnswerBlock": "",
-    "servicesAnswerHeading": ""
+    "homeAnswerBlock": "Ongles Charlesbourg is a nail salon at Carrefour Charlesbourg in Québec City, on boulevard Henri-Bourassa. It offers nail enhancements, fills, manicures and pedicures with a strong focus on hygiene, by appointment or walk-in.",
+    "homeAnswerHeading": "Ongles Charlesbourg — nail salon at Carrefour Charlesbourg",
+    "servicesAnswerBlock": "Ongles Charlesbourg provides nail enhancements (full set), fills, hand care and foot care. Rates depend on the service and finishes chosen; a full set starts at a reasonable price and a fill costs less than a new set.",
+    "servicesAnswerHeading": "Nail services at Ongles Charlesbourg"
   },
   "services": {
     "pose-ongles": {
@@ -33,32 +33,32 @@
       "metaDescription": "Full set nail enhancements with or without extensions at Ongles Charlesbourg, Carrefour Charlesbourg. Nail art, multiple colours, hygiene-first. From $60.",
       "schemaDescription": "Full set nail enhancements with or without extensions at Ongles Charlesbourg, Carrefour Charlesbourg. Nail art, multiple colours, hygiene-first. From $60.",
       "heroAlt": "Beautiful nail enhancements — full set at Ongles Charlesbourg, Carrefour Charlesbourg",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A nail enhancement applies a full set, with or without extensions, shaped and coloured to your preference. At Carrefour Charlesbourg the service includes shaping and finishing at a reasonable rate.",
+      "answerHeading": "Nail enhancements at Carrefour Charlesbourg"
     },
     "remplissage": {
       "metaTitle": "Nail Fill at Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
       "metaDescription": "Professional nail fill every 2–3 weeks at Ongles Charlesbourg, Carrefour Charlesbourg. Keep your enhancements fresh and strong. From $45.",
       "schemaDescription": "Professional nail fill every 2–3 weeks at Ongles Charlesbourg, Carrefour Charlesbourg. Keep your enhancements fresh and strong. From $45.",
       "heroAlt": "Professional nail fill in progress at Ongles Charlesbourg, Carrefour Charlesbourg",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A fill refreshes an existing set by filling regrowth at the base of the nail, generally every 2 to 3 weeks. At Ongles Charlesbourg it costs less than a new set and extends how long your nails last.",
+      "answerHeading": "Nail fills"
     },
     "soins-mains": {
       "metaTitle": "Manicure at Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
       "metaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Charlesbourg, Carrefour Charlesbourg, Québec. From $30.",
       "schemaDescription": "Professional manicure with polish, cuticle care and nail shaping at Ongles Charlesbourg, Carrefour Charlesbourg, Québec. From $30.",
       "heroAlt": "Professional manicure with polish at Ongles Charlesbourg, Carrefour Charlesbourg",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A manicure covers nail shaping, cuticle care and a regular or gel polish finish. At the Charlesbourg salon it is a careful, affordable service for well-kept hands.",
+      "answerHeading": "Manicures & hand care"
     },
     "soins-pieds": {
       "metaTitle": "Pedicure at Ongles Charlesbourg | Carrefour Charlesbourg, Québec",
       "metaDescription": "Professional pedicure in sanitized stations at Ongles Charlesbourg, Carrefour Charlesbourg, Québec. Toenail care, cuticle treatment and polish. From $35.",
       "schemaDescription": "Professional pedicure in sanitized stations at Ongles Charlesbourg, Carrefour Charlesbourg, Québec. Toenail care, cuticle treatment and polish. From $35.",
       "heroAlt": "Professional pedicure in a sanitized station at Ongles Charlesbourg, Carrefour Charlesbourg",
-      "answerBlock": "",
-      "answerHeading": ""
+      "answerBlock": "A pedicure is done in a sanitized station and includes toenail care, cuticles and polish. At Ongles Charlesbourg the focus is on hygiene for clean, comfortable feet.",
+      "answerHeading": "Pedicures & foot care"
     }
   },
   "org": {
@@ -85,7 +85,7 @@
     }
   },
   "locations": {
-    "answerBlock": "",
-    "answerHeading": ""
+    "answerBlock": "Ongles Charlesbourg is at Carrefour Charlesbourg, 8500 boulevard Henri-Bourassa, in Québec City, with free parking. Book online or call (581) 981-8228; walk-ins are accepted based on availability.",
+    "answerHeading": "Find us & book"
   }
 }
