@@ -57,6 +57,12 @@ export const site = {
       country: "CA",
     },
   },
+  // GA4 measurement ID for this salon's property. Empty = no analytics yet.
+  // Real "G-XXXXXXXXXX" collected in phase 05-05 human-verify step.
+  ga4MeasurementId: "",
+  // Hand-authored AI-discovery intro (≥200 unique words) for llms.txt.
+  // Authored in phase 05-05 once content is ready. No other tenant's city/landmark.
+  llmsDescription: "",
   nav: [
     { key: "services", href: "#services" },
     { key: "gallery", href: "#gallery" },

@@ -58,6 +58,11 @@ export const site = {
       country: "CA",
     },
   },
+  // GA4 measurement ID for this salon's property. Replace with "G-XXXXXXXXXX".
+  ga4MeasurementId: "",
+  // Hand-authored AI-discovery intro (≥200 unique words) for llms.txt.
+  // Replace with real per-salon prose before deploying.
+  llmsDescription: "",
   // Header nav = ANCHOR links into the homepage (single-page design).
   // hrefs are prefixed with /{locale} by callers. Labels: dict.nav[key].
   // Real-route entries use hrefByLocale for locale-distinct slugs (pricing, comparisons).

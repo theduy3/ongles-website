@@ -61,6 +61,12 @@ export const site = {
       country: "CA",
     },
   },
+  // GA4 measurement ID for this salon's property. Empty = no analytics yet.
+  // Real "G-XXXXXXXXXX" collected in phase 05-05 human-verify step.
+  ga4MeasurementId: "",
+  // Hand-authored AI-discovery intro (≥200 unique words) for llms.txt.
+  // Authored in phase 05-05 once content is ready. No other tenant's city/landmark.
+  llmsDescription: "",
   // Header nav = ANCHOR links into the homepage (single-page design, like the
   // live site). hrefs are prefixed with /{locale} by callers, so "#services"
   // becomes "/en#services" and scrolls from any route. Labels: dict.nav[key].
