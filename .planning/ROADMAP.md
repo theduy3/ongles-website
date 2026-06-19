@@ -147,7 +147,7 @@
 5. Trust signals and price anchors (e.g. price range, review count, credentials) appear above the fold on home and service pages
 6. `web-vitals` reports real-user INP (P75) and other Core Web Vitals to the console (or analytics endpoint) — confirmed via browser DevTools Network tab
 
-**Plans**: 1/5 plans executed
+**Plans**: 3/5 plans executed
 
 **Wave 1**
 
@@ -155,8 +155,8 @@
 
 **Wave 2** *(blocked on Wave 1)*
 
-- [ ] 05-02-PLAN.md — llms.txt slice (LLMS-01/02, LOCAL-01): leak fix + config-resolved deepened body + canonicalUrl + Phase-4 links + EN equivalents + per-tenant route test (wave 2)
-- [ ] 05-03-PLAN.md — Measurement slice (MEAS-01/02): hand-rolled next/script GA4 + Consent Mode v2 + ConsentBanner + WebVitalsReporter islands + layout test (wave 2, parallel with 05-02)
+- [x] 05-02-PLAN.md — llms.txt slice (LLMS-01/02, LOCAL-01): leak fix + config-resolved deepened body + canonicalUrl + Phase-4 links + EN equivalents + per-tenant route test (wave 2)
+- [x] 05-03-PLAN.md — Measurement slice (MEAS-01/02): hand-rolled next/script GA4 + Consent Mode v2 + ConsentBanner + WebVitalsReporter islands + layout test (wave 2, parallel with 05-02)
 
 **Wave 3** *(blocked on Wave 2)*
 
@@ -197,7 +197,7 @@
 | 2. Schema Completeness + Correctness | 4/4 | Complete | 2026-06-18 |
 | 3. Content Depth | 5/5 | Complete | 2026-06-18 |
 | 4. Net-New Pages | 5/5 | Complete   | 2026-06-19 |
-| 5. llms.txt Depth + Measurement | 1/5 | In Progress|  |
+| 5. llms.txt Depth + Measurement | 3/5 | In Progress|  |
 | 6. Cross-Tenant Correctness Audit | 0/? | Not started | - |
 
 ---
