@@ -63,6 +63,16 @@ export const site = {
     { key: "reviews", href: "#testimonials" },
     { key: "locations", href: "#location" },
     { key: "giftcards", href: "#giftcards" },
+    // Real-route nav entries (locale-distinct slugs — hrefByLocale overrides href per locale).
+    { key: "pricing", href: "/tarifs", hrefByLocale: { fr: "/tarifs", en: "/pricing" } },
+    {
+      key: "comparisons",
+      href: "/comparaisons/pose-vs-remplissage",
+      hrefByLocale: {
+        fr: "/comparaisons/pose-vs-remplissage",
+        en: "/comparisons/nail-extensions-vs-fill",
+      },
+    },
   ],
   routes: [
     "/services",

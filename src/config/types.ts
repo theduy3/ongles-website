@@ -107,7 +107,17 @@ export type TenantSite = {
       country: string;
     };
   };
-  nav: readonly { key: string; href: string }[];
+  nav: readonly {
+    key: string;
+    /** Default href (locale-prefixed by Header). Used for anchor links and same-slug routes. */
+    href: string;
+    /**
+     * Optional per-locale override hrefs for routes whose slug differs by locale
+     * (e.g. pricing: { fr: "/tarifs", en: "/pricing" }). When present, Header uses
+     * hrefByLocale[activeLocale] instead of href. Locale-prefix still applied by Header.
+     */
+    hrefByLocale?: Partial<Record<string, string>>;
+  }[];
   routes: readonly string[];
 };
 

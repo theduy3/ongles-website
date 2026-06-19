@@ -60,12 +60,23 @@ export const site = {
   },
   // Header nav = ANCHOR links into the homepage (single-page design).
   // hrefs are prefixed with /{locale} by callers. Labels: dict.nav[key].
+  // Real-route entries use hrefByLocale for locale-distinct slugs (pricing, comparisons).
   nav: [
     { key: "services", href: "#services" },
     { key: "gallery", href: "#gallery" },
     { key: "reviews", href: "#testimonials" },
     { key: "locations", href: "#location" },
     { key: "giftcards", href: "#giftcards" },
+    // Real-route nav entries (locale-distinct slugs — hrefByLocale overrides href per locale).
+    { key: "pricing", href: "/tarifs", hrefByLocale: { fr: "/tarifs", en: "/pricing" } },
+    {
+      key: "comparisons",
+      href: "/comparaisons/pose-vs-remplissage",
+      hrefByLocale: {
+        fr: "/comparaisons/pose-vs-remplissage",
+        en: "/comparisons/nail-extensions-vs-fill",
+      },
+    },
   ],
   // Real indexable page routes (feeds the sitemap; nav is anchors now).
   routes: [
