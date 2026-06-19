@@ -140,6 +140,26 @@ export function countWords(text: string): number {
   return t.split(/\s+/).length;
 }
 
+// ─── Phase 4: net-new-page guard constants (LOCKED — do not change without a plan) ──
+// These values are the canonical source of truth referenced by checkWordCount,
+// checkCrossTenantOverlap, and seo-parity.test.ts. They are exported so tests can
+// import and assert on the exact numeric contract.
+
+/** P4 — minimum word count for comparison page body sections (any slug). */
+export const COMPARISON_WORD_FLOOR = 200 as const;
+/** P4 — minimum word count for nearMe page answerBlock. */
+export const NEAR_ME_WORD_FLOOR = 150 as const;
+/** P4 — Jaccard sentence-overlap threshold above which two tenants are "too similar". */
+export const NEW_PAGE_OVERLAP_THRESHOLD = 0.30 as const;
+
+/** P4 — FR-key slugs for the comparison page namespace in seo JSON. */
+const NEW_COMPARISON_SLUGS = [
+  "pose-vs-remplissage",
+  "manucure-vs-pedicure",
+  "gel-vs-acrylique",
+  "meilleur-pour",
+] as const;
+
 // ─── D-05 FAQ floor + D-11 answer-block presence guards (UNWIRED until 03-05) ───
 // These run offline over per-tenant JSON. They are NOT yet called from
 // validateSchemaInvariants() — plan 03-05 flips the build gate once content lands,
@@ -164,6 +184,12 @@ type SeoAnswerSource = {
   meta?: Record<string, string | undefined>;
   services?: Record<string, Record<string, string | undefined> | undefined>;
   locations?: { answerBlock?: string; answerHeading?: string };
+  /** Phase 4 — net-new page content namespace (pricing / comparison / nearMe). */
+  pages?: {
+    pricing?: { answerHeading?: string; answerBlock?: string; metaTitle?: string; metaDescription?: string };
+    comparison?: Record<string, { answerHeading?: string; answerBlock?: string; body?: string; metaTitle?: string; metaDescription?: string }>;
+    nearMe?: { answerHeading?: string; answerBlock?: string; boroughName?: string; body?: string; metaTitle?: string; metaDescription?: string };
+  };
 };
 
 /** Base (shared) FAQ items per locale — de-tenanted generic answers (D-03). */
@@ -255,6 +281,189 @@ export function checkAnswerBlockPresence(): SchemaInvariantError[] {
       }
     }
   }
+  return errors;
+}
+
+// ─── Phase 4: net-new-page guards (EXPORTED, UNWIRED until 04-05) ────────────
+//
+// These functions are exported and testable offline. They are NOT called from
+// validateSchemaInvariants() yet — plan 04-05 flips the build gate after all
+// per-tenant content lands. Until then `next build` stays green.
+//
+// ALIAS-FREE CONSTRAINT: same as the rest of this module — no @/ imports.
+
+/**
+ * Pure normalized-sentence Jaccard overlap (P4 / 04-RESEARCH Q3).
+ *
+ * Algorithm:
+ *   1. Lowercase both texts, strip non-word punctuation (keep apostrophes),
+ *      collapse whitespace.
+ *   2. Split into sentences via splitSentences().
+ *   3. Compute Set Jaccard: |intersection| / |union|.
+ *
+ * Returns 1.0 for identical text, 0 for fully disjoint sets.
+ * Exported so tests can assert the overlap algorithm independently.
+ */
+export function measureSentenceOverlap(textA: string, textB: string): number {
+  // Normalize a single sentence (already split) to a canonical form for comparison.
+  const normalizeSentence = (s: string): string =>
+    s
+      .toLowerCase()
+      // strip non-word punctuation except apostrophes (French contractions)
+      .replace(/[^a-z0-9àâäéèêëîïôùûüœç'\s]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const sentencesOf = (t: string): Set<string> => {
+    // Split first (preserving periods for the splitter), then normalize each sentence.
+    const sentences = splitSentences(t);
+    return new Set(
+      sentences
+        .map(normalizeSentence)
+        .filter((s) => s.length > 0),
+    );
+  };
+
+  const setA = sentencesOf(textA);
+  const setB = sentencesOf(textB);
+
+  if (setA.size === 0 && setB.size === 0) return 1.0;
+  if (setA.size === 0 || setB.size === 0) return 0;
+
+  let intersection = 0;
+  for (const s of setA) {
+    if (setB.has(s)) intersection++;
+  }
+
+  // Jaccard = |A ∩ B| / |A ∪ B|  where |A ∪ B| = |A| + |B| - |A ∩ B|
+  const union = setA.size + setB.size - intersection;
+  return union === 0 ? 0 : intersection / union;
+}
+
+/**
+ * P4 — Word-count floor guard for net-new page bodies.
+ *
+ * Checks:
+ *   - pages.comparison.{slug}.body >= COMPARISON_WORD_FLOOR (200) per tenant per locale
+ *   - pages.nearMe.answerBlock >= NEAR_ME_WORD_FLOOR (150) per tenant per locale
+ *
+ * Reads from TENANT_SEO (module-level, imported per-tenant seo JSON).
+ * UNWIRED from validateSchemaInvariants() until 04-05.
+ */
+export function checkWordCount(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+
+  for (const id of Object.keys(TENANT_SEO)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+    for (const locale of CONTENT_LOCALES) {
+      const seo = TENANT_SEO[id]?.[locale];
+      if (!seo || !seo.pages) continue;
+
+      // Comparison page body floors
+      for (const slug of NEW_COMPARISON_SLUGS) {
+        const body = seo.pages.comparison?.[slug]?.body ?? "";
+        const wc = countWords(body);
+        if (wc < COMPARISON_WORD_FLOOR) {
+          errors.push(
+            err(
+              id,
+              "P4-wordcount",
+              `pages.comparison.${slug}.body (${locale}) has ${wc} words — below floor ${COMPARISON_WORD_FLOOR}`,
+            ),
+          );
+        }
+      }
+
+      // NearMe answerBlock floor
+      const nearMeBlock = seo.pages.nearMe?.answerBlock ?? "";
+      const nearMeWc = countWords(nearMeBlock);
+      if (nearMeWc < NEAR_ME_WORD_FLOOR) {
+        errors.push(
+          err(
+            id,
+            "P4-wordcount",
+            `pages.nearMe.answerBlock (${locale}) has ${nearMeWc} words — below floor ${NEAR_ME_WORD_FLOOR}`,
+          ),
+        );
+      }
+    }
+  }
+
+  return errors;
+}
+
+/**
+ * P4 — Cross-tenant sentence overlap guard for nearMe answerBlock.
+ *
+ * For each pair of live tenants, computes measureSentenceOverlap on
+ * pages.nearMe.answerBlock per locale. Reports an error if overlap >=
+ * NEW_PAGE_OVERLAP_THRESHOLD (0.30) — indicates insufficient differentiation
+ * between tenant copy. UNWIRED from validateSchemaInvariants() until 04-05.
+ */
+export function checkCrossTenantOverlap(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+  const ids = Object.keys(TENANT_SEO).filter((id) => !EXCLUDED_TENANTS.has(id));
+
+  for (let i = 0; i < ids.length; i++) {
+    for (let j = i + 1; j < ids.length; j++) {
+      const idA = ids[i]!;
+      const idB = ids[j]!;
+      for (const locale of CONTENT_LOCALES) {
+        const blockA = TENANT_SEO[idA]?.[locale]?.pages?.nearMe?.answerBlock ?? "";
+        const blockB = TENANT_SEO[idB]?.[locale]?.pages?.nearMe?.answerBlock ?? "";
+
+        // Skip comparison when either block is missing/empty (content not yet authored)
+        if (blockA.trim().length === 0 || blockB.trim().length === 0) continue;
+
+        const overlap = measureSentenceOverlap(blockA, blockB);
+        if (overlap >= NEW_PAGE_OVERLAP_THRESHOLD) {
+          errors.push(
+            err(
+              idA,
+              "P4-overlap",
+              `pages.nearMe.answerBlock (${locale}) overlap with "${idB}" is ${overlap.toFixed(2)} — above threshold ${NEW_PAGE_OVERLAP_THRESHOLD}`,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  return errors;
+}
+
+/**
+ * P4 — Route presence guard: asserts the pricing route slug is registered for
+ * each live tenant. The exact route-registration scheme is finalized in 04-05;
+ * for now this checks that site.routes (from TENANT_REGISTRY) contains the
+ * FR pricing route marker or reports a structured absence.
+ *
+ * Returns an empty array for tenants whose routes already include "tarifs"
+ * (FR pricing slug). Returns a warning error for tenants that don't define it yet
+ * (content scaffolded in later waves). UNWIRED from validateSchemaInvariants() until 04-05.
+ */
+export function checkRoutePresence(): SchemaInvariantError[] {
+  const errors: SchemaInvariantError[] = [];
+
+  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+    if (EXCLUDED_TENANTS.has(id)) continue;
+
+    // site.routes may be absent on older tenant configs — use optional chaining.
+    // The pricing slug in FR is "tarifs"; near-me is "salon-pres-de-moi".
+    const routes = (cfg.site as unknown as { routes?: Record<string, string> }).routes ?? {};
+    const routeValues = Object.values(routes);
+
+    if (!routeValues.includes("tarifs") && !routeValues.includes("/tarifs")) {
+      errors.push(
+        err(
+          id,
+          "P4-route",
+          `site.routes missing pricing route ("tarifs") — expected before Phase 4 goes live`,
+        ),
+      );
+    }
+  }
+
   return errors;
 }
 
