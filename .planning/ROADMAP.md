@@ -75,7 +75,12 @@
 3. The `seo-parity` CI test passes after content additions — no new FR parity gaps introduced
 4. A manual spot-check of ChatGPT or Perplexity for "[salon name] services [city]" returns at least one factual sentence drawn from the site's answer blocks or FAQ content
 
-**Plans**: TBD
+**Plans**: 5 plans
+- [ ] 03-01-PLAN.md — RED foundation: offline sentence-splitter, unwired FAQ-floor (D-05) + answer-block (D-11) guards, stub faq/seo JSON, extended FR/EN parity (wave 1)
+- [ ] 03-02-PLAN.md — Shared runtime: FaqItem type, get-tenant-faq loader (D-06 merge), AnswerBlock server component (D-18), Accordion inline-link (D-30) (wave 2)
+- [ ] 03-03-PLAN.md — FAQ depth slice: de-tenant base (D-03), author per-tenant faq.{locale}.json >=20/tenant/locale (D-04), wire /faq to union (F-01) (wave 3)
+- [ ] 03-04-PLAN.md — Answer-block slice: author answerBlock/answerHeading copy (D-08), wire AnswerBlock first-in-main + single-h1 across 4 page types (D-17/D-19) (wave 3)
+- [ ] 03-05-PLAN.md — Activate guards into build gate (D-05/D-11), fail-fixture proof, full verify, 03-UAT.md Criterion-4 manual spot-check (wave 4)
 **UI hint**: yes
 
 ---
