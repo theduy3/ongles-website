@@ -13,7 +13,8 @@ Ran the local-verifiable gates against a production build served on localhost
 | Gate | Result |
 |------|--------|
 | `bun test src/` | **357 pass / 0 fail** (was 355 + 2 new regression tests) |
-| Build guard (maily, charlesbourg) | **green** (rivieres not re-built this run) |
+| Build guard (maily, charlesbourg, rivieres) | **green — all 3 tenants** |
+| SC2+SC3 routes verified on all 3 tenants (comparison FR/EN + borough + pricing) | **200** |
 | SC1 pricing routes `/fr/tarifs` `/en/pricing` | **200 / 200**; `/en/tarifs` `/fr/pricing` → **404** (locale guard correct) |
 | SC2 comparison routes (4 FR + 4 EN) | **200 ×8** after fix (see BLOCKER below); wrong-locale → 404 |
 | SC3 near-me `/fr/beauport` (maily) `/fr/charlesbourg` (cb) | **200** |
@@ -56,7 +57,7 @@ Ran the local-verifiable gates against a production build served on localhost
 1. Visual render per tenant (gold prices, mobile no-scroll, answer-first layout).
 2. Google Rich Results on a pricing + a comparison page (needs public deploy).
 3. **Decision:** are two-column `ComparisonColumns` cards required before phase close? (see SC2 gate below).
-4. `TENANT=ongles-rivieres bun run build` — third tenant not re-built this run.
+4. ~~`TENANT=ongles-rivieres bun run build`~~ — DONE 2026-06-19: all 3 tenants build green + comparison/borough/pricing routes 200.
 5. Push to `origin/main` (triggers Dokploy deploy) — then run the post-deploy curls in this file.
 
 ---
