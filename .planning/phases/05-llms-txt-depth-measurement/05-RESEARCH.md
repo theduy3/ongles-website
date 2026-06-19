@@ -740,27 +740,27 @@ Phase 5 is NOT a rename/refactor phase — no runtime state migration required. 
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **GA4 measurement IDs for all 3 tenants**
    - What we know: GA4 properties must be created per-tenant; IDs are in format `G-XXXXXXXXXX`.
    - What's unclear: The actual IDs for ongles-charlesbourg and ongles-rivieres — the owner must create GA4 properties and provide these.
-   - Recommendation: Planner adds a `checkpoint:human-verify` task to collect GA4 IDs before the guard assertion task. The `ga4MeasurementId: ""` default makes the field optional at runtime (no script tag emitted when empty).
+   - RESOLVED: 05-05/T1 is a `checkpoint:human-verify` task collecting GA4 IDs before the guard wiring (05-05/T2). The `ga4MeasurementId: ""` default makes the field optional at runtime (no script tag emitted when empty); `checkGA4IdPresent()` is warning-level so a missing ID never blocks the build.
 
 2. **`site.llmsDescription` content for all 3 tenants**
    - What we know: Must be hand-authored, ≥200 words, no cross-tenant leakage, bilingual-friendly.
    - What's unclear: The actual prose — the owner or a copywriter provides it.
-   - Recommendation: Planner adds a `checkpoint:human-verify` task for llmsDescription content before the completeness guard task. Provide a template/prompt in the plan.
+   - RESOLVED: 05-05/T1 `checkpoint:human-verify` collects llmsDescription prose; `checkLlmsDepth()` (05-01/T3, wired 05-05/T2) asserts ≥200 words per tenant.
 
 3. **`checkGA4IdPresent()` as hard-fail vs warning**
    - What we know: A missing GA4 ID means no analytics — legitimate for a tenant in transition.
    - What's unclear: Should a missing ID block the build (like schema violations) or just log a warning?
-   - Recommendation: Treat as a WARNING in `validateSchemaInvariants()` (logged but build proceeds); the planner implements this by collecting these errors separately before throwing.
+   - RESOLVED: WARNING-level in `validateSchemaInvariants()` (logged, build proceeds) — implemented 05-01/T3 + 05-05/T2 by collecting these separately from build-blocking errors.
 
 4. **ConsentBanner copy for all 3 tenants**
    - What we know: FR/EN strings go in `config/base/content.*.json`; a `consent` key is net-new.
    - What's unclear: Exact consent copy phrasing (regulatory-acceptable but friendly).
-   - Recommendation: Use simple FR: "Ce site utilise des témoins d'analyse (Google Analytics) pour améliorer votre expérience. Acceptez-vous?" + [Accepter] [Refuser]. EN: "This site uses analytics cookies (Google Analytics) to improve your experience. Do you accept?" + [Accept] [Decline]. This is Québec Law 25 minimal compliant.
+   - RESOLVED (05-03/T2 uses this copy): Use simple FR: "Ce site utilise des témoins d'analyse (Google Analytics) pour améliorer votre expérience. Acceptez-vous?" + [Accepter] [Refuser]. EN: "This site uses analytics cookies (Google Analytics) to improve your experience. Do you accept?" + [Accept] [Decline]. This is Québec Law 25 minimal compliant.
 
 ---
 
