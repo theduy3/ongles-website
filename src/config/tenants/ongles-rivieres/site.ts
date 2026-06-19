@@ -72,5 +72,7 @@ export const site = {
     "/book-online",
     "/privacy",
     "/terms",
+    // Borough near-me landing — sitemap + contextual links only, NOT in header nav (P-04).
+    "/trois-rivieres",
   ],
 } as const;

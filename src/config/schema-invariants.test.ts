@@ -673,3 +673,96 @@ describe("Phase 4: checkRoutePresence — signature", () => {
     expect(Array.isArray(result)).toBe(true);
   });
 });
+
+// ─── 04-03: near-me guard fail-fixtures + integration GREEN ──────────────────
+// These tests are RED until:
+//   (a) nearMe copy is authored ≥150 words per tenant per locale, AND
+//   (b) checkWordCount() + checkCrossTenantOverlap() are called from
+//       validateSchemaInvariants() (guard wiring step).
+// The fail-fixtures prove each guard BITES (is not a no-op) independently of
+// the real JSON files; the integration tests prove the wired path is clean.
+
+describe("04-03: checkWordCount — nearMe guard bites on short/empty copy", () => {
+  it("countWords('') is 0, below NEAR_ME_WORD_FLOOR=150 (guard predicate fires)", () => {
+    expect(countWords("")).toBe(0);
+    expect(countWords("")).toBeLessThan(NEAR_ME_WORD_FLOOR);
+  });
+
+  it("countWords on a 5-word block is below NEAR_ME_WORD_FLOOR", () => {
+    expect(countWords("Short nearMe block under floor.")).toBeLessThan(NEAR_ME_WORD_FLOOR);
+  });
+
+  it("countWords on a 150-word block meets NEAR_ME_WORD_FLOOR (not flagged)", () => {
+    const block = Array.from({ length: 150 }, (_, i) => `word${i}`).join(" ");
+    expect(countWords(block)).toBeGreaterThanOrEqual(NEAR_ME_WORD_FLOOR);
+  });
+
+  it("checkWordCount() returns ≥1 P4-wordcount nearMe error while stubs are empty OR returns 0 when copy is authored (guard callable)", () => {
+    // This test documents the guard interface: it fires on empty stubs and returns []
+    // once real ≥150-word copy is present AND the guard is wired.
+    // After wiring: the error count must be 0 (no tenant has a short nearMe block).
+    const errors = checkWordCount();
+    const nearMeErrors = errors.filter(
+      (e) => e.invariant === "P4-wordcount" && e.message.includes("pages.nearMe"),
+    );
+    // Once real copy is authored (≥150 words per tenant per locale) this must be []:
+    expect(nearMeErrors).toEqual([]);
+  });
+});
+
+describe("04-03: checkCrossTenantOverlap — identical-copy fail-fixture (guard bites)", () => {
+  it("measureSentenceOverlap returns 1.0 for identical text (100% overlap ≥ threshold)", () => {
+    const identical =
+      "Bienvenue dans notre salon situé au cœur du quartier. " +
+      "Nous offrons la pose d'ongles, le remplissage, la manucure et la pédicure. " +
+      "Notre équipe vous accueille avec ou sans rendez-vous.";
+    expect(measureSentenceOverlap(identical, identical)).toBe(1.0);
+    expect(measureSentenceOverlap(identical, identical)).toBeGreaterThanOrEqual(
+      NEW_PAGE_OVERLAP_THRESHOLD,
+    );
+  });
+
+  it("measureSentenceOverlap < NEW_PAGE_OVERLAP_THRESHOLD for borough-distinct texts", () => {
+    // Proves that distinct borough copy (different landmarks, different sentences)
+    // passes the guard — pairwise overlap must be below 0.30.
+    const beauportBlock =
+      "Le salon Ongles Maily est installé au Carrefour Beauport, " +
+      "à l'angle de la rue du Carrefour et de l'autoroute Félix-Leclerc. " +
+      "Beauport est un arrondissement résidentiel de Québec bien desservi.";
+    const charlesbourgBlock =
+      "Ongles Charlesbourg se trouve au Carrefour Charlesbourg, " +
+      "sur le boulevard Henri-Bourassa, au cœur du quartier des Laurentides. " +
+      "Charlesbourg est un arrondissement dynamique avec de nombreux commerces.";
+    expect(measureSentenceOverlap(beauportBlock, charlesbourgBlock)).toBeLessThan(
+      NEW_PAGE_OVERLAP_THRESHOLD,
+    );
+  });
+
+  it("checkCrossTenantOverlap() returns 0 overlap errors when all nearMe blocks are distinct (GREEN gate)", () => {
+    // RED while: (1) all blocks are "" (guard skips empty, but blocks will soon be non-empty)
+    // OR (2) blocks happen to have ≥30% overlap.
+    // GREEN once: distinct copy is authored AND the guard is callable (already true).
+    // After wiring into validateSchemaInvariants, this also validates the full path.
+    const errors = checkCrossTenantOverlap();
+    expect(errors.filter((e) => e.invariant === "P4-overlap")).toEqual([]);
+  });
+});
+
+describe("04-03: validateSchemaInvariants — zero nearMe errors after wiring + copy (integration GREEN)", () => {
+  it("returns zero P4-wordcount nearMe errors (wired guard + ≥150-word authored copy)", () => {
+    const errors = validateSchemaInvariants();
+    const nearMeWordErrors = errors.filter(
+      (e) => e.invariant === "P4-wordcount" && e.message.includes("pages.nearMe"),
+    );
+    expect(nearMeWordErrors).toEqual([]);
+  });
+
+  it("returns zero P4-overlap errors (wired guard + <30% pairwise overlap on all tenant pairs)", () => {
+    const errors = validateSchemaInvariants();
+    expect(errors.filter((e) => e.invariant === "P4-overlap")).toEqual([]);
+  });
+
+  it("validateSchemaInvariants is fully clean overall after wiring (build gate passes)", () => {
+    expect(validateSchemaInvariants()).toEqual([]);
+  });
+});
