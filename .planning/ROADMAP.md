@@ -147,7 +147,25 @@
 5. Trust signals and price anchors (e.g. price range, review count, credentials) appear above the fold on home and service pages
 6. `web-vitals` reports real-user INP (P75) and other Core Web Vitals to the console (or analytics endpoint) — confirmed via browser DevTools Network tab
 
-**Plans**: TBD
+**Plans**: 5 plans (4 waves)
+
+**Wave 1**
+
+- [ ] 05-01-PLAN.md — Foundation (TDD): TenantSite ga4MeasurementId + llmsDescription fields, 4 unwired guards (checkLlmsDepth/checkLlmsLeak/checkGA4IdPresent/checkNapConsistency), gtag.ts pure helper + RED tests (LLMS/LOCAL/CONV/MEAS) (wave 1)
+
+**Wave 2** *(blocked on Wave 1)*
+
+- [ ] 05-02-PLAN.md — llms.txt slice (LLMS-01/02, LOCAL-01): leak fix + config-resolved deepened body + canonicalUrl + Phase-4 links + EN equivalents + per-tenant route test (wave 2)
+- [ ] 05-03-PLAN.md — Measurement slice (MEAS-01/02): hand-rolled next/script GA4 + Consent Mode v2 + ConsentBanner + WebVitalsReporter islands + layout test (wave 2, parallel with 05-02)
+
+**Wave 3** *(blocked on Wave 2)*
+
+- [ ] 05-04-PLAN.md — Conversion slice (CONV-01/02): FloatingCTAButtons client island + 4 conversion events + above-fold trust/price signals (wave 3)
+
+**Wave 4** *(blocked on Wave 3)*
+
+- [ ] 05-05-PLAN.md — Integration (autonomous:false): owner GA4 IDs + llmsDescription checkpoints, wire guards build-blocking, NAP reference doc, 05-UAT.md, production build + manual UAT (wave 4)
+
 **UI hint**: yes
 
 ---
