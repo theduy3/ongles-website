@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { PageHeader } from "@/components/PageHeader";
+import { AnswerBlock } from "@/components/AnswerBlock";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { ServicePhoto } from "@/components/ServicePhoto";
@@ -52,9 +52,9 @@ export default async function ServicesPage({ params }: LangParams) {
           { name: dict.nav.services, route: "/services" },
         ], { site, locations })}
       />
-      <PageHeader
-        title={dict.servicesPage.heading}
-        intro={dict.servicesPage.intro}
+      <AnswerBlock
+        heading={seo.meta.servicesAnswerHeading}
+        text={seo.meta.servicesAnswerBlock}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">

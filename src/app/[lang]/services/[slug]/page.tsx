@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { AnswerBlock } from "@/components/AnswerBlock";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { ServicePhoto } from "@/components/ServicePhoto";
@@ -77,6 +78,9 @@ export default async function ServiceDetailPage({ params }: Params) {
         ], { site, locations })}
       />
 
+      {/* Direct-answer block — first in main, carries the single page h1 (CONTENT-01, D-17/D-19) */}
+      <AnswerBlock heading={s.answerHeading} text={s.answerBlock} />
+
       {/* Hero: back link + title + image */}
       <section className="mx-auto max-w-5xl px-6 py-16 md:py-24">
         <Reveal>
@@ -88,7 +92,7 @@ export default async function ServiceDetailPage({ params }: Params) {
           </Link>
         </Reveal>
         <Reveal delay={0.05}>
-          <h1 className="mt-6 text-4xl text-espresso md:text-6xl">{d.title}</h1>
+          <h2 className="mt-6 text-4xl text-espresso md:text-6xl">{d.title}</h2>
         </Reveal>
         <Reveal delay={0.1}>
           <div className="relative mx-auto mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl">

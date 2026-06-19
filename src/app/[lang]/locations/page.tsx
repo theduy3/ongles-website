@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PageHeader } from "@/components/PageHeader";
+import { AnswerBlock } from "@/components/AnswerBlock";
 import { Reveal } from "@/components/Reveal";
 import { SalonCard, buildSalonCards } from "@/components/SalonCard";
 import { JsonLd } from "@/components/JsonLd";
@@ -27,6 +27,7 @@ export default async function LocationsPage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
   const cards = buildSalonCards(dict, lang, site, locations);
 
@@ -38,7 +39,10 @@ export default async function LocationsPage({ params }: LangParams) {
           { name: dict.nav.locations, route: "/locations" },
         ], { site, locations })}
       />
-      <PageHeader title={dict.locations.heading} intro={dict.locations.intro} />
+      <AnswerBlock
+        heading={seo.locations.answerHeading}
+        text={seo.locations.answerBlock}
+      />
 
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">

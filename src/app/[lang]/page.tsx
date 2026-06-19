@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { AnswerBlock } from "@/components/AnswerBlock";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { Gallery } from "@/components/Gallery";
@@ -94,6 +95,12 @@ export default async function Home({ params }: LangParams) {
 
   return (
     <>
+      {/* Direct-answer block — first in main, carries the single page h1 (CONTENT-01, D-17/D-19) */}
+      <AnswerBlock
+        heading={seo.meta.homeAnswerHeading}
+        text={seo.meta.homeAnswerBlock}
+      />
+
       {/* Hero — two-column (text left, image + floating stats right) */}
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -102,12 +109,12 @@ export default async function Home({ params }: LangParams) {
               <p className="text-xs uppercase tracking-[0.25em] text-gold">
                 {dict.hero.subtitle}
               </p>
-              <h1 className="mt-6 max-w-xl text-5xl leading-[1.05] text-espresso md:text-6xl">
+              <h2 className="mt-6 max-w-xl text-5xl leading-[1.05] text-espresso md:text-6xl">
                 {dict.hero.taglineLead}{" "}
                 <em className="italic text-mocha">
                   {dict.hero.taglineEmphasis}
                 </em>
-              </h1>
+              </h2>
               <p className="mt-6 max-w-md text-lg font-light leading-relaxed text-mocha">
                 {dict.hero.description}
               </p>
