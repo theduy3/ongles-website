@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { AnswerBlock } from "@/components/AnswerBlock";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
@@ -11,6 +12,8 @@ import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { GiftCards } from "@/components/GiftCards";
 import { LocationsSection } from "@/components/LocationsSection";
 import { galleryImages } from "@/lib/gallery";
+import { formatFromPrice } from "@/lib/format";
+import { services } from "@/lib/services";
 import { getStoreConfig } from "@/lib/store-config";
 import { buildSalonCards } from "@/components/SalonCard";
 import { getDictionary } from "./dictionaries";
@@ -84,6 +87,16 @@ export default async function Home({ params }: LangParams) {
   });
   const reviewCountDisplay = site.reviews.reviewCount.toLocaleString("en-CA");
 
+  // CONV-02 above-fold trust signals: catalog entry price + localized pricing route.
+  const fromPrice = Math.min(...services.map((s) => s.price));
+  const priceFromDisplay = formatFromPrice(
+    lang,
+    fromPrice,
+    dict.serviceLabels.priceFrom,
+  );
+  const pricingNav = site.nav.find((n) => n.key === "pricing");
+  const pricingHref = `/${lang}${pricingNav?.hrefByLocale?.[lang] ?? pricingNav?.href ?? "/tarifs"}`;
+
   const gallerySlides = galleryImages.map((img) => ({
     id: img.id,
     file: img.file,
@@ -127,6 +140,26 @@ export default async function Home({ params }: LangParams) {
                   <PhoneIcon />
                   {dict.cta.callNow}
                 </Button>
+              </div>
+              {/* CONV-02 above-fold trust signals: price-from anchor → pricing route, R-02-gated rating */}
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <Link
+                  href={pricingHref}
+                  className="text-sm font-medium uppercase tracking-wide text-espresso underline-offset-4 hover:underline"
+                >
+                  {priceFromDisplay}
+                </Link>
+                {site.reviews.reviewCount > 0 && (
+                  <span
+                    className="flex items-center gap-2"
+                    aria-label={`${ratingDisplay} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${reviewCountDisplay} ${dict.reviews.reviewsWord}`}
+                  >
+                    <Stars className="text-gold" />
+                    <span className="text-sm text-mocha">
+                      {ratingDisplay} / {site.reviews.bestRating}
+                    </span>
+                  </span>
+                )}
               </div>
               <dl className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
                 {dict.hero.badges.map((b, i) => (

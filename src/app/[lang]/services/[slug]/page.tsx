@@ -6,6 +6,7 @@ import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { ServicePhoto } from "@/components/ServicePhoto";
 import { JsonLd } from "@/components/JsonLd";
+import { Stars } from "@/components/Stars";
 import { getStoreConfig } from "@/lib/store-config";
 import {
   serviceBySlug,
@@ -57,6 +58,8 @@ export default async function ServiceDetailPage({ params }: Params) {
   const labels = dict.serviceLabels;
   const bookHref = `/${lang}${site.booking}`;
   const priceDisplay = formatFromPrice(lang, service.price, labels.priceFrom);
+  const pricingNav = site.nav.find((n) => n.key === "pricing");
+  const pricingHref = `/${lang}${pricingNav?.hrefByLocale?.[lang] ?? pricingNav?.href ?? "/tarifs"}`;
 
   return (
     <>
@@ -93,6 +96,28 @@ export default async function ServiceDetailPage({ params }: Params) {
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="mt-6 text-4xl text-espresso md:text-6xl">{d.title}</h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          {/* CONV-02 above-fold trust signals: price-from anchor → pricing route, R-02-gated rating */}
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link
+              href={pricingHref}
+              className="text-sm font-medium uppercase tracking-wide text-espresso underline-offset-4 hover:underline"
+            >
+              {priceDisplay}
+            </Link>
+            {site.reviews.reviewCount > 0 && (
+              <span
+                className="flex items-center gap-2"
+                aria-label={`${site.reviews.ratingValue.toFixed(1)} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${site.reviews.reviewCount.toLocaleString("en-CA")} ${dict.reviews.reviewsWord}`}
+              >
+                <Stars className="text-gold" />
+                <span className="text-sm text-mocha">
+                  {site.reviews.ratingValue.toFixed(1)} / {site.reviews.bestRating}
+                </span>
+              </span>
+            )}
+          </div>
         </Reveal>
         <Reveal delay={0.1}>
           <div className="relative mx-auto mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl">
