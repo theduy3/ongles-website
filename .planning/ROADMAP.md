@@ -13,7 +13,7 @@
 - [ ] **Phase 1: Per-Tenant Config Completion** - Gate: complete NAP, hours, and full service menu with pricing for every tenant
 - [x] **Phase 2: Schema Completeness + Correctness** - Fill and validate all JSON-LD types per tenant on the existing builder boundary ✅ 2026-06-18 (UAT verified live; deploy unblocked via bun.lock sync 898100b)
 - [x] **Phase 3: Content Depth** - Direct-answer blocks on key pages + deepened FAQ content across locales ✅ 2026-06-18 (282 tests green; D-05/D-11 guards live & build-blocking; pushed 2f77d85 → deploy; SC-4 AI-citation spot-check pending indexing)
-- [ ] **Phase 4: Net-New Pages** - Pricing, comparison/decision, and near-me neighborhood pages
+- [x] **Phase 4: Net-New Pages** - Pricing, comparison/decision, and near-me neighborhood pages (completed 2026-06-19)
 - [ ] **Phase 5: llms.txt Depth + Measurement** - Fix cross-tenant llms.txt leak, deepen per-tenant agent layer, wire GA4 AI-referrer + conversion tracking + CWV
 - [ ] **Phase 6: Cross-Tenant Correctness Audit** - Verify per-tenant/per-locale schema, NAP, and conversion correctness across all brands
 
@@ -106,7 +106,7 @@
 3. Near-me / neighborhood pages exist per tenant with ≥150 words of unique opening copy — sentence overlap across tenants is below 30% (no cross-tenant duplication)
 4. All new routes are included in `sitemap.ts` output and are reachable without a 404 or redirect on both FR and EN locales
 
-**Plans**: 4/5 plans executed
+**Plans**: 5/5 plans complete
 **Wave 1**
 
 - [x] 04-01-PLAN.md — Foundation (TDD): unwired word-count/overlap/route-presence guards + measureSentenceOverlap + pages.* seo key scaffold + parity extension + pricingGraph wrapper + ItemList shape test (wave 1)
@@ -125,7 +125,7 @@
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
-- [ ] 04-05-PLAN.md — Integration: sitemap localizedPageEntries (hreflang both locales), header nav (pricing+comparisons), checkRoutePresence live, full guard suite green ×3 tenants, 04-UAT.md (wave 5)
+- [x] 04-05-PLAN.md — Integration: sitemap localizedPageEntries (hreflang both locales), header nav (pricing+comparisons), checkRoutePresence live, full guard suite green ×3 tenants, 04-UAT.md (wave 5)
 
 **UI hint**: yes
 
@@ -178,7 +178,7 @@
 | 1. Per-Tenant Config Completion | 0/2 | Not started | - |
 | 2. Schema Completeness + Correctness | 4/4 | Complete | 2026-06-18 |
 | 3. Content Depth | 5/5 | Complete | 2026-06-18 |
-| 4. Net-New Pages | 4/5 | In Progress|  |
+| 4. Net-New Pages | 5/5 | Complete   | 2026-06-19 |
 | 5. llms.txt Depth + Measurement | 0/? | Not started | - |
 | 6. Cross-Tenant Correctness Audit | 0/? | Not started | - |
 
