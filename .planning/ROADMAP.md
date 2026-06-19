@@ -147,7 +147,7 @@
 5. Trust signals and price anchors (e.g. price range, review count, credentials) appear above the fold on home and service pages
 6. `web-vitals` reports real-user INP (P75) and other Core Web Vitals to the console (or analytics endpoint) — confirmed via browser DevTools Network tab
 
-**Plans**: 3/5 plans executed
+**Plans**: 4/5 plans executed
 
 **Wave 1**
 
@@ -160,7 +160,7 @@
 
 **Wave 3** *(blocked on Wave 2)*
 
-- [ ] 05-04-PLAN.md — Conversion slice (CONV-01/02): FloatingCTAButtons client island + 4 conversion events + above-fold trust/price signals (wave 3)
+- [x] 05-04-PLAN.md — Conversion slice (CONV-01/02): FloatingCTAButtons client island + 4 conversion events + above-fold trust/price signals (wave 3)
 
 **Wave 4** *(blocked on Wave 3)*
 
@@ -197,7 +197,7 @@
 | 2. Schema Completeness + Correctness | 4/4 | Complete | 2026-06-18 |
 | 3. Content Depth | 5/5 | Complete | 2026-06-18 |
 | 4. Net-New Pages | 5/5 | Complete   | 2026-06-19 |
-| 5. llms.txt Depth + Measurement | 3/5 | In Progress|  |
+| 5. llms.txt Depth + Measurement | 4/5 | In Progress|  |
 | 6. Cross-Tenant Correctness Audit | 0/? | Not started | - |
 
 ---
