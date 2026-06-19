@@ -10,7 +10,7 @@
  * EN slugs are idiomatic and stable.
  */
 
-import locales, { type Locale } from "@/lib/i18n";
+import { locales, type Locale } from "@/lib/i18n";
 
 export type ComparisonRecord = {
   /** Unique identifier — matches pages.comparison key in seo JSON. */
