@@ -29,6 +29,8 @@ import {
   countWords,
   FAQ_FLOOR,
   ANSWER_BLOCK_MIN_SENTENCES,
+  isFaqBelowFloor,
+  isAnswerBlockInsufficient,
 } from "./schema-invariants";
 
 // ─── D-13: offline sentence splitter + word counter ──────────────────────────
@@ -475,4 +477,47 @@ describe("D-11: answerBlock present and >= 2 sentences per route", () => {
       }
     }
   }
+});
+
+// ─── 03-05: guards WIRED + live build gate ────────────────────────────────────
+// After 03-03/03-04 content landed, the D-05/D-11 guards are wired into
+// validateSchemaInvariants(). Real content yields zero gate errors; the predicates
+// prove the gate BITES on a sub-floor count / empty block (not a no-op).
+
+describe("03-05: D-05/D-11 guards wired and GREEN on real content", () => {
+  it("validateSchemaInvariants reports zero D-05 / D-11 errors", () => {
+    const errors = validateSchemaInvariants();
+    const gateErrors = errors.filter(
+      (e) => e.invariant === "D-05" || e.invariant === "D-11",
+    );
+    expect(gateErrors).toEqual([]);
+  });
+
+  it("validateSchemaInvariants is clean overall (build would pass)", () => {
+    expect(validateSchemaInvariants()).toEqual([]);
+  });
+});
+
+describe("03-05: gate bites on a sub-floor / empty fixture (proves not a no-op)", () => {
+  it("isFaqBelowFloor flags counts below the floor", () => {
+    expect(isFaqBelowFloor(FAQ_FLOOR - 1)).toBe(true);
+    expect(isFaqBelowFloor(11)).toBe(true); // base-only, pre-03-03 state
+  });
+
+  it("isFaqBelowFloor passes counts at or above the floor", () => {
+    expect(isFaqBelowFloor(FAQ_FLOOR)).toBe(false);
+    expect(isFaqBelowFloor(22)).toBe(false); // real merged union
+  });
+
+  it("isAnswerBlockInsufficient flags empty or single-sentence blocks", () => {
+    expect(isAnswerBlockInsufficient("")).toBe(true);
+    expect(isAnswerBlockInsufficient("   ")).toBe(true);
+    expect(isAnswerBlockInsufficient("Une seule phrase ici.")).toBe(true);
+  });
+
+  it("isAnswerBlockInsufficient passes a >= 2-sentence block", () => {
+    expect(
+      isAnswerBlockInsufficient("Première phrase. Deuxième phrase ici."),
+    ).toBe(false);
+  });
 });

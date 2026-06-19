@@ -194,6 +194,17 @@ function answerBlockForRoute(seo: SeoAnswerSource, route: string): string {
   return seo.services?.[route]?.answerBlock ?? "";
 }
 
+/** D-05 predicate — true when a merged FAQ count is below the floor. */
+export function isFaqBelowFloor(mergedCount: number): boolean {
+  return mergedCount < FAQ_FLOOR;
+}
+
+/** D-11 predicate — true when an answer block is missing or under the sentence floor. */
+export function isAnswerBlockInsufficient(text: string): boolean {
+  if (typeof text !== "string" || text.trim().length === 0) return true;
+  return splitSentences(text).length < ANSWER_BLOCK_MIN_SENTENCES;
+}
+
 /**
  * D-05 — merged (base + per-tenant) FAQ count is >= FAQ_FLOOR for every live
  * tenant in each content locale. Reports one error per shortfall.
@@ -206,7 +217,7 @@ export function checkFaqFloor(): SchemaInvariantError[] {
       const base = BASE_FAQ_BY_LOCALE[locale]?.length ?? 0;
       const perTenant = TENANT_FAQ[id]?.[locale]?.items?.length ?? 0;
       const merged = base + perTenant;
-      if (merged < FAQ_FLOOR) {
+      if (isFaqBelowFloor(merged)) {
         errors.push(
           err(
             id,
@@ -232,20 +243,14 @@ export function checkAnswerBlockPresence(): SchemaInvariantError[] {
       const seo = TENANT_SEO[id]?.[locale];
       if (!seo) continue;
       for (const route of ANSWER_BLOCK_ROUTES) {
-        const text = answerBlockForRoute(seo, route).trim();
-        if (text.length === 0) {
-          errors.push(err(id, "D-11", `answerBlock for route "${route}" (${locale}) is empty`));
-          continue;
-        }
-        const sentences = splitSentences(text).length;
-        if (sentences < ANSWER_BLOCK_MIN_SENTENCES) {
-          errors.push(
-            err(
-              id,
-              "D-11",
-              `answerBlock for route "${route}" (${locale}) has ${sentences} sentence(s) — needs >= ${ANSWER_BLOCK_MIN_SENTENCES}`,
-            ),
-          );
+        const raw = answerBlockForRoute(seo, route);
+        if (isAnswerBlockInsufficient(raw)) {
+          const text = raw.trim();
+          const detail =
+            text.length === 0
+              ? "is empty"
+              : `has ${splitSentences(text).length} sentence(s) — needs >= ${ANSWER_BLOCK_MIN_SENTENCES}`;
+          errors.push(err(id, "D-11", `answerBlock for route "${route}" (${locale}) ${detail}`));
         }
       }
     }
@@ -513,6 +518,10 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
 
   // F-01 FAQ completeness is per-locale (global dictionaries), not per-tenant.
   errors.push(...checkFaqCompleteness());
+
+  // D-05 / D-11 — Phase 3 content-depth gates, now LIVE (build-blocking).
+  errors.push(...checkFaqFloor());
+  errors.push(...checkAnswerBlockPresence());
 
   for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
