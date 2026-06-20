@@ -821,19 +821,33 @@ function checkNearMeWordCount(): SchemaInvariantError[] {
  * is absent or has fewer than 200 words. Currently RED (empty placeholders)
  * until real hand-authored prose is added in 05-05.
  */
-export function checkLlmsDepth(): SchemaInvariantError[] {
+/**
+ * Minimal structural view of a tenant for the llms guards. Accepting this as an
+ * injectable param (default TENANT_REGISTRY) keeps the guards pure while letting
+ * tests seed fail-fixtures (gate-bites proof) without mutating real config.
+ */
+type LlmsTenantView = {
+  site: {
+    llmsDescription?: string;
+    contact: { landmark?: string; address: { city?: string } };
+  };
+};
+
+export function checkLlmsDepth(
+  registry: Record<string, LlmsTenantView> = TENANT_REGISTRY,
+): SchemaInvariantError[] {
   const LLMS_WORD_FLOOR = 200;
   const errors: SchemaInvariantError[] = [];
-  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+  for (const [id, cfg] of Object.entries(registry)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
-    const desc = (cfg.site as { llmsDescription?: string }).llmsDescription ?? "";
+    const desc = cfg.site.llmsDescription ?? "";
     const wc = countWords(desc);
     if (wc < LLMS_WORD_FLOOR) {
       errors.push(
         err(
           id,
           "LLMS-02",
-          `site.llmsDescription has ${wc} words — below floor ${LLMS_WORD_FLOOR} (wire in 05-05 once prose is authored)`,
+          `site.llmsDescription has ${wc} words — below floor ${LLMS_WORD_FLOOR}`,
         ),
       );
     }
@@ -851,12 +865,14 @@ export function checkLlmsDepth(): SchemaInvariantError[] {
  * Returns zero errors when all descriptions are empty (no signal to match).
  * Run against real prose once authored in 05-05.
  */
-export function checkLlmsLeak(): SchemaInvariantError[] {
+export function checkLlmsLeak(
+  registry: Record<string, LlmsTenantView> = TENANT_REGISTRY,
+): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
 
-  // Build signal map: tenantId → Set<lowercase signal strings>
+  // Build signal map: tenantId → lowercase signal strings (landmark + city).
   const signals = new Map<string, string[]>();
-  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+  for (const [id, cfg] of Object.entries(registry)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
     const s = cfg.site.contact;
     const sigs: string[] = [];
@@ -866,15 +882,23 @@ export function checkLlmsLeak(): SchemaInvariantError[] {
   }
 
   // Check each tenant's llmsDescription against all OTHER tenants' signals.
-  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
+  for (const [id, cfg] of Object.entries(registry)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
-    const desc = ((cfg.site as { llmsDescription?: string }).llmsDescription ?? "").toLowerCase();
+    const desc = (cfg.site.llmsDescription ?? "").toLowerCase();
     if (!desc) continue; // empty placeholder — nothing to leak
+
+    // A signal shared with the current tenant (e.g. a common city like "Québec"
+    // for two same-city salons) is a TRUE fact for this tenant, not a leak. Only
+    // a DISTINCTIVE other-tenant signal (its own landmark, or a city this tenant
+    // does not share) counts as cross-tenant leakage.
+    const ownSigs = new Set(signals.get(id) ?? []);
 
     for (const [otherId, otherSigs] of signals.entries()) {
       if (otherId === id) continue;
       for (const sig of otherSigs) {
-        if (sig && desc.includes(sig)) {
+        if (!sig) continue;
+        if (ownSigs.has(sig)) continue; // shared signal — not a leak
+        if (desc.includes(sig)) {
           errors.push(
             err(
               id,
@@ -984,6 +1008,14 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
   // P4 04-05 — route presence: borough near-me slug in site.routes per tenant.
   errors.push(...checkRoutePresence());
 
+  // P5 05-05 — llms.txt depth (≥200 words) + cross-tenant leak + NAP parity gates,
+  // now LIVE (build-blocking). checkGA4IdPresent is intentionally NOT pushed here —
+  // it is a warning, emitted by assertSchemaInvariants() (a tenant in transition may
+  // legitimately have no GA4 property yet; RESEARCH Q3).
+  errors.push(...checkLlmsDepth());
+  errors.push(...checkLlmsLeak());
+  errors.push(...checkNapConsistency());
+
   for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
 
@@ -1012,6 +1044,15 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
  */
 export function assertSchemaInvariants(): void {
   const errors = validateSchemaInvariants();
+
+  // MEAS-01 — GA4 measurement-ID presence is a WARNING, not a build-blocker
+  // (05-05 / RESEARCH Q3): a tenant in transition may legitimately ship with no
+  // GA4 property yet. Emit advisories here (assert is already impure) without
+  // pushing into the throwing error set.
+  for (const w of checkGA4IdPresent()) {
+    console.warn(`⚠ [${w.invariant}] ${w.tenantId}: ${w.message}`);
+  }
+
   if (errors.length === 0) return;
 
   const grouped = new Map<string, SchemaInvariantError[]>();
