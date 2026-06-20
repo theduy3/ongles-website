@@ -197,7 +197,7 @@
 | 2. Schema Completeness + Correctness | 4/4 | Complete | 2026-06-18 |
 | 3. Content Depth | 5/5 | Complete | 2026-06-18 |
 | 4. Net-New Pages | 5/5 | Complete   | 2026-06-19 |
-| 5. llms.txt Depth + Measurement | 5/5 | Complete   | 2026-06-20 |
+| 5. llms.txt Depth + Measurement | 5/5 | Complete    | 2026-06-20 |
 | 6. Cross-Tenant Correctness Audit | 0/? | Not started | - |
 
 ---

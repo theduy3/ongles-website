@@ -34,19 +34,19 @@ Requirements for this milestone. Each maps to a roadmap phase. Applies to **all 
 
 ### Agent Layer
 
-- [ ] **LLMS-01**: `llms.txt` facts are per-tenant via `site.llmsDescription` (no hardcoded cross-tenant prose)
-- [ ] **LLMS-02**: `llms.txt` content is deepened per tenant (services, locations, hours, booking)
+- [x] **LLMS-01**: `llms.txt` facts are per-tenant via `site.llmsDescription` (no hardcoded cross-tenant prose)
+- [x] **LLMS-02**: `llms.txt` content is deepened per tenant (services, locations, hours, booking)
 
 ### Local + Conversion
 
-- [ ] **LOCAL-01**: Name/address/phone/hours are consistent across all on-site surfaces (and documented for external-profile alignment)
-- [ ] **CONV-01**: Mobile pages show a sticky book/quote CTA
-- [ ] **CONV-02**: Trust signals and price anchors appear above the fold on key pages
+- [x] **LOCAL-01**: Name/address/phone/hours are consistent across all on-site surfaces (and documented for external-profile alignment)
+- [x] **CONV-01**: Mobile pages show a sticky book/quote CTA
+- [x] **CONV-02**: Trust signals and price anchors appear above the fold on key pages
 
 ### Measurement
 
-- [ ] **MEAS-01**: GA4 captures AI-referrer traffic (native AI-Assistant channel + custom Perplexity regex channel) and conversion events (call/form/booking/chat) at page level
-- [ ] **MEAS-02**: Real-user INP (and other Core Web Vitals) are reported via `web-vitals`
+- [x] **MEAS-01**: GA4 captures AI-referrer traffic (native AI-Assistant channel + custom Perplexity regex channel) and conversion events (call/form/booking/chat) at page level
+- [x] **MEAS-02**: Real-user INP (and other Core Web Vitals) are reported via `web-vitals`
 
 ## v2 Requirements
 
@@ -93,15 +93,16 @@ Each v1 requirement maps to exactly one phase.
 | PAGE-01 | Phase 4 | Pending |
 | PAGE-02 | Phase 4 | Pending |
 | PAGE-03 | Phase 4 | Pending |
-| LLMS-01 | Phase 5 | Pending |
-| LLMS-02 | Phase 5 | Pending |
-| LOCAL-01 | Phase 5 | Pending |
-| CONV-01 | Phase 5 | Pending |
-| CONV-02 | Phase 5 | Pending |
-| MEAS-01 | Phase 5 | Pending |
-| MEAS-02 | Phase 5 | Pending |
+| LLMS-01 | Phase 5 | Complete |
+| LLMS-02 | Phase 5 | Complete |
+| LOCAL-01 | Phase 5 | Complete |
+| CONV-01 | Phase 5 | Complete |
+| CONV-02 | Phase 5 | Complete |
+| MEAS-01 | Phase 5 | Complete |
+| MEAS-02 | Phase 5 | Complete |
 
 **Coverage:**
+
 - v1 requirements: 20 total
 - Mapped to phases: 20/20
 - Unmapped: 0
