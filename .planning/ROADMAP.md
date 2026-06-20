@@ -14,7 +14,7 @@
 - [x] **Phase 2: Schema Completeness + Correctness** - Fill and validate all JSON-LD types per tenant on the existing builder boundary ✅ 2026-06-18 (UAT verified live; deploy unblocked via bun.lock sync 898100b)
 - [x] **Phase 3: Content Depth** - Direct-answer blocks on key pages + deepened FAQ content across locales ✅ 2026-06-18 (282 tests green; D-05/D-11 guards live & build-blocking; pushed 2f77d85 → deploy; SC-4 AI-citation spot-check pending indexing)
 - [x] **Phase 4: Net-New Pages** - Pricing, comparison/decision, and near-me neighborhood pages (completed 2026-06-19)
-- [ ] **Phase 5: llms.txt Depth + Measurement** - Fix cross-tenant llms.txt leak, deepen per-tenant agent layer, wire GA4 AI-referrer + conversion tracking + CWV
+- [x] **Phase 5: llms.txt Depth + Measurement** - Fix cross-tenant llms.txt leak, deepen per-tenant agent layer, wire GA4 AI-referrer + conversion tracking + CWV (completed 2026-06-20)
 - [ ] **Phase 6: Cross-Tenant Correctness Audit** - Verify per-tenant/per-locale schema, NAP, and conversion correctness across all brands
 
 ---
@@ -147,7 +147,7 @@
 5. Trust signals and price anchors (e.g. price range, review count, credentials) appear above the fold on home and service pages
 6. `web-vitals` reports real-user INP (P75) and other Core Web Vitals to the console (or analytics endpoint) — confirmed via browser DevTools Network tab
 
-**Plans**: 4/5 plans executed
+**Plans**: 5/5 plans complete
 
 **Wave 1**
 
@@ -164,7 +164,7 @@
 
 **Wave 4** *(blocked on Wave 3)*
 
-- [ ] 05-05-PLAN.md — Integration (autonomous:false): owner GA4 IDs + llmsDescription checkpoints, wire guards build-blocking, NAP reference doc, 05-UAT.md, production build + manual UAT (wave 4)
+- [x] 05-05-PLAN.md — Integration (autonomous:false): owner GA4 IDs + llmsDescription checkpoints, wire guards build-blocking, NAP reference doc, 05-UAT.md, production build + manual UAT (wave 4)
 
 **UI hint**: yes
 
@@ -197,7 +197,7 @@
 | 2. Schema Completeness + Correctness | 4/4 | Complete | 2026-06-18 |
 | 3. Content Depth | 5/5 | Complete | 2026-06-18 |
 | 4. Net-New Pages | 5/5 | Complete   | 2026-06-19 |
-| 5. llms.txt Depth + Measurement | 4/5 | In Progress|  |
+| 5. llms.txt Depth + Measurement | 5/5 | Complete   | 2026-06-20 |
 | 6. Cross-Tenant Correctness Audit | 0/? | Not started | - |
 
 ---
