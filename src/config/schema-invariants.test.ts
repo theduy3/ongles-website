@@ -879,21 +879,26 @@ describe("05-01: checkLlmsDepth() — LLMS-02 word-count guard", () => {
     expect(Array.isArray(result)).toBe(true);
   });
 
-  it("returns at least one LLMS-02 error while all tenants have empty llmsDescription placeholders", () => {
-    // RED: placeholders are "" → countWords("") === 0 < 200.
-    // This will flip to GREEN once real ≥200-word prose lands in 05-05.
+  it("returns zero LLMS-02 errors now that every live tenant has ≥200-word prose (GREEN)", () => {
+    // 05-05: real owner-reviewed llmsDescription prose authored → depth satisfied.
     const errors = checkLlmsDepth();
-    const llmsErrors = errors.filter((e) => e.invariant === "LLMS-02");
-    expect(llmsErrors.length).toBeGreaterThan(0);
+    expect(errors.filter((e) => e.invariant === "LLMS-02")).toEqual([]);
   });
 
-  it("reports every live tenant (not template) with an empty llmsDescription", () => {
-    const errors = checkLlmsDepth();
-    const tenantIds = errors.filter((e) => e.invariant === "LLMS-02").map((e) => e.tenantId);
-    // All three live tenants must be flagged while placeholders are empty.
-    expect(tenantIds).toContain("ongles-maily");
-    expect(tenantIds).toContain("ongles-charlesbourg");
-    expect(tenantIds).toContain("ongles-rivieres");
+  it("gate-bites: a seeded <200-word llmsDescription makes the guard report LLMS-02 (not a no-op)", () => {
+    // Inject a fail-fixture registry — no real config mutated. Proves the wired
+    // guard WOULD abort the build on short prose.
+    const fixture = {
+      "fixture-short": {
+        site: {
+          llmsDescription: "Salon trop court pour le seuil de deux cents mots.",
+          contact: { landmark: "Carrefour X", address: { city: "Ville X" } },
+        },
+      },
+    };
+    const llms = checkLlmsDepth(fixture).filter((e) => e.invariant === "LLMS-02");
+    expect(llms.length).toBe(1);
+    expect(llms[0].tenantId).toBe("fixture-short");
   });
 
   it("does NOT flag the template tenant (it is excluded)", () => {
@@ -926,12 +931,52 @@ describe("05-01: checkLlmsLeak() — LLMS-01 cross-tenant leak guard", () => {
     expect(Array.isArray(result)).toBe(true);
   });
 
-  it("returns zero LLMS-01 errors when all llmsDescriptions are empty (no signal to match)", () => {
-    // With empty placeholders there is no city/landmark to detect.
-    // This test will remain GREEN until real prose is authored that accidentally
-    // mentions another tenant's city/landmark.
+  it("returns zero LLMS-01 errors on real prose — shared city 'Québec' is not a leak (GREEN)", () => {
+    // 05-05: real prose authored. ongles-maily + ongles-charlesbourg both
+    // legitimately mention "Québec" (their shared city); the guard must treat a
+    // SHARED signal as a true fact, not a cross-tenant leak.
     const errors = checkLlmsLeak();
     expect(errors.filter((e) => e.invariant === "LLMS-01")).toEqual([]);
+  });
+
+  it("gate-bites: a description containing ANOTHER tenant's distinct landmark reports LLMS-01", () => {
+    // Inject a fail-fixture — tenant-b leaks tenant-a's distinct landmark while
+    // sharing the (allowed) city "Québec".
+    const fixture = {
+      "tenant-a": {
+        site: {
+          llmsDescription: "",
+          contact: { landmark: "Carrefour Beauport", address: { city: "Québec" } },
+        },
+      },
+      "tenant-b": {
+        site: {
+          llmsDescription: "Notre salon est tout près du Carrefour Beauport, à Québec.",
+          contact: { landmark: "Carrefour Charlesbourg", address: { city: "Québec" } },
+        },
+      },
+    };
+    const leaks = checkLlmsLeak(fixture).filter((e) => e.invariant === "LLMS-01");
+    expect(leaks.length).toBe(1);
+    expect(leaks[0].tenantId).toBe("tenant-b");
+  });
+
+  it("shared-city is NOT a leak: two same-city fixtures sharing only 'Québec' produce zero LLMS-01", () => {
+    const fixture = {
+      "tenant-a": {
+        site: {
+          llmsDescription: "Salon à Québec, secteur A.",
+          contact: { landmark: "Carrefour Beauport", address: { city: "Québec" } },
+        },
+      },
+      "tenant-b": {
+        site: {
+          llmsDescription: "Salon à Québec, secteur B.",
+          contact: { landmark: "Carrefour Charlesbourg", address: { city: "Québec" } },
+        },
+      },
+    };
+    expect(checkLlmsLeak(fixture).filter((e) => e.invariant === "LLMS-01")).toEqual([]);
   });
 
   it("guard detects cross-tenant city leak: 'Carrefour Beauport' in charlesbourg's description is a leak", () => {
@@ -1044,32 +1089,30 @@ describe("05-01: checkNapConsistency() — NAP-01 site/location parity guard", (
   });
 });
 
-// ─── Guards are UNWIRED from validateSchemaInvariants ─────────────────────────
+// ─── 05-05: guards WIRED into validateSchemaInvariants (build gate green) ──────
 
-describe("05-01: guards UNWIRED — validateSchemaInvariants stays green", () => {
-  it("validateSchemaInvariants() does not call checkLlmsDepth (build gate stays green)", () => {
-    // The overall suite must remain [] so next build passes. If LLMS-02 errors
-    // appeared in validateSchemaInvariants, build would fail.
+describe("05-05: llms guards WIRED — validateSchemaInvariants green on real content", () => {
+  it("checkLlmsDepth is wired and reports zero LLMS-02 (every tenant ≥200 words)", () => {
     const all = validateSchemaInvariants();
     expect(all.filter((e) => e.invariant === "LLMS-02")).toEqual([]);
   });
 
-  it("validateSchemaInvariants() does not call checkLlmsLeak (LLMS-01 absent)", () => {
+  it("checkLlmsLeak is wired and reports zero LLMS-01 (no cross-tenant leak)", () => {
     const all = validateSchemaInvariants();
     expect(all.filter((e) => e.invariant === "LLMS-01")).toEqual([]);
   });
 
-  it("validateSchemaInvariants() does not call checkGA4IdPresent (MEAS-01 absent)", () => {
+  it("checkGA4IdPresent is NOT in the throwing set — MEAS-01 absent (warning-only, build proceeds)", () => {
     const all = validateSchemaInvariants();
     expect(all.filter((e) => e.invariant === "MEAS-01")).toEqual([]);
   });
 
-  it("validateSchemaInvariants() does not call checkNapConsistency (NAP-01 absent)", () => {
+  it("checkNapConsistency is wired and reports zero NAP-01 (site/location parity)", () => {
     const all = validateSchemaInvariants();
     expect(all.filter((e) => e.invariant === "NAP-01")).toEqual([]);
   });
 
-  it("validateSchemaInvariants() still returns [] overall (build gate passes)", () => {
+  it("validateSchemaInvariants() still returns [] overall (production build gate passes)", () => {
     expect(validateSchemaInvariants()).toEqual([]);
   });
 });
