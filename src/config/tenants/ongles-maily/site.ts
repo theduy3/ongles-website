@@ -65,8 +65,9 @@ export const site = {
   // Real "G-XXXXXXXXXX" collected in phase 05-05 human-verify step.
   ga4MeasurementId: "",
   // Hand-authored AI-discovery intro (≥200 unique words) for llms.txt.
-  // Authored in phase 05-05 once content is ready. No other tenant's city/landmark.
-  llmsDescription: "",
+  // Authored in phase 05-05 (owner-reviewed). No other tenant's city/landmark.
+  llmsDescription:
+    "Ongles Maily est un salon d'esthétique des ongles situé au Carrefour Beauport, aux entrées 4 ou 5, au 3333 rue du Carrefour à Québec (G1C 5R9). L'équipe accueille la clientèle de l'arrondissement de Beauport et des environs pour une gamme complète de soins des ongles : pose d'ongles (à partir de 60 $), remplissage (à partir de 45 $), soins des mains et manucure (à partir de 30 $) ainsi que soins des pieds et pédicure (à partir de 35 $). Chaque service est réalisé par des technicien·ne·s expérimenté·e·s dans un environnement propre et chaleureux, avec un souci du détail et de la tenue du vernis gel. Le salon est ouvert du lundi au mercredi de 9 h à 17 h 30, le jeudi et le vendredi de 9 h à 21 h pour accommoder les horaires de soirée, le samedi de 9 h à 17 h et le dimanche de 10 h à 17 h. La réservation se fait en ligne via la page « Prendre rendez-vous » du site onglesmaily.com ou par téléphone au (418) 660-8228, et des cartes-cadeaux sont disponibles. Idéalement situé dans un centre commercial avec stationnement gratuit, Ongles Maily est facilement accessible pour une pause beauté entre deux courses ou après le travail.",
   // Header nav = ANCHOR links into the homepage (single-page design, like the
   // live site). hrefs are prefixed with /{locale} by callers, so "#services"
   // becomes "/en#services" and scrolls from any route. Labels: dict.nav[key].

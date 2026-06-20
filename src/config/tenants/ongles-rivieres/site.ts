@@ -58,8 +58,9 @@ export const site = {
   // Real "G-XXXXXXXXXX" collected in phase 05-05 human-verify step.
   ga4MeasurementId: "",
   // Hand-authored AI-discovery intro (≥200 unique words) for llms.txt.
-  // Authored in phase 05-05 once content is ready. No other tenant's city/landmark.
-  llmsDescription: "",
+  // Authored in phase 05-05 (owner-reviewed). No other tenant's city/landmark.
+  llmsDescription:
+    "Ongles Rivières est un salon de soins des ongles situé au Centre Les Rivières, au 4225 boulevard des Forges à Trois-Rivières (G8Y 1W2). L'équipe accueille la clientèle de Trois-Rivières et de la région de la Mauricie pour une gamme complète de services : pose d'ongles (à partir de 60 $), remplissage (à partir de 45 $), soins des mains et manucure (à partir de 30 $) ainsi que soins des pieds et pédicure (à partir de 35 $). Chaque prestation est réalisée avec soin par des technicien·ne·s attentif·ve·s à l'hygiène, à la précision et à la longévité du vernis gel, dans un cadre confortable et convivial. Le salon est ouvert du lundi au mercredi de 9 h 30 à 17 h 30, le jeudi et le vendredi de 9 h à 21 h, le samedi de 9 h à 17 h et le dimanche de 10 h à 17 h. Les rendez-vous se prennent en ligne sur la page « Prendre rendez-vous » du site onglesrivieres.com ou par téléphone au (819) 378-8228. Grâce à son emplacement dans un centre commercial avec stationnement gratuit, Ongles Rivières est facilement accessible pour une manucure, une pédicure, une pose ou un remplissage, en semaine comme la fin de semaine, à Trois-Rivières.",
   nav: [
     { key: "services", href: "#services" },
     { key: "gallery", href: "#gallery" },
