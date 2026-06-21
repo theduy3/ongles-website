@@ -979,6 +979,55 @@ describe("05-01: checkLlmsLeak() — LLMS-01 cross-tenant leak guard", () => {
     expect(checkLlmsLeak(fixture).filter((e) => e.invariant === "LLMS-01")).toEqual([]);
   });
 
+  it("gate-bites (W-1): a BARE borough token ('Charlesbourg', no full landmark) is caught", () => {
+    // The full-landmark string is absent from tenant-b's prose — only the bare
+    // borough token leaks. Token-level signals must catch it; shared city "Québec" stays allowed.
+    const fixture = {
+      "tenant-a": {
+        site: {
+          llmsDescription: "",
+          contact: {
+            landmark: "Carrefour Charlesbourg — Entrées 5",
+            address: { city: "Québec" },
+          },
+        },
+      },
+      "tenant-b": {
+        site: {
+          llmsDescription:
+            "Notre salon dessert la clientèle de Charlesbourg et des environs, à Québec.",
+          contact: {
+            landmark: "Carrefour Beauport — Entrées 4 ou 5",
+            address: { city: "Québec" },
+          },
+        },
+      },
+    };
+    const leaks = checkLlmsLeak(fixture).filter((e) => e.invariant === "LLMS-01");
+    expect(leaks.length).toBe(1);
+    expect(leaks[0].tenantId).toBe("tenant-b");
+  });
+
+  it("no false-positive on generic place words: 'centre commercial' near 'Centre Les Rivières' is clean", () => {
+    // "centre" is a stopword; the only distinctive token is "rivières", absent here.
+    const fixture = {
+      "tenant-a": {
+        site: {
+          llmsDescription: "",
+          contact: { landmark: "Centre Les Rivières", address: { city: "Trois-Rivières" } },
+        },
+      },
+      "tenant-b": {
+        site: {
+          llmsDescription:
+            "Salon situé dans un centre commercial avec stationnement gratuit, près du carrefour.",
+          contact: { landmark: "Carrefour Beauport — Entrées 4 ou 5", address: { city: "Québec" } },
+        },
+      },
+    };
+    expect(checkLlmsLeak(fixture).filter((e) => e.invariant === "LLMS-01")).toEqual([]);
+  });
+
   it("guard detects cross-tenant city leak: 'Carrefour Beauport' in charlesbourg's description is a leak", () => {
     // Craft a direct inline test of the detection logic without mutating real config.
     // We simulate the guard by checking its core predicate independently:

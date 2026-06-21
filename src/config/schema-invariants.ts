@@ -856,29 +856,82 @@ export function checkLlmsDepth(
 }
 
 /**
+ * Generic place-name words that are NOT distinctive to a single tenant. Excluded
+ * from token-level leak signals so ordinary prose ("centre commercial", "près du
+ * carrefour", "boulevard") can never trigger a false-positive leak.
+ */
+const LLMS_LEAK_STOPWORDS = new Set([
+  "carrefour",
+  "centre",
+  "entree",
+  "entrees",
+  "entrée",
+  "entrées",
+  "place",
+  "galeries",
+  "mail",
+  "boulevard",
+  "avenue",
+  "rue",
+  "les",
+  "des",
+]);
+
+/**
+ * Distinctive lowercase tokens from a landmark string (e.g. the borough name
+ * "beauport" inside "Carrefour Beauport — Entrées 4 ou 5"). Splits on non-letters
+ * (keeping internal hyphens), drops short words, digits, and generic stopwords.
+ */
+function landmarkTokens(landmark: string): string[] {
+  return landmark
+    .toLowerCase()
+    .split(/[^a-zà-ÿ-]+/)
+    .map((t) => t.replace(/^-+|-+$/g, ""))
+    .filter((t) => t.length >= 4 && !LLMS_LEAK_STOPWORDS.has(t));
+}
+
+/**
+ * Membership test for a leak signal in a (lowercased) description. Multi-word
+ * phrases (full landmark) use substring match; single tokens use a word-boundary
+ * match so a borough token never partial-matches an unrelated word (e.g. the token
+ * "fort" must not match "confort").
+ */
+function descContainsSignal(desc: string, sig: string): boolean {
+  if (/\s/.test(sig)) return desc.includes(sig);
+  const esc = sig.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^a-zà-ÿ])${esc}([^a-zà-ÿ]|$)`).test(desc);
+}
+
+/**
  * LLMS-01 — Cross-tenant llmsDescription leak guard.
  *
- * Builds a per-tenant "signal" set from each tenant's contact.landmark and
- * contact.address.city. Flags any tenant whose llmsDescription (case-insensitive)
- * contains another tenant's signal strings — indicating a copy-paste leak.
+ * Builds a per-tenant "signal" set from each tenant's contact.landmark (full
+ * string PLUS distinctive borough tokens), and contact.address.city. Flags any
+ * tenant whose llmsDescription contains another tenant's signal — full landmark,
+ * a borough token, or a non-shared city — indicating a copy-paste leak.
  *
- * Returns zero errors when all descriptions are empty (no signal to match).
- * Run against real prose once authored in 05-05.
+ * Signals shared with the checking tenant (e.g. a common city like "Québec" for
+ * two same-city salons) are skipped — a true shared fact is not a leak.
  */
 export function checkLlmsLeak(
   registry: Record<string, LlmsTenantView> = TENANT_REGISTRY,
 ): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
 
-  // Build signal map: tenantId → lowercase signal strings (landmark + city).
+  // Build signal map: tenantId → lowercase signals (full landmark + distinctive
+  // landmark tokens + city). Tokens catch a bare borough name (e.g. "Charlesbourg")
+  // that the full-landmark string alone would miss.
   const signals = new Map<string, string[]>();
   for (const [id, cfg] of Object.entries(registry)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
     const s = cfg.site.contact;
     const sigs: string[] = [];
-    if (s.landmark) sigs.push(s.landmark.toLowerCase());
+    if (s.landmark) {
+      sigs.push(s.landmark.toLowerCase());
+      sigs.push(...landmarkTokens(s.landmark));
+    }
     if (s.address.city) sigs.push(s.address.city.toLowerCase());
-    signals.set(id, sigs);
+    signals.set(id, [...new Set(sigs)]);
   }
 
   // Check each tenant's llmsDescription against all OTHER tenants' signals.
@@ -898,7 +951,7 @@ export function checkLlmsLeak(
       for (const sig of otherSigs) {
         if (!sig) continue;
         if (ownSigs.has(sig)) continue; // shared signal — not a leak
-        if (desc.includes(sig)) {
+        if (descContainsSignal(desc, sig)) {
           errors.push(
             err(
               id,
