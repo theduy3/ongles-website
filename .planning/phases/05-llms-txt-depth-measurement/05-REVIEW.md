@@ -1,9 +1,10 @@
 ---
 phase: 05-llms-txt-depth-measurement
 review_depth: standard
-status: issues-found
+status: resolved
 critical: 0
 warning: 1
+warning_resolved: 1
 info: 3
 reviewed_files: 35
 base_ref: b395f1b
@@ -21,7 +22,14 @@ None.
 
 ## Warning (1)
 
-### W-1 — `checkLlmsLeak` under-protects: matches full landmark string + city only, not bare borough tokens
+### W-1 — `checkLlmsLeak` under-protects: matches full landmark string + city only, not bare borough tokens — ✅ RESOLVED (commit 6281f9b)
+
+**Resolution:** `checkLlmsLeak` now derives distinctive landmark tokens (e.g. `beauport`,
+`charlesbourg`, `rivières`) in addition to the full landmark string + city, stopword-filters
+generic place words (carrefour/centre/boulevard/…), and matches single tokens on word boundaries.
+Gate-bites added: a bare borough token in another tenant's prose is caught; `"centre commercial"`
+generic prose stays clean. Real prose re-verified leak-free; suite 513/0; build exit 0.
+
 **File:** `src/config/schema-invariants.ts` — `checkLlmsLeak()`
 
 The leak guard derives each tenant's signals from `contact.landmark` (full string, e.g.
