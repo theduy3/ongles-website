@@ -1,5 +1,5 @@
 {
-  "fetchedAt": null,
-  "aggregate": { "ratingValue": 0, "reviewCount": 0 },
+  "fetchedAt": "2026-06-23T00:00:00Z",
+  "aggregate": { "ratingValue": 3.9, "reviewCount": 300 },
   "reviews": []
 }

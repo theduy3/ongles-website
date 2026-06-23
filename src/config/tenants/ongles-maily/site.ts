@@ -25,14 +25,18 @@ export const site = {
   },
   // Profiles emitted as schema.org `sameAs` on the business node.
   // Google Business Profile (Maps CID). Add Facebook/Instagram URLs here too.
-  socialProfiles: ["https://www.google.com/maps?cid=14129710654556946214"],
+  socialProfiles: [
+    "https://www.google.com/maps?cid=14129710654556946214",
+    "https://www.facebook.com/onglesmaily",
+    "https://www.instagram.com/onglesmaily",
+  ],
   // Schema.org priceRange hint ($ = inexpensive … $$$$ = very pricey).
   priceRange: "$$",
   // Aggregate review rating shown on-page AND emitted as schema.org
   // AggregateRating (gated on a real Google fetch — see src/lib/seo.ts).
   reviews: {
-    ratingValue: 0,
-    reviewCount: 0,
+    ratingValue: 3.9,
+    reviewCount: 300,
     bestRating: 5,
     source: "Google",
   },
@@ -63,7 +67,7 @@ export const site = {
   },
   // GA4 measurement ID for this salon's property. Empty = no analytics yet.
   // Real "G-XXXXXXXXXX" collected in phase 05-05 human-verify step.
-  ga4MeasurementId: "",
+  ga4MeasurementId: "G-TCB8TWD8S1",
   // Hand-authored AI-discovery intro (≥200 unique words) for llms.txt.
   // Authored in phase 05-05 (owner-reviewed). No other tenant's city/landmark.
   llmsDescription:

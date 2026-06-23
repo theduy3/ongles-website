@@ -1053,7 +1053,8 @@ describe("05-01: checkLlmsLeak() — LLMS-01 cross-tenant leak guard", () => {
 });
 
 // ─── checkGA4IdPresent ────────────────────────────────────────────────────────
-// All tenants have empty ga4MeasurementId placeholders → guard fires (warning).
+// All three live tenants now carry real G-XXXXXXXXXX IDs → guard stays silent for
+// them; it still fires for any future tenant left with an empty placeholder.
 
 describe("05-01: checkGA4IdPresent() — MEAS-01 GA4-ID presence guard", () => {
   it("is callable and returns SchemaInvariantError[]", () => {
@@ -1061,19 +1062,13 @@ describe("05-01: checkGA4IdPresent() — MEAS-01 GA4-ID presence guard", () => {
     expect(Array.isArray(result)).toBe(true);
   });
 
-  it("returns at least one MEAS-01 error while all tenants have empty ga4MeasurementId", () => {
-    // RED: all placeholders are "" until the owner provides real G-XXXXXXXXXX IDs.
-    const errors = checkGA4IdPresent();
-    const meas01Errors = errors.filter((e) => e.invariant === "MEAS-01");
-    expect(meas01Errors.length).toBeGreaterThan(0);
-  });
-
-  it("flags all three live tenants with empty ga4MeasurementId", () => {
+  it("does not flag the three live tenants — all have real ga4MeasurementId values", () => {
     const errors = checkGA4IdPresent();
     const tenantIds = errors.filter((e) => e.invariant === "MEAS-01").map((e) => e.tenantId);
-    expect(tenantIds).toContain("ongles-maily");
-    expect(tenantIds).toContain("ongles-charlesbourg");
-    expect(tenantIds).toContain("ongles-rivieres");
+    // All three live tenants now carry real G-XXXXXXXXXX IDs → none flagged.
+    expect(tenantIds).not.toContain("ongles-maily");
+    expect(tenantIds).not.toContain("ongles-charlesbourg");
+    expect(tenantIds).not.toContain("ongles-rivieres");
   });
 
   it("does NOT flag the template tenant", () => {

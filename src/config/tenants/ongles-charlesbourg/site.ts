@@ -24,11 +24,15 @@ export const site = {
   // No Google Business Profile yet — deferred per D-07. Keep as empty array so the
   // schema.org sameAs field is omitted cleanly (no empty-string or placeholder CID).
   // Add the maps?cid=<digits> URL here once a GBP exists.
-  socialProfiles: [],
+  socialProfiles: [
+    "https://share.google/RMSaNTShYQuBxnqVB",
+    "https://www.facebook.com/onglescharlesb.urg/",
+    "https://www.instagram.com/onglescharlesbourg/",
+  ],
   priceRange: "$$",
   reviews: {
-    ratingValue: 0,
-    reviewCount: 0,
+    ratingValue: 4.0,
+    reviewCount: 250,
     bestRating: 5,
     source: "Google",
   },
@@ -59,7 +63,7 @@ export const site = {
   },
   // GA4 measurement ID for this salon's property. Empty = no analytics yet.
   // Real "G-XXXXXXXXXX" collected in phase 05-05 human-verify step.
-  ga4MeasurementId: "",
+  ga4MeasurementId: "G-3BWLPQXH7L",
   // Hand-authored AI-discovery intro (≥200 unique words) for llms.txt.
   // Authored in phase 05-05 (owner-reviewed). No other tenant's city/landmark.
   llmsDescription:
