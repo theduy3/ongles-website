@@ -10,7 +10,8 @@
     "lint": "eslint",
     "test": "bun test src/",
     "test:e2e": "playwright test",
-    "fetch:reviews": "node --env-file-if-exists=.env.local scripts/fetch-google-reviews.mjs"
+    "fetch:reviews": "node --env-file-if-exists=.env.local scripts/fetch-google-reviews.mjs",
+    "seed:store-settings": "bun run scripts/seed-store-settings.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.1",
