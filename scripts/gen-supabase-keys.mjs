@@ -6,7 +6,7 @@
 // Use this when ROTATING the JWT secret: a leaked key on self-hosted Supabase
 // can only be revoked by changing JWT_SECRET, which forces regenerating anon +
 // service_role + every tenant JWT together. Run order on rotation:
-//   1. mint new secret:   openssl rand -base64 48 | tr -d '\n'
+//   1. mint new secret:   openssl rand -base64 32   (stay <=63 chars; -base64 48 can exceed it)
 //   2. this script:       SUPABASE_JWT_SECRET="<new secret>" node scripts/gen-supabase-keys.mjs
 //   3. tenant tokens:     SUPABASE_JWT_SECRET="<new secret>" node scripts/gen-tenant-jwts.mjs
 //   4. update Supabase service env (JWT_SECRET, ANON_KEY, SERVICE_ROLE_KEY) + restart
@@ -25,7 +25,7 @@ const secret = process.env.SUPABASE_JWT_SECRET;
 if (!secret) {
   console.error(
     "Missing SUPABASE_JWT_SECRET. Find it in Supabase dashboard → Settings → API → JWT Secret,\n" +
-      "or mint a new one with: openssl rand -base64 48 | tr -d '\\n'",
+      "or mint a new one with: openssl rand -base64 32   (keep it <=63 chars)",
   );
   process.exit(1);
 }
