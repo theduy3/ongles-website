@@ -5,6 +5,10 @@
 
 export const site = {
   name: "Ongles Maily",
+  // Designed script wordmark for this brand. Other tenants omit `logo` and fall
+  // back to their name as a styled text wordmark (see Header.tsx Logo). Admin
+  // Supabase config can still override this per deploy.
+  logo: "/images/logo.png",
   // Canonical production origin — feeds metadataBase, sitemap, robots and JSON-LD @id.
   // No trailing slash; relative metadata paths compose against this.
   url: "https://onglesmaily.com",

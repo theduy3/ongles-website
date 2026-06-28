@@ -70,8 +70,9 @@ export type TenantSite = {
    *  `SiteSectionSchema` so the `.strict()` override surface rejects it (I-01).
    *  No trailing slash. Example: `"https://onglesmaily.com"`. */
   canonicalUrl: string;
-  // Optional header logo image URL. Merged from the Supabase override; when
-  // absent the header uses the static /images/logo.png default.
+  // Optional header logo image URL (local /images path or Supabase override).
+  // When absent the header renders the tenant name as a styled text wordmark
+  // (see Header.tsx Logo).
   logo?: string;
   // Optional favicon image URL. Merged from the Supabase override; when absent
   // the site uses the static app/icon.png default.

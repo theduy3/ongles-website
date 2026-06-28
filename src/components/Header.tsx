@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import type { TenantSite } from "@/config/types";
 import type { Dictionary } from "@/lib/dictionary";
@@ -10,9 +9,12 @@ import type { Locale } from "@/lib/i18n";
 import { Button } from "./Button";
 import { LocaleSwitch } from "./LocaleSwitch";
 
-// Brand logo. A custom uploaded logo (Supabase URL, arbitrary aspect ratio) renders
-// as a height-constrained <img> — no next.config remote-domain allowlist needed and
-// any ratio scales. The static default keeps next/image optimization.
+// Brand logo. A custom logo (per-tenant `site.logo` — a local /images path or a
+// Supabase admin-uploaded URL, arbitrary aspect ratio) renders as a height-constrained
+// <img> — no next.config remote-domain allowlist needed and any ratio scales.
+// When no logo image is configured, fall back to the tenant's own name as a styled
+// wordmark (font-display = Cormorant serif, matching site headings) so each tenant is
+// on-brand without needing a per-tenant image asset.
 function Logo({ name, src }: { name: string; src?: string }) {
   if (src) {
     return (
@@ -21,14 +23,12 @@ function Logo({ name, src }: { name: string; src?: string }) {
     );
   }
   return (
-    <Image
-      src="/images/logo.png"
-      alt={name}
-      width={829}
-      height={302}
-      priority
-      className="h-10 w-auto sm:h-12"
-    />
+    <span
+      className="whitespace-nowrap text-2xl leading-none text-espresso sm:text-3xl"
+      style={{ fontFamily: "var(--font-display)" }}
+    >
+      {name}
+    </span>
   );
 }
 
