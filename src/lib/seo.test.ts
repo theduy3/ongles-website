@@ -1,5 +1,5 @@
-import { describe, expect, it } from "bun:test";
-import { organizationGraph, pageMetadata, type SeoConfig } from "@/lib/seo";
+import { afterEach, describe, expect, it } from "bun:test";
+import { organizationGraph, pageMetadata, faqPageGraph, type SeoConfig } from "@/lib/seo";
 import { site as staticSite, locations as staticLocations } from "@/config";
 import type { TenantSite } from "@/config/types";
 
@@ -67,6 +67,115 @@ describe("organizationGraph — dependency injection", () => {
     expect(biz?.["@id"]).toBe(
       "https://canonical.injected.example.com/#business",
     );
+  });
+});
+
+// ─── GEO freshness: dateModified (build timestamp) ──────────────────────────
+// buildTimestamp() reads process.env.BUILD_TIMESTAMP at call time (next.config
+// inlines it at build; in tests we set it directly). Fail-safe: omit when unset.
+
+type GraphNode = { "@type"?: string; "@id"?: string; dateModified?: string; review?: unknown[] };
+const nodeByType = (g: ReturnType<typeof organizationGraph>, t: string) =>
+  (g["@graph"] as GraphNode[]).find((n) => n["@type"] === t);
+
+describe("GEO freshness — dateModified", () => {
+  afterEach(() => {
+    delete process.env.BUILD_TIMESTAMP;
+  });
+
+  it("WebSite node carries dateModified when BUILD_TIMESTAMP is set", () => {
+    // WHY: WebSite is a CreativeWork subtype — dateModified is the freshness
+    // signal AI crawlers and Google read. Must equal the build timestamp verbatim.
+    process.env.BUILD_TIMESTAMP = "2026-06-28T12:00:00.000Z";
+    const graph = organizationGraph("fr", { name: "T", description: "D" }, injectedCfg);
+    expect(nodeByType(graph, "WebSite")?.dateModified).toBe("2026-06-28T12:00:00.000Z");
+  });
+
+  it("omits dateModified entirely when BUILD_TIMESTAMP is unset (no fake date)", () => {
+    // WHY: honesty — an unbuilt context must never emit a fabricated freshness date.
+    const graph = organizationGraph("fr", { name: "T", description: "D" }, injectedCfg);
+    expect("dateModified" in (nodeByType(graph, "WebSite") as object)).toBe(false);
+  });
+
+  it("never places dateModified on the LocalBusiness node (schema-invalid there)", () => {
+    // WHY: dateModified's domain is CreativeWork; NailSalon is not one. Emitting it
+    // would be invalid markup that breaks Rich Results validation.
+    process.env.BUILD_TIMESTAMP = "2026-06-28T12:00:00.000Z";
+    const graph = organizationGraph("fr", { name: "T", description: "D" }, injectedCfg);
+    const biz = (graph["@graph"] as GraphNode[]).find((n) => n["@id"]?.endsWith("/#business"));
+    expect("dateModified" in (biz as object)).toBe(false);
+  });
+
+  it("faqPageGraph carries dateModified when built, omits it otherwise", () => {
+    const items = [{ q: "Open hours?", a: "Tue–Sat." }];
+    process.env.BUILD_TIMESTAMP = "2026-06-28T12:00:00.000Z";
+    const built = faqPageGraph(items) as unknown as { dateModified?: string };
+    expect(built.dateModified).toBe("2026-06-28T12:00:00.000Z");
+    delete process.env.BUILD_TIMESTAMP;
+    const unbuilt = faqPageGraph(items) as unknown as object;
+    expect("dateModified" in unbuilt).toBe(false);
+  });
+});
+
+// ─── GEO authority: individual Review nodes (honesty-gated) ──────────────────
+
+describe("GEO authority — individual Review nodes", () => {
+  const realReview = {
+    id: "g1",
+    author: "Marie L.",
+    rating: 5,
+    dateISO: "2026-05-01",
+    lang: "fr" as const,
+    text: "Service impeccable, ongles magnifiques.",
+  };
+
+  it("emits Review nodes from genuinely fetched review bodies", () => {
+    // WHY: real fetched reviews with datePublished are highly citable by AI search.
+    const cfg: SeoConfig = {
+      ...injectedCfg,
+      reviewData: {
+        fetchedAt: "2026-06-23T00:00:00Z",
+        aggregate: { ratingValue: 5, reviewCount: 12 },
+        reviews: [realReview],
+      },
+    };
+    const graph = organizationGraph("fr", { name: "T", description: "D" }, cfg);
+    const biz = (graph["@graph"] as GraphNode[]).find((n) => n["@id"]?.endsWith("/#business"));
+    const review = (biz?.review as Array<Record<string, unknown>>)[0];
+    expect(biz?.review).toHaveLength(1);
+    expect(review["@type"]).toBe("Review");
+    expect(review["datePublished"]).toBe("2026-05-01");
+    expect((review["author"] as { name?: string }).name).toBe("Marie L.");
+    expect((review["reviewRating"] as { ratingValue?: number }).ratingValue).toBe(5);
+  });
+
+  it("emits NO Review nodes when fetched data has empty reviews[] (aggregate-only)", () => {
+    // WHY: live tenants store aggregates with reviews:[] — must stay honest, no nodes.
+    const cfg: SeoConfig = {
+      ...injectedCfg,
+      reviewData: {
+        fetchedAt: "2026-06-23T00:00:00Z",
+        aggregate: { ratingValue: 3.9, reviewCount: 300 },
+        reviews: [],
+      },
+    };
+    const graph = organizationGraph("fr", { name: "T", description: "D" }, cfg);
+    const biz = (graph["@graph"] as GraphNode[]).find((n) => n["@id"]?.endsWith("/#business"));
+    expect("review" in (biz as object)).toBe(false);
+  });
+
+  it("emits NO Review nodes when reviews were never fetched (fetchedAt null)", () => {
+    const cfg: SeoConfig = {
+      ...injectedCfg,
+      reviewData: {
+        fetchedAt: null,
+        aggregate: { ratingValue: 0, reviewCount: 0 },
+        reviews: [realReview],
+      },
+    };
+    const graph = organizationGraph("fr", { name: "T", description: "D" }, cfg);
+    const biz = (graph["@graph"] as GraphNode[]).find((n) => n["@id"]?.endsWith("/#business"));
+    expect("review" in (biz as object)).toBe(false);
   });
 });
 

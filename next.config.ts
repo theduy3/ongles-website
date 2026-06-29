@@ -59,6 +59,13 @@ export default async function config(phase: string): Promise<NextConfig> {
   }
 
   return {
+    // Inlined at build time (webpack DefinePlugin) into `process.env.BUILD_TIMESTAMP`
+    // across the bundle. Drives schema.org `dateModified` and the llms.txt
+    // "Last updated" line — a freshness signal for AI crawlers that refreshes on
+    // every Dokploy deploy (each deploy is a fresh `next build`). Never read at
+    // runtime; the value is frozen at build. Unset only in unit tests / non-built
+    // contexts, where callers fail-safe and omit the date (never emit a fake one).
+    env: { BUILD_TIMESTAMP: new Date().toISOString() },
     // Emit a self-contained .next/standalone/server.js for the Docker runtime stage.
     output: "standalone",
     // Drop the `X-Powered-By: Next.js` header — no need to advertise the stack.

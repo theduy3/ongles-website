@@ -3,9 +3,14 @@
 // writes them — plus the TRUE aggregate (averageRating / totalReviewCount) — to
 // src/config/tenants/${TENANT}/google-reviews.json for the active tenant.
 //
-// Reviews are display-only (no per-review schema.org markup); the aggregate
-// reflects ALL reviews, so the JSON-LD AggregateRating stays honest. See
-// tasks/seo-audit/ for the policy rationale.
+// Stored review BODIES (`text`, `author`, `dateISO`, `rating`) feed two layers:
+//   1. On-page render — Testimonials + /reviews show real reviews when present,
+//      falling back to placeholder copy when reviews:[] (never fetched yet).
+//   2. schema.org — organizationGraph emits honesty-gated per-review Review nodes
+//      (seo.ts reviewNodes()) ONLY from these fetched bodies, never placeholders.
+// Because layer 1 renders the same reviews layer 2 marks up, the JSON-LD stays
+// compliant (markup matches on-page content). The aggregate reflects ALL reviews,
+// so AggregateRating stays honest too. See tasks/seo-audit/ for policy rationale.
 //
 // This is a BUILD TOOL: it fails loud on misconfiguration rather than writing
 // empty data, so a broken fetch can never silently wipe the committed reviews.

@@ -24,7 +24,7 @@ import type { Locale } from "@/lib/i18n";
 import { locales, defaultLocale } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import { locations, mapLink } from "@/lib/locations";
-import { reviewsFetchedAt, aggregate } from "@/lib/reviews";
+import { reviewsFetchedAt, aggregate, reviews, type Review } from "@/lib/reviews";
 import type { GalleryImage } from "@/lib/gallery";
 import type { TenantSite, Location } from "@/config/types";
 
@@ -72,6 +72,48 @@ const DAY_NAME: Record<string, string> = {
   Sa: "Saturday",
   Su: "Sunday",
 };
+
+/**
+ * Build-time ISO timestamp, inlined by next.config `env` (webpack DefinePlugin).
+ * Returns undefined in unit tests / non-built contexts so callers omit
+ * `dateModified` rather than ever emitting a fabricated freshness date.
+ */
+function buildTimestamp(): string | undefined {
+  return process.env.BUILD_TIMESTAMP || undefined;
+}
+
+/** Cap on individual Review nodes emitted in the LocalBusiness graph — enough for
+ *  AI-citation coverage without bloating the sitewide JSON-LD payload. */
+const MAX_REVIEW_NODES = 12;
+
+/**
+ * Individual schema.org Review nodes for the LocalBusiness graph. Gated by the
+ * SAME honesty rule as AggregateRating (R-02): emit ONLY from genuinely fetched
+ * review bodies (fetchedAt set AND at least one stored review). The static
+ * `reviews.placeholders` display copy is NEVER a source here — fabricating dated
+ * reviews would violate Google's review-snippet policy and the T-02-01 honesty
+ * invariant. Returns {} (no `review` key) until real bodies are fetched.
+ */
+function reviewNodes(cfg: SeoConfig): { review?: unknown[] } {
+  const rd = cfg.reviewData ?? { fetchedAt: reviewsFetchedAt, reviews };
+  const list = (rd.reviews ?? reviews) as readonly Review[];
+  if (rd.fetchedAt === null || list.length === 0) return {};
+  return {
+    review: list.slice(0, MAX_REVIEW_NODES).map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.author },
+      datePublished: r.dateISO,
+      reviewBody: r.text,
+      inLanguage: OG_LOCALE[r.lang] ?? r.lang,
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: r.rating,
+        bestRating: cfg.site.reviews.bestRating,
+        worstRating: 1,
+      },
+    })),
+  };
+}
 
 /** hreflang map for a route that is IDENTICAL across locales (incl. x-default→fr). */
 function languageAlternates(route: string): Record<string, string> {
@@ -278,6 +320,9 @@ export function organizationGraph(
               }
             : {};
         })()),
+        // Individual Review nodes — gated identically to AggregateRating (R-02):
+        // only real fetched review bodies, never the static placeholder copy.
+        ...reviewNodes(cfg),
         address: {
           "@type": "PostalAddress",
           streetAddress: cfg.site.contact.address.street,
@@ -301,6 +346,9 @@ export function organizationGraph(
         name: cfg.site.name,
         inLanguage: OG_LOCALE[lang],
         publisher: { "@id": BUSINESS_ID },
+        // Freshness signal — WebSite is a CreativeWork subtype, so dateModified is
+        // schema-valid here (unlike on NailSalon/Organization). Omitted when unbuilt.
+        ...(buildTimestamp() ? { dateModified: buildTimestamp() } : {}),
       },
       ...departments,
     ],
@@ -386,6 +434,9 @@ export function faqPageGraph(items: readonly { q: string; a: string }[]): WithCo
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    // Freshness signal — FAQPage is a CreativeWork (WebPage) subtype, so
+    // dateModified is schema-valid. Omitted when unbuilt (tests).
+    ...(buildTimestamp() ? { dateModified: buildTimestamp() } : {}),
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.q,

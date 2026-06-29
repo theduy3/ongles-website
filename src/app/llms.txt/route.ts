@@ -71,11 +71,18 @@ export async function GET() {
     .map((c) => `- [${c.label}](${enBase}/comparisons/${c.en})`)
     .join("\n");
 
+  // ── Freshness line ──────────────────────────────────────────────────────────
+  // BUILD_TIMESTAMP is inlined by next.config `env` at build time; each Dokploy
+  // deploy is a fresh build, so this tracks the last publish. Date-only (YYYY-MM-DD)
+  // is enough signal for AI crawlers. Omitted when unbuilt (no fabricated date).
+  const updated = process.env.BUILD_TIMESTAMP?.slice(0, 10);
+  const updatedLine = updated ? `\n_Last updated: ${updated}_\n` : "";
+
   // ── Assemble body ──────────────────────────────────────────────────────────
   const body = `# ${site.name}
 
 > ${intro}
-
+${updatedLine}
 ## Contact & Location
 
 - Address: ${site.contact.address.line1}, ${site.contact.address.line2}
