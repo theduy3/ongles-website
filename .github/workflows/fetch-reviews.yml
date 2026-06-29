@@ -1,0 +1,107 @@
+name: Fetch Google reviews
+
+# Refreshes real Google reviews per tenant on a schedule, commits the updated
+# JSON, and pushes to main. The push fires the Dokploy deploy webhook (webhooks
+# fire regardless of who pushed), so live sites pick up new reviews — both the
+# on-page render (Testimonials + /reviews) and the schema.org Review nodes
+# (organizationGraph reviewNodes) — without a manual fetch.
+#
+# The fetch script (scripts/fetch-google-reviews.mjs) has ZERO npm deps — it uses
+# only node builtins + global fetch — so no `npm/bun install` step is needed.
+#
+# It rewrites `fetchedAt` on every run, so the committed JSON changes weekly even
+# when review text is unchanged. That is intentional: the weekly push also bumps
+# the build-time BUILD_TIMESTAMP, keeping schema `dateModified` and the llms.txt
+# "Last updated" line fresh.
+#
+# ── Required repository secrets ───────────────────────────────────────────────
+#   GOOGLE_OAUTH_CLIENT_ID
+#   GOOGLE_OAUTH_CLIENT_SECRET
+#   GOOGLE_OAUTH_REFRESH_TOKEN          (scope: https://www.googleapis.com/auth/business.manage)
+#   GOOGLE_BUSINESS_ACCOUNT_ID          (shared default account for all salons)
+#   GBP_LOCATION_ONGLES_MAILY           (My Business v4 numeric location id)
+#   GBP_LOCATION_ONGLES_CHARLESBOURG
+#   GBP_LOCATION_ONGLES_RIVIERES
+# Optional — only if a salon lives under a DIFFERENT Google account than the
+# shared default; otherwise omit and the shared account is used:
+#   GBP_ACCOUNT_ONGLES_MAILY
+#   GBP_ACCOUNT_ONGLES_CHARLESBOURG
+#   GBP_ACCOUNT_ONGLES_RIVIERES
+#
+# A tenant whose location secret is unset is SKIPPED with a warning (it keeps its
+# committed JSON), so the workflow is safe to enable before every salon is wired.
+#
+# NOTE: requires direct pushes to main to be allowed for GITHUB_TOKEN. If main is
+# branch-protected, grant the Actions bot a bypass or switch to a PAT/GitHub App
+# token with push rights.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch: {} # manual run from the Actions tab
+
+permissions:
+  contents: write # commit + push the refreshed JSON
+
+concurrency:
+  group: fetch-reviews
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch reviews per tenant
+        env:
+          GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+          GOOGLE_OAUTH_REFRESH_TOKEN: ${{ secrets.GOOGLE_OAUTH_REFRESH_TOKEN }}
+          SHARED_ACCOUNT: ${{ secrets.GOOGLE_BUSINESS_ACCOUNT_ID }}
+          ACC_MAILY: ${{ secrets.GBP_ACCOUNT_ONGLES_MAILY }}
+          ACC_CHARLESBOURG: ${{ secrets.GBP_ACCOUNT_ONGLES_CHARLESBOURG }}
+          ACC_RIVIERES: ${{ secrets.GBP_ACCOUNT_ONGLES_RIVIERES }}
+          LOC_MAILY: ${{ secrets.GBP_LOCATION_ONGLES_MAILY }}
+          LOC_CHARLESBOURG: ${{ secrets.GBP_LOCATION_ONGLES_CHARLESBOURG }}
+          LOC_RIVIERES: ${{ secrets.GBP_LOCATION_ONGLES_RIVIERES }}
+        run: |
+          set -euo pipefail
+
+          # Fetch one tenant. Skips (does not fail) when no location secret is set
+          # so the workflow is usable before every salon is wired. Account falls
+          # back to the shared default when no per-tenant override is provided.
+          run_one () {
+            local tenant="$1" account="$2" location="$3"
+            if [ -z "$location" ]; then
+              echo "::warning::skipping $tenant — GBP location id secret not set"
+              return 0
+            fi
+            echo "::group::fetch $tenant"
+            GOOGLE_BUSINESS_ACCOUNT_ID="${account:-$SHARED_ACCOUNT}" \
+            GOOGLE_BUSINESS_LOCATION_ID="$location" \
+            TENANT="$tenant" \
+              node scripts/fetch-google-reviews.mjs
+            echo "::endgroup::"
+          }
+
+          run_one ongles-maily        "$ACC_MAILY"        "$LOC_MAILY"
+          run_one ongles-charlesbourg "$ACC_CHARLESBOURG" "$LOC_CHARLESBOURG"
+          run_one ongles-rivieres     "$ACC_RIVIERES"     "$LOC_RIVIERES"
+
+      - name: Commit & push if reviews changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- 'src/config/tenants/*/google-reviews.json'; then
+            echo "No review JSON changes — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "ongles-review-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/config/tenants/*/google-reviews.json
+          git commit -m "chore(reviews): refresh Google reviews"
+          git push
