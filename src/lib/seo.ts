@@ -26,7 +26,8 @@ import { site } from "@/lib/site";
 import { locations, mapLink } from "@/lib/locations";
 import { reviewsFetchedAt, aggregate, reviews, type Review } from "@/lib/reviews";
 import type { GalleryImage } from "@/lib/gallery";
-import type { TenantSite, Location } from "@/config/types";
+import type { TenantSite, Location, ReviewData } from "@/config/types";
+import { shouldPublishRating, shouldPublishReviewNodes } from "@/config/review-honesty";
 
 /**
  * Local graph wrapper type for organizationGraph — schema-dts 2.0.0 does not
@@ -113,6 +114,51 @@ function reviewNodes(cfg: SeoConfig): { review?: unknown[] } {
       },
     })),
   };
+}
+
+/**
+ * The review JSON-LD fragment spread into the business node — the single place
+ * that turns review honesty into schema. Both keys are gated by the shared
+ * predicates in @/config/review-honesty, so the builder and the build-time
+ * validator agree by construction. Emits nothing until a genuine fetch exists.
+ */
+export function reviewSchemaFragment({
+  reviewData,
+  bestRating,
+}: {
+  reviewData: ReviewData;
+  bestRating: number;
+}): { aggregateRating?: unknown; review?: unknown[] } {
+  const out: { aggregateRating?: unknown; review?: unknown[] } = {};
+
+  if (shouldPublishRating(reviewData)) {
+    out.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: reviewData.aggregate.ratingValue,
+      reviewCount: reviewData.aggregate.reviewCount,
+      bestRating,
+    };
+  }
+
+  if (shouldPublishReviewNodes(reviewData)) {
+    out.review = (reviewData.reviews as readonly Review[])
+      .slice(0, MAX_REVIEW_NODES)
+      .map((r) => ({
+        "@type": "Review",
+        author: { "@type": "Person", name: r.author },
+        datePublished: r.dateISO,
+        reviewBody: r.text,
+        inLanguage: OG_LOCALE[r.lang] ?? r.lang,
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: r.rating,
+          bestRating,
+          worstRating: 1,
+        },
+      }));
+  }
+
+  return out;
 }
 
 /** hreflang map for a route that is IDENTICAL across locales (incl. x-default→fr). */
