@@ -2,6 +2,7 @@ import { site as staticSite, locations as staticLocations, services as staticSer
 import { tenant } from "@/config";
 import { deepMerge } from "@/config/deep-merge";
 import { cachedTenantResource } from "@/lib/cached-tenant-resource";
+import { storeCacheTag } from "@/lib/cache-tags";
 import { readStoreSettings } from "@/lib/store-settings-store";
 import type { TenantSite, Location, Service } from "@/config/types";
 import type { StoreSettings } from "@/lib/store-settings-schema";
@@ -89,6 +90,6 @@ async function resolveStoreConfig(): Promise<{
 // shared caching seam. Tagged so admin writes can revalidateTag(`store-config:${id}`).
 export const getStoreConfig = cachedTenantResource(
   ["store-config", tenant.id],
-  { tags: [`store-config:${tenant.id}`] },
+  { tags: [storeCacheTag("store-config", tenant.id)] },
   resolveStoreConfig,
 );

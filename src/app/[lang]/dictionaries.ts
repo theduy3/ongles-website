@@ -4,6 +4,7 @@ import { tenant } from "@/config";
 import { readStoreSettings } from "@/lib/store-settings-store";
 import { layeredLocaleContent } from "@/app/[lang]/layered-locale-content";
 import { BASE_CONTENT, TENANT_CONTENT } from "@/config/tenant-content";
+import { storeCacheTag } from "@/lib/cache-tags";
 
 // The dictionary is composed at request time from THREE layers (base -> tenant ->
 // db), cached per-tenant. See CONTEXT.md "Layered resolution". Locale parity
@@ -16,7 +17,7 @@ export const getDictionary = layeredLocaleContent<Dictionary>({
   tenants: TENANT_CONTENT,
   tenantId: tenant.id,
   cacheKey: "store-content",
-  tag: `store-content:${tenant.id}`,
+  tag: storeCacheTag("store-content", tenant.id),
   readSettings: readStoreSettings,
   readDbLayer: (settings, locale) =>
     (settings?.content?.[locale] as Content | undefined) ?? {},

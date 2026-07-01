@@ -28,6 +28,14 @@ operator's live edits merged on top, cached per request and per deployment.
   (`src/lib/cached-tenant-resource.ts`): `unstable_cache` (cross-request, 60 s, tag-purged
   on admin write) wrapped by React `cache` (per-request dedupe). A resolver error
   propagates on its first throw — the seam adds no swallow/retry.
+- **Store cache tags** — the single owner of the per-tenant cache tag names
+  (`src/lib/cache-tags.ts`): one `<namespace>:<tenantId>` tag per cached resource, over the
+  namespace set `store-config` / `store-content` / `store-seo`. Registration (each
+  resolver's `cachedTenantResource` tag) and invalidation both derive their tags here, so
+  the two sides can't drift into a silent stale-cache bug. All three derive from the one
+  store-settings doc, so an admin write purges the whole set via `revalidateStoreCaches`
+  (`src/lib/revalidate-store-caches.ts` — the framework shell, kept apart so this pure owner
+  never pulls `next/cache`); a new namespace added to the set is purged automatically.
 - **Store read resolution** — the pure decision that turns an already-fetched Supabase
   read response (`{ data, error }`) into either a degraded value or a `StoreResult`
   envelope, WITHOUT a client. Two temperaments: the **public** read degrades to `null` on
