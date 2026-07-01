@@ -94,7 +94,7 @@ describe("assertSchemaInvariants", () => {
 // ─── Per-tenant invariant detail tests ───────────────────────────────────────
 
 import { TENANT_REGISTRY } from "./index";
-import type { SeoConfig } from "@/lib/seo";
+import type { OrgGraphConfig } from "@/lib/seo";
 import {
   organizationGraph,
   servicesGraph,
@@ -106,7 +106,7 @@ import {
 
 const EXCLUDED = new Set(["template"]);
 
-function tenantSeoConfig(id: string): SeoConfig {
+function tenantSeoConfig(id: string): OrgGraphConfig {
   const cfg = TENANT_REGISTRY[id as keyof typeof TENANT_REGISTRY];
   return {
     site: cfg.site,
@@ -216,7 +216,7 @@ describe("R-02: AggregateRating suppression", () => {
   const cfg = tenantSeoConfig("ongles-maily");
 
   it("suppresses AggregateRating when fetchedAt is null", () => {
-    const testCfg: SeoConfig = {
+    const testCfg: OrgGraphConfig = {
       ...cfg,
       reviewData: { fetchedAt: null, aggregate: { ratingValue: 4.8, reviewCount: 10 }, reviews: [] },
     };
@@ -227,7 +227,7 @@ describe("R-02: AggregateRating suppression", () => {
   });
 
   it("suppresses AggregateRating when reviewCount < 5", () => {
-    const testCfg: SeoConfig = {
+    const testCfg: OrgGraphConfig = {
       ...cfg,
       reviewData: { fetchedAt: "2026-01-01T00:00:00Z", aggregate: { ratingValue: 4.8, reviewCount: 4 }, reviews: [] },
     };
@@ -238,7 +238,7 @@ describe("R-02: AggregateRating suppression", () => {
   });
 
   it("suppresses AggregateRating when reviewCount === 0 and fetchedAt null (stub config)", () => {
-    const testCfg: SeoConfig = {
+    const testCfg: OrgGraphConfig = {
       ...cfg,
       reviewData: { fetchedAt: null, aggregate: { ratingValue: 0, reviewCount: 0 }, reviews: [] },
     };
@@ -249,7 +249,7 @@ describe("R-02: AggregateRating suppression", () => {
   });
 
   it("emits AggregateRating when fetchedAt set AND reviewCount >= 5 (positive path)", () => {
-    const syntheticCfg: SeoConfig = {
+    const syntheticCfg: OrgGraphConfig = {
       site: cfg.site,
       locations: cfg.locations,
       reviewData: {
@@ -341,7 +341,6 @@ describe("offer() — AggregateOffer when priceTo > price, else Offer (SCHEMA-02
 
 import frDict from "@/dictionaries/fr.json";
 import enDict from "@/dictionaries/en.json";
-import { faqPageGraph } from "@/lib/seo";
 
 describe("F-01: validateFaqCompleteness — FAQ count and non-empty invariant", () => {
   it("returns [] for valid items (all q/a non-empty)", () => {
@@ -1158,5 +1157,45 @@ describe("05-05: llms guards WIRED — validateSchemaInvariants green on real co
 
   it("validateSchemaInvariants() still returns [] overall (production build gate passes)", () => {
     expect(validateSchemaInvariants()).toEqual([]);
+  });
+});
+
+// ─── Task 5B: checkAggregateRating crosses the shared R-02 predicate ─────────
+
+import {
+  checkAggregateRating as _checkAggregateRating,
+} from "@/config/schema-invariants";
+import type { ReviewData } from "@/config/types";
+
+const cfgWith = (reviewData: ReviewData) =>
+  ({ reviewData } as unknown as Parameters<typeof _checkAggregateRating>[1]);
+
+describe("checkAggregateRating — shared-predicate assertion", () => {
+  it("flags a stub that advertises a non-zero count (fetchedAt null, count > 0)", () => {
+    const errors = _checkAggregateRating("t", cfgWith({
+      fetchedAt: null,
+      aggregate: { ratingValue: 4.9, reviewCount: 7 },
+      reviews: [],
+    }));
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].invariant).toBe("R-02");
+  });
+
+  it("passes a clean stub (fetchedAt null, count 0)", () => {
+    const errors = _checkAggregateRating("t", cfgWith({
+      fetchedAt: null,
+      aggregate: { ratingValue: 0, reviewCount: 0 },
+      reviews: [],
+    }));
+    expect(errors).toEqual([]);
+  });
+
+  it("passes a genuine fetch above the shared minimum", () => {
+    const errors = _checkAggregateRating("t", cfgWith({
+      fetchedAt: "2026-01-01T00:00:00Z",
+      aggregate: { ratingValue: 4.8, reviewCount: 30 },
+      reviews: [{}],
+    }));
+    expect(errors).toEqual([]);
   });
 });

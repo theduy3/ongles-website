@@ -30,6 +30,7 @@
 //                (verified from services array directly — SCHEMA-02)
 
 import { TENANT_REGISTRY } from "./index";
+import { shouldPublishRating, RATING_MIN_REVIEWS } from "./review-honesty";
 // F-01 FAQ completeness reads the per-locale FAQ source directly from the
 // dictionaries. These are STATIC, alias-free JSON imports (resolveJsonModule
 // is true) — safe for the next.config.ts build-guard SWC require-hook. We must
@@ -612,28 +613,38 @@ function checkSameAs(tenantId: string, cfg: TenantEntry): SchemaInvariantError[]
  * will either emit or suppress correctly — this check catches misconfigured
  * stubs that claim a real rating without a fetch).
  */
-function checkAggregateRating(tenantId: string, cfg: TenantEntry): SchemaInvariantError[] {
+export function checkAggregateRating(tenantId: string, cfg: TenantEntry): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
   const rd = cfg.reviewData;
 
-  // If fetchedAt is null, reviewCount should be 0 (stub state).
-  // A non-zero reviewCount with null fetchedAt is a data integrity issue
-  // (the builder suppresses the rating but the config is inconsistent).
+  // Data hygiene: a stub (no genuine fetch) must not advertise a rating count —
+  // it is misleading config even though the gate suppresses the rating.
   if (rd.fetchedAt === null && rd.aggregate.reviewCount > 0) {
     errors.push(
       err(
         tenantId,
         "R-02",
-        `reviewData.fetchedAt is null but reviewCount=${rd.aggregate.reviewCount} > 0 — stub state inconsistency (R-02 suppresses the rating correctly, but the config data is misleading)`,
+        `reviewData.fetchedAt is null but reviewCount=${rd.aggregate.reviewCount} > 0 — stub state inconsistency`,
       ),
     );
   }
 
-  // If fetchedAt is set, reviewCount must be a non-negative integer.
-  if (rd.fetchedAt !== null && rd.aggregate.reviewCount < 0) {
+  // Cross-check the SHARED gate the builder uses: a stub must never publish a
+  // rating. Asserting through shouldPublishRating (not a re-stated threshold)
+  // means the validator and the builder can never drift on the R-02 rule.
+  if (rd.fetchedAt === null && shouldPublishRating(rd)) {
     errors.push(
-      err(tenantId, "R-02", `reviewCount=${rd.aggregate.reviewCount} is negative — invalid review count`),
+      err(
+        tenantId,
+        "R-02",
+        `stub tenant would publish a rating — the R-02 gate (min ${RATING_MIN_REVIEWS}) failed to suppress`,
+      ),
     );
+  }
+
+  // A genuine fetch with a negative count is invalid data.
+  if (rd.fetchedAt !== null && rd.aggregate.reviewCount < 0) {
+    errors.push(err(tenantId, "R-02", `reviewCount=${rd.aggregate.reviewCount} is negative — invalid review count`));
   }
 
   return errors;
