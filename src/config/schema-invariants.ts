@@ -21,7 +21,7 @@
 //   @id        — business/location/organization @id values derive from canonicalUrl
 //   I-02       — no two tenants share a business @id (cross-tenant uniqueness)
 //   I-03       — sameAs absent or non-empty, never [] (socialProfiles guard)
-//   R-02       — AggregateRating emitted only when fetchedAt set AND reviewCount >= 5
+//   R-02       — AggregateRating emitted only when fetchedAt set AND reviewCount >= RATING_MIN_REVIEWS
 //   NailSalon  — required config fields present: name, url, telephone (contact.phone),
 //                address (contact.address), geo, hours (openingHoursSpecification source)
 //   O-01       — Organization node will be present (organizationGraph always emits it)
@@ -608,7 +608,7 @@ function checkSameAs(tenantId: string, cfg: TenantEntry): SchemaInvariantError[]
 /**
  * R-02 — AggregateRating gate.
  * The builder emits aggregateRating ONLY when:
- *   fetchedAt !== null AND aggregate.reviewCount >= 5
+ *   fetchedAt !== null AND aggregate.reviewCount >= RATING_MIN_REVIEWS
  * Assert the current reviewData satisfies the gate invariant (the builder
  * will either emit or suppress correctly — this check catches misconfigured
  * stubs that claim a real rating without a fetch).
