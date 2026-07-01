@@ -634,7 +634,7 @@ Expected: both files "No such file"; grep returns nothing.
 - [ ] **Step 2: Full test suite**
 
 Run: `bun test src/`
-Expected: all pass (baseline before C02 was 531; net change = new factory/caching tests added, `composeDictionary`-block count unchanged since migrated 1:1). Report the count and confirm 0 fail.
+Expected: all pass, 0 fail. Count ~537 (baseline 531 + caching/factory tests added; Task 4 removed 5 `composeSeo` pure tests that duplicated the `composeLayers` block — equivalent coverage retained in `layered-locale-content.test.ts` + `legacy-seo-shim.test.ts`). Report the count.
 
 - [ ] **Step 3: Type-check**
 
