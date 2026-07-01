@@ -7,8 +7,8 @@ import { BookingWidget } from "@/components/BookingWidget";
 import { getStoreConfig } from "@/lib/store-config";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
+import { getPageSeo } from "../page-seo";
 import { isLocale, type LangParams } from "@/lib/i18n";
-import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -16,26 +16,27 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
-  return pageMetadata(lang, "/book-online", {
+  const page = await getPageSeo(lang);
+  return page.metadata("/book-online", {
     title: seo.meta.bookOnlineTitle,
     description: seo.meta.bookOnlineDescription,
-  }, { site, locations });
+  });
 }
 
 export default async function BookOnlinePage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
-  const { site, locations } = await getStoreConfig();
+  const { site } = await getStoreConfig();
+  const page = await getPageSeo(lang);
 
   return (
     <>
       <JsonLd
-        data={breadcrumbGraph(lang, [
+        data={page.breadcrumb([
           { name: dict.nav.home, route: "" },
           { name: dict.nav.bookOnline, route: "/book-online" },
-        ], { site, locations })}
+        ])}
       />
       <PageHeader
         title={dict.bookOnline.heading}

@@ -15,9 +15,7 @@ import { CustomCodeHost } from "@/components/CustomCodeHost";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { WebVitalsReporter } from "@/components/WebVitalsReporter";
 import { getStoreConfig } from "@/lib/store-config";
-import { organizationGraph } from "@/lib/seo";
-import { reviewDataFor } from "@/config/review-honesty";
-import { tenant } from "@/config";
+import { getPageSeo } from "./page-seo";
 import { shouldInjectGA4, buildConsentInitScript } from "@/lib/ga4-scripts";
 
 // Cormorant Garamond — elegant serif for headings (light/regular weights).
@@ -86,7 +84,8 @@ export default async function RootLayout({
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
-  const { site, locations, customCode } = await getStoreConfig();
+  const { site, customCode } = await getStoreConfig();
+  const page = await getPageSeo(lang);
 
   return (
     <html
@@ -97,10 +96,10 @@ export default async function RootLayout({
       <body className="flex min-h-screen flex-col">
         {/* Sitewide LocalBusiness + WebSite structured data. */}
         <JsonLd
-          data={organizationGraph(lang, {
+          data={page.organization({
             name: site.name,
             description: seo.org.description,
-          }, { site, locations, reviewData: reviewDataFor(tenant) })}
+          })}
         />
         <Header dict={dict} locale={lang} site={site} />
         {/* pb clears the fixed FloatingCTA so it never covers page content. */}

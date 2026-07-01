@@ -15,13 +15,8 @@ import {
 } from "@/lib/services";
 import { getDictionary } from "../../dictionaries";
 import { getSeo } from "../../seo-content";
+import { getPageSeo } from "../../page-seo";
 import { isLocale } from "@/lib/i18n";
-import {
-  pageMetadata,
-  serviceGraph,
-  faqPageGraph,
-  breadcrumbGraph,
-} from "@/lib/seo";
 import { formatFromPrice } from "@/lib/format";
 
 type Params = { params: Promise<{ lang: string; slug: string }> };
@@ -36,12 +31,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const service = serviceBySlug(lang, slug);
   if (!service) return {};
   const s = (await getSeo(lang)).services[service.id];
-  const { site, locations } = await getStoreConfig();
-  return pageMetadata(lang, servicePath(service, lang), {
+  const page = await getPageSeo(lang);
+  return page.metadata(servicePath(service, lang), {
     title: s.metaTitle,
     description: s.metaDescription,
     routeByLocale: servicePathsByLocale(service),
-  }, { site, locations });
+  });
 }
 
 export default async function ServiceDetailPage({ params }: Params) {
@@ -52,7 +47,8 @@ export default async function ServiceDetailPage({ params }: Params) {
 
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
+  const { site } = await getStoreConfig();
+  const page = await getPageSeo(lang);
   const d = dict.serviceDetails[service.id];
   const s = seo.services[service.id];
   const labels = dict.serviceLabels;
@@ -64,21 +60,21 @@ export default async function ServiceDetailPage({ params }: Params) {
   return (
     <>
       <JsonLd
-        data={serviceGraph(lang, {
+        data={page.service({
           name: d.title,
           description: s.schemaDescription,
           price: service.price,
           priceTo: service.priceTo,
           path: servicePath(service, lang),
-        }, { site, locations })}
+        })}
       />
-      <JsonLd data={faqPageGraph(d.faq)} />
+      <JsonLd data={page.faq(d.faq)} />
       <JsonLd
-        data={breadcrumbGraph(lang, [
+        data={page.breadcrumb([
           { name: dict.nav.home, route: "" },
           { name: dict.nav.services, route: "/services" },
           { name: d.title, route: servicePath(service, lang) },
-        ], { site, locations })}
+        ])}
       />
 
       {/* Direct-answer block — first in main, carries the single page h1 (CONTENT-01, D-17/D-19) */}

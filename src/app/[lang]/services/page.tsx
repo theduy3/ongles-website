@@ -10,8 +10,8 @@ import { servicePath } from "@/lib/services";
 import { getStoreConfig } from "@/lib/store-config";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
+import { getPageSeo } from "../page-seo";
 import { isLocale, type LangParams } from "@/lib/i18n";
-import { pageMetadata, servicesGraph, breadcrumbGraph } from "@/lib/seo";
 import { formatFromPrice } from "@/lib/format";
 
 export async function generateMetadata({
@@ -20,11 +20,11 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
-  return pageMetadata(lang, "/services", {
+  const page = await getPageSeo(lang);
+  return page.metadata("/services", {
     title: seo.meta.servicesTitle,
     description: seo.meta.servicesDescription,
-  }, { site, locations });
+  });
 }
 
 export default async function ServicesPage({ params }: LangParams) {
@@ -32,7 +32,8 @@ export default async function ServicesPage({ params }: LangParams) {
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
-  const { site, locations, services } = await getStoreConfig();
+  const { site, services } = await getStoreConfig();
+  const page = await getPageSeo(lang);
 
   // Hub ItemList schema: build ServiceItem[] from registry + dict (UI title) + seo (schema text).
   const items = services.map((s) => ({
@@ -45,12 +46,12 @@ export default async function ServicesPage({ params }: LangParams) {
 
   return (
     <>
-      <JsonLd data={servicesGraph(lang, items, { site, locations })} />
+      <JsonLd data={page.services(items)} />
       <JsonLd
-        data={breadcrumbGraph(lang, [
+        data={page.breadcrumb([
           { name: dict.nav.home, route: "" },
           { name: dict.nav.services, route: "/services" },
-        ], { site, locations })}
+        ])}
       />
       <AnswerBlock
         heading={seo.meta.servicesAnswerHeading}

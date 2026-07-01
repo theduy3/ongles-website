@@ -13,8 +13,8 @@ import {
 } from "@/lib/comparisons";
 import { getDictionary } from "../../dictionaries";
 import { getSeo } from "../../seo-content";
+import { getPageSeo } from "../../page-seo";
 import { isLocale } from "@/lib/i18n";
-import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
 
 type Params = { params: Promise<{ lang: string; slug: string }> };
 
@@ -29,19 +29,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const record = comparisonBySlug(lang, slug);
   if (!record) return {};
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
+  const page = await getPageSeo(lang);
   const c = seo.pages.comparison[record.id as keyof typeof seo.pages.comparison];
   if (!c) return {};
-  return pageMetadata(
-    lang,
-    comparisonPath(record, lang),
-    {
-      title: c.metaTitle,
-      description: c.metaDescription,
-      routeByLocale: comparisonPathsByLocale(record),
-    },
-    { site, locations },
-  );
+  return page.metadata(comparisonPath(record, lang), {
+    title: c.metaTitle,
+    description: c.metaDescription,
+    routeByLocale: comparisonPathsByLocale(record),
+  });
 }
 
 export default async function ComparisonPage({ params }: Params) {
@@ -54,7 +49,8 @@ export default async function ComparisonPage({ params }: Params) {
 
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
+  const { site } = await getStoreConfig();
+  const page = await getPageSeo(lang);
   const c = seo.pages.comparison[record.id as keyof typeof seo.pages.comparison];
   if (!c) notFound();
   const bookHref = `/${lang}${site.booking}`;
@@ -67,15 +63,11 @@ export default async function ComparisonPage({ params }: Params) {
   return (
     <>
       <JsonLd
-        data={breadcrumbGraph(
-          lang,
-          [
-            { name: dict.nav.home, route: "" },
-            { name: dict.nav.services, route: "/services" },
-            { name: c.answerHeading, route: comparisonPath(record, lang) },
-          ],
-          { site, locations },
-        )}
+        data={page.breadcrumb([
+          { name: dict.nav.home, route: "" },
+          { name: dict.nav.services, route: "/services" },
+          { name: c.answerHeading, route: comparisonPath(record, lang) },
+        ])}
       />
 
       {/* Answer-first block — verdict-first, carries the single page h1 (D-19). */}

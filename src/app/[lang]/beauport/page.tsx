@@ -7,8 +7,8 @@ import { NearMeDetails } from "@/components/NearMeDetails";
 import { getStoreConfig } from "@/lib/store-config";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
+import { getPageSeo } from "../page-seo";
 import { isLocale } from "@/lib/i18n";
-import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
 import type { LangParams } from "@/lib/i18n";
 
 // No generateStaticParams — on-demand rendering via force-dynamic parent layout.
@@ -19,17 +19,12 @@ export async function generateMetadata({ params }: LangParams): Promise<Metadata
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
-  return pageMetadata(
-    lang,
-    "/beauport",
-    {
-      title: seo.pages.nearMe.metaTitle,
-      description: seo.pages.nearMe.metaDescription,
-      routeByLocale: { fr: "/beauport", en: "/beauport" },
-    },
-    { site, locations },
-  );
+  const page = await getPageSeo(lang);
+  return page.metadata("/beauport", {
+    title: seo.pages.nearMe.metaTitle,
+    description: seo.pages.nearMe.metaDescription,
+    routeByLocale: { fr: "/beauport", en: "/beauport" },
+  });
 }
 
 export default async function BeauportPage({ params }: LangParams) {
@@ -39,6 +34,7 @@ export default async function BeauportPage({ params }: LangParams) {
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
   const { site, locations, services } = await getStoreConfig();
+  const page = await getPageSeo(lang);
 
   const bookHref = `/${lang}${site.booking}`;
   const location = locations[0];
@@ -53,15 +49,11 @@ export default async function BeauportPage({ params }: LangParams) {
     <>
       {/* Breadcrumb JSON-LD: Home → Locations → Beauport */}
       <JsonLd
-        data={breadcrumbGraph(
-          lang,
-          [
-            { name: dict.nav.home, route: "" },
-            { name: dict.locations.heading, route: "/locations" },
-            { name: seo.pages.nearMe.boroughName || "Beauport", route: "/beauport" },
-          ],
-          { site, locations },
-        )}
+        data={page.breadcrumb([
+          { name: dict.nav.home, route: "" },
+          { name: dict.locations.heading, route: "/locations" },
+          { name: seo.pages.nearMe.boroughName || "Beauport", route: "/beauport" },
+        ])}
       />
 
       {/* Answer-first block — carries the single page h1 (D-19) */}
