@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
-import { pageMetadata, imageGalleryGraph, breadcrumbGraph } from "@/lib/seo";
-import { getStoreConfig } from "@/lib/store-config";
+import { getPageSeo } from "../page-seo";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHeader } from "@/components/PageHeader";
 import { Gallery } from "@/components/Gallery";
@@ -16,11 +15,11 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
-  return pageMetadata(lang, "/gallery", {
+  const page = await getPageSeo(lang);
+  return page.metadata("/gallery", {
     title: seo.meta.galleryTitle,
     description: seo.meta.galleryDescription,
-  }, { site, locations });
+  });
 }
 
 export default async function GalleryPage({ params }: LangParams) {
@@ -28,7 +27,7 @@ export default async function GalleryPage({ params }: LangParams) {
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
+  const page = await getPageSeo(lang);
 
   // alt is SEO-owned (seo.gallery), caption is UI-owned (dict.gallery.photos).
   const altFor = (id: string) =>
@@ -46,16 +45,16 @@ export default async function GalleryPage({ params }: LangParams) {
   return (
     <>
       <JsonLd
-        data={imageGalleryGraph(dict.gallery.title, galleryImages, (id) => ({
+        data={page.gallery(dict.gallery.title, galleryImages, (id) => ({
           alt: altFor(id),
           caption: captionFor(id),
-        }), { site, locations })}
+        }))}
       />
       <JsonLd
-        data={breadcrumbGraph(lang, [
+        data={page.breadcrumb([
           { name: dict.nav.home, route: "" },
           { name: dict.nav.gallery, route: "/gallery" },
-        ], { site, locations })}
+        ])}
       />
       <PageHeader title={dict.gallery.title} intro={dict.gallery.intro} />
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">

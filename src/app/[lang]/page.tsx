@@ -18,8 +18,8 @@ import { getStoreConfig } from "@/lib/store-config";
 import { buildSalonCards } from "@/components/SalonCard";
 import { getDictionary } from "./dictionaries";
 import { getSeo } from "./seo-content";
+import { getPageSeo } from "./page-seo";
 import { isLocale, type LangParams } from "@/lib/i18n";
-import { pageMetadata } from "@/lib/seo";
 
 // Marketing service-card images — order matches serviceCards: Nail Enhancements, Fill, Manicure, Pedicure.
 const CARD_IMAGES = [
@@ -67,11 +67,11 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
-  return pageMetadata(lang, "", {
+  const page = await getPageSeo(lang);
+  return page.metadata("", {
     title: seo.meta.homeTitle,
     description: seo.meta.homeDescription,
-  }, { site, locations });
+  });
 }
 
 export default async function Home({ params }: LangParams) {

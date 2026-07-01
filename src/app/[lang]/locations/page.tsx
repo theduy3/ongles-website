@@ -6,8 +6,8 @@ import { SalonCard, buildSalonCards } from "@/components/SalonCard";
 import { JsonLd } from "@/components/JsonLd";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
+import { getPageSeo } from "../page-seo";
 import { isLocale, type LangParams } from "@/lib/i18n";
-import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
 import { getStoreConfig } from "@/lib/store-config";
 
 export async function generateMetadata({
@@ -16,11 +16,11 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
-  return pageMetadata(lang, "/locations", {
+  const page = await getPageSeo(lang);
+  return page.metadata("/locations", {
     title: seo.meta.locationsTitle,
     description: seo.meta.locationsDescription,
-  }, { site, locations });
+  });
 }
 
 export default async function LocationsPage({ params }: LangParams) {
@@ -29,15 +29,16 @@ export default async function LocationsPage({ params }: LangParams) {
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
+  const page = await getPageSeo(lang);
   const cards = buildSalonCards(dict, lang, site, locations);
 
   return (
     <>
       <JsonLd
-        data={breadcrumbGraph(lang, [
+        data={page.breadcrumb([
           { name: dict.nav.home, route: "" },
           { name: dict.nav.locations, route: "/locations" },
-        ], { site, locations })}
+        ])}
       />
       <AnswerBlock
         heading={seo.locations.answerHeading}

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type LangParams } from "@/lib/i18n";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
-import { pageMetadata, breadcrumbGraph } from "@/lib/seo";
+import { getPageSeo } from "../page-seo";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHeader } from "@/components/PageHeader";
 import { Stars } from "@/components/Stars";
@@ -17,18 +17,19 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
-  return pageMetadata(lang, "/reviews", {
+  const page = await getPageSeo(lang);
+  return page.metadata("/reviews", {
     title: seo.meta.reviewsTitle,
     description: seo.meta.reviewsDescription,
-  }, { site, locations });
+  });
 }
 
 export default async function ReviewsPage({ params }: LangParams) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
-  const { site, locations } = await getStoreConfig();
+  const { site } = await getStoreConfig();
+  const page = await getPageSeo(lang);
 
   const rating = site.reviews.ratingValue.toLocaleString("en-CA", {
     minimumFractionDigits: 1,
@@ -48,10 +49,10 @@ export default async function ReviewsPage({ params }: LangParams) {
   return (
     <>
       <JsonLd
-        data={breadcrumbGraph(lang, [
+        data={page.breadcrumb([
           { name: dict.nav.home, route: "" },
           { name: dict.nav.reviews, route: "/reviews" },
-        ], { site, locations })}
+        ])}
       />
       <PageHeader
         title={dict.reviewsPage.title}

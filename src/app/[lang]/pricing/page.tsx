@@ -9,8 +9,8 @@ import { getStoreConfig } from "@/lib/store-config";
 import { servicePath } from "@/lib/services";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
+import { getPageSeo } from "../page-seo";
 import { isLocale } from "@/lib/i18n";
-import { pageMetadata, pricingGraph, breadcrumbGraph } from "@/lib/seo";
 import type { LangParams } from "@/lib/i18n";
 
 // No generateStaticParams — on-demand rendering via force-dynamic parent layout.
@@ -22,17 +22,12 @@ export async function generateMetadata({ params }: LangParams): Promise<Metadata
   // Wrong-locale guard: /pricing is the English pricing slug only.
   if (lang !== "en") return {};
   const seo = await getSeo(lang);
-  const { site, locations } = await getStoreConfig();
-  return pageMetadata(
-    lang,
-    "/pricing",
-    {
-      title: seo.pages.pricing.metaTitle,
-      description: seo.pages.pricing.metaDescription,
-      routeByLocale: { fr: "/tarifs", en: "/pricing" },
-    },
-    { site, locations },
-  );
+  const page = await getPageSeo(lang);
+  return page.metadata("/pricing", {
+    title: seo.pages.pricing.metaTitle,
+    description: seo.pages.pricing.metaDescription,
+    routeByLocale: { fr: "/tarifs", en: "/pricing" },
+  });
 }
 
 export default async function PricingPage({ params }: LangParams) {
@@ -43,7 +38,8 @@ export default async function PricingPage({ params }: LangParams) {
 
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
-  const { site, locations, services } = await getStoreConfig();
+  const { site, services } = await getStoreConfig();
+  const page = await getPageSeo(lang);
 
   const bookHref = `/${lang}${site.booking}`;
 
@@ -67,16 +63,12 @@ export default async function PricingPage({ params }: LangParams) {
 
   return (
     <>
-      <JsonLd data={pricingGraph(lang, graphItems, { site, locations })} />
+      <JsonLd data={page.pricing(graphItems)} />
       <JsonLd
-        data={breadcrumbGraph(
-          lang,
-          [
-            { name: dict.nav.home, route: "" },
-            { name: dict.nav.pricing, route: "/pricing" },
-          ],
-          { site, locations },
-        )}
+        data={page.breadcrumb([
+          { name: dict.nav.home, route: "" },
+          { name: dict.nav.pricing, route: "/pricing" },
+        ])}
       />
 
       {/* Answer-first block — carries the single page h1 (D-19) */}
