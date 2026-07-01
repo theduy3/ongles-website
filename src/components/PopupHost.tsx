@@ -9,6 +9,13 @@ import { PopupEmbed } from "./PopupEmbed";
 
 const seenKey = (p: Popup) => `popup:${p.id}:${p.version}`;
 
+/**
+ * Client-side frequency gate. The server has already filtered by
+ * [startsAt, endsAt] window and priority via `pickActive()` (popup.ts) — this
+ * only enforces `frequency` (once/session/daily/always) via browser storage,
+ * which the server cannot read. See pickActive's doc comment for why the two
+ * halves are split rather than unified into one predicate.
+ */
 function shouldShow(p: Popup): boolean {
   if (p.frequency === "always") return true;
   try {
