@@ -23,6 +23,15 @@ operator's live edits merged on top, cached per request and per deployment.
   (`src/lib/cached-tenant-resource.ts`): `unstable_cache` (cross-request, 60 s, tag-purged
   on admin write) wrapped by React `cache` (per-request dedupe). A resolver error
   propagates on its first throw — the seam adds no swallow/retry.
+- **Store read resolution** — the pure decision that turns an already-fetched Supabase
+  read response (`{ data, error }`) into either a degraded value or a `StoreResult`
+  envelope, WITHOUT a client. Two temperaments: the **public** read degrades to `null` on
+  error / missing row / corrupt doc (silent — the caller falls through to static config);
+  the **admin** read surfaces a query error or corrupt doc as `failed` (loud — the operator
+  must see corruption), and a missing row as `ok(null)` (a fresh tenant). Lives beside each
+  store (`resolvePublicRead`/`resolveAdminRead` in `store-settings-store.ts`, `parseRows` in
+  `popups-store.ts`); the IO shell fetches, these decide, so the degrade contract is tested
+  through plain data. Query wiring (table, `tenant_id` scoping) stays in the untested shell.
 - **Layered locale content** — the per-locale content resolver factory
   (`src/app/[lang]/layered-locale-content.ts`) shared by the dictionary and SEO namespaces:
   composes **base → tenant → db** (`deepMerge` chain, later layers win on leaf collisions)

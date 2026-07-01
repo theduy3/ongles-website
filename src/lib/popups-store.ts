@@ -17,8 +17,9 @@ import { parseWithSchema, type StoreResult } from "@/lib/tenant-store";
 type Row = { id: string; doc: unknown };
 
 // Parse rows through PopupSchema, dropping any that no longer match the schema
-// (e.g. a stale row left over from an older shape). Never throws.
-function parseRows(rows: Row[]): Popup[] {
+// (e.g. a stale row left over from an older shape). Never throws. Exported as the
+// popups degrade core so the drop contract is tested through plain rows (no client).
+export function parseRows(rows: Row[]): Popup[] {
   const popups: Popup[] = [];
   for (const row of rows) {
     const parsed = parseWithSchema(PopupSchema, row.doc, row.id);
