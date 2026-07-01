@@ -5,6 +5,7 @@ import {
   emptySeoDraft,
   type SettingsDraftState,
 } from "./settings-draft";
+import type { StoreSettings } from "@/lib/store-settings-schema";
 
 const empty: SettingsDraftState = {
   site: {},
@@ -112,6 +113,22 @@ describe("buildSparseDoc", () => {
     });
     expect(doc.site?.geo?.lat).toBe(46.87);
   });
+
+  it("drops blank entries from socialProfiles (pruneEmpty filters empty array items)", () => {
+    const doc = buildSparseDoc({
+      ...empty,
+      site: { socialProfiles: ["", "https://instagram.com/x", ""] },
+    });
+    expect(doc.site?.socialProfiles).toEqual(["https://instagram.com/x"]);
+  });
+
+  it("omits socialProfiles entirely when every entry is blank", () => {
+    const doc = buildSparseDoc({
+      ...empty,
+      site: { socialProfiles: ["", ""] },
+    });
+    expect(doc.site?.socialProfiles).toBeUndefined();
+  });
 });
 
 // ── Task 3: nested SeoDraft model ─────────────────────────────────────────────
@@ -209,4 +226,43 @@ test("buildSparseDoc keeps non-empty customCode, drops empty-code rows, omits wh
     ],
   });
   expect(withRows.customCode?.map((s) => s.id)).toEqual(["a"]);
+});
+
+describe("buildSparseDoc <-> extractSeo round-trip", () => {
+  it("draft seo -> doc -> draft preserves non-empty values", () => {
+    const seoFr = {
+      meta: { homeTitle: "H" },
+      services: { "pose-ongles": { metaTitle: "T" } },
+      gallery: { "nail-art-1": { alt: "A" } },
+      org: { description: "O" },
+    };
+    const doc = buildSparseDoc({ ...empty, seoFr });
+    const back = extractSeo(doc.seo?.fr as Record<string, unknown>);
+    expect(back).toEqual(seoFr);
+  });
+
+  it("doc -> draft -> doc is stable (site + services + seo)", () => {
+    const doc: StoreSettings = {
+      site: { name: "X", geo: { lat: 46.8 } },
+      services: [{ id: "pose-ongles", price: 60 }],
+      seo: { fr: { meta: { homeTitle: "H" } } },
+    };
+    const draft = {
+      site: doc.site ?? {},
+      services: doc.services ?? [],
+      seoFr: extractSeo(doc.seo?.fr as Record<string, unknown> | undefined),
+      seoEn: extractSeo(doc.seo?.en as Record<string, unknown> | undefined),
+      customCode: doc.customCode ?? [],
+    };
+    expect(buildSparseDoc(draft)).toEqual(doc);
+  });
+
+  it("keeps 0 and false, drops empties (unified prune rule)", () => {
+    const doc = buildSparseDoc({
+      ...empty,
+      site: { geo: { lat: 0 }, reviews: { reviewCount: 0 } },
+    });
+    expect(doc.site?.geo?.lat).toBe(0);
+    expect(doc.site?.reviews?.reviewCount).toBe(0);
+  });
 });
