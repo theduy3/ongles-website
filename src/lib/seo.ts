@@ -22,8 +22,7 @@ import type {
 } from "schema-dts";
 import type { Locale } from "@/lib/i18n";
 import { locales, defaultLocale } from "@/lib/i18n";
-import { site } from "@/lib/site";
-import { locations, mapLink } from "@/lib/locations";
+import { mapLink } from "@/lib/locations";
 import { type Review } from "@/lib/reviews";
 import type { GalleryImage } from "@/lib/gallery";
 import type { TenantSite, Location, ReviewData } from "@/config/types";
@@ -167,7 +166,7 @@ export function pageMetadata(
     description: string;
     routeByLocale?: Record<Locale, string>;
   },
-  cfg: SeoConfig = { site, locations },
+  cfg: SeoConfig,
 ): Metadata {
   const path = routeByLocale
     ? `/${lang}${routeByLocale[lang]}`
@@ -369,7 +368,7 @@ type ServiceItem = {
 export function servicesGraph(
   lang: Locale,
   items: readonly ServiceItem[],
-  cfg: SeoConfig = { site, locations },
+  cfg: SeoConfig,
 ): WithContext<ItemList> {
   // Use canonicalUrl so the provider @id resolves to the same stable business node (I-01).
   const BUSINESS_ID = `${cfg.site.canonicalUrl}/#business`;
@@ -393,7 +392,7 @@ export function servicesGraph(
 export function serviceGraph(
   lang: Locale,
   { name, description, price, priceTo, path }: ServiceItem,
-  cfg: SeoConfig = { site, locations },
+  cfg: SeoConfig,
 ): WithContext<SchemaService> {
   // Use canonicalUrl so the provider @id resolves to the same stable business node (I-01).
   const BUSINESS_ID = `${cfg.site.canonicalUrl}/#business`;
@@ -418,12 +417,12 @@ export function serviceGraph(
  *
  * @param lang - Locale ("fr" | "en")
  * @param items - Services to list on the pricing page
- * @param cfg - Optional SeoConfig (defaults to module-level site/locations)
+ * @param cfg - The resolved request-time config (required — see servicesGraph)
  */
 export function pricingGraph(
   lang: Locale,
   items: readonly ServiceItem[],
-  cfg?: SeoConfig,
+  cfg: SeoConfig,
 ): WithContext<ItemList> {
   return servicesGraph(lang, items, cfg);
 }
@@ -449,7 +448,7 @@ export function imageGalleryGraph(
   name: string,
   images: readonly GalleryImage[],
   textFor: (id: string) => { alt: string; caption: string },
-  cfg: SeoConfig = { site, locations },
+  cfg: SeoConfig,
 ): WithContext<ImageGallery> {
   return {
     "@context": "https://schema.org",
@@ -471,7 +470,7 @@ export function imageGalleryGraph(
 export function breadcrumbGraph(
   lang: Locale,
   crumbs: { name: string; route: string }[],
-  cfg: SeoConfig = { site, locations },
+  cfg: SeoConfig,
 ): WithContext<BreadcrumbList> {
   return {
     "@context": "https://schema.org",

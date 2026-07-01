@@ -192,12 +192,16 @@ describe("GEO authority — individual Review nodes", () => {
 });
 
 describe("pageMetadata — dependency injection", () => {
-  it("uses static site.name when no cfg is passed", () => {
-    // WHY: Backward-compat — existing callers pass no cfg and must keep working.
-    const meta = pageMetadata("fr", "/test", {
-      title: "T",
-      description: "D",
-    });
+  it("uses site.name from an explicitly-passed static cfg", () => {
+    // cfg is now required (no default) — every caller must resolve and pass
+    // live config explicitly. This proves passing the static site verbatim
+    // still produces the expected shape (no builder-side regression).
+    const meta = pageMetadata(
+      "fr",
+      "/test",
+      { title: "T", description: "D" },
+      { site: staticSite, locations: staticLocations },
+    );
     expect((meta.openGraph as { siteName?: string })?.siteName).toBe(
       staticSite.name,
     );
