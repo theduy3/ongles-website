@@ -16,6 +16,8 @@ import { ConsentBanner } from "@/components/ConsentBanner";
 import { WebVitalsReporter } from "@/components/WebVitalsReporter";
 import { getStoreConfig } from "@/lib/store-config";
 import { organizationGraph } from "@/lib/seo";
+import { reviewDataFor } from "@/config/review-honesty";
+import { tenant } from "@/config";
 import { shouldInjectGA4, buildConsentInitScript } from "@/lib/ga4-scripts";
 
 // Cormorant Garamond — elegant serif for headings (light/regular weights).
@@ -98,7 +100,7 @@ export default async function RootLayout({
           data={organizationGraph(lang, {
             name: site.name,
             description: seo.org.description,
-          }, { site, locations })}
+          }, { site, locations, reviewData: reviewDataFor(tenant) })}
         />
         <Header dict={dict} locale={lang} site={site} />
         {/* pb clears the fixed FloatingCTA so it never covers page content. */}
