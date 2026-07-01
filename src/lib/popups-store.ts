@@ -6,6 +6,7 @@ import {
   POPUPS_TABLE,
   POPUP_IMAGES_BUCKET,
 } from "@/lib/supabase";
+import { parseWithSchema, type StoreResult } from "@/lib/tenant-store";
 
 // Data access for popups stored in Supabase. Each row is
 // { id, doc, updated_at, tenant_id } where `doc` is the full popup object — we
@@ -20,9 +21,8 @@ type Row = { id: string; doc: unknown };
 function parseRows(rows: Row[]): Popup[] {
   const popups: Popup[] = [];
   for (const row of rows) {
-    const parsed = PopupSchema.safeParse(row.doc);
-    if (parsed.success) popups.push(parsed.data);
-    else console.error(`[popups-store] skipping invalid row ${row.id}:`, parsed.error.issues[0]?.message);
+    const parsed = parseWithSchema(PopupSchema, row.doc, row.id);
+    if (parsed) popups.push(parsed);
   }
   return popups;
 }
@@ -42,11 +42,6 @@ export async function readPopups(): Promise<Popup[] | null> {
   }
   return parseRows((data ?? []) as Row[]);
 }
-
-export type StoreResult<T> =
-  | { ok: true; data: T }
-  | { ok: false; reason: "not_configured" }
-  | { ok: false; reason: "failed"; detail: string };
 
 // Admin: list every popup (active or not) for the editor, scoped to this tenant.
 export async function listPopups(): Promise<StoreResult<Popup[]>> {
