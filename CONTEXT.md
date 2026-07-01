@@ -59,3 +59,24 @@ operator's live edits merged on top, cached per request and per deployment.
 - **Review schema fragment** — the JSON-LD emission gated by the R-02 gate: the
   `{ aggregateRating?, review? }` object spread into the business node of the
   `organizationGraph`. One gate evaluation drives both keys.
+
+## Presentation
+
+Page components (`src/app/[lang]/**/page.tsx`) are async Server Components that fetch
+resolved config + dictionary + SEO, then render. The formatting between fetch and render is
+owned by **presenters**, not inlined per page.
+
+- **Presenter** — a pure function turning resolved data (site config, `dict`, `seo`) into
+  render-ready props. One presenter is the single source for one display decision, so the
+  same value renders identically wherever it appears — the divergence a presenter prevents
+  is a real defect (the home and service pages once formatted the same rating two ways). Each
+  lives with its domain, not in a shared `presenters` bucket: number formatting in
+  `format.ts` (`formatRating`, `formatReviewCount`), the review summary in `reviews.ts`, the
+  gallery slide merge in `gallery.ts`, nav-href resolution in `nav.ts`. Tested through its
+  own interface — the presenter is the test surface; page render stays out (deferred gap).
+- **Trust signal** — the above-fold rating block (`trustSignals` in `reviews.ts`): the
+  R-02-adjacent display gate (`reviewCount > 0 → show`), the canonical one-decimal rating,
+  the grouped review count, and the aria-label, assembled once as `{ show, ratingDisplay,
+  bestRating, countDisplay, ariaLabel }`. Distinct from the **R-02 gate**, which governs
+  structured-data honesty; the trust signal governs on-page display and simply hides when
+  there are no reviews.

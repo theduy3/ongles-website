@@ -7,7 +7,12 @@ import { getPageSeo } from "../page-seo";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHeader } from "@/components/PageHeader";
 import { Gallery } from "@/components/Gallery";
-import { galleryImages } from "@/lib/gallery";
+import {
+  galleryImages,
+  buildGallerySlides,
+  galleryAlt,
+  galleryCaption,
+} from "@/lib/gallery";
 
 export async function generateMetadata({
   params,
@@ -29,25 +34,14 @@ export default async function GalleryPage({ params }: LangParams) {
   const seo = await getSeo(lang);
   const page = await getPageSeo(lang);
 
-  // alt is SEO-owned (seo.gallery), caption is UI-owned (dict.gallery.photos).
-  const altFor = (id: string) =>
-    (seo.gallery as Record<string, { alt: string }>)[id]?.alt ?? "";
-  const captionFor = (id: string) =>
-    dict.gallery.photos[id as keyof typeof dict.gallery.photos].caption;
-
-  const slides = galleryImages.map((img) => ({
-    id: img.id,
-    file: img.file,
-    alt: altFor(img.id),
-    caption: captionFor(img.id),
-  }));
+  const slides = buildGallerySlides(seo, dict);
 
   return (
     <>
       <JsonLd
         data={page.gallery(dict.gallery.title, galleryImages, (id) => ({
-          alt: altFor(id),
-          caption: captionFor(id),
+          alt: galleryAlt(seo, id),
+          caption: galleryCaption(dict, id),
         }))}
       />
       <JsonLd

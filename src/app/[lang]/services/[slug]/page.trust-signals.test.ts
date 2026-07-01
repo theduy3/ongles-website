@@ -9,8 +9,9 @@ import { readFileSync } from "node:fs";
 //   1. formatFromPrice already present AND used in/near the hero (not just in
 //      the What's-included section).
 //   2. A link to the tarifs/pricing route is in the hero/above-fold region.
-//   3. The R-02 gate (reviewCount > 0) guards the stars block added to the
-//      hero area — avoids fabricated-review risk (T-05-04-02).
+//   3. The stars block is rendered only under `trust.show`; the R-02 gate lives
+//      in trustSignals() (@/lib/reviews), unit-tested to return { show: false }
+//      when reviewCount <= 0 — avoids fabricated-review risk (T-05-04-02).
 
 const serviceSource = readFileSync(
   new URL("./page.tsx", import.meta.url),
@@ -29,7 +30,7 @@ describe("service detail page — above-fold trust signals (CONV-02)", () => {
     expect(hasPricingRoute).toBe(true);
   });
 
-  test("stars block is R-02-gated on site.reviews.reviewCount > 0", () => {
-    expect(serviceSource).toContain("reviewCount > 0");
+  test("stars block is R-02-gated via trust.show (gate owned by trustSignals)", () => {
+    expect(serviceSource).toContain("trust.show");
   });
 });
