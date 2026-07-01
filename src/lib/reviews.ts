@@ -11,17 +11,7 @@ export type Review = {
   text: string;
 };
 
-// Per-tenant Google reviews, fetched by scripts/fetch-google-reviews.mjs and
-// stored in src/config/tenants/{id}/google-reviews.json.
-// The stub scaffold has reviews:[] until a genuine fetch runs.
+// Per-tenant Google review BODIES for display (Testimonials, /reviews). The
+// honesty gate for structured data lives in @/config/review-honesty — this
+// module is display-only. The stub scaffold has reviews:[] until a fetch runs.
 export const reviews: readonly Review[] = tenant.reviewData.reviews as readonly Review[];
-
-// TRUE Google totals (averageRating / totalReviewCount), independent of 5★ filter.
-// Backs the R-02 gate in seo.ts (authoritative fetched count, not static config).
-export const aggregate: { ratingValue: number; reviewCount: number } =
-  tenant.reviewData.aggregate;
-
-// ISO timestamp set when fetch-google-reviews.mjs last ran successfully.
-// null = stub / never fetched. The R-02 gate in seo.ts requires this to be
-// non-null AND aggregate.reviewCount >= 5 before emitting AggregateRating.
-export const reviewsFetchedAt: string | null = tenant.reviewData.fetchedAt;
