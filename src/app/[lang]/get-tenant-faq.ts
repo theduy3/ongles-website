@@ -1,18 +1,10 @@
 import "server-only";
 import { cache } from "react";
 import type { Locale } from "@/lib/i18n";
-import { tenant } from "@/config";
+import { tenant, TENANT_REGISTRY } from "@/config";
 import type { FaqItem } from "@/config/types";
 import frDict from "@/dictionaries/fr.json";
 import enDict from "@/dictionaries/en.json";
-import mailyFaqFr from "@/config/tenants/ongles-maily/faq.fr.json";
-import mailyFaqEn from "@/config/tenants/ongles-maily/faq.en.json";
-import charlesbourgFaqFr from "@/config/tenants/ongles-charlesbourg/faq.fr.json";
-import charlesbourgFaqEn from "@/config/tenants/ongles-charlesbourg/faq.en.json";
-import rivieresFaqFr from "@/config/tenants/ongles-rivieres/faq.fr.json";
-import rivieresFaqEn from "@/config/tenants/ongles-rivieres/faq.en.json";
-import templateFaqFr from "@/config/tenants/template/faq.fr.json";
-import templateFaqEn from "@/config/tenants/template/faq.en.json";
 
 // Request-time FAQ loader. Mirrors dictionaries.ts / seo-content.ts: server-only,
 // react-cached, static @/ imports. CONTENT-02: the FAQ shown on /faq is the union
@@ -30,12 +22,14 @@ const baseFaq: Record<Locale, readonly FaqItem[]> = {
   en: enDict.faq.items,
 };
 
-const tenantFaq: Record<string, Record<Locale, readonly FaqItem[]>> = {
-  "ongles-maily": { fr: mailyFaqFr.items, en: mailyFaqEn.items },
-  "ongles-charlesbourg": { fr: charlesbourgFaqFr.items, en: charlesbourgFaqEn.items },
-  "ongles-rivieres": { fr: rivieresFaqFr.items, en: rivieresFaqEn.items },
-  template: { fr: templateFaqFr.items, en: templateFaqEn.items },
-};
+// Derived from the single registry seam — each tenant's index.ts carries its own
+// faq JSON (src/config/tenants/<id>/index.ts).
+const tenantFaq: Record<string, Record<Locale, readonly FaqItem[]>> = Object.fromEntries(
+  Object.entries(TENANT_REGISTRY).map(([id, t]) => [
+    id,
+    { fr: t.faq.fr.items, en: t.faq.en.items },
+  ]),
+);
 
 /**
  * Pure merge — per-tenant facts lead, then the shared base (D-06). Returns a NEW
