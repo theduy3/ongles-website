@@ -1168,7 +1168,10 @@ import {
 import type { ReviewData } from "@/config/types";
 
 const cfgWith = (reviewData: ReviewData) =>
-  ({ reviewData } as unknown as Parameters<typeof _checkAggregateRating>[1]);
+  ({
+    reviewData,
+    site: { reviews: { bestRating: 5 } },
+  } as unknown as Parameters<typeof _checkAggregateRating>[1]);
 
 describe("checkAggregateRating — shared-predicate assertion", () => {
   it("flags a stub that advertises a non-zero count (fetchedAt null, count > 0)", () => {
@@ -1197,5 +1200,15 @@ describe("checkAggregateRating — shared-predicate assertion", () => {
       reviews: [{}],
     }));
     expect(errors).toEqual([]);
+  });
+
+  it("flags a genuine fetch that would publish an out-of-range ratingValue", () => {
+    const errors = _checkAggregateRating("t", cfgWith({
+      fetchedAt: "2026-01-01T00:00:00Z",
+      aggregate: { ratingValue: 6, reviewCount: 30 },
+      reviews: [{}],
+    }));
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].invariant).toBe("R-02");
   });
 });

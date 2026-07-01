@@ -629,17 +629,22 @@ export function checkAggregateRating(tenantId: string, cfg: TenantEntry): Schema
     );
   }
 
-  // Cross-check the SHARED gate the builder uses: a stub must never publish a
-  // rating. Asserting through shouldPublishRating (not a re-stated threshold)
-  // means the validator and the builder can never drift on the R-02 rule.
-  if (rd.fetchedAt === null && shouldPublishRating(rd)) {
-    errors.push(
-      err(
-        tenantId,
-        "R-02",
-        `stub tenant would publish a rating — the R-02 gate (min ${RATING_MIN_REVIEWS}) failed to suppress`,
-      ),
-    );
+  // Cross the SHARED gate: when shouldPublishRating (the exact predicate the
+  // builder uses) WOULD publish an AggregateRating, the ratingValue the builder
+  // emits verbatim must be within 1..bestRating. This asserts the real gate on
+  // real config — reachable for any genuinely-fetched tenant — and keeps the
+  // validator and builder from drifting on when/what R-02 publishes.
+  if (shouldPublishRating(rd)) {
+    const best = cfg.site.reviews.bestRating;
+    if (rd.aggregate.ratingValue <= 0 || rd.aggregate.ratingValue > best) {
+      errors.push(
+        err(
+          tenantId,
+          "R-02",
+          `gate would publish ratingValue=${rd.aggregate.ratingValue} outside 1..${best} (min ${RATING_MIN_REVIEWS} reviews met)`,
+        ),
+      );
+    }
   }
 
   // A genuine fetch with a negative count is invalid data.
