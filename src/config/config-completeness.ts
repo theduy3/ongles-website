@@ -17,9 +17,7 @@
 
 import z from "zod";
 import { TENANT_REGISTRY } from "./index";
-
-/** Tenants excluded from the completeness bar (clone sources, not live deployments). */
-const EXCLUDED_TENANTS = new Set(["template"]);
+import { EXCLUDED_TENANTS } from "./excluded-tenants";
 
 // ─── Zod sub-schemas ──────────────────────────────────────────────────────────────
 

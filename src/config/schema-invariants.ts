@@ -12,7 +12,8 @@
 //   - DO NOT import from src/lib/seo.ts — it pulls in @/lib/i18n, @/lib/site,
 //     @/lib/reviews (runtime aliases) which cause MODULE_NOT_FOUND in Docker.
 //     Invariant logic is inlined here using TENANT_REGISTRY data directly.
-//   - EXCLUDED_TENANTS: "template" is a clone source, not a live deployment.
+//   - EXCLUDED_TENANTS: shared with config-completeness.ts via ./excluded-tenants
+//     (alias-free) — "template" is a clone source, not a live deployment.
 //
 // Invariant groups checked per non-template tenant:
 //   @context   — every graph root produced by the builders equals "https://schema.org"
@@ -31,6 +32,7 @@
 
 import { TENANT_REGISTRY } from "./index";
 import { shouldPublishRating, RATING_MIN_REVIEWS } from "./review-honesty";
+import { EXCLUDED_TENANTS } from "./excluded-tenants";
 // F-01 FAQ completeness reads the per-locale FAQ source directly from the
 // dictionaries. These are STATIC, alias-free JSON imports (resolveJsonModule
 // is true) — safe for the next.config.ts build-guard SWC require-hook. We must
@@ -55,9 +57,6 @@ import charlesbourgSeoFr from "./tenants/ongles-charlesbourg/seo.fr.json";
 import charlesbourgSeoEn from "./tenants/ongles-charlesbourg/seo.en.json";
 import rivieresSeoFr from "./tenants/ongles-rivieres/seo.fr.json";
 import rivieresSeoEn from "./tenants/ongles-rivieres/seo.en.json";
-
-/** Tenants excluded from schema invariant checks (clone sources, not live deployments). */
-const EXCLUDED_TENANTS = new Set(["template"]);
 
 /** Live locales whose FAQ dictionaries feed FAQPage schema (ES deferred to v2). */
 const FAQ_LOCALES = [
@@ -161,7 +160,7 @@ const NEW_COMPARISON_SLUGS = [
   "meilleur-pour",
 ] as const;
 
-// ─── D-05 FAQ floor + D-11 answer-block presence guards (UNWIRED until 03-05) ───
+// ─── D-05 FAQ floor + D-11 answer-block presence guards (LIVE, build-blocking) ───
 // These run offline over per-tenant JSON. They are NOT yet called from
 // validateSchemaInvariants() — plan 03-05 flips the build gate once content lands,
 // so `next build` stays green between 03-01 and 03-04.
@@ -294,7 +293,7 @@ export function checkAnswerBlockPresence(): SchemaInvariantError[] {
   return errors;
 }
 
-// ─── Phase 4: net-new-page guards (EXPORTED, UNWIRED until 04-05) ────────────
+// ─── Phase 4: net-new-page guards (LIVE, build-blocking) ─────────────────────
 //
 // These functions are exported and testable offline. They are NOT called from
 // validateSchemaInvariants() yet — plan 04-05 flips the build gate after all
@@ -358,7 +357,7 @@ export function measureSentenceOverlap(textA: string, textB: string): number {
  *   - pages.nearMe.answerBlock >= NEAR_ME_WORD_FLOOR (150) per tenant per locale
  *
  * Reads from TENANT_SEO (module-level, imported per-tenant seo JSON).
- * UNWIRED from validateSchemaInvariants() until 04-05.
+ * Wired into validateSchemaInvariants() (build-blocking).
  */
 export function checkWordCount(): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
@@ -408,7 +407,7 @@ export function checkWordCount(): SchemaInvariantError[] {
  * For each pair of live tenants, computes measureSentenceOverlap on
  * pages.nearMe.answerBlock per locale. Reports an error if overlap >=
  * NEW_PAGE_OVERLAP_THRESHOLD (0.30) — indicates insufficient differentiation
- * between tenant copy. UNWIRED from validateSchemaInvariants() until 04-05.
+ * between tenant copy. Wired into validateSchemaInvariants() (build-blocking).
  */
 export function checkCrossTenantOverlap(): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
@@ -790,43 +789,10 @@ function checkFaqCompleteness(): SchemaInvariantError[] {
  * Pure function — no process.env reads, no network, no side effects.
  * Alias-free — safe to call from next.config.ts (SWC require-hook constraint).
  */
-/**
- * P4 — nearMe word-count gate (LIVE from 04-03).
- *
- * Checks only pages.nearMe.answerBlock >= NEAR_ME_WORD_FLOOR per tenant per
- * locale. The comparison body floor is deferred to 04-05 (activated once all
- * comparison page bodies are authored).
- *
- * This is a narrow scope of checkWordCount() called from validateSchemaInvariants()
- * so the build gate applies to nearMe content only this slice.
- */
-function checkNearMeWordCount(): SchemaInvariantError[] {
-  const errors: SchemaInvariantError[] = [];
-  for (const id of Object.keys(TENANT_SEO)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
-    for (const locale of CONTENT_LOCALES) {
-      const seo = TENANT_SEO[id]?.[locale];
-      if (!seo || !seo.pages) continue;
-      const nearMeBlock = seo.pages.nearMe?.answerBlock ?? "";
-      const nearMeWc = countWords(nearMeBlock);
-      if (nearMeWc < NEAR_ME_WORD_FLOOR) {
-        errors.push(
-          err(
-            id,
-            "P4-wordcount",
-            `pages.nearMe.answerBlock (${locale}) has ${nearMeWc} words — below floor ${NEAR_ME_WORD_FLOOR}`,
-          ),
-        );
-      }
-    }
-  }
-  return errors;
-}
-
-// ─── Phase-5 guard functions (05-01) — EXPORTED but UNWIRED ──────────────────
-// These four functions are intentionally NOT called from validateSchemaInvariants()
-// until 05-05 wires them once owner content lands (mirror the 03/04
-// unwired-until-activation pattern in this same file).
+// ─── Phase-5 guard functions (05-01) ──────────────────────────────────────────
+// checkLlmsDepth / checkLlmsLeak / checkNapConsistency are wired into
+// validateSchemaInvariants() below (build-blocking); checkGA4IdPresent is wired
+// into assertSchemaInvariants() as a warning, not a build-blocker (MEAS-01).
 //
 // ALIAS-FREE: same constraints as the rest of this module.
 
@@ -1069,7 +1035,6 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
 
   // P4 04-03/04-04 — nearMe + comparison word-count + cross-tenant overlap gates, now LIVE.
   // checkWordCount() covers both nearMe.answerBlock (≥150) and comparison.body (≥200).
-  // checkNearMeWordCount() is superseded by checkWordCount() for the nearMe scope.
   errors.push(...checkWordCount());
   errors.push(...checkCrossTenantOverlap());
   // P4 04-04 — comparison answerBlock presence (≥2 sentences per comparison route).
