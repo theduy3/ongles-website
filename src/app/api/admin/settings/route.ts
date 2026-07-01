@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { revalidateTag } from "next/cache";
 import { StoreSettingsSchema } from "@/lib/store-settings-schema";
 import { guard, storeError, badRequest } from "@/lib/admin-http";
 import { getStoreSettings, upsertStoreSettings } from "@/lib/store-settings-store";
+import { revalidateStoreCaches } from "@/lib/revalidate-store-caches";
 import { tenant } from "@/config";
 
 // GET: return the current sparse settings override (data may be null = no override yet).
@@ -36,9 +36,7 @@ export async function PUT(request: Request) {
   const result = await upsertStoreSettings(parsed.data);
   if (!result.ok) return storeError(result);
 
-  revalidateTag(`store-config:${tenant.id}`, "default");
-  revalidateTag(`store-content:${tenant.id}`, "default");
-  revalidateTag(`store-seo:${tenant.id}`, "default");
+  revalidateStoreCaches(tenant.id);
 
   return NextResponse.json({ success: true, data: result.data });
 }
