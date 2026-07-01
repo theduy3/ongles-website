@@ -45,7 +45,18 @@ export const PopupSchema = z.discriminatedUnion("type", [
 export const PopupsSchema = z.array(PopupSchema);
 export type Popup = z.infer<typeof PopupSchema>;
 
-// Highest-priority pop-up whose [startsAt, endsAt] window contains `now`.
+/**
+ * Highest-priority pop-up whose [startsAt, endsAt] window contains `now`.
+ *
+ * This is the SERVER half of popup selection — it only knows the time window
+ * and priority. It deliberately does NOT enforce `frequency` (once/session/
+ * daily/always): that requires per-visitor seen-state, which lives in browser
+ * storage the server has no access to. The CLIENT half — `shouldShow()` in
+ * PopupHost.tsx — enforces frequency on the popup this function returns. The
+ * split is a trust boundary, not an oversight: accepting client-reported
+ * seen-state here would let a visitor spoof "I haven't seen this" to bypass
+ * the frequency cap.
+ */
 export function pickActive(popups: Popup[], now: Date): Popup | null {
   const t = now.getTime();
   const active = popups.filter((p) => {
