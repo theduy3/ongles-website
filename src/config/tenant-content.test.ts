@@ -22,4 +22,15 @@ describe("tenant-content registry", () => {
   it("BASE_SEO has fr and en", () => {
     expect(Object.keys(BASE_SEO).sort()).toEqual(["en", "fr"]);
   });
+
+  it("every TENANT_REGISTRY entry is the single seam carrying content/seo/faq", () => {
+    // The collapse contract: a tenant's own index.ts owns all its assets, and the
+    // downstream maps derive from here. A tenant registered without an asset fails
+    // to compile at tenant-content.ts / get-tenant-faq.ts; this pins it at runtime.
+    for (const [id, t] of Object.entries(TENANT_REGISTRY)) {
+      expect(Object.keys(t.content).sort(), `${id}.content`).toEqual(["en", "fr"]);
+      expect(Object.keys(t.seo).sort(), `${id}.seo`).toEqual(["en", "fr"]);
+      expect(Object.keys(t.faq).sort(), `${id}.faq`).toEqual(["en", "fr"]);
+    }
+  });
 });

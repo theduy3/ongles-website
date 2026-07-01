@@ -10,6 +10,11 @@ the code that implements them.
   (one universal image; each container sets its own). Registry in `src/config/index.ts`.
 - **Tenant config** — the static, build-time source of truth for a tenant: `site`,
   `location`, `services`, review data, FAQ, SEO copy. Lives under `src/config/tenants/<id>/`.
+  Each tenant's `index.ts` is the **single registration seam** — it imports its own
+  `content`/`seo`/`faq` JSON, so `TENANT_REGISTRY[id]` carries the whole tenant. Downstream
+  maps (`tenant-content.ts`, `get-tenant-faq.ts`, and the build-guard `schema-invariants.ts`)
+  DERIVE from the registry rather than re-listing per-tenant imports; adding a tenant is one
+  folder + one registry line.
 - **Store settings** — the runtime, operator-editable override doc (Supabase, one row per
   tenant), deep-merged over tenant config. Sparse: only fields that differ are stored.
 - **Resolved config** — tenant config with store-settings merged in, for one request.

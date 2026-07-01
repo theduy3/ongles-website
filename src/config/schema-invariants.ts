@@ -43,20 +43,12 @@ import { EXCLUDED_TENANTS, forEachTenant } from "./tenant-iteration";
 // is pinned by schema-invariants.test.ts (which may import faqPageGraph freely).
 import frDict from "../dictionaries/fr.json";
 import enDict from "../dictionaries/en.json";
-// D-05/D-11 — per-tenant FAQ + answer-block sources for the build-time floor and
-// presence guards. RELATIVE, alias-free imports only (next.config.ts SWC hook).
-import mailyFaqFr from "./tenants/ongles-maily/faq.fr.json";
-import mailyFaqEn from "./tenants/ongles-maily/faq.en.json";
-import charlesbourgFaqFr from "./tenants/ongles-charlesbourg/faq.fr.json";
-import charlesbourgFaqEn from "./tenants/ongles-charlesbourg/faq.en.json";
-import rivieresFaqFr from "./tenants/ongles-rivieres/faq.fr.json";
-import rivieresFaqEn from "./tenants/ongles-rivieres/faq.en.json";
-import mailySeoFr from "./tenants/ongles-maily/seo.fr.json";
-import mailySeoEn from "./tenants/ongles-maily/seo.en.json";
-import charlesbourgSeoFr from "./tenants/ongles-charlesbourg/seo.fr.json";
-import charlesbourgSeoEn from "./tenants/ongles-charlesbourg/seo.en.json";
-import rivieresSeoFr from "./tenants/ongles-rivieres/seo.fr.json";
-import rivieresSeoEn from "./tenants/ongles-rivieres/seo.en.json";
+// D-05/D-11 — per-tenant FAQ + SEO answer-block sources for the build-time floor
+// and presence guards. These now come off the single registry seam
+// (TENANT_REGISTRY, already imported above): each tenant's index.ts carries its
+// own faq/seo JSON via RELATIVE imports, and tenant modules use `import type`
+// only, so the require-hook chain stays alias-free (next.config.ts SWC hook).
+// TENANT_FAQ / TENANT_SEO are derived below.
 
 /** Live locales whose FAQ dictionaries feed FAQPage schema (ES deferred to v2). */
 const FAQ_LOCALES = [
@@ -204,19 +196,29 @@ const BASE_FAQ_BY_LOCALE: Record<string, readonly { q: string; a: string }[]> = 
   en: enDict.faq.items,
 };
 
+// Both maps derive from the single registry seam, filtered to the SAME membership
+// the explicit literals had — non-template tenants only. Several loops below key
+// off Object.keys(TENANT_FAQ/TENANT_SEO) WITHOUT re-filtering, so template MUST
+// stay out here (it is an incomplete clone source, exempt from the invariants).
 /** Per-tenant FAQ stubs/content keyed by tenant id then locale (template excluded). */
-const TENANT_FAQ: Record<string, Record<string, FaqStub>> = {
-  "ongles-maily": { fr: mailyFaqFr as FaqStub, en: mailyFaqEn as FaqStub },
-  "ongles-charlesbourg": { fr: charlesbourgFaqFr as FaqStub, en: charlesbourgFaqEn as FaqStub },
-  "ongles-rivieres": { fr: rivieresFaqFr as FaqStub, en: rivieresFaqEn as FaqStub },
-};
+const TENANT_FAQ: Record<string, Record<string, FaqStub>> = Object.fromEntries(
+  Object.entries(TENANT_REGISTRY)
+    .filter(([id]) => !EXCLUDED_TENANTS.has(id))
+    .map(([id, t]) => [
+      id,
+      { fr: t.faq.fr as unknown as FaqStub, en: t.faq.en as unknown as FaqStub },
+    ]),
+);
 
-/** Per-tenant SEO answer-block sources keyed by tenant id then locale. */
-const TENANT_SEO: Record<string, Record<string, SeoAnswerSource>> = {
-  "ongles-maily": { fr: mailySeoFr as unknown as SeoAnswerSource, en: mailySeoEn as unknown as SeoAnswerSource },
-  "ongles-charlesbourg": { fr: charlesbourgSeoFr as unknown as SeoAnswerSource, en: charlesbourgSeoEn as unknown as SeoAnswerSource },
-  "ongles-rivieres": { fr: rivieresSeoFr as unknown as SeoAnswerSource, en: rivieresSeoEn as unknown as SeoAnswerSource },
-};
+/** Per-tenant SEO answer-block sources keyed by tenant id then locale (template excluded). */
+const TENANT_SEO: Record<string, Record<string, SeoAnswerSource>> = Object.fromEntries(
+  Object.entries(TENANT_REGISTRY)
+    .filter(([id]) => !EXCLUDED_TENANTS.has(id))
+    .map(([id, t]) => [
+      id,
+      { fr: t.seo.fr as unknown as SeoAnswerSource, en: t.seo.en as unknown as SeoAnswerSource },
+    ]),
+);
 
 /** Extracts the answer-block string for a route from a tenant SEO source. */
 function answerBlockForRoute(seo: SeoAnswerSource, route: string): string {
