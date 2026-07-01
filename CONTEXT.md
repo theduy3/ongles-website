@@ -21,8 +21,8 @@ operator's live edits merged on top, cached per request and per deployment.
 
 - **Cached tenant resource** — the caching seam shared by all resolvers
   (`src/lib/cached-tenant-resource.ts`): `unstable_cache` (cross-request, 60 s, tag-purged
-  on admin write) wrapped by React `cache` (per-request dedupe), with a fallback that runs
-  the resolver uncached outside a Next.js runtime (tests, scripts).
+  on admin write) wrapped by React `cache` (per-request dedupe). A resolver error
+  propagates on its first throw — the seam adds no swallow/retry.
 - **Layered locale content** — the per-locale content resolver factory
   (`src/app/[lang]/layered-locale-content.ts`) shared by the dictionary and SEO namespaces:
   composes **base → tenant → db** (`deepMerge` chain, later layers win on leaf collisions)

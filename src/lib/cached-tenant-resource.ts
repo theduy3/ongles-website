@@ -1,15 +1,13 @@
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
 
-// The shared caching seam for request-time tenant reads. Wraps three layers:
+// The shared caching seam for request-time tenant reads. Composes two layers:
 //   1. unstable_cache — cross-request Next.js cache (revalidate, tag-purged on
 //      admin write via revalidateTag).
 //   2. React cache    — per-request dedupe so one render tree hits the cache once.
-//   3. try/catch fallback — unstable_cache throws outside a Next.js runtime
-//      (bun:test, scripts); we transparently run the resolver uncached there.
 // Args are forwarded verbatim so unstable_cache keys on them (e.g. locale) in
-// addition to keyParts. Behavior is identical to the hand-rolled dance it replaces
-// (including the deliberately broad catch — narrowing it is a separate change).
+// addition to keyParts. A resolver error propagates on its first throw — the
+// seam adds no swallow/retry, so a genuine bug surfaces at its source.
 export function cachedTenantResource<A extends unknown[], T>(
   keyParts: string[],
   opts: { tags: string[]; revalidate?: number },
@@ -20,14 +18,5 @@ export function cachedTenantResource<A extends unknown[], T>(
     revalidate: opts.revalidate ?? 60,
   });
 
-  const withFallback = async (...args: A): Promise<T> => {
-    try {
-      return await cached(...args);
-    } catch {
-      // Outside a Next.js runtime (tests, scripts) — run uncached.
-      return resolver(...args);
-    }
-  };
-
-  return cache(withFallback);
+  return cache(cached);
 }
