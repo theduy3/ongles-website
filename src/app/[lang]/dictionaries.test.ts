@@ -26,7 +26,7 @@ mock.module("react", () => ({
 // Dynamic import AFTER mocks are registered.
 const { getDictionary } = await import("@/app/[lang]/dictionaries");
 
-// WHY: composeDictionary is the pure 3-layer merge function. Testing it in
+// WHY: composeLayers is the pure 3-layer merge function. Testing it in
 // isolation verifies precedence rules without needing a DB or Next.js runtime.
 describe("composeLayers (pure unit)", () => {
   it("dbOverride wins over tenantOverride wins over base (precedence chain)", () => {
@@ -68,7 +68,7 @@ describe("composeLayers (pure unit)", () => {
   });
 
   it("locale objects are independent — fr change does not bleed into en", () => {
-    // WHY: Each locale is composed separately. Simulates calling composeDictionary
+    // WHY: Each locale is composed separately. Simulates calling composeLayers
     // twice with different locale inputs and verifies no cross-contamination.
     const baseFr = { meta: { title: "Titre" } };
     const baseEn = { meta: { title: "Title" } };
@@ -97,7 +97,7 @@ describe("composeLayers (pure unit)", () => {
   });
 
   it("returns a new object — does not mutate base", () => {
-    // WHY: Immutability — composeDictionary must never mutate its inputs so
+    // WHY: Immutability — composeLayers must never mutate its inputs so
     // the static JSON imports remain stable across multiple calls.
     const base = { meta: { title: "Original" } };
 
