@@ -12,7 +12,7 @@
 //   - DO NOT import from src/lib/seo.ts — it pulls in @/lib/i18n, @/lib/site,
 //     @/lib/reviews (runtime aliases) which cause MODULE_NOT_FOUND in Docker.
 //     Invariant logic is inlined here using TENANT_REGISTRY data directly.
-//   - EXCLUDED_TENANTS: shared with config-completeness.ts via ./excluded-tenants
+//   - EXCLUDED_TENANTS / forEachTenant: shared with config-completeness.ts via ./tenant-iteration
 //     (alias-free) — "template" is a clone source, not a live deployment.
 //
 // Invariant groups checked per non-template tenant:
@@ -32,7 +32,7 @@
 
 import { TENANT_REGISTRY } from "./index";
 import { shouldPublishRating, RATING_MIN_REVIEWS } from "./review-honesty";
-import { EXCLUDED_TENANTS } from "./excluded-tenants";
+import { EXCLUDED_TENANTS, forEachTenant } from "./tenant-iteration";
 // F-01 FAQ completeness reads the per-locale FAQ source directly from the
 // dictionaries. These are STATIC, alias-free JSON imports (resolveJsonModule
 // is true) — safe for the next.config.ts build-guard SWC require-hook. We must
@@ -466,27 +466,22 @@ const TENANT_BOROUGH_ROUTE: Record<string, string> = {
 };
 
 export function checkRoutePresence(): SchemaInvariantError[] {
-  const errors: SchemaInvariantError[] = [];
-
-  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
-
+  return forEachTenant(TENANT_REGISTRY, (id, cfg) => {
     const expectedSlug = TENANT_BOROUGH_ROUTE[id];
-    if (!expectedSlug) continue; // no required borough route for this tenant (future tenant)
+    if (!expectedSlug) return []; // no required borough route for this tenant (future tenant)
 
     const routes: readonly string[] = cfg.site.routes;
     if (!routes.includes(expectedSlug)) {
-      errors.push(
+      return [
         err(
           id,
           "P4-route",
           `site.routes missing required borough near-me route "${expectedSlug}" — add it to routes[] (not nav[])`,
         ),
-      );
+      ];
     }
-  }
-
-  return errors;
+    return [];
+  });
 }
 
 /**
@@ -567,21 +562,18 @@ function checkIds(tenantId: string, cfg: TenantEntry): SchemaInvariantError[] {
  * Two tenants with the same canonicalUrl would emit colliding #business @ids.
  */
 function checkIdUniqueness(): SchemaInvariantError[] {
-  const errors: SchemaInvariantError[] = [];
   const seen = new Map<string, string>(); // bid → first tenantId
 
-  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
+  return forEachTenant(TENANT_REGISTRY, (id, cfg) => {
     const bid = `${cfg.site.canonicalUrl}/#business`;
     if (seen.has(bid)) {
-      errors.push(
+      return [
         err(id, "I-02", `business @id "${bid}" already used by tenant "${seen.get(bid)}" — cross-tenant @id collision`),
-      );
-    } else {
-      seen.set(bid, id);
+      ];
     }
-  }
-  return errors;
+    seen.set(bid, id);
+    return [];
+  });
 }
 
 /**
@@ -819,22 +811,20 @@ export function checkLlmsDepth(
   registry: Record<string, LlmsTenantView> = TENANT_REGISTRY,
 ): SchemaInvariantError[] {
   const LLMS_WORD_FLOOR = 200;
-  const errors: SchemaInvariantError[] = [];
-  for (const [id, cfg] of Object.entries(registry)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
+  return forEachTenant(registry, (id, cfg) => {
     const desc = cfg.site.llmsDescription ?? "";
     const wc = countWords(desc);
     if (wc < LLMS_WORD_FLOOR) {
-      errors.push(
+      return [
         err(
           id,
           "LLMS-02",
           `site.llmsDescription has ${wc} words — below floor ${LLMS_WORD_FLOOR}`,
         ),
-      );
+      ];
     }
-  }
-  return errors;
+    return [];
+  });
 }
 
 /**
@@ -898,14 +888,11 @@ function descContainsSignal(desc: string, sig: string): boolean {
 export function checkLlmsLeak(
   registry: Record<string, LlmsTenantView> = TENANT_REGISTRY,
 ): SchemaInvariantError[] {
-  const errors: SchemaInvariantError[] = [];
-
   // Build signal map: tenantId → lowercase signals (full landmark + distinctive
   // landmark tokens + city). Tokens catch a bare borough name (e.g. "Charlesbourg")
   // that the full-landmark string alone would miss.
   const signals = new Map<string, string[]>();
-  for (const [id, cfg] of Object.entries(registry)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
+  forEachTenant(registry, (id, cfg) => {
     const s = cfg.site.contact;
     const sigs: string[] = [];
     if (s.landmark) {
@@ -914,19 +901,20 @@ export function checkLlmsLeak(
     }
     if (s.address.city) sigs.push(s.address.city.toLowerCase());
     signals.set(id, [...new Set(sigs)]);
-  }
+    return [];
+  });
 
   // Check each tenant's llmsDescription against all OTHER tenants' signals.
-  for (const [id, cfg] of Object.entries(registry)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
+  return forEachTenant(registry, (id, cfg) => {
     const desc = (cfg.site.llmsDescription ?? "").toLowerCase();
-    if (!desc) continue; // empty placeholder — nothing to leak
+    if (!desc) return []; // empty placeholder — nothing to leak
 
     // A signal shared with the current tenant (e.g. a common city like "Québec"
     // for two same-city salons) is a TRUE fact for this tenant, not a leak. Only
     // a DISTINCTIVE other-tenant signal (its own landmark, or a city this tenant
     // does not share) counts as cross-tenant leakage.
     const ownSigs = new Set(signals.get(id) ?? []);
+    const errors: SchemaInvariantError[] = [];
 
     for (const [otherId, otherSigs] of signals.entries()) {
       if (otherId === id) continue;
@@ -945,8 +933,8 @@ export function checkLlmsLeak(
         }
       }
     }
-  }
-  return errors;
+    return errors;
+  });
 }
 
 /**
@@ -960,21 +948,19 @@ export function checkLlmsLeak(
  * does not break the site. It becomes a hard build-fail when wired in 05-05.
  */
 export function checkGA4IdPresent(): SchemaInvariantError[] {
-  const errors: SchemaInvariantError[] = [];
-  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
+  return forEachTenant(TENANT_REGISTRY, (id, cfg) => {
     const ga4Id = (cfg.site as { ga4MeasurementId?: string }).ga4MeasurementId ?? "";
     if (!ga4Id.trim()) {
-      errors.push(
+      return [
         err(
           id,
           "MEAS-01",
           `site.ga4MeasurementId is empty — no GA4 analytics for this tenant (collect real G-XXXXXXXXXX in 05-05)`,
         ),
-      );
+      ];
     }
-  }
-  return errors;
+    return [];
+  });
 }
 
 /**
@@ -994,9 +980,8 @@ export function checkGA4IdPresent(): SchemaInvariantError[] {
  * Returns [] for all current live tenants (all fields match).
  */
 export function checkNapConsistency(): SchemaInvariantError[] {
-  const errors: SchemaInvariantError[] = [];
-  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
+  return forEachTenant(TENANT_REGISTRY, (id, cfg) => {
+    const errors: SchemaInvariantError[] = [];
     const sc = cfg.site.contact;
     const lc = cfg.location;
 
@@ -1016,8 +1001,8 @@ export function checkNapConsistency(): SchemaInvariantError[] {
     if (siteHoursLen !== lc.hoursSpec.length) {
       errors.push(err(id, "NAP-01", `site.hours has ${siteHoursLen} blocks but location.hoursSpec has ${lc.hoursSpec.length} — hours-schedule parity mismatch`));
     }
-  }
-  return errors;
+    return errors;
+  });
 }
 
 export function validateSchemaInvariants(): SchemaInvariantError[] {
@@ -1050,10 +1035,8 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
   errors.push(...checkLlmsLeak());
   errors.push(...checkNapConsistency());
 
-  for (const [id, cfg] of Object.entries(TENANT_REGISTRY)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
-
-    errors.push(
+  errors.push(
+    ...forEachTenant(TENANT_REGISTRY, (id, cfg) => [
       ...checkCanonicalUrl(id, cfg),
       ...checkIds(id, cfg),
       ...checkSameAs(id, cfg),
@@ -1061,8 +1044,8 @@ export function validateSchemaInvariants(): SchemaInvariantError[] {
       ...checkRequiredFields(id, cfg),
       ...checkOrganizationNode(id, cfg),
       ...checkOfferTypes(id, cfg),
-    );
-  }
+    ]),
+  );
 
   return errors;
 }

@@ -17,7 +17,7 @@
 
 import z from "zod";
 import { TENANT_REGISTRY } from "./index";
-import { EXCLUDED_TENANTS } from "./excluded-tenants";
+import { forEachTenant } from "./tenant-iteration";
 
 // ─── Zod sub-schemas ──────────────────────────────────────────────────────────────
 
@@ -133,18 +133,10 @@ export function validateConfig(config: unknown): ConfigValidationResult {
  * per-tenant errors. An empty array means all tenants pass.
  */
 export function validateAllTenants(): ConfigCompletenessError[] {
-  const failures: ConfigCompletenessError[] = [];
-
-  for (const [id, config] of Object.entries(TENANT_REGISTRY)) {
-    if (EXCLUDED_TENANTS.has(id)) continue;
-
+  return forEachTenant(TENANT_REGISTRY, (id, config) => {
     const result = validateConfig(config);
-    if (!result.success) {
-      failures.push({ tenantId: id, errors: result.errors });
-    }
-  }
-
-  return failures;
+    return result.success ? [] : [{ tenantId: id, errors: result.errors }];
+  });
 }
 
 /**
