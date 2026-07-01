@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { organizationGraph, pageMetadata, faqPageGraph, type SeoConfig } from "@/lib/seo";
+import { organizationGraph, pageMetadata, faqPageGraph, type SeoConfig, type OrgGraphConfig } from "@/lib/seo";
 import { site as staticSite, locations as staticLocations } from "@/config";
-import type { TenantSite } from "@/config/types";
+import type { TenantSite, ReviewData } from "@/config/types";
 
 // Minimal injected site override — only fields the builders touch.
 // WHY: We can't import a full tenant fixture here without pulling in build-time
@@ -16,19 +16,31 @@ const injectedSite: TenantSite = {
   canonicalUrl: "https://canonical.injected.example.com",
 };
 
-const injectedCfg: SeoConfig = {
+// Stub reviewData — emits no aggregateRating/review (fetchedAt: null), matching
+// the behavior of the old static-default fork these tests relied on before
+// Task 3 made reviewData required on OrgGraphConfig.
+const reviewDataStub: ReviewData = {
+  fetchedAt: null,
+  aggregate: { ratingValue: 0, reviewCount: 0 },
+  reviews: [],
+};
+
+const injectedCfg: OrgGraphConfig = {
   site: injectedSite,
   locations: staticLocations,
+  reviewData: reviewDataStub,
 };
 
 describe("organizationGraph — dependency injection", () => {
-  it("uses static site.name when no cfg is passed", () => {
-    // WHY: Default param keeps every existing call site working unchanged —
-    // the DI contract must not break callers that omit cfg.
-    const graph = organizationGraph("fr", {
-      name: staticSite.name,
-      description: "Test",
-    });
+  it("uses static site.name when explicit cfg matches static site", () => {
+    // WHY: Task 3 removed the static-default fallback — organizationGraph now
+    // REQUIRES cfg. This locks in that passing the static site/locations
+    // verbatim still produces the same result the old implicit default did.
+    const graph = organizationGraph(
+      "fr",
+      { name: staticSite.name, description: "Test" },
+      { site: staticSite, locations: staticLocations, reviewData: reviewDataStub },
+    );
     const business = (graph["@graph"] as { name?: string }[])[0];
     expect(business.name).toBe(staticSite.name);
   });
@@ -131,7 +143,7 @@ describe("GEO authority — individual Review nodes", () => {
 
   it("emits Review nodes from genuinely fetched review bodies", () => {
     // WHY: real fetched reviews with datePublished are highly citable by AI search.
-    const cfg: SeoConfig = {
+    const cfg: OrgGraphConfig = {
       ...injectedCfg,
       reviewData: {
         fetchedAt: "2026-06-23T00:00:00Z",
@@ -151,7 +163,7 @@ describe("GEO authority — individual Review nodes", () => {
 
   it("emits NO Review nodes when fetched data has empty reviews[] (aggregate-only)", () => {
     // WHY: live tenants store aggregates with reviews:[] — must stay honest, no nodes.
-    const cfg: SeoConfig = {
+    const cfg: OrgGraphConfig = {
       ...injectedCfg,
       reviewData: {
         fetchedAt: "2026-06-23T00:00:00Z",
@@ -165,7 +177,7 @@ describe("GEO authority — individual Review nodes", () => {
   });
 
   it("emits NO Review nodes when reviews were never fetched (fetchedAt null)", () => {
-    const cfg: SeoConfig = {
+    const cfg: OrgGraphConfig = {
       ...injectedCfg,
       reviewData: {
         fetchedAt: null,

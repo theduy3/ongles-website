@@ -24,7 +24,7 @@ import type { Locale } from "@/lib/i18n";
 import { locales, defaultLocale } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import { locations, mapLink } from "@/lib/locations";
-import { reviewsFetchedAt, aggregate, reviews, type Review } from "@/lib/reviews";
+import { type Review } from "@/lib/reviews";
 import type { GalleryImage } from "@/lib/gallery";
 import type { TenantSite, Location, ReviewData } from "@/config/types";
 import { shouldPublishRating, shouldPublishReviewNodes } from "@/config/review-honesty";
@@ -40,18 +40,16 @@ interface SeoGraph {
 }
 
 /** Injected store config for SEO builders. Callers that pass this override the
- *  static module-level defaults — enabling live DB config to flow through.
- *  `reviewData` is optional: when present it overrides the module-level singleton
- *  from reviews.ts (used in tests for isolated R-02 gate verification). */
+ *  static module-level defaults — enabling live DB config to flow through. */
 export type SeoConfig = {
   site: TenantSite;
   locations: Location[];
-  reviewData?: {
-    fetchedAt: string | null;
-    aggregate: { ratingValue: number; reviewCount: number };
-    reviews: readonly unknown[];
-  };
 };
+
+/** organizationGraph needs review honesty data on top of the shared SeoConfig.
+ *  reviewData is REQUIRED — no default — so the compiler forces prod to supply
+ *  it (previously an optional `??` default silently used static build-time data). */
+export type OrgGraphConfig = SeoConfig & { reviewData: ReviewData };
 
 // Default social-share image (absolute path; resolved against metadataBase).
 // JPEG (not WebP) for universal social-scraper compatibility.
@@ -86,35 +84,6 @@ function buildTimestamp(): string | undefined {
 /** Cap on individual Review nodes emitted in the LocalBusiness graph — enough for
  *  AI-citation coverage without bloating the sitewide JSON-LD payload. */
 const MAX_REVIEW_NODES = 12;
-
-/**
- * Individual schema.org Review nodes for the LocalBusiness graph. Gated by the
- * SAME honesty rule as AggregateRating (R-02): emit ONLY from genuinely fetched
- * review bodies (fetchedAt set AND at least one stored review). The static
- * `reviews.placeholders` display copy is NEVER a source here — fabricating dated
- * reviews would violate Google's review-snippet policy and the T-02-01 honesty
- * invariant. Returns {} (no `review` key) until real bodies are fetched.
- */
-function reviewNodes(cfg: SeoConfig): { review?: unknown[] } {
-  const rd = cfg.reviewData ?? { fetchedAt: reviewsFetchedAt, reviews };
-  const list = (rd.reviews ?? reviews) as readonly Review[];
-  if (rd.fetchedAt === null || list.length === 0) return {};
-  return {
-    review: list.slice(0, MAX_REVIEW_NODES).map((r) => ({
-      "@type": "Review",
-      author: { "@type": "Person", name: r.author },
-      datePublished: r.dateISO,
-      reviewBody: r.text,
-      inLanguage: OG_LOCALE[r.lang] ?? r.lang,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: r.rating,
-        bestRating: cfg.site.reviews.bestRating,
-        worstRating: 1,
-      },
-    })),
-  };
-}
 
 /**
  * The review JSON-LD fragment spread into the business node — the single place
@@ -264,7 +233,7 @@ function offer(price: number, priceTo?: number): AggregateOffer | Offer {
 export function organizationGraph(
   lang: Locale,
   { name, description }: { name: string; description: string },
-  cfg: SeoConfig = { site, locations },
+  cfg: OrgGraphConfig,
 ): SeoGraph {
   // All @id URIs derive from canonicalUrl (stable production origin, I-01).
   // Human-facing `url:` fields on nodes remain cfg.site.url (runtime-overridable).
@@ -345,30 +314,14 @@ export function organizationGraph(
         // O-01: link this business node to the brand Organization.
         parentOrganization: { "@id": ORGANIZATION_ID },
         department: departments.map((d) => ({ "@id": d["@id"] })),
-        // R-02 gate: only emit AggregateRating once real reviews have been
-        // fetched (fetchedAt set) AND the fetched aggregate has at least 5
-        // reviews. The authoritative count comes from reviewData.aggregate
-        // (fetched data), NOT from cfg.site.reviews (static display config).
-        // Suppressing stub data keeps the JSON-LD honest (T-02-01).
-        // cfg.reviewData overrides the module singleton for DI in tests.
-        ...((() => {
-          const rd = cfg.reviewData ?? { fetchedAt: reviewsFetchedAt, aggregate };
-          const hasRealRating =
-            rd.fetchedAt !== null && rd.aggregate.reviewCount >= 5;
-          return hasRealRating
-            ? {
-                aggregateRating: {
-                  "@type": "AggregateRating",
-                  ratingValue: rd.aggregate.ratingValue,
-                  reviewCount: rd.aggregate.reviewCount,
-                  bestRating: cfg.site.reviews.bestRating,
-                },
-              }
-            : {};
-        })()),
-        // Individual Review nodes — gated identically to AggregateRating (R-02):
-        // only real fetched review bodies, never the static placeholder copy.
-        ...reviewNodes(cfg),
+        // Review honesty (R-02) — AggregateRating + Review nodes, both gated by
+        // the shared predicates in @/config/review-honesty. Emits nothing until
+        // a genuine fetch exists (T-02-01). reviewData is required on
+        // OrgGraphConfig, so there is exactly one path (no static-default fork).
+        ...reviewSchemaFragment({
+          reviewData: cfg.reviewData,
+          bestRating: cfg.site.reviews.bestRating,
+        }),
         address: {
           "@type": "PostalAddress",
           streetAddress: cfg.site.contact.address.street,
