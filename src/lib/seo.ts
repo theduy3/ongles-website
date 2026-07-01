@@ -228,6 +228,70 @@ function offer(price: number, priceTo?: number): AggregateOffer | Offer {
   } as unknown as Offer;
 }
 
+// Private node-shape builders for organizationGraph. Each schema.org sub-shape
+// (hours, address, geo) is built once here instead of twice inline (site node +
+// per-location department node). Not exported — internal seam only; the emitted
+// JSON-LD is unchanged and covered byte-for-byte by seo.test.ts +
+// schema-invariants.test.ts.
+function buildOpeningHours(
+  blocks: readonly { days: readonly string[]; opens: string; closes: string }[],
+) {
+  return blocks.map((block) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: block.days.map((d) => DAY_NAME[d]),
+    opens: block.opens,
+    closes: block.closes,
+  }));
+}
+
+function buildPostalAddress(a: {
+  street: string;
+  city: string;
+  region: string;
+  postalCode: string;
+  country: string;
+}) {
+  return {
+    "@type": "PostalAddress",
+    streetAddress: a.street,
+    addressLocality: a.city,
+    addressRegion: a.region,
+    postalCode: a.postalCode,
+    addressCountry: a.country,
+  };
+}
+
+function buildGeoCoordinates(g: { lat: number; lng: number }) {
+  return {
+    "@type": "GeoCoordinates",
+    latitude: g.lat,
+    longitude: g.lng,
+  };
+}
+
+// One NailSalon node per physical location, linked to the brand business as a
+// `department`. Carries its own address, geo, phone and hours so search engines
+// understand each salon location.
+function buildSalonNode(
+  loc: Location,
+  cfg: OrgGraphConfig,
+  businessId: string,
+  canonical: string,
+) {
+  return {
+    "@type": "NailSalon",
+    "@id": `${canonical}/#location-${loc.id}`,
+    name: `${cfg.site.name} — ${loc.name}`,
+    parentOrganization: { "@id": businessId },
+    url: mapLink(loc, cfg.site),
+    telephone: loc.phoneHref.replace("tel:", ""),
+    priceRange: cfg.site.priceRange,
+    address: buildPostalAddress(loc.address),
+    geo: buildGeoCoordinates(loc.geo),
+    openingHoursSpecification: buildOpeningHours(loc.hoursSpec),
+  };
+}
+
 /** Sitewide LocalBusiness (NailSalon) + WebSite graph — render once in the layout. */
 export function organizationGraph(
   lang: Locale,
@@ -241,44 +305,11 @@ export function organizationGraph(
   const BUSINESS_ID = `${CANONICAL}/#business`;
   const WEBSITE_ID = `${CANONICAL}/#website`;
 
-  const openingHoursSpecification = cfg.site.hours.map((block) => ({
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: block.days.map((d) => DAY_NAME[d]),
-    opens: block.opens,
-    closes: block.closes,
-  }));
+  const openingHoursSpecification = buildOpeningHours(cfg.site.hours);
 
-  // One NailSalon node per physical location, linked to the brand as a
-  // `department`. Each carries its own address, geo, phone and hours so search
-  // engines understand each salon location.
-  const departments = cfg.locations.map((loc) => ({
-    "@type": "NailSalon",
-    "@id": `${CANONICAL}/#location-${loc.id}`,
-    name: `${cfg.site.name} — ${loc.name}`,
-    parentOrganization: { "@id": BUSINESS_ID },
-    url: mapLink(loc, cfg.site),
-    telephone: loc.phoneHref.replace("tel:", ""),
-    priceRange: cfg.site.priceRange,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: loc.address.street,
-      addressLocality: loc.address.city,
-      addressRegion: loc.address.region,
-      postalCode: loc.address.postalCode,
-      addressCountry: loc.address.country,
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: loc.geo.lat,
-      longitude: loc.geo.lng,
-    },
-    openingHoursSpecification: loc.hoursSpec.map((block) => ({
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: block.days.map((d) => DAY_NAME[d]),
-      opens: block.opens,
-      closes: block.closes,
-    })),
-  }));
+  const departments = cfg.locations.map((loc) =>
+    buildSalonNode(loc, cfg, BUSINESS_ID, CANONICAL),
+  );
 
   // I-03: only emit sameAs when socialProfiles is non-empty; never sameAs: [].
   const sameAsSpread =
@@ -321,19 +352,8 @@ export function organizationGraph(
           reviewData: cfg.reviewData,
           bestRating: cfg.site.reviews.bestRating,
         }),
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: cfg.site.contact.address.street,
-          addressLocality: cfg.site.contact.address.city,
-          addressRegion: cfg.site.contact.address.region,
-          postalCode: cfg.site.contact.address.postalCode,
-          addressCountry: cfg.site.contact.address.country,
-        },
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: cfg.site.geo.lat,
-          longitude: cfg.site.geo.lng,
-        },
+        address: buildPostalAddress(cfg.site.contact.address),
+        geo: buildGeoCoordinates(cfg.site.geo),
         openingHoursSpecification,
         ...sameAsSpread,
       },
