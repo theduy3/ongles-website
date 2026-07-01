@@ -11,8 +11,10 @@ import { Testimonials } from "@/components/Testimonials";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { GiftCards } from "@/components/GiftCards";
 import { LocationsSection } from "@/components/LocationsSection";
-import { galleryImages } from "@/lib/gallery";
+import { buildGallerySlides } from "@/lib/gallery";
 import { formatFromPrice } from "@/lib/format";
+import { trustSignals } from "@/lib/reviews";
+import { navHref } from "@/lib/nav";
 import { services } from "@/lib/services";
 import { getStoreConfig } from "@/lib/store-config";
 import { buildSalonCards } from "@/components/SalonCard";
@@ -82,10 +84,7 @@ export default async function Home({ params }: LangParams) {
   const { site, locations } = await getStoreConfig();
   const salonCards = buildSalonCards(dict, lang, site, locations);
 
-  const ratingDisplay = site.reviews.ratingValue.toLocaleString("en-CA", {
-    minimumFractionDigits: 1,
-  });
-  const reviewCountDisplay = site.reviews.reviewCount.toLocaleString("en-CA");
+  const trust = trustSignals(lang, site.reviews, dict.reviews);
 
   // CONV-02 above-fold trust signals: catalog entry price + localized pricing route.
   const fromPrice = Math.min(...services.map((s) => s.price));
@@ -94,17 +93,9 @@ export default async function Home({ params }: LangParams) {
     fromPrice,
     dict.serviceLabels.priceFrom,
   );
-  const pricingNav = site.nav.find((n) => n.key === "pricing");
-  const pricingHref = `/${lang}${pricingNav?.hrefByLocale?.[lang] ?? pricingNav?.href ?? "/tarifs"}`;
+  const pricingHref = navHref(lang, site.nav, "pricing", "/tarifs");
 
-  const gallerySlides = galleryImages.map((img) => ({
-    id: img.id,
-    file: img.file,
-    // alt is SEO-owned (seo.gallery), caption is UI-owned (dict.gallery.photos).
-    alt: (seo.gallery as Record<string, { alt: string }>)[img.id]?.alt ?? "",
-    caption:
-      dict.gallery.photos[img.id as keyof typeof dict.gallery.photos].caption,
-  }));
+  const gallerySlides = buildGallerySlides(seo, dict);
 
   return (
     <>
@@ -149,14 +140,14 @@ export default async function Home({ params }: LangParams) {
                 >
                   {priceFromDisplay}
                 </Link>
-                {site.reviews.reviewCount > 0 && (
+                {trust.show && (
                   <span
                     className="flex items-center gap-2"
-                    aria-label={`${ratingDisplay} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${reviewCountDisplay} ${dict.reviews.reviewsWord}`}
+                    aria-label={trust.ariaLabel}
                   >
                     <Stars className="text-gold" />
                     <span className="text-sm text-mocha">
-                      {ratingDisplay} / {site.reviews.bestRating}
+                      {trust.ratingDisplay} / {trust.bestRating}
                     </span>
                   </span>
                 )}
@@ -311,16 +302,16 @@ export default async function Home({ params }: LangParams) {
                 {dict.reviews.headlineMain}
               </h2>
             </Reveal>
-            {site.reviews.reviewCount > 0 && (
+            {trust.show && (
               <Reveal delay={0.05}>
                 <div
                   className="mt-6 flex flex-col items-center gap-2"
-                  aria-label={`${ratingDisplay} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${reviewCountDisplay} ${dict.reviews.reviewsWord}`}
+                  aria-label={trust.ariaLabel}
                 >
                   <Stars className="text-gold" />
                   <p className="text-sm uppercase tracking-wide text-mocha">
-                    {ratingDisplay} / {site.reviews.bestRating} ·{" "}
-                    {dict.reviews.basedOn} {reviewCountDisplay}{" "}
+                    {trust.ratingDisplay} / {trust.bestRating} ·{" "}
+                    {dict.reviews.basedOn} {trust.countDisplay}{" "}
                     {dict.reviews.reviewsWord}
                   </p>
                 </div>

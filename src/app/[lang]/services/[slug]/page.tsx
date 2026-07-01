@@ -18,6 +18,8 @@ import { getSeo } from "../../seo-content";
 import { getPageSeo } from "../../page-seo";
 import { isLocale } from "@/lib/i18n";
 import { formatFromPrice } from "@/lib/format";
+import { trustSignals } from "@/lib/reviews";
+import { navHref } from "@/lib/nav";
 
 type Params = { params: Promise<{ lang: string; slug: string }> };
 
@@ -54,8 +56,8 @@ export default async function ServiceDetailPage({ params }: Params) {
   const labels = dict.serviceLabels;
   const bookHref = `/${lang}${site.booking}`;
   const priceDisplay = formatFromPrice(lang, service.price, labels.priceFrom);
-  const pricingNav = site.nav.find((n) => n.key === "pricing");
-  const pricingHref = `/${lang}${pricingNav?.hrefByLocale?.[lang] ?? pricingNav?.href ?? "/tarifs"}`;
+  const pricingHref = navHref(lang, site.nav, "pricing", "/tarifs");
+  const trust = trustSignals(lang, site.reviews, dict.reviews);
 
   return (
     <>
@@ -102,14 +104,14 @@ export default async function ServiceDetailPage({ params }: Params) {
             >
               {priceDisplay}
             </Link>
-            {site.reviews.reviewCount > 0 && (
+            {trust.show && (
               <span
                 className="flex items-center gap-2"
-                aria-label={`${site.reviews.ratingValue.toFixed(1)} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${site.reviews.reviewCount.toLocaleString("en-CA")} ${dict.reviews.reviewsWord}`}
+                aria-label={trust.ariaLabel}
               >
                 <Stars className="text-gold" />
                 <span className="text-sm text-mocha">
-                  {site.reviews.ratingValue.toFixed(1)} / {site.reviews.bestRating}
+                  {trust.ratingDisplay} / {trust.bestRating}
                 </span>
               </span>
             )}

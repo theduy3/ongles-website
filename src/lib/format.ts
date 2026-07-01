@@ -20,3 +20,20 @@ export function formatFromPrice(
 ): string {
   return `${fromWord} ${formatPrice(lang, price)}`;
 }
+
+// Rating + review-count formatting. Single source so every caller renders a
+// rating identically. `lang` is accepted for a future fr-CA switch, but today
+// we pin en-CA to preserve current behavior (both fr and en pages render en-CA
+// — see call sites). Rating is pinned to exactly one decimal (min AND max), so
+// callers can't diverge the way toFixed(1) and toLocaleString(min:1) once did.
+export function formatRating(_lang: Locale, value: number): string {
+  return value.toLocaleString("en-CA", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
+}
+
+/** Review count with thousands grouping, e.g. 1234 → "1,234". */
+export function formatReviewCount(_lang: Locale, count: number): string {
+  return count.toLocaleString("en-CA");
+}

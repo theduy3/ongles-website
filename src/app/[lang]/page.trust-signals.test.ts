@@ -9,8 +9,9 @@ import { readFileSync } from "node:fs";
 //
 //   1. formatFromPrice is used in the hero region (price-from anchor).
 //   2. A link to the tarifs/pricing route is rendered from the price-from value.
-//   3. The stars block (R-02 gate) is guarded by site.reviews.reviewCount > 0
-//      — the same condition already used in the testimonials section.
+//   3. The stars block (R-02 gate) is rendered only under `trust.show` — the
+//      gate itself lives in trustSignals() (@/lib/reviews), unit-tested to
+//      return { show: false } when reviewCount <= 0.
 //
 // These tripwires fail immediately if:
 //   - The price-from anchor is removed from the hero.
@@ -36,7 +37,7 @@ describe("home page — above-fold trust signals (CONV-02)", () => {
     expect(hasPricingRoute).toBe(true);
   });
 
-  test("stars block is R-02-gated on site.reviews.reviewCount > 0", () => {
-    expect(homeSource).toContain("reviewCount > 0");
+  test("stars block is R-02-gated via trust.show (gate owned by trustSignals)", () => {
+    expect(homeSource).toContain("trust.show");
   });
 });
