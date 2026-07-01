@@ -1,8 +1,10 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, spyOn } from "bun:test";
 import {
   readStoreSettings,
   getStoreSettings,
   upsertStoreSettings,
+  resolvePublicRead,
+  resolveAdminRead,
 } from "@/lib/store-settings-store";
 
 // These tests run WITHOUT Supabase configured (no env vars in test env).
@@ -31,5 +33,61 @@ describe("store-settings-store (no Supabase configured)", () => {
     // the route can respond 503 with a clear message.
     const result = await upsertStoreSettings({});
     expect(result).toEqual({ ok: false, reason: "not_configured" });
+  });
+});
+
+// The pure response→value decision. Fed the ALREADY-FETCHED Supabase response as
+// plain data — the degrade path is reachable through the seam, no client.
+describe("resolvePublicRead (public read: silent degrade)", () => {
+  it("degrades to null on a query error", () => {
+    expect(resolvePublicRead({ data: null, error: { message: "boom" } }, "t")).toBeNull();
+  });
+
+  it("degrades to null when no row exists", () => {
+    expect(resolvePublicRead({ data: null, error: null }, "t")).toBeNull();
+  });
+
+  it("degrades to null on a corrupt stored doc (silent — caller falls to static)", () => {
+    const spy = spyOn(console, "error").mockImplementation(() => {});
+    try {
+      expect(resolvePublicRead({ data: { doc: { reviews: 123 } }, error: null }, "t")).toBeNull();
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  it("returns the parsed settings for a valid doc", () => {
+    expect(resolvePublicRead({ data: { doc: {} }, error: null }, "t")).toEqual({});
+  });
+});
+
+describe("resolveAdminRead (admin read: loud on corruption)", () => {
+  it("surfaces a query error as failed with the error message", () => {
+    expect(resolveAdminRead({ data: null, error: { message: "boom" } }, "t")).toEqual({
+      ok: false,
+      reason: "failed",
+      detail: "boom",
+    });
+  });
+
+  it("returns ok(null) when no row exists yet (fresh tenant)", () => {
+    expect(resolveAdminRead({ data: null, error: null }, "t")).toEqual({ ok: true, data: null });
+  });
+
+  it("surfaces a corrupt stored doc as failed so the operator sees it", () => {
+    const spy = spyOn(console, "error").mockImplementation(() => {});
+    try {
+      expect(resolveAdminRead({ data: { doc: { reviews: 123 } }, error: null }, "t")).toEqual({
+        ok: false,
+        reason: "failed",
+        detail: "stored doc failed schema validation",
+      });
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  it("returns ok(settings) for a valid doc", () => {
+    expect(resolveAdminRead({ data: { doc: {} }, error: null }, "t")).toEqual({ ok: true, data: {} });
   });
 });
