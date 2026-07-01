@@ -40,6 +40,9 @@ function isPlainObject(v: unknown): v is Record<string, unknown> {
  *   - hours:      an entry is valid only with days + opens + closes
  *   - services:   an item is kept only when it carries a non-id value override
  *   - customCode: the array is source-of-truth; blank-code rows are dropped
+ * Note: pruneEmpty also strips blank entries out of generic arrays (e.g. a blank
+ * socialProfiles URL) — a deliberate improvement over the old field-by-field walk,
+ * which only checked array length, not per-item emptiness.
  * The server re-validates the result via StoreSettingsSchema before writing.
  */
 export function buildSparseDoc(draft: SettingsDraftState): StoreSettings {

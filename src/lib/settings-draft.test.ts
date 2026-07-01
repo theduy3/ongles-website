@@ -113,6 +113,22 @@ describe("buildSparseDoc", () => {
     });
     expect(doc.site?.geo?.lat).toBe(46.87);
   });
+
+  it("drops blank entries from socialProfiles (pruneEmpty filters empty array items)", () => {
+    const doc = buildSparseDoc({
+      ...empty,
+      site: { socialProfiles: ["", "https://instagram.com/x", ""] },
+    });
+    expect(doc.site?.socialProfiles).toEqual(["https://instagram.com/x"]);
+  });
+
+  it("omits socialProfiles entirely when every entry is blank", () => {
+    const doc = buildSparseDoc({
+      ...empty,
+      site: { socialProfiles: ["", ""] },
+    });
+    expect(doc.site?.socialProfiles).toBeUndefined();
+  });
 });
 
 // ── Task 3: nested SeoDraft model ─────────────────────────────────────────────
