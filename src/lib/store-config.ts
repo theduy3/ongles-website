@@ -1,8 +1,7 @@
-import { cache } from "react";
-import { unstable_cache } from "next/cache";
 import { site as staticSite, locations as staticLocations, services as staticServices } from "@/config";
 import { tenant } from "@/config";
 import { deepMerge } from "@/config/deep-merge";
+import { cachedTenantResource } from "@/lib/cached-tenant-resource";
 import { readStoreSettings } from "@/lib/store-settings-store";
 import type { TenantSite, Location, Service } from "@/config/types";
 import type { StoreSettings } from "@/lib/store-settings-schema";
@@ -86,27 +85,10 @@ async function resolveStoreConfig(): Promise<{
   };
 }
 
-// ── Cached resolver ───────────────────────────────────────────────────────────
-// unstable_cache: cross-request cache (60 s revalidate). Tagged so admin
-// writes can call revalidateTag(`store-config:${tenant.id}`) to purge.
-//
-// unstable_cache requires the Next.js incremental cache runtime and throws
-// outside a Next.js server context (e.g. bun:test). We fall back to the
-// uncached resolver transparently so tests and non-Next environments work.
-const cachedResolve = unstable_cache(resolveStoreConfig, ["store-config", tenant.id], {
-  tags: [`store-config:${tenant.id}`],
-  revalidate: 60,
-});
-
-async function resolveWithFallback(): ReturnType<typeof resolveStoreConfig> {
-  try {
-    return await cachedResolve();
-  } catch {
-    // Outside a Next.js runtime (tests, scripts) — run uncached.
-    return resolveStoreConfig();
-  }
-}
-
-// React cache: per-request dedupe so multiple components calling getStoreConfig
-// in the same render tree only hit the Next.js cache once.
-export const getStoreConfig = cache(resolveWithFallback);
+// Cross-request cache (60 s) + per-request dedupe + non-Next fallback, via the
+// shared caching seam. Tagged so admin writes can revalidateTag(`store-config:${id}`).
+export const getStoreConfig = cachedTenantResource(
+  ["store-config", tenant.id],
+  { tags: [`store-config:${tenant.id}`] },
+  resolveStoreConfig,
+);

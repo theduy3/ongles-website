@@ -1,13 +1,13 @@
 import { describe, expect, it, mock } from "bun:test";
 
-// composeDictionary lives in compose-dictionary.ts — no server-only, no Next.js
+// composeLayers lives in layered-locale-content.ts — no server-only, no Next.js
 // deps — so it imports cleanly in bun:test without any mocking needed.
-import { composeDictionary } from "@/app/[lang]/compose-dictionary";
+import { composeLayers } from "@/app/[lang]/layered-locale-content";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyContent = Record<string, any>;
 const compose = (b: object, t: object, d: object) =>
-  composeDictionary(b as AnyContent, t as AnyContent, d as AnyContent) as AnyContent;
+  composeLayers(b as AnyContent, t as AnyContent, d as AnyContent) as AnyContent;
 
 // getDictionary lives in dictionaries.ts which has `import "server-only"` and
 // Next.js/React cache imports. Mock those modules BEFORE the dynamic import so
@@ -26,9 +26,9 @@ mock.module("react", () => ({
 // Dynamic import AFTER mocks are registered.
 const { getDictionary } = await import("@/app/[lang]/dictionaries");
 
-// WHY: composeDictionary is the pure 3-layer merge function. Testing it in
+// WHY: composeLayers is the pure 3-layer merge function. Testing it in
 // isolation verifies precedence rules without needing a DB or Next.js runtime.
-describe("composeDictionary (pure unit)", () => {
+describe("composeLayers (pure unit)", () => {
   it("dbOverride wins over tenantOverride wins over base (precedence chain)", () => {
     // WHY: DB content is the authoritative final layer — an operator edit must
     // always beat both the base and the static tenant override.
@@ -68,7 +68,7 @@ describe("composeDictionary (pure unit)", () => {
   });
 
   it("locale objects are independent — fr change does not bleed into en", () => {
-    // WHY: Each locale is composed separately. Simulates calling composeDictionary
+    // WHY: Each locale is composed separately. Simulates calling composeLayers
     // twice with different locale inputs and verifies no cross-contamination.
     const baseFr = { meta: { title: "Titre" } };
     const baseEn = { meta: { title: "Title" } };
@@ -97,7 +97,7 @@ describe("composeDictionary (pure unit)", () => {
   });
 
   it("returns a new object — does not mutate base", () => {
-    // WHY: Immutability — composeDictionary must never mutate its inputs so
+    // WHY: Immutability — composeLayers must never mutate its inputs so
     // the static JSON imports remain stable across multiple calls.
     const base = { meta: { title: "Original" } };
 
