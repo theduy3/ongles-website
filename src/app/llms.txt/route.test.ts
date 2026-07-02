@@ -18,6 +18,7 @@
 
 import { describe, it, expect, mock } from "bun:test";
 import { TENANT_REGISTRY } from "@/config";
+import { COMPARISONS } from "@/lib/comparisons";
 import type { TenantSite, Service } from "@/config/types";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -202,6 +203,28 @@ describe("llms.txt route — per-tenant body assertions", () => {
         ];
         for (const slug of comparisonSlugs) {
           expect(b).toContain(`${enBase}/comparisons/${slug}`);
+        }
+      });
+
+      it("FR comparison links carry the registry's FR label (L-04)", async () => {
+        const b = await body();
+        for (const r of COMPARISONS) {
+          expect(b).toContain(
+            `[${r.label.fr}](${frBase}/comparaisons/${r.slug.fr})`,
+          );
+        }
+      });
+
+      it("EN comparison links carry the EN label, never the FR label (L-04)", async () => {
+        const b = await body();
+        for (const r of COMPARISONS) {
+          expect(b).toContain(
+            `[${r.label.en}](${enBase}/comparisons/${r.slug.en})`,
+          );
+          // Regression: EN section had reused the FR label on the EN URL.
+          expect(b).not.toContain(
+            `[${r.label.fr}](${enBase}/comparisons/${r.slug.en})`,
+          );
         }
       });
 

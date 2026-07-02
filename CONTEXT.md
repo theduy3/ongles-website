@@ -88,3 +88,14 @@ owned by **presenters**, not inlined per page.
   bestRating, countDisplay, ariaLabel }`. Distinct from the **R-02 gate**, which governs
   structured-data honesty; the trust signal governs on-page display and simply hides when
   there are no reviews.
+
+## Routing
+
+- **Comparison registry** — `COMPARISONS` in `src/lib/comparisons.ts`: the single source for
+  each buying-guide comparison's `id` (matches the `seo.pages.comparison` key), locale
+  `slug`, short locale `label`, and cross-linked `services`. `comparisonPath(record, lang)`
+  owns the `/comparaisons` (FR) vs `/comparisons` (EN) folder mapping. Everything that links
+  to a comparison — the `[slug]` pages and the `/llms.txt` cross-links — DERIVES from the
+  registry rather than re-listing slugs/paths/labels, so the locales can't drift (the EN
+  `/llms.txt` list once fell back to FR labels). The long SEO title lives separately in
+  `seo.pages.comparison[id].metaTitle`; the registry `label` is the short nav-style string.

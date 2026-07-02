@@ -16,6 +16,12 @@ export type ComparisonRecord = {
   /** Unique identifier — matches pages.comparison key in seo JSON. */
   id: string;
   slug: Record<Locale, string>;
+  /**
+   * Short locale-aware link label (nav-style, not the SEO metaTitle). Single
+   * source for cross-links like /llms.txt, so the EN list can't fall back to the
+   * FR label.
+   */
+  label: Record<Locale, string>;
   /** Service ids from both sides of the comparison (for cross-linking). */
   services: string[];
 };
@@ -24,21 +30,25 @@ export const COMPARISONS: ComparisonRecord[] = [
   {
     id: "pose-vs-remplissage",
     slug: { fr: "pose-vs-remplissage", en: "nail-extensions-vs-fill" },
+    label: { fr: "Pose vs remplissage", en: "Nail extensions vs fill" },
     services: ["pose-ongles", "remplissage"],
   },
   {
     id: "manucure-vs-pedicure",
     slug: { fr: "manucure-vs-pedicure", en: "manicure-vs-pedicure" },
+    label: { fr: "Manucure vs pédicure", en: "Manicure vs pedicure" },
     services: ["soins-mains", "soins-pieds"],
   },
   {
     id: "gel-vs-acrylique",
     slug: { fr: "gel-vs-acrylique", en: "gel-vs-acrylic" },
+    label: { fr: "Gel vs acrylique", en: "Gel vs acrylic" },
     services: ["pose-ongles"],
   },
   {
     id: "meilleur-pour",
     slug: { fr: "meilleur-pour", en: "best-for" },
+    label: { fr: "Meilleur pour vous", en: "Best for you" },
     services: ["pose-ongles", "soins-mains", "soins-pieds"],
   },
 ];
