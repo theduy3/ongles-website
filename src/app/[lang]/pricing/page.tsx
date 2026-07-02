@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { AnswerBlock } from "@/components/AnswerBlock";
 import { Button } from "@/components/Button";
 import { JsonLd } from "@/components/JsonLd";
@@ -10,17 +9,15 @@ import { servicePath } from "@/lib/services";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
 import { getPageSeo } from "../page-seo";
-import { isLocale } from "@/lib/i18n";
 import type { LangParams } from "@/lib/i18n";
+import { requireLocale, resolveLocale } from "../locale-guard";
 
 // No generateStaticParams — on-demand rendering via force-dynamic parent layout.
 // Wrong-locale guard: /pricing is EN-only; non-en lang → 404.
 
 export async function generateMetadata({ params }: LangParams): Promise<Metadata> {
-  const { lang } = await params;
-  if (!isLocale(lang)) return {};
-  // Wrong-locale guard: /pricing is the English pricing slug only.
-  if (lang !== "en") return {};
+  const lang = await resolveLocale(params, "en");
+  if (!lang) return {};
   const seo = await getSeo(lang);
   const page = await getPageSeo(lang);
   return page.metadata("/pricing", {
@@ -31,10 +28,7 @@ export async function generateMetadata({ params }: LangParams): Promise<Metadata
 }
 
 export default async function PricingPage({ params }: LangParams) {
-  const { lang } = await params;
-  if (!isLocale(lang)) notFound();
-  // Wrong-locale guard: /pricing is EN-only (Pitfall 1).
-  if (lang !== "en") notFound();
+  const lang = await requireLocale(params, "en");
 
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);

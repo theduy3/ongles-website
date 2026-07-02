@@ -14,7 +14,7 @@ import {
 import { getDictionary } from "../../dictionaries";
 import { getSeo } from "../../seo-content";
 import { getPageSeo } from "../../page-seo";
-import { isLocale } from "@/lib/i18n";
+import { requireLocale, resolveLocale } from "../../locale-guard";
 
 type Params = { params: Promise<{ lang: string; slug: string }> };
 
@@ -24,8 +24,9 @@ type Params = { params: Promise<{ lang: string; slug: string }> };
 // a FR slug under this folder fails the EN slug lookup and 404s.
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { lang, slug } = await params;
-  if (!isLocale(lang) || lang !== "en") return {};
+  const lang = await resolveLocale(params, "en");
+  if (!lang) return {};
+  const { slug } = await params;
   const record = comparisonBySlug(lang, slug);
   if (!record) return {};
   const seo = await getSeo(lang);
@@ -40,10 +41,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function ComparisonPage({ params }: Params) {
-  const { lang, slug } = await params;
-  if (!isLocale(lang)) notFound();
-  // /comparisons is the English comparison slug space only.
-  if (lang !== "en") notFound();
+  const lang = await requireLocale(params, "en");
+  const { slug } = await params;
   const record = comparisonBySlug(lang, slug);
   if (!record) notFound();
 

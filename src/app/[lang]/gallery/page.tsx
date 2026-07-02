@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { isLocale, type LangParams } from "@/lib/i18n";
+import type { LangParams } from "@/lib/i18n";
+import { requireLocale, resolveLocale } from "../locale-guard";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
 import { getPageSeo } from "../page-seo";
@@ -17,8 +17,8 @@ import {
 export async function generateMetadata({
   params,
 }: LangParams): Promise<Metadata> {
-  const { lang } = await params;
-  if (!isLocale(lang)) return {};
+  const lang = await resolveLocale(params);
+  if (!lang) return {};
   const seo = await getSeo(lang);
   const page = await getPageSeo(lang);
   return page.metadata("/gallery", {
@@ -28,8 +28,7 @@ export async function generateMetadata({
 }
 
 export default async function GalleryPage({ params }: LangParams) {
-  const { lang } = await params;
-  if (!isLocale(lang)) notFound();
+  const lang = await requireLocale(params);
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
   const page = await getPageSeo(lang);

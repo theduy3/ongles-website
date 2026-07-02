@@ -8,15 +8,15 @@ import { getStoreConfig } from "@/lib/store-config";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
 import { getPageSeo } from "../page-seo";
-import { isLocale } from "@/lib/i18n";
 import type { LangParams } from "@/lib/i18n";
+import { requireLocale, resolveLocale } from "../locale-guard";
 
 // No generateStaticParams — on-demand rendering via force-dynamic parent layout.
 // /charlesbourg serves both FR and EN (same slug for both locales — proper noun).
 
 export async function generateMetadata({ params }: LangParams): Promise<Metadata> {
-  const { lang } = await params;
-  if (!isLocale(lang)) return {};
+  const lang = await resolveLocale(params);
+  if (!lang) return {};
   const seo = await getSeo(lang);
   const page = await getPageSeo(lang);
   return page.metadata("/charlesbourg", {
@@ -27,8 +27,7 @@ export async function generateMetadata({ params }: LangParams): Promise<Metadata
 }
 
 export default async function CharlesbourgPage({ params }: LangParams) {
-  const { lang } = await params;
-  if (!isLocale(lang)) notFound();
+  const lang = await requireLocale(params);
 
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
