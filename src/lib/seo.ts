@@ -373,7 +373,9 @@ export function organizationGraph(
   } as unknown as SeoGraph;
 }
 
-type ServiceItem = {
+// The item contract for the services/pricing ItemList graphs. Exported so the
+// pricing presenter (@/lib/pricing) can name what it produces for page.pricing().
+export type ServiceItem = {
   name: string;
   description: string;
   price: number;
