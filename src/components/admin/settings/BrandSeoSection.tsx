@@ -2,16 +2,11 @@
 
 import { useState } from "react";
 import type { StoreSettings } from "@/lib/store-settings-schema";
-
-export const inputClass =
-  "w-full rounded-lg border border-tan bg-beige px-3 py-2 text-sm outline-none focus:border-espresso";
-
-export const labelClass = "flex flex-col gap-1 text-xs";
-export const spanClass = "text-tan";
+import { inputClass, labelClass, spanClass } from "../form-styles";
 
 // Brand / store identity fields (→ the `site` namespace). SEO meta text lives in
-// the separate SeoSection (→ the `seo` namespace). inputClass/labelClass/spanClass
-// are re-used by the other settings sections, so they stay exported here.
+// the separate SeoSection (→ the `seo` namespace). Form styling is owned by
+// ../form-styles, shared across every settings section and the popup form.
 
 interface Props {
   site: NonNullable<StoreSettings["site"]>;

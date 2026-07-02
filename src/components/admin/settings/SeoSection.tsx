@@ -2,7 +2,7 @@
 
 import baseSeo from "@/config/seo/seo.en.json";
 import type { SeoDraft } from "@/lib/settings-draft";
-import { inputClass, labelClass, spanClass } from "./BrandSeoSection";
+import { inputClass, labelClass, spanClass } from "../form-styles";
 
 // Key sets derive from the base SEO JSON so the form can never drift from the
 // dictionary as keys are added. Labels are cosmetic (humanized from the key).

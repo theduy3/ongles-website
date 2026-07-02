@@ -1,7 +1,7 @@
 "use client";
 
 import type { StoreSettings } from "@/lib/store-settings-schema";
-import { inputClass, labelClass, spanClass } from "./BrandSeoSection";
+import { inputClass, labelClass, spanClass } from "../form-styles";
 
 type SiteSection = NonNullable<StoreSettings["site"]>;
 type ServiceOverride = NonNullable<StoreSettings["services"]>[number];
