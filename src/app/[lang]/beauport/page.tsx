@@ -5,6 +5,7 @@ import { Button } from "@/components/Button";
 import { JsonLd } from "@/components/JsonLd";
 import { NearMeDetails } from "@/components/NearMeDetails";
 import { getStoreConfig } from "@/lib/store-config";
+import { buildServiceNames } from "@/lib/services";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
 import { getPageSeo } from "../page-seo";
@@ -39,10 +40,8 @@ export default async function BeauportPage({ params }: LangParams) {
   const location = locations[0];
   if (!location) notFound();
 
-  // Service name map for NearMeDetails link labels (from dict.serviceDetails).
-  const serviceNames: Record<string, string> = Object.fromEntries(
-    services.map((svc) => [svc.id, dict.serviceDetails[svc.id]?.title ?? svc.id]),
-  );
+  // Service name map for NearMeDetails link labels (fail-loud on missing title).
+  const serviceNames = buildServiceNames(services, dict.serviceDetails);
 
   return (
     <>
