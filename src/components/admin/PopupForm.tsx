@@ -3,11 +3,9 @@
 import { useState } from "react";
 import { locales, defaultLocale, type Locale } from "@/lib/i18n";
 import type { Draft } from "@/lib/popup-draft";
+import { inputClass } from "./form-styles";
 
 const REQUIRED_LOCALES: readonly Locale[] = ["en", defaultLocale];
-
-const inputClass =
-  "w-full rounded-lg border border-tan bg-beige px-3 py-2 text-sm outline-none focus:border-espresso";
 
 function LocalizedGroup({
   label,

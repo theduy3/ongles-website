@@ -2,7 +2,7 @@
 
 import type { CustomCodeSnippet } from "@/lib/store-settings-schema";
 import { ROUTE_KEYS } from "@/lib/route-key";
-import { inputClass, labelClass, spanClass } from "./BrandSeoSection";
+import { inputClass, labelClass, spanClass } from "../form-styles";
 
 // Editor for admin-authored custom code snippets. Each snippet has a label, a raw
 // HTML/JS body, a placement (head vs end-of-body), a page target set, and an
