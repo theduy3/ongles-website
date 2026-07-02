@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { servicePath, servicePathsByLocale } from "@/lib/services";
 import { COMPARISONS, comparisonPathsByLocale } from "@/lib/comparisons";
+import { pricingPathsByLocale } from "@/lib/routes";
 import { getStoreConfig } from "@/lib/store-config";
 
 // Single-locale sitemap (en). The header nav is now anchor links into the home
@@ -96,7 +97,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // These use locale-distinct slugs so they cannot share the same-route pageEntries
   // pattern — each pair emits per-locale entries with explicit hreflang alternates.
   const LOCALIZED_PAGE_PAIRS: LocalizedPathPair[] = [
-    { fr: "/tarifs", en: "/pricing" },
+    pricingPathsByLocale(),
     ...COMPARISONS.map((c) => ({
       fr: `/comparaisons/${c.slug.fr}`,
       en: `/comparisons/${c.slug.en}`,

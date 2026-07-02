@@ -11,6 +11,7 @@ import {
   comparisonPath,
   comparisonPathsByLocale,
 } from "@/lib/comparisons";
+import { pricingPath } from "@/lib/routes";
 import { getDictionary } from "../../dictionaries";
 import { getSeo } from "../../seo-content";
 import { getPageSeo } from "../../page-seo";
@@ -99,7 +100,7 @@ export default async function ComparisonPage({ params }: Params) {
               </Link>
             ))}
             <Link
-              href={`/${lang}/tarifs`}
+              href={`/${lang}${pricingPath(lang)}`}
               className="text-espresso underline-offset-4 hover:text-gold hover:underline"
             >
               {dict.nav.pricing}

@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { PricingTable } from "@/components/PricingTable";
 import { getStoreConfig } from "@/lib/store-config";
 import { buildPricingItems } from "@/lib/pricing";
+import { pricingPath, pricingPathsByLocale } from "@/lib/routes";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
 import { getPageSeo } from "../page-seo";
@@ -19,10 +20,10 @@ export async function generateMetadata({ params }: LangParams): Promise<Metadata
   if (!lang) return {};
   const seo = await getSeo(lang);
   const page = await getPageSeo(lang);
-  return page.metadata("/tarifs", {
+  return page.metadata(pricingPath(lang), {
     title: seo.pages.pricing.metaTitle,
     description: seo.pages.pricing.metaDescription,
-    routeByLocale: { fr: "/tarifs", en: "/pricing" },
+    routeByLocale: pricingPathsByLocale(),
   });
 }
 
@@ -51,7 +52,7 @@ export default async function TarifsPage({ params }: LangParams) {
       <JsonLd
         data={page.breadcrumb([
           { name: dict.nav.home, route: "" },
-          { name: dict.nav.pricing, route: "/tarifs" },
+          { name: dict.nav.pricing, route: pricingPath(lang) },
         ])}
       />
 
