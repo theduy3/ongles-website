@@ -1,5 +1,6 @@
 import { getStoreConfig } from "@/lib/store-config";
-import { defaultLocale } from "@/lib/i18n";
+import { defaultLocale, type Locale } from "@/lib/i18n";
+import { COMPARISONS, comparisonPath } from "@/lib/comparisons";
 
 // Served at /llms.txt — guides AI crawlers (ChatGPT, Perplexity, Claude, AI
 // Overviews) to the canonical FR pages and the core business facts. Generated
@@ -52,24 +53,18 @@ export async function GET() {
   //   ongles-rivieres    → /trois-rivieres
   const nearMeRoute = site.routes.at(-1) ?? "";
 
-  // ── Comparison slugs (FR + EN) ─────────────────────────────────────────────
-  // Hard-coded from comparisons.ts COMPARISONS array — same source of truth,
-  // avoids importing a server-lib from a route file. If slugs ever change,
-  // this list tracks comparisons.ts (single point of change).
-  const comparaisons: Array<{ fr: string; en: string; label: string }> = [
-    { fr: "pose-vs-remplissage", en: "nail-extensions-vs-fill", label: "Pose vs remplissage" },
-    { fr: "manucure-vs-pedicure", en: "manicure-vs-pedicure", label: "Manucure vs pédicure" },
-    { fr: "gel-vs-acrylique", en: "gel-vs-acrylic", label: "Gel vs acrylique" },
-    { fr: "meilleur-pour", en: "best-for", label: "Meilleur pour vous" },
-  ];
+  // ── Comparison links (FR + EN) ─────────────────────────────────────────────
+  // Derived from the COMPARISONS registry — the single source for slug, locale
+  // path, and label. comparisonPath() owns the /comparaisons vs /comparisons
+  // folder mapping and the per-locale label prevents the EN list from falling
+  // back to FR text.
+  const comparisonLines = (lang: Locale, base: string) =>
+    COMPARISONS.map(
+      (c) => `- [${c.label[lang]}](${base}${comparisonPath(c, lang)})`,
+    ).join("\n");
 
-  const frComparaisonLines = comparaisons
-    .map((c) => `- [${c.label}](${frBase}/comparaisons/${c.fr})`)
-    .join("\n");
-
-  const enComparisonLines = comparaisons
-    .map((c) => `- [${c.label}](${enBase}/comparisons/${c.en})`)
-    .join("\n");
+  const frComparaisonLines = comparisonLines(defaultLocale, frBase);
+  const enComparisonLines = comparisonLines("en", enBase);
 
   // ── Freshness line ──────────────────────────────────────────────────────────
   // BUILD_TIMESTAMP is inlined by next.config `env` at build time; each Dokploy
