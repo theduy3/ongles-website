@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { StoreSettingsSchema } from "@/lib/store-settings-schema";
-import { guard, storeError, badRequest } from "@/lib/admin-http";
+import { guard, storeError, adminWrite } from "@/lib/admin-http";
 import { getStoreSettings, upsertStoreSettings } from "@/lib/store-settings-store";
 import { revalidateStoreCaches } from "@/lib/revalidate-store-caches";
 import { tenant } from "@/config";
@@ -17,26 +17,8 @@ export async function GET() {
   return NextResponse.json({ success: true, data: result.data });
 }
 
-export async function PUT(request: Request) {
-  const denied = await guard();
-  if (denied) return denied;
-
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return badRequest("Invalid request body", 400);
-  }
-
-  const parsed = StoreSettingsSchema.safeParse(body);
-  if (!parsed.success) {
-    return badRequest(parsed.error.issues[0]?.message ?? "Invalid settings");
-  }
-
-  const result = await upsertStoreSettings(parsed.data);
-  if (!result.ok) return storeError(result);
-
-  revalidateStoreCaches(tenant.id);
-
-  return NextResponse.json({ success: true, data: result.data });
-}
+export const PUT = adminWrite(StoreSettingsSchema, async (data) => {
+  const result = await upsertStoreSettings(data);
+  if (result.ok) revalidateStoreCaches(tenant.id);
+  return result;
+});
