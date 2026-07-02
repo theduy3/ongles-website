@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
@@ -9,13 +8,14 @@ import { JsonLd } from "@/components/JsonLd";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
 import { getPageSeo } from "../page-seo";
-import { isLocale, type LangParams } from "@/lib/i18n";
+import type { LangParams } from "@/lib/i18n";
+import { requireLocale, resolveLocale } from "../locale-guard";
 
 export async function generateMetadata({
   params,
 }: LangParams): Promise<Metadata> {
-  const { lang } = await params;
-  if (!isLocale(lang)) return {};
+  const lang = await resolveLocale(params);
+  if (!lang) return {};
   const seo = await getSeo(lang);
   const page = await getPageSeo(lang);
   return page.metadata("/contact", {
@@ -25,8 +25,7 @@ export async function generateMetadata({
 }
 
 export default async function ContactPage({ params }: LangParams) {
-  const { lang } = await params;
-  if (!isLocale(lang)) notFound();
+  const lang = await requireLocale(params);
   const dict = await getDictionary(lang);
   const { site } = await getStoreConfig();
   const page = await getPageSeo(lang);

@@ -16,7 +16,7 @@ import {
 import { getDictionary } from "../../dictionaries";
 import { getSeo } from "../../seo-content";
 import { getPageSeo } from "../../page-seo";
-import { isLocale } from "@/lib/i18n";
+import { requireLocale, resolveLocale } from "../../locale-guard";
 import { formatFromPrice } from "@/lib/format";
 import { trustSignals } from "@/lib/reviews";
 import { navHref } from "@/lib/nav";
@@ -28,8 +28,9 @@ type Params = { params: Promise<{ lang: string; slug: string }> };
 // notFound() handles unknown or wrong-locale slugs at request time.
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { lang, slug } = await params;
-  if (!isLocale(lang)) return {};
+  const lang = await resolveLocale(params);
+  if (!lang) return {};
+  const { slug } = await params;
   const service = serviceBySlug(lang, slug);
   if (!service) return {};
   const s = (await getSeo(lang)).services[service.id];
@@ -42,8 +43,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function ServiceDetailPage({ params }: Params) {
-  const { lang, slug } = await params;
-  if (!isLocale(lang)) notFound();
+  const lang = await requireLocale(params);
+  const { slug } = await params;
   const service = serviceBySlug(lang, slug);
   if (!service) notFound();
 

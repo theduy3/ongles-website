@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { AnswerBlock } from "@/components/AnswerBlock";
@@ -21,7 +20,8 @@ import { buildSalonCards } from "@/components/SalonCard";
 import { getDictionary } from "./dictionaries";
 import { getSeo } from "./seo-content";
 import { getPageSeo } from "./page-seo";
-import { isLocale, type LangParams } from "@/lib/i18n";
+import type { LangParams } from "@/lib/i18n";
+import { requireLocale, resolveLocale } from "./locale-guard";
 
 // Marketing service-card images — order matches serviceCards: Nail Enhancements, Fill, Manicure, Pedicure.
 const CARD_IMAGES = [
@@ -66,8 +66,8 @@ function PhoneIcon() {
 export async function generateMetadata({
   params,
 }: LangParams): Promise<Metadata> {
-  const { lang } = await params;
-  if (!isLocale(lang)) return {};
+  const lang = await resolveLocale(params);
+  if (!lang) return {};
   const seo = await getSeo(lang);
   const page = await getPageSeo(lang);
   return page.metadata("", {
@@ -77,8 +77,7 @@ export async function generateMetadata({
 }
 
 export default async function Home({ params }: LangParams) {
-  const { lang } = await params;
-  if (!isLocale(lang)) notFound();
+  const lang = await requireLocale(params);
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();

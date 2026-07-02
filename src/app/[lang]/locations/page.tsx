@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { AnswerBlock } from "@/components/AnswerBlock";
 import { Reveal } from "@/components/Reveal";
 import { SalonCard, buildSalonCards } from "@/components/SalonCard";
@@ -7,14 +6,15 @@ import { JsonLd } from "@/components/JsonLd";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
 import { getPageSeo } from "../page-seo";
-import { isLocale, type LangParams } from "@/lib/i18n";
+import type { LangParams } from "@/lib/i18n";
+import { requireLocale, resolveLocale } from "../locale-guard";
 import { getStoreConfig } from "@/lib/store-config";
 
 export async function generateMetadata({
   params,
 }: LangParams): Promise<Metadata> {
-  const { lang } = await params;
-  if (!isLocale(lang)) return {};
+  const lang = await resolveLocale(params);
+  if (!lang) return {};
   const seo = await getSeo(lang);
   const page = await getPageSeo(lang);
   return page.metadata("/locations", {
@@ -24,8 +24,7 @@ export async function generateMetadata({
 }
 
 export default async function LocationsPage({ params }: LangParams) {
-  const { lang } = await params;
-  if (!isLocale(lang)) notFound();
+  const lang = await requireLocale(params);
   const dict = await getDictionary(lang);
   const seo = await getSeo(lang);
   const { site, locations } = await getStoreConfig();
