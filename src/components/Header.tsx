@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { TenantSite } from "@/config/types";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
+import { navItemHref } from "@/lib/nav";
 import { Button } from "./Button";
 import { LocaleSwitch } from "./LocaleSwitch";
 
@@ -44,15 +45,10 @@ export function Header({
 }) {
   const [open, setOpen] = useState(false);
 
-  // Anchor hrefs prefixed with the active locale so they scroll from any route.
+  // Anchor + booking hrefs prefixed with the active locale so they scroll from
+  // any route. Nav-item hrefs go through navItemHref (@/lib/nav) — the shared
+  // locale-slug rule — so the /tarifs ⇔ /pricing resolution lives in one place.
   const href = (h: string) => (h === "/" ? `/${locale}` : `/${locale}${h}`);
-
-  // For nav items with locale-distinct slugs (e.g. /tarifs vs /pricing),
-  // resolve the correct href for the active locale before applying the prefix.
-  const navHref = (item: (typeof site.nav)[number]) => {
-    const resolved = item.hrefByLocale?.[locale] ?? item.href;
-    return href(resolved);
-  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-espresso/10 bg-cream/90 text-espresso backdrop-blur">
@@ -70,7 +66,7 @@ export function Header({
           {site.nav.map((item) => (
             <Link
               key={item.key}
-              href={navHref(item)}
+              href={navItemHref(locale, item)}
               className="text-[13px] uppercase tracking-[0.12em] text-espresso/80 transition-colors hover:text-espresso"
             >
               {dict.nav[item.key as keyof typeof dict.nav]}
@@ -116,7 +112,7 @@ export function Header({
               {site.nav.map((item) => (
                 <Link
                   key={item.key}
-                  href={navHref(item)}
+                  href={navItemHref(locale, item)}
                   onClick={() => setOpen(false)}
                   className="py-2 text-sm uppercase tracking-[0.12em] text-espresso/80 transition-colors hover:text-espresso"
                 >
