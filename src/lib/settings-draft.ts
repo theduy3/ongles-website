@@ -103,3 +103,32 @@ export function extractSeo(locale: Record<string, unknown> | undefined): SeoDraf
     org: flat(src.org),
   };
 }
+
+/** The empty working draft — no overrides set. */
+export function emptyDraftState(): SettingsDraftState {
+  return {
+    site: {},
+    services: [],
+    seoFr: emptySeoDraft(),
+    seoEn: emptySeoDraft(),
+    customCode: [],
+  };
+}
+
+/**
+ * Reconstruct the form's working draft from a persisted (sparse) StoreSettings
+ * doc — the inverse of buildSparseDoc. Lives here, beside buildSparseDoc, so the
+ * round-trip invariant `buildSparseDoc(stateFromSettings(doc)) === doc` (identity
+ * on canonical docs) can be pinned by settings-draft.test.ts: an operator's saved
+ * edits must reload into the form and re-save unchanged, never silently dropped.
+ */
+export function stateFromSettings(s: StoreSettings | null): SettingsDraftState {
+  if (!s) return emptyDraftState();
+  return {
+    site: s.site ?? {},
+    services: s.services ?? [],
+    seoFr: extractSeo(s.seo?.fr as Record<string, unknown> | undefined),
+    seoEn: extractSeo(s.seo?.en as Record<string, unknown> | undefined),
+    customCode: s.customCode ?? [],
+  };
+}
