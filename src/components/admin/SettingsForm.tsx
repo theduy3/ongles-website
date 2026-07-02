@@ -5,8 +5,8 @@ import Link from "next/link";
 import type { StoreSettings } from "@/lib/store-settings-schema";
 import {
   buildSparseDoc,
-  extractSeo,
-  emptySeoDraft,
+  emptyDraftState,
+  stateFromSettings,
   type SeoDraft,
   type SettingsDraftState,
 } from "@/lib/settings-draft";
@@ -16,21 +16,6 @@ import { ContactHoursSection } from "./settings/ContactHoursSection";
 import { BookingServicesSection } from "./settings/BookingServicesSection";
 import { CustomCodeSection } from "./settings/CustomCodeSection";
 
-function emptyState(): SettingsDraftState {
-  return { site: {}, services: [], seoFr: emptySeoDraft(), seoEn: emptySeoDraft(), customCode: [] };
-}
-
-function stateFromSettings(s: StoreSettings | null): SettingsDraftState {
-  if (!s) return emptyState();
-  return {
-    site: s.site ?? {},
-    services: s.services ?? [],
-    seoFr: extractSeo(s.seo?.fr as Record<string, unknown> | undefined),
-    seoEn: extractSeo(s.seo?.en as Record<string, unknown> | undefined),
-    customCode: s.customCode ?? [],
-  };
-}
-
 export function SettingsForm({
   storeName,
   tenantId,
@@ -38,7 +23,7 @@ export function SettingsForm({
   storeName: string;
   tenantId: string;
 }) {
-  const [draft, setDraft] = useState<SettingsDraftState>(emptyState());
+  const [draft, setDraft] = useState<SettingsDraftState>(emptyDraftState());
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);

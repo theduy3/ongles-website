@@ -3,6 +3,8 @@ import {
   buildSparseDoc,
   extractSeo,
   emptySeoDraft,
+  emptyDraftState,
+  stateFromSettings,
   type SettingsDraftState,
 } from "./settings-draft";
 import type { StoreSettings } from "@/lib/store-settings-schema";
@@ -266,3 +268,43 @@ describe("buildSparseDoc <-> extractSeo round-trip", () => {
     expect(doc.site?.reviews?.reviewCount).toBe(0);
   });
 });
+
+// ── Round-trip: stateFromSettings is the faithful inverse of buildSparseDoc ────
+// A persisted doc is whatever buildSparseDoc wrote. Reloading it into the form
+// (stateFromSettings) and re-saving (buildSparseDoc) MUST reproduce it exactly —
+// otherwise an operator's saved edits are silently dropped on their next save.
+describe("stateFromSettings — round-trip with buildSparseDoc", () => {
+  it("maps null settings to the empty draft", () => {
+    expect(stateFromSettings(null)).toEqual(emptyDraftState());
+  });
+
+  it("build(state(doc)) === doc for a canonical persisted doc", () => {
+    // Canonical by construction: buildSparseDoc output is exactly what the DB stores.
+    const doc = buildSparseDoc({
+      site: {
+        name: "Salon X",
+        hours: [{ days: ["Monday"], opens: "09:00", closes: "17:00" }],
+      },
+      services: [{ id: "pose-ongles", price: 60 }],
+      seoFr: {
+        meta: { homeTitle: "Accueil" },
+        services: { "pose-ongles": { metaTitle: "Pose" } },
+        gallery: { "nail-art-1": { alt: "Art" } },
+        org: { description: "Salon d'ongles" },
+      },
+      seoEn: emptySeoDraft(),
+      customCode: [
+        {
+          id: "c1",
+          label: "GA",
+          code: "<script>ga</script>",
+          placement: "head",
+          pages: [],
+          enabled: true,
+        },
+      ],
+    });
+
+    expect(buildSparseDoc(stateFromSettings(doc))).toEqual(doc);
+  });
+})
