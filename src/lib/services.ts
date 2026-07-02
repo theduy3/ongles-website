@@ -31,3 +31,18 @@ export function servicePathsByLocale(service: Service): Record<Locale, string> {
     locales.map((l) => [l, `/services/${service.slug[l]}`]),
   ) as Record<Locale, string>;
 }
+
+/**
+ * Service id → human-readable title map, for the near-me pages' link labels.
+ * Fail-loud (like the pricing presenter): a missing title is a locale-parity
+ * defect guarded at build by schema-invariants, so we index unguarded rather
+ * than fall back to the raw id — a raw id would surface as a service name.
+ */
+export function buildServiceNames(
+  services: readonly Service[],
+  serviceTitles: Record<ServiceId, { title: string }>,
+): Record<ServiceId, string> {
+  return Object.fromEntries(
+    services.map((service) => [service.id, serviceTitles[service.id].title]),
+  ) as Record<ServiceId, string>;
+}
