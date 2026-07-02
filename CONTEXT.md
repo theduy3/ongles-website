@@ -94,6 +94,16 @@ owned by **presenters**, not inlined per page.
 
 ## Routing
 
+- **Localized-route owner** — `src/lib/routes.ts`: the single source for a site-wide
+  route whose URL segment differs by locale but whose target is one page. `pricingPath(lang)`
+  and `pricingPathsByLocale()` own the FR `/tarifs` ⇔ EN `/pricing` pair. It is a *convention*
+  (identical for every tenant), not tenant data, so it lives here — not in per-tenant config.
+  Every non-nav caller (both pricing pages, the comparison-page pricing link, the sitemap)
+  DERIVES its pricing path here rather than re-listing the pair, so the locales can't drift.
+  The per-tenant nav `hrefByLocale` override (`site.ts`, resolved by `navItemHref`) is a
+  separate, intentional seam and stays independent of this default. Mirrors the shape of the
+  **Comparison registry**; a second localized route makes the shared shape real — generalize
+  to a keyed registry only when a third appears.
 - **Comparison registry** — `COMPARISONS` in `src/lib/comparisons.ts`: the single source for
   each buying-guide comparison's `id` (matches the `seo.pages.comparison` key), locale
   `slug`, short locale `label`, and cross-linked `services`. `comparisonPath(record, lang)`
