@@ -43,6 +43,38 @@ import { EXCLUDED_TENANTS, forEachTenant } from "./tenant-iteration";
 // is pinned by schema-invariants.test.ts (which may import faqPageGraph freely).
 import frDict from "../dictionaries/fr.json";
 import enDict from "../dictionaries/en.json";
+// Type-only alias import — compile-time-erased, so it does NOT violate the
+// alias-free require-hook constraint (see header). Keys FAQ_DICTS below so a new
+// locale is a build error, not a silently-skipped FAQ check.
+import type { Locale } from "@/lib/i18n";
+// D-05/D-11/D-13 text utils + content-depth constants live in a sibling,
+// alias-free module (schema-invariants-text.ts). Imported here for the per-tenant
+// checks and re-exported so the public surface (and its tests) is unchanged.
+// Relative path keeps the next.config.ts SWC require-hook chain alias-free.
+import {
+  FAQ_FLOOR,
+  ANSWER_BLOCK_MIN_SENTENCES,
+  COMPARISON_WORD_FLOOR,
+  NEAR_ME_WORD_FLOOR,
+  NEW_PAGE_OVERLAP_THRESHOLD,
+  splitSentences,
+  countWords,
+  isFaqBelowFloor,
+  isAnswerBlockInsufficient,
+  measureSentenceOverlap,
+} from "./schema-invariants-text";
+export {
+  FAQ_FLOOR,
+  ANSWER_BLOCK_MIN_SENTENCES,
+  COMPARISON_WORD_FLOOR,
+  NEAR_ME_WORD_FLOOR,
+  NEW_PAGE_OVERLAP_THRESHOLD,
+  splitSentences,
+  countWords,
+  isFaqBelowFloor,
+  isAnswerBlockInsufficient,
+  measureSentenceOverlap,
+} from "./schema-invariants-text";
 // D-05/D-11 — per-tenant FAQ + SEO answer-block sources for the build-time floor
 // and presence guards. These now come off the single registry seam
 // (TENANT_REGISTRY, already imported above): each tenant's index.ts carries its
@@ -50,11 +82,17 @@ import enDict from "../dictionaries/en.json";
 // only, so the require-hook chain stays alias-free (next.config.ts SWC hook).
 // TENANT_FAQ / TENANT_SEO are derived below.
 
-/** Live locales whose FAQ dictionaries feed FAQPage schema (ES deferred to v2). */
-const FAQ_LOCALES = [
-  { locale: "fr", items: frDict.faq.items },
-  { locale: "en", items: enDict.faq.items },
-] as const;
+/** Live locales whose FAQ dictionaries feed FAQPage schema (ES deferred to v2).
+ *  Keyed by `Locale` via `satisfies`, so adding a locale that lacks a dictionary
+ *  entry here is a compile error rather than a silently-skipped FAQ check. */
+const FAQ_DICTS = { fr: frDict, en: enDict } satisfies Record<
+  Locale,
+  { faq: { items: readonly { q: string; a: string }[] } }
+>;
+const FAQ_LOCALES = (Object.keys(FAQ_DICTS) as Locale[]).map((locale) => ({
+  locale,
+  items: FAQ_DICTS[locale].faq.items,
+}));
 
 // ─── Public types ─────────────────────────────────────────────────────────────
 
@@ -76,73 +114,6 @@ function err(
 ): SchemaInvariantError {
   return { tenantId, invariant, message };
 }
-
-// ─── Phase 3 content-depth constants + offline text utils (D-05/D-11/D-13) ──────
-
-/** D-05 — minimum merged (base + tenant) FAQ items per tenant per locale. */
-export const FAQ_FLOOR = 20 as const;
-/** D-11 — minimum sentences in a non-empty answer block. */
-export const ANSWER_BLOCK_MIN_SENTENCES = 2 as const;
-
-/**
- * D-13 — abbreviation periods that must NOT be read as sentence boundaries.
- * These are titles/units that always precede a noun (e.g. "Mme. Tremblay",
- * "av. Royale"). "etc" is deliberately EXCLUDED: it commonly closes a sentence
- * ("…, etc. Réservez …" is two sentences), pinned by schema-invariants.test.ts.
- */
-const PROTECTED_ABBREVS = [
-  "M", "Mme", "Mlle", "Me", "Dr", "Dre",
-  "St", "Ste", "av", "bd", "boul", "no", "vol", "vs", "env", "approx", "p", "pp",
-] as const;
-
-const DOT = ""; // placeholder for a protected period
-const ELLIPSIS = ""; // placeholder for a protected "..."
-
-/**
- * Pure, dependency-free sentence splitter (D-13). Protects decimals, ellipsis,
- * and title/unit abbreviation periods, then splits on sentence-ending punctuation
- * followed by whitespace and a capital/opening-quote. Alias-free so it is safe to
- * run inside the next.config.ts build guard (SWC require-hook constraint).
- */
-export function splitSentences(text: string): string[] {
-  if (typeof text !== "string") return [];
-  const trimmed = text.trim();
-  if (trimmed.length === 0) return [];
-
-  let s = trimmed
-    .replace(/(\d)\.(\d)/g, `$1${DOT}$2`) // decimals: 40.50
-    .replace(/\.\.\./g, ELLIPSIS); // ellipsis
-
-  const abbrevRe = new RegExp(`\\b(${PROTECTED_ABBREVS.join("|")})\\.`, "g");
-  s = s.replace(abbrevRe, `$1${DOT}`);
-
-  return s
-    .split(/(?<=[.!?])\s+(?=[A-ZÀÂÄÉÈÊËÎÏÔÙÛÜ"«])/)
-    .map((part) =>
-      part.replaceAll(DOT, ".").replaceAll(ELLIPSIS, "...").trim(),
-    )
-    .filter((part) => part.length > 0);
-}
-
-/** Pure word counter (D-13) — whitespace-delimited tokens, 0 for empty input. */
-export function countWords(text: string): number {
-  if (typeof text !== "string") return 0;
-  const t = text.trim();
-  if (t.length === 0) return 0;
-  return t.split(/\s+/).length;
-}
-
-// ─── Phase 4: net-new-page guard constants (LOCKED — do not change without a plan) ──
-// These values are the canonical source of truth referenced by checkWordCount,
-// checkCrossTenantOverlap, and seo-parity.test.ts. They are exported so tests can
-// import and assert on the exact numeric contract.
-
-/** P4 — minimum word count for comparison page body sections (any slug). */
-export const COMPARISON_WORD_FLOOR = 200 as const;
-/** P4 — minimum word count for nearMe page answerBlock. */
-export const NEAR_ME_WORD_FLOOR = 150 as const;
-/** P4 — Jaccard sentence-overlap threshold above which two tenants are "too similar". */
-export const NEW_PAGE_OVERLAP_THRESHOLD = 0.30 as const;
 
 /** P4 — FR-key slugs for the comparison page namespace in seo JSON. */
 const NEW_COMPARISON_SLUGS = [
@@ -231,17 +202,6 @@ function answerBlockForRoute(seo: SeoAnswerSource, route: string): string {
   return seo.services?.[route]?.answerBlock ?? "";
 }
 
-/** D-05 predicate — true when a merged FAQ count is below the floor. */
-export function isFaqBelowFloor(mergedCount: number): boolean {
-  return mergedCount < FAQ_FLOOR;
-}
-
-/** D-11 predicate — true when an answer block is missing or under the sentence floor. */
-export function isAnswerBlockInsufficient(text: string): boolean {
-  if (typeof text !== "string" || text.trim().length === 0) return true;
-  return splitSentences(text).length < ANSWER_BLOCK_MIN_SENTENCES;
-}
-
 /**
  * D-05 — merged (base + per-tenant) FAQ count is >= FAQ_FLOOR for every live
  * tenant in each content locale. Reports one error per shortfall.
@@ -296,61 +256,6 @@ export function checkAnswerBlockPresence(): SchemaInvariantError[] {
 }
 
 // ─── Phase 4: net-new-page guards (LIVE, build-blocking) ─────────────────────
-//
-// These functions are exported and testable offline. They are NOT called from
-// validateSchemaInvariants() yet — plan 04-05 flips the build gate after all
-// per-tenant content lands. Until then `next build` stays green.
-//
-// ALIAS-FREE CONSTRAINT: same as the rest of this module — no @/ imports.
-
-/**
- * Pure normalized-sentence Jaccard overlap (P4 / 04-RESEARCH Q3).
- *
- * Algorithm:
- *   1. Lowercase both texts, strip non-word punctuation (keep apostrophes),
- *      collapse whitespace.
- *   2. Split into sentences via splitSentences().
- *   3. Compute Set Jaccard: |intersection| / |union|.
- *
- * Returns 1.0 for identical text, 0 for fully disjoint sets.
- * Exported so tests can assert the overlap algorithm independently.
- */
-export function measureSentenceOverlap(textA: string, textB: string): number {
-  // Normalize a single sentence (already split) to a canonical form for comparison.
-  const normalizeSentence = (s: string): string =>
-    s
-      .toLowerCase()
-      // strip non-word punctuation except apostrophes (French contractions)
-      .replace(/[^a-z0-9àâäéèêëîïôùûüœç'\s]/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-
-  const sentencesOf = (t: string): Set<string> => {
-    // Split first (preserving periods for the splitter), then normalize each sentence.
-    const sentences = splitSentences(t);
-    return new Set(
-      sentences
-        .map(normalizeSentence)
-        .filter((s) => s.length > 0),
-    );
-  };
-
-  const setA = sentencesOf(textA);
-  const setB = sentencesOf(textB);
-
-  if (setA.size === 0 && setB.size === 0) return 1.0;
-  if (setA.size === 0 || setB.size === 0) return 0;
-
-  let intersection = 0;
-  for (const s of setA) {
-    if (setB.has(s)) intersection++;
-  }
-
-  // Jaccard = |A ∩ B| / |A ∪ B|  where |A ∪ B| = |A| + |B| - |A ∩ B|
-  const union = setA.size + setB.size - intersection;
-  return union === 0 ? 0 : intersection / union;
-}
-
 /**
  * P4 — Word-count floor guard for net-new page bodies.
  *
