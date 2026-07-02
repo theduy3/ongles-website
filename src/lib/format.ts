@@ -22,18 +22,18 @@ export function formatFromPrice(
 }
 
 // Rating + review-count formatting. Single source so every caller renders a
-// rating identically. `lang` is accepted for a future fr-CA switch, but today
-// we pin en-CA to preserve current behavior (both fr and en pages render en-CA
-// — see call sites). Rating is pinned to exactly one decimal (min AND max), so
-// callers can't diverge the way toFixed(1) and toLocaleString(min:1) once did.
-export function formatRating(_lang: Locale, value: number): string {
-  return value.toLocaleString("en-CA", {
+// rating identically. Locale-aware (`${lang}-CA`): en-CA uses a dot decimal +
+// comma grouping, fr-CA a comma decimal + non-breaking-space grouping — matching
+// this Québec FR-first salon. Rating is pinned to exactly one decimal (min AND
+// max) so callers can't diverge the way toFixed(1) and toLocaleString(min:1) did.
+export function formatRating(lang: Locale, value: number): string {
+  return value.toLocaleString(`${lang}-CA`, {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   });
 }
 
-/** Review count with thousands grouping, e.g. 1234 → "1,234". */
-export function formatReviewCount(_lang: Locale, count: number): string {
-  return count.toLocaleString("en-CA");
+/** Review count with locale-aware thousands grouping (e.g. en 1,234 / fr 1 234). */
+export function formatReviewCount(lang: Locale, count: number): string {
+  return count.toLocaleString(`${lang}-CA`);
 }

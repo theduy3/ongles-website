@@ -18,9 +18,8 @@ describe("formatRating", () => {
     expect(formatRating("en", 4.85)).not.toBe("4.85");
   });
 
-  it("uses en-CA regardless of locale (preserves current hardcoded behavior)", () => {
-    // Both fr and en pages render en-CA today (dot decimal), not fr-CA.
-    expect(formatRating("fr", 4.9)).toBe("4.9");
+  it("formats the rating in the caller's locale — fr-CA uses a decimal comma", () => {
+    expect(formatRating("fr", 4.9)).toBe("4,9");
   });
 });
 
@@ -33,7 +32,11 @@ describe("formatReviewCount", () => {
     expect(formatReviewCount("en", 128)).toBe("128");
   });
 
-  it("uses en-CA grouping regardless of locale (preserves current behavior)", () => {
-    expect(formatReviewCount("fr", 1234)).toBe("1,234");
+  it("groups thousands in the caller's locale — fr-CA separator is not a comma", () => {
+    // fr-CA uses a (narrow) non-breaking space, which varies by ICU version —
+    // assert the intent (a non-comma separator) rather than the exact codepoint.
+    const grouped = formatReviewCount("fr", 1234);
+    expect(grouped).toMatch(/^1\D234$/);
+    expect(grouped).not.toBe("1,234");
   });
 });
