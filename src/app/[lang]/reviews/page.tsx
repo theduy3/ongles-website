@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Stars } from "@/components/Stars";
 import { Button } from "@/components/Button";
 import { getStoreConfig } from "@/lib/store-config";
-import { reviews } from "@/lib/reviews";
+import { reviews, trustSignals } from "@/lib/reviews";
 
 export async function generateMetadata({
   params,
@@ -31,10 +31,10 @@ export default async function ReviewsPage({ params }: LangParams) {
   const { site } = await getStoreConfig();
   const page = await getPageSeo(lang);
 
-  const rating = site.reviews.ratingValue.toLocaleString("en-CA", {
-    minimumFractionDigits: 1,
-  });
-  const count = site.reviews.reviewCount.toLocaleString("en-CA");
+  // Above-fold trust signal — same presenter the home + service pages use, so
+  // the rating renders in the caller's locale (fr-CA "4,9" / en-CA "4.9") and
+  // the display gate + aria-label can't drift per-page.
+  const trust = trustSignals(lang, site.reviews, dict.reviews);
 
   // Prefer real Google reviews; fall back to locale-aware dict placeholders.
   const fromGoogle = reviews.map((r) => ({
@@ -59,22 +59,21 @@ export default async function ReviewsPage({ params }: LangParams) {
         intro={dict.reviewsPage.intro}
       />
 
-      {/* Aggregate rating — only shown when real reviews exist */}
-      {site.reviews.reviewCount > 0 && (
+      {/* Aggregate rating — R-02 display gate owned by trustSignals() */}
+      {trust.show && (
         <section className="mx-auto max-w-3xl px-6 pt-16 text-center md:pt-24">
           <div
             className="flex flex-col items-center gap-2"
-            aria-label={`${rating} / ${site.reviews.bestRating} — ${dict.reviews.basedOn} ${count} ${dict.reviews.reviewsWord}`}
+            aria-label={trust.ariaLabel}
           >
             <Stars className="text-espresso" />
             <p className="text-2xl font-semibold text-espresso">
-              {rating}{" "}
-              <span className="text-espresso/40">
-                / {site.reviews.bestRating}
-              </span>
+              {trust.ratingDisplay}{" "}
+              <span className="text-espresso/40">/ {trust.bestRating}</span>
             </p>
             <p className="text-sm uppercase tracking-wide text-mocha">
-              {dict.reviews.basedOn} {count} {dict.reviews.reviewsWord}
+              {dict.reviews.basedOn} {trust.countDisplay}{" "}
+              {dict.reviews.reviewsWord}
             </p>
           </div>
         </section>
