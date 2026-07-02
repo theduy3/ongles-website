@@ -3,9 +3,8 @@ import { AnswerBlock } from "@/components/AnswerBlock";
 import { Button } from "@/components/Button";
 import { JsonLd } from "@/components/JsonLd";
 import { PricingTable } from "@/components/PricingTable";
-import type { PricingRow } from "@/components/PricingTable";
 import { getStoreConfig } from "@/lib/store-config";
-import { servicePath } from "@/lib/services";
+import { buildPricingItems } from "@/lib/pricing";
 import { getDictionary } from "../dictionaries";
 import { getSeo } from "../seo-content";
 import { getPageSeo } from "../page-seo";
@@ -37,23 +36,14 @@ export default async function TarifsPage({ params }: LangParams) {
 
   const bookHref = `/${lang}${site.booking}`;
 
-  // Build items array for pricingGraph and PricingTable.
-  // name comes from dict.serviceDetails[id].title; description from seo.services[id].schemaDescription.
-  const rows: PricingRow[] = services.map((service) => ({
-    id: service.id,
-    name: dict.serviceDetails[service.id].title,
-    href: `/${lang}${servicePath(service, lang)}`,
-    price: service.price,
-    priceTo: service.priceTo,
-  }));
-
-  const graphItems = services.map((service) => ({
-    name: dict.serviceDetails[service.id].title,
-    description: seo.services[service.id].schemaDescription,
-    price: service.price,
-    priceTo: service.priceTo,
-    path: servicePath(service, lang),
-  }));
+  // Table rows + pricing JSON-LD items from one presenter, so a service's name
+  // and price can't diverge between the visible table and the structured data.
+  const { rows, graphItems } = buildPricingItems(
+    lang,
+    services,
+    dict.serviceDetails,
+    seo.services,
+  );
 
   return (
     <>

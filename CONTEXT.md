@@ -80,8 +80,11 @@ owned by **presenters**, not inlined per page.
   is a real defect (the home and service pages once formatted the same rating two ways). Each
   lives with its domain, not in a shared `presenters` bucket: number formatting in
   `format.ts` (`formatRating`, `formatReviewCount`), the review summary in `reviews.ts`, the
-  gallery slide merge in `gallery.ts`, nav-href resolution in `nav.ts`. Tested through its
-  own interface — the presenter is the test surface; page render stays out (deferred gap).
+  gallery slide merge in `gallery.ts`, nav-href resolution in `nav.ts`, and the pricing
+  table + JSON-LD build in `pricing.ts` (`buildPricingItems` → `{ rows, graphItems }`, the one
+  seam that keeps the /tarifs and /pricing pages from formatting a service two ways). Tested
+  through its own interface — the presenter is the test surface; page render stays out
+  (deferred gap).
 - **Trust signal** — the above-fold rating block (`trustSignals` in `reviews.ts`): the
   R-02-adjacent display gate (`reviewCount > 0 → show`), the canonical one-decimal rating,
   the grouped review count, and the aria-label, assembled once as `{ show, ratingDisplay,
