@@ -1,24 +1,29 @@
 import { test, expect } from "@playwright/test";
 
-const reviewsPageByLocale: Record<string, { heading: RegExp; score: RegExp }> =
-  {
-    fr: { heading: /^avis$/i, score: /4,9/ },
-    en: { heading: /^reviews$/i, score: /4\.9/ },
-  };
+// Retargeted to the ongles-maily tenant (this repo's default; the inherited
+// SS-clone baseline is gone). maily aggregate rating is 3.9; it has no fetched
+// Google review bodies, so both the homepage carousel and the /reviews page show
+// the six locale-aware dict placeholders (Testimonials.tsx / reviews/page.tsx).
+
+const reviewsPageByLocale: Record<string, { heading: RegExp; score: RegExp }> = {
+  fr: { heading: /^avis$/i, score: /3,9/ },
+  en: { heading: /^reviews$/i, score: /3\.9/ },
+};
 for (const [code, r] of Object.entries(reviewsPageByLocale)) {
-  test(`reviews page renders aggregate (${code})`, async ({ page }) => {
+  test(`reviews page renders aggregate + placeholder testimonials (${code})`, async ({ page }) => {
     await page.goto(`/${code}/reviews`);
     await expect(
       page.getByRole("heading", { name: r.heading }).first(),
     ).toBeVisible();
     await expect(page.getByText(r.score).first()).toBeVisible();
-    // No verified reviews yet → no testimonial cards.
-    expect(await page.locator("figure blockquote").count()).toBe(0);
+    // No fetched Google reviews yet → the page falls back to the 6 dict
+    // placeholders, rendered as figure > blockquote cards.
+    expect(await page.locator("figure blockquote").count()).toBe(6);
   });
 }
 
 const faqByLocale: Record<string, { heading: RegExp; firstQ: RegExp }> = {
-  fr: { heading: /foire aux questions/i, firstQ: /où se trouve/i },
+  fr: { heading: /questions fréquentes/i, firstQ: /où se trouve/i },
   en: { heading: /frequently asked questions/i, firstQ: /where is/i },
 };
 for (const [code, f] of Object.entries(faqByLocale)) {
@@ -32,23 +37,19 @@ for (const [code, f] of Object.entries(faqByLocale)) {
   });
 }
 
-// Homepage section headings, localized. The social block was replaced by the
-// "Our Work" gallery slideshow, whose heading is bilingual.
+// Homepage section headings, localized (maily dict.home.* / dict.reviews).
 const sectionsByLocale: Record<string, RegExp[]> = {
   fr: [
-    /nos services/i,
-    /pourquoi nous choisir/i,
-    /nos réalisations/i,
-    /nous contacter/i,
+    /De beaux ongles/i, // services
+    /Galerie de nail art/i, // gallery
+    /Ce que disent nos clientes/i, // testimonials
   ],
-  en: [/our services/i, /why choose us/i, /our work/i, /contact us/i],
+  en: [/Beautiful Nails/i, /Nail Art Gallery/i, /What Our Clients Say/i],
 };
 
 for (const [code, sections] of Object.entries(sectionsByLocale)) {
   test.describe(`homepage content renders (${code})`, () => {
-    test("all sections are visible with JS (scroll reveal)", async ({
-      page,
-    }) => {
+    test("all sections are visible with JS (scroll reveal)", async ({ page }) => {
       await page.goto(`/${code}`);
       for (const name of sections) {
         await expect(page.getByRole("heading", { name }).first()).toBeVisible();
@@ -57,29 +58,33 @@ for (const [code, sections] of Object.entries(sectionsByLocale)) {
   });
 }
 
-// Reviews band: eyebrow + score render, and the "book online" CTA routes to the
-// appointments page (where the booking widget lives).
+// Reviews band: eyebrow + aggregate score render. The separate booking section's
+// CTA routes to the booking page (/book-online).
 const reviewsByLocale: Record<
   string,
-  { eyebrow: RegExp; score: RegExp; book: string }
+  { eyebrow: RegExp; score: RegExp; book: RegExp }
 > = {
   fr: {
-    eyebrow: /nos avis/i,
-    score: /4,9\s*\/\s*5/,
-    book: "Réservez en ligne",
+    eyebrow: /L'amour de nos clientes/i,
+    score: /3,9\s*\/\s*5/,
+    book: /Réserver en ligne/i,
   },
-  en: { eyebrow: /our reviews/i, score: /4\.9\s*\/\s*5/, book: "Book online" },
+  en: {
+    eyebrow: /Client Love/i,
+    score: /3\.9\s*\/\s*5/,
+    book: /Book Online/i,
+  },
 };
 
 for (const [code, r] of Object.entries(reviewsByLocale)) {
-  test.describe(`homepage reviews section (${code})`, () => {
-    test("shows rating and books to appointments", async ({ page }) => {
+  test.describe(`homepage reviews band + booking CTA (${code})`, () => {
+    test("shows rating and books to the booking page", async ({ page }) => {
       await page.goto(`/${code}`);
       await expect(page.getByText(r.eyebrow).first()).toBeVisible();
       await expect(page.getByText(r.score).first()).toBeVisible();
       await expect(
-        page.getByRole("link", { name: r.book, exact: true }),
-      ).toHaveAttribute("href", `/${code}/appointments`);
+        page.getByRole("link", { name: r.book }).first(),
+      ).toHaveAttribute("href", `/${code}/book-online`);
     });
   });
 }

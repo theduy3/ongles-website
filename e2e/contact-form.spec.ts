@@ -17,14 +17,16 @@ async function stubContactApi(page: Page) {
 test.describe("contact form (/en)", () => {
   test("valid submission shows a confirmation", async ({ page }) => {
     await stubContactApi(page);
-    await page.goto("/en");
+    await page.goto("/en/contact");
 
-    await page.getByLabel("First name").fill("Ada");
-    await page.getByLabel("Last name").fill("Lovelace");
-    await page.getByLabel("Email").fill("ada@example.com");
-    await page.getByLabel("Message").fill("I'd love to book an appointment.");
+    // Scope to main — the footer newsletter also has an "Email" field.
+    const form = page.locator("main");
+    await form.getByLabel("First name").fill("Ada");
+    await form.getByLabel("Last name").fill("Lovelace");
+    await form.getByLabel("Email").fill("ada@example.com");
+    await form.getByLabel("Message").fill("I'd love to book an appointment.");
 
-    await page.getByRole("button", { name: /^send$/i }).click();
+    await form.getByRole("button", { name: /^send$/i }).click();
 
     await expect(page.getByText(/we've received your message/i)).toBeVisible();
   });
@@ -33,7 +35,7 @@ test.describe("contact form (/en)", () => {
     page,
   }) => {
     await stubContactApi(page);
-    await page.goto("/en");
+    await page.goto("/en/contact");
 
     await page.getByRole("button", { name: /^send$/i }).click();
 
@@ -49,14 +51,15 @@ test.describe("contact form (/en)", () => {
 test.describe("contact form (/fr)", () => {
   test("valid submission shows French confirmation", async ({ page }) => {
     await stubContactApi(page);
-    await page.goto("/fr");
+    await page.goto("/fr/contact");
 
-    await page.getByLabel("Prénom").fill("Ada");
-    await page.getByLabel("Nom", { exact: true }).fill("Lovelace");
-    await page.getByLabel("Courriel").fill("ada@example.com");
-    await page.getByLabel("Message").fill("J'aimerais prendre rendez-vous.");
+    const form = page.locator("main");
+    await form.getByLabel("Prénom").fill("Ada");
+    await form.getByLabel("Nom de famille").fill("Lovelace");
+    await form.getByLabel("Courriel").fill("ada@example.com");
+    await form.getByLabel("Message").fill("J'aimerais prendre rendez-vous.");
 
-    await page.getByRole("button", { name: /^envoyer$/i }).click();
+    await form.getByRole("button", { name: /^envoyer$/i }).click();
 
     await expect(
       page.getByText(/nous avons bien reçu votre message/i),

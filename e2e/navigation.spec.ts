@@ -1,39 +1,30 @@
 import { test, expect } from "@playwright/test";
 
+// Retargeted to the ongles-maily tenant. maily's header nav is anchor-based for
+// the on-homepage sections (Services → /fr#services, etc.) plus two real routes
+// (Tarifs → /fr/tarifs, Comparatifs → /fr/comparaisons/…), and a "Réserver" CTA
+// to the booking page. Brand + title are "Ongles Maily".
+
 const localeCases = [
   {
     code: "fr",
+    brand: "Ongles Maily",
     book: "Réserver",
-    pages: [
-      { link: "Services", heading: /nos services/i, path: "/fr/services" },
-      {
-        link: "Pourquoi nous",
-        heading: /pourquoi nous choisir/i,
-        path: "/fr/about",
-      },
-      {
-        link: "Rendez-vous",
-        // Appointments page has no SSR <h1> (the widget injects its own heading
-        // client-side); assert the always-rendered help paragraph instead.
-        text: /vous avez de la difficulté/i,
-        path: "/fr/appointments",
-      },
-      { link: "Contact", heading: /nous contacter/i, path: "/fr/contact" },
+    // Anchor nav items: label → href (the header link points at a section anchor).
+    anchors: [
+      { link: "Services", href: "/fr#services" },
+      { link: "Galerie", href: "/fr#gallery" },
+      { link: "Avis", href: "/fr#testimonials" },
     ],
   },
   {
     code: "en",
-    book: "Book now",
-    pages: [
-      { link: "Services", heading: /our services/i, path: "/en/services" },
-      { link: "About", heading: /why choose us/i, path: "/en/about" },
-      {
-        link: "Appointments",
-        // No SSR <h1> on the appointments page; assert the help paragraph.
-        text: /trouble booking online/i,
-        path: "/en/appointments",
-      },
-      { link: "Contact", heading: /contact us/i, path: "/en/contact" },
+    brand: "Ongles Maily",
+    book: "Book Now",
+    anchors: [
+      { link: "Services", href: "/en#services" },
+      { link: "Gallery", href: "/en#gallery" },
+      { link: "Reviews", href: "/en#testimonials" },
     ],
   },
 ];
@@ -44,39 +35,31 @@ for (const loc of localeCases) {
   test.describe(`navigation (${loc.code})`, () => {
     test("homepage loads with branding", async ({ page }) => {
       await page.goto(`/${loc.code}`);
-      await expect(page).toHaveTitle(/Sans Souci/i);
+      await expect(page).toHaveTitle(/Ongles Maily/i);
       await expect(
-        page
-          .locator("header")
-          .getByRole("link", { name: "Sans Souci Ongles & Spa" }),
+        page.locator("header").getByRole("link", { name: loc.brand }).first(),
       ).toBeVisible();
     });
 
-    for (const { link, heading, text, path } of loc.pages) {
-      test(`header nav → ${link}`, async ({ page }) => {
+    for (const { link, href } of loc.anchors) {
+      test(`header nav → ${link} (anchor)`, async ({ page }) => {
         await page.goto(`/${loc.code}`);
-        await page
-          .locator("header")
-          .getByRole("link", { name: link, exact: true })
-          .click();
-        await expect(page).toHaveURL(new RegExp(`${path}$`));
-        if (heading) {
-          await expect(
-            page.getByRole("heading", { name: heading }).first(),
-          ).toBeVisible();
-        }
-        if (text) {
-          await expect(page.getByText(text).first()).toBeVisible();
-        }
+        await expect(
+          page.locator("header").getByRole("link", { name: link, exact: true }),
+        ).toHaveAttribute("href", href);
       });
     }
 
-    test("Book now points to the appointments page (with the embedded widget)", async ({
-      page,
-    }) => {
+    // Pricing / Comparisons are icon-only links in maily's header (no accessible
+    // text label), so they are not exercised as named nav items here; the
+    // localized /tarifs ⇔ /pricing routing is covered in seo.spec + unit tests.
+
+    test("Réserver / Book CTA points to the booking page", async ({ page }) => {
       await page.goto(`/${loc.code}`);
-      const book = page.locator("header").getByRole("link", { name: loc.book });
-      await expect(book).toHaveAttribute("href", `/${loc.code}/appointments`);
+      const book = page
+        .locator("header")
+        .getByRole("link", { name: loc.book, exact: true });
+      await expect(book).toHaveAttribute("href", `/${loc.code}/book-online`);
     });
   });
 }

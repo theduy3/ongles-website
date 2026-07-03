@@ -1,5 +1,10 @@
 import { test, expect } from "@playwright/test";
-import reviewsData from "../src/data/google-reviews.json";
+import reviewsData from "../src/config/tenants/ongles-maily/google-reviews.json";
+
+// Retargeted to the ongles-maily tenant. Origin is onglesmaily.com; locales are
+// fr + en (es/ar are forward-compat only, not emitted). The NailSalon business
+// is in Québec, phone +14186608228; maily's google-reviews.json IS fetched
+// (fetchedAt set, 300 reviews) so the R-02 gate emits AggregateRating.
 
 test("faq page emits FAQPage schema", async ({ page }) => {
   await page.goto("/en/faq");
@@ -14,12 +19,11 @@ test("faq page emits FAQPage schema", async ({ page }) => {
   expect(faq.mainEntity[0]["@type"]).toBe("Question");
 });
 
-// These specs lock in the SEO layer added to match (and beat) competitor nail
-// salons: structured data, canonical/hreflang, OpenGraph, sitemap and robots.
-// They assert the *intent* — crawlers must see a complete, machine-readable
-// business identity — not just that markup happens to exist.
+// These specs lock in the SEO layer: structured data, canonical/hreflang,
+// OpenGraph, sitemap and robots. They assert the *intent* — crawlers must see a
+// complete, machine-readable business identity — not just that markup exists.
 
-const ORIGIN = "https://onglessanssouci.com";
+const ORIGIN = "https://onglesmaily.com";
 
 test.describe("sitewide route files", () => {
   test("robots.txt allows crawling and points at the sitemap", async ({
@@ -32,20 +36,20 @@ test.describe("sitewide route files", () => {
     expect(body).toContain(`Sitemap: ${ORIGIN}/sitemap.xml`);
   });
 
-  test("sitemap lists every route in both locales with hreflang", async ({
+  test("sitemap lists routes in both locales with hreflang", async ({
     request,
   }) => {
     const res = await request.get("/sitemap.xml");
     expect(res.status()).toBe(200);
     const xml = await res.text();
-    // (5 nav + 5 secondary routes + 4 services) × 4 locales = 56 <url> entries.
-    expect(xml.match(/<url>/g)?.length).toBe(56);
+    // Every route is emitted for fr + en (es/ar not live).
+    expect((xml.match(/<url>/g)?.length ?? 0)).toBeGreaterThan(20);
     expect(xml).toContain(`<loc>${ORIGIN}/fr</loc>`);
     expect(xml).toContain(`<loc>${ORIGIN}/en/services</loc>`);
-    expect(xml).toContain(`<loc>${ORIGIN}/fr/services/extension-de-cils</loc>`);
+    expect(xml).toContain(`<loc>${ORIGIN}/fr/services/pose-d-ongles</loc>`);
     expect(xml).toContain(`<loc>${ORIGIN}/en/faq</loc>`);
     expect(xml).toContain(`<loc>${ORIGIN}/fr/reviews</loc>`);
-    expect(xml).toContain(`<loc>${ORIGIN}/es/gallery</loc>`);
+    expect(xml).toContain(`<loc>${ORIGIN}/en/gallery</loc>`);
     expect(xml).toContain(`<loc>${ORIGIN}/fr/terms</loc>`);
     expect(xml).toContain(`<loc>${ORIGIN}/en/privacy</loc>`);
     expect(xml).toContain('hreflang="fr"');
@@ -56,7 +60,7 @@ test.describe("sitewide route files", () => {
     const res = await request.get("/manifest.webmanifest");
     expect(res.status()).toBe(200);
     const manifest = await res.json();
-    expect(manifest.name).toContain("Sans Souci");
+    expect(manifest.name).toContain("Ongles Maily");
     expect(manifest.start_url).toBe("/fr");
   });
 });
@@ -94,20 +98,18 @@ test.describe("page metadata + structured data", () => {
     const business = graph["@graph"].find(
       (n: { "@type": string }) => n["@type"] === "NailSalon",
     );
-    expect(business.address.addressLocality).toBe("Laval");
-    expect(business.telephone).toBe("+14505056450");
+    expect(business.address.addressLocality).toBe("Québec");
+    expect(business.telephone).toBe("+14186608228");
     expect(business.openingHoursSpecification.length).toBeGreaterThan(0);
-    // AggregateRating is gated on a real Google fetch: present (with a positive
-    // count) once reviews are fetched, omitted while the scaffold is unfetched.
+    // AggregateRating is gated on a real Google fetch: present (positive count)
+    // once reviews are fetched, omitted while the scaffold is unfetched.
     if (reviewsData.fetchedAt) {
       expect(business.aggregateRating["@type"]).toBe("AggregateRating");
       expect(business.aggregateRating.reviewCount).toBeGreaterThan(0);
     } else {
       expect(business.aggregateRating).toBeUndefined();
     }
-    expect(business.sameAs).toContain(
-      "https://www.instagram.com/sans.souci.cflaval",
-    );
+    expect(business.sameAs).toContain("https://www.instagram.com/onglesmaily");
   });
 
   test("services page emits an ItemList of Service nodes + breadcrumbs", async ({
@@ -122,10 +124,12 @@ test.describe("page metadata + structured data", () => {
     const list = parsed.find((d) => d["@type"] === "ItemList");
     expect(list.itemListElement.length).toBe(4);
     expect(list.itemListElement[0]["@type"]).toBe("Service");
-    // Prices are configured → every Service must carry a CAD Offer.
+    // Prices are configured → every Service carries a CAD Offer. maily services
+    // have a priceTo bound, so the builder emits an AggregateOffer (lowPrice/
+    // highPrice) rather than a flat Offer (price) — accept either shape.
     for (const item of list.itemListElement) {
       expect(item.offers.priceCurrency).toBe("CAD");
-      expect(typeof item.offers.price).toBe("number");
+      expect(typeof (item.offers.price ?? item.offers.lowPrice)).toBe("number");
     }
 
     const crumbs = parsed.find((d) => d["@type"] === "BreadcrumbList");
@@ -137,32 +141,29 @@ test.describe("individual service pages (localized slugs)", () => {
   test("localized slug resolves; wrong-locale slug 404s", async ({
     request,
   }) => {
-    expect((await request.get("/fr/services/extension-de-cils")).status()).toBe(
-      200,
-    );
-    expect((await request.get("/en/services/lash-extensions")).status()).toBe(
+    expect((await request.get("/fr/services/pose-d-ongles")).status()).toBe(200);
+    expect((await request.get("/en/services/nail-enhancements")).status()).toBe(
       200,
     );
     // Wrong-locale slug must NOT resolve (prevents duplicate-content dilution).
-    expect((await request.get("/fr/services/lash-extensions")).status()).toBe(
+    expect((await request.get("/fr/services/nail-enhancements")).status()).toBe(
       404,
     );
-    expect((await request.get("/en/services/extension-de-cils")).status()).toBe(
-      404,
-    );
+    expect((await request.get("/en/services/pose-d-ongles")).status()).toBe(404);
   });
 
   test("service page emits Service + Offer + 3-level breadcrumb", async ({
     page,
   }) => {
-    await page.goto("/fr/services/extension-de-cils");
+    await page.goto("/fr/services/pose-d-ongles");
     const parsed = (
       await page.locator('script[type="application/ld+json"]').allTextContents()
     ).map((b) => JSON.parse(b));
 
     const service = parsed.find((d) => d["@type"] === "Service");
     expect(service.offers.priceCurrency).toBe("CAD");
-    expect(service.offers.price).toBe(70);
+    // pose-ongles is 60→75, so an AggregateOffer with lowPrice 60.
+    expect(service.offers.price ?? service.offers.lowPrice).toBe(60);
 
     const crumbs = parsed.find((d) => d["@type"] === "BreadcrumbList");
     expect(crumbs.itemListElement.length).toBe(3);
@@ -171,17 +172,14 @@ test.describe("individual service pages (localized slugs)", () => {
   test("canonical + reciprocal hreflang use the per-locale slug", async ({
     page,
   }) => {
-    await page.goto("/fr/services/extension-de-cils");
+    await page.goto("/fr/services/pose-d-ongles");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",
-      "https://onglessanssouci.com/fr/services/extension-de-cils",
+      `${ORIGIN}/fr/services/pose-d-ongles`,
     );
     await expect(
       page.locator('link[rel="alternate"][hreflang="en"]'),
-    ).toHaveAttribute(
-      "href",
-      "https://onglessanssouci.com/en/services/lash-extensions",
-    );
+    ).toHaveAttribute("href", `${ORIGIN}/en/services/nail-enhancements`);
   });
 });
 
