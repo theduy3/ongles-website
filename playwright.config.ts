@@ -21,6 +21,13 @@ export default defineConfig({
   webServer: {
     command: `bun run build && ./node_modules/.bin/next start --port ${PORT}`,
     url: baseURL,
+    // Pin the tenant e2e runs against, explicitly. Previously unset → defaulted
+    // to ongles-maily; making it explicit documents the intended fixture and
+    // stops the suite silently re-targeting if the registry default changes.
+    // NOTE (2026-07-02): most inherited specs still assert the ORIGINAL
+    // SS-website clone's "Ongles Sans Souci" tenant, which does not exist in
+    // this repo — they need retargeting to ongles-maily (tracked separately).
+    env: { TENANT: process.env.TENANT ?? "ongles-maily" },
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },
