@@ -15,11 +15,14 @@ import { test, expect } from "@playwright/test";
 // playwright.config webServer env). Unlike the inherited SS-clone specs, this is
 // written for the tenant this repo actually serves, so it is green today.
 
+// ongles-maily aggregate rating, formatted per locale by formatRating
+// (`${lang}-CA`). Anchored with digit lookarounds so "3,9" doesn't match inside
+// "13,9" / "3,90", and the wrong-separator form is the other locale's exact rating.
 const RATING = {
-  // ongles-maily aggregate rating, formatted per locale by formatRating (`${lang}-CA`).
-  fr: /3,9/, // comma decimal — FR must NOT render "3.9"
-  en: /3\.9/, // dot decimal
+  fr: /(?<!\d)3,9(?!\d)/, // comma decimal — FR must NOT render "3.9"
+  en: /(?<!\d)3\.9(?!\d)/, // dot decimal
 } as const;
+const WRONG = { fr: RATING.en, en: RATING.fr } as const;
 
 // The three surfaces that render trustSignals(), with a service slug per locale.
 const surfaces: Record<string, { path: (code: string) => string; label: string }> = {
@@ -36,11 +39,12 @@ for (const code of ["fr", "en"] as const) {
     for (const { path, label } of Object.values(surfaces)) {
       test(`${label}`, async ({ page }) => {
         await page.goto(path(code));
-        await expect(page.getByText(RATING[code]).first()).toBeVisible();
-        // Guard the divergence directly: the FR surfaces must not render the
-        // dot-decimal form of the same rating, and EN must not render the comma.
-        const wrong = code === "fr" ? "3.9" : "3,9";
-        await expect(page.getByText(wrong, { exact: false })).toHaveCount(0);
+        // Scope to <main> so nav/footer text can't satisfy or break the check.
+        const main = page.locator("main");
+        await expect(main.getByText(RATING[code]).first()).toBeVisible();
+        // Guard the divergence directly: FR surfaces must not render the
+        // dot-decimal rating, EN must not render the comma one — within main.
+        await expect(main.getByText(WRONG[code])).toHaveCount(0);
       });
     }
   });

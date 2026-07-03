@@ -81,7 +81,11 @@ suite("store IO shell — tenant_id scoping (integration)", () => {
   });
 
   test("runner pinned the active tenant (seed matches code under test)", () => {
-    expect(ACTIVE).not.toBe(OTHER);
+    // The store modules bind tenant.id at import from process.env.TENANT; the
+    // runner pins it to ongles-maily. Assert the real value (not just != OTHER,
+    // which would pass for any pinning) so a mis-pinned runner fails loudly.
+    expect(ACTIVE).toBe("ongles-maily");
+    expect(OTHER).not.toBe(ACTIVE);
   });
 
   // ── The headline invariant ──────────────────────────────────────────────────
@@ -128,6 +132,13 @@ suite("store IO shell — tenant_id scoping (integration)", () => {
 
     const { data } = await raw!.from(POPUPS_TABLE).select("tenant_id").eq("id", A_POPUP);
     expect(data![0].tenant_id).toBe(ACTIVE);
+    // And it did not create/leak a copy under the other tenant.
+    const { data: otherRows } = await raw!
+      .from(POPUPS_TABLE)
+      .select("id")
+      .eq("id", A_POPUP)
+      .eq("tenant_id", OTHER);
+    expect(otherRows).toHaveLength(0);
   });
 
   // ── store_settings singleton scoping ────────────────────────────────────────
