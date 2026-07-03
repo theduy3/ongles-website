@@ -19,10 +19,17 @@ supabase db reset >/dev/null
 # Map the CLI's status env (API_URL / ANON_KEY / SERVICE_ROLE_KEY) onto the names
 # the app reads (SUPABASE_URL / SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY).
 echo "→ resolving local keys…"
-eval "$(supabase status -o env)"
-export SUPABASE_URL="${API_URL:?supabase status did not report API_URL}"
-export SUPABASE_ANON_KEY="${ANON_KEY:?supabase status did not report ANON_KEY}"
-export SUPABASE_SERVICE_ROLE_KEY="${SERVICE_ROLE_KEY:?supabase status did not report SERVICE_ROLE_KEY}"
+# Parse only the three keys we need instead of eval-ing the whole status output
+# (avoids executing arbitrary VAR=value lines from the CLI). Values are
+# KEY="value" per line; strip the surrounding quotes.
+status_env="$(supabase status -o env)"
+read_key () { printf '%s\n' "$status_env" | sed -n "s/^$1=\"\\(.*\\)\"$/\\1/p"; }
+export SUPABASE_URL="$(read_key API_URL)"
+export SUPABASE_ANON_KEY="$(read_key ANON_KEY)"
+export SUPABASE_SERVICE_ROLE_KEY="$(read_key SERVICE_ROLE_KEY)"
+: "${SUPABASE_URL:?supabase status did not report API_URL}"
+: "${SUPABASE_ANON_KEY:?supabase status did not report ANON_KEY}"
+: "${SUPABASE_SERVICE_ROLE_KEY:?supabase status did not report SERVICE_ROLE_KEY}"
 
 # Do NOT set SUPABASE_TENANT_JWT — the read-scoping test exercises the anon
 # fallback path, where our `.eq("tenant_id")` (not RLS) does the isolation.
