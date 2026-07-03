@@ -17,8 +17,6 @@ export const ROUTE_KEYS = [
   "terms",
 ] as const;
 
-export type RouteKey = (typeof ROUTE_KEYS)[number];
-
 // Map a Next.js pathname (locale-prefixed, e.g. "/en/services/gel") to a route
 // key. The locale segment is dropped; the first remaining segment is the key;
 // an empty path ("/en" or "/") collapses to "home". Service detail pages

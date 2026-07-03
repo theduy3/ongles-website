@@ -10,11 +10,6 @@ import type { Service, ServiceId } from "@/config/types";
 export type { Service, ServiceId };
 export { services };
 
-/** All slugs for one locale — feeds generateStaticParams (current locale only). */
-export function slugParams(lang: Locale): { slug: string }[] {
-  return services.map((s) => ({ slug: s.slug[lang] }));
-}
-
 /** Resolve a localized slug back to its service, or undefined (→ 404). */
 export function serviceBySlug(lang: Locale, slug: string): Service | undefined {
   return services.find((s) => s.slug[lang] === slug);

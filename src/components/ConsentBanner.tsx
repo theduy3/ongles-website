@@ -30,7 +30,7 @@ import { useEffect, useState } from "react";
 
 type ConsentState = "accepted" | "declined" | null;
 
-export interface ConsentStrings {
+interface ConsentStrings {
   banner: string;
   accept: string;
   decline: string;
