@@ -1,0 +1,52 @@
+name: CI
+
+# Runs the hermetic unit suite and the Playwright e2e suite on every PR and on
+# pushes to main. This is the gate that catches the drift that previously rotted
+# uncaught (deploys go via a Dokploy webhook, which runs no tests). See issue #44.
+#
+# NOT run here: tests/integration (needs Docker + a local Supabase — `bun run
+# test:integration`, local/manual only, per ADR 0009).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A newer push to the same ref supersedes an in-flight run.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: Unit tests (bun test src/)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.14"
+      - run: bun install --frozen-lockfile
+      - run: bun test src/
+
+  e2e:
+    name: E2E tests (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.14"
+      - run: bun install --frozen-lockfile
+      # Chromium only — the suite runs a single project (see playwright.config).
+      - run: bunx playwright install --with-deps chromium
+      # webServer builds a prod bundle and serves it; playwright.config pins
+      # TENANT=ongles-maily. CI=true → fresh server, retries, github reporter.
+      - run: bunx playwright test
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
