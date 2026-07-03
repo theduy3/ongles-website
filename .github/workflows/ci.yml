@@ -4,6 +4,11 @@ name: CI
 # pushes to main. This is the gate that catches the drift that previously rotted
 # uncaught (deploys go via a Dokploy webhook, which runs no tests). See issue #44.
 #
+# Install with `npm ci` (package-lock.json), NOT `bun install`: bun:test resolves
+# React 19 through npm's hoisted node_modules layout, but crashes on bun's own
+# install layout ("createContext is not a function" / React ESM interop). Deploy
+# still uses bun --frozen-lockfile in Dokploy; that's a separate concern.
+#
 # NOT run here: tests/integration (needs Docker + a local Supabase — `bun run
 # test:integration`, local/manual only, per ADR 0009).
 
@@ -23,10 +28,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: "1.3.14"
-      - run: bun install --frozen-lockfile
+      - run: npm ci
       - run: bun test src/
 
   e2e:
@@ -35,10 +43,13 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: "1.3.14"
-      - run: bun install --frozen-lockfile
+      - run: npm ci
       # Chromium only — the suite runs a single project (see playwright.config).
       - run: bunx playwright install --with-deps chromium
       # webServer builds a prod bundle and serves it; playwright.config pins
