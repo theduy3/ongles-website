@@ -4,7 +4,7 @@ Source: `/improve-codebase-architecture` run 2026-07-02. Full HTML report was
 session-temp; this file is the durable record. Vocabulary per `/codebase-design`
 (module / interface / seam / adapter / depth / leverage / locality).
 
-Status: **Candidate 1 done** (2026-07-02). Candidates 2 & 3 remain (conditional).
+Status: **Candidates 1 & 2 done** (2026-07-02). Candidate 3 remains (conditional).
 
 ## Context
 
@@ -80,6 +80,31 @@ closes the regression class, not one instance.
 - Small task; single-context TDD fits.
 
 ---
+
+## Candidate 2 — Store IO shell client seam — ✅ DONE 2026-07-02 (as integration test, NOT fake-client)
+
+**Correction:** the "in-memory fake client adapter" framing below was WRONG —
+ADR 0003 explicitly forbids it (a fake tests the mock's `.eq` args; `mock.module`
+leaks process-globally). Re-reading 0003 showed its reopen trigger had fired (a
+second RLS-bypassing write path — popups admin writes, ADR 0007 — plus the
+concrete `deletePopup` global-PK cross-tenant risk). So the sanctioned form is a
+Supabase INTEGRATION test.
+
+**Implemented:**
+- `tests/integration/tenant-scoping.integration.test.ts` — seeds 2 tenants into a
+  real local Supabase, asserts admin (RLS-bypassing) paths isolate by tenant:
+  deletePopup can't cross-tenant-delete (headline), deletePopup removes own row
+  (not a no-op), listPopups/upsertPopup/upsertStoreSettings/getStoreSettings all
+  tenant-scoped. Public anon read left to RLS+tenant-JWT (per 0003), not covered.
+- `scripts/test-integration.sh` + `bun run test:integration` — boots supabase,
+  db reset, injects local keys, TENANT=ongles-maily. Hard-skips unless
+  SUPABASE_URL is localhost (never touches prod). Under tests/, so `bun test src/`
+  stays hermetic (668 pass, no DB needed).
+- ADR 0009 records the reopening (0003's gateway ban still stands).
+- Verified: 6 pass / 0 fail vs real Supabase; bite proven by stripping
+  `.eq("tenant_id")` from deletePopup → isolation test went RED.
+
+--- original spec below (fake-client framing is superseded) ---
 
 ## Candidate 2 — Store IO shell client seam (Worth exploring; CONDITIONAL — do nothing now)
 
