@@ -20,7 +20,7 @@ export function mapEmbedSrc(query: string): string {
 }
 
 /** Google Maps "open in Maps" search link for any query string. */
-export function mapSearchLink(query: string): string {
+function mapSearchLink(query: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
@@ -36,7 +36,3 @@ export function mapLink(loc: Location, s: TenantSite = site): string {
   );
 }
 
-/** Resolve a location by slug, or undefined (→ 404). */
-export function locationBySlug(slug: string): Location | undefined {
-  return locations.find((l) => l.slug === slug);
-}

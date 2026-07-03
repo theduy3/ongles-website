@@ -8,12 +8,12 @@ import { getIronSession, type SessionOptions } from "iron-session";
 
 export type SessionData = { authed?: boolean };
 
-export const SESSION_COOKIE = "bn_admin";
+const SESSION_COOKIE = "bn_admin";
 
 const sessionSecret = process.env.ADMIN_SESSION_SECRET ?? "";
 const adminPassword = process.env.ADMIN_PASSWORD ?? "";
 
-export const sessionOptions: SessionOptions = {
+const sessionOptions: SessionOptions = {
   cookieName: SESSION_COOKIE,
   password: sessionSecret,
   cookieOptions: {

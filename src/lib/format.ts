@@ -4,7 +4,7 @@
 import type { Locale } from "@/lib/i18n";
 
 /** Bare price, e.g. "$50". */
-export function formatPrice(_lang: Locale, price: number): string {
+function formatPrice(_lang: Locale, price: number): string {
   return `$${price}`;
 }
 

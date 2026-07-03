@@ -206,7 +206,7 @@ function answerBlockForRoute(seo: SeoAnswerSource, route: string): string {
  * D-05 — merged (base + per-tenant) FAQ count is >= FAQ_FLOOR for every live
  * tenant in each content locale. Reports one error per shortfall.
  */
-export function checkFaqFloor(): SchemaInvariantError[] {
+function checkFaqFloor(): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
   for (const id of Object.keys(TENANT_FAQ)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
@@ -232,7 +232,7 @@ export function checkFaqFloor(): SchemaInvariantError[] {
  * D-11 — every required route's answer block is non-empty AND has at least
  * ANSWER_BLOCK_MIN_SENTENCES sentences, per live tenant per content locale.
  */
-export function checkAnswerBlockPresence(): SchemaInvariantError[] {
+function checkAnswerBlockPresence(): SchemaInvariantError[] {
   const errors: SchemaInvariantError[] = [];
   for (const id of Object.keys(TENANT_SEO)) {
     if (EXCLUDED_TENANTS.has(id)) continue;
