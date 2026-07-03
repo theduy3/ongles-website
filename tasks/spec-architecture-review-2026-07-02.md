@@ -4,7 +4,8 @@ Source: `/improve-codebase-architecture` run 2026-07-02. Full HTML report was
 session-temp; this file is the durable record. Vocabulary per `/codebase-design`
 (module / interface / seam / adapter / depth / leverage / locality).
 
-Status: **Candidates 1 & 2 done** (2026-07-02). Candidate 3 remains (conditional).
+Status: **Candidates 1, 2 & 3 done** (2026-07-02). Follow-up opened: retarget the
+inherited SS-clone e2e suite (see "Discovered" section at end).
 
 ## Context
 
@@ -127,6 +128,24 @@ client-mock strategy first).
 
 ---
 
+## Candidate 3 — Page composition band — ✅ DONE 2026-07-02 (scoped to trust-signal render coverage)
+
+**Delivered:** `e2e/trust-signal.spec.ts` — asserts the rating renders in the
+locale-correct format ("3,9" FR / "3.9" EN) on all three trust-signal surfaces
+(homepage reviews band, /reviews aggregate, service detail), through the real
+running page, FR + EN. 6/6 green against the pinned tenant. Includes a divergence
+guard (FR must not render "3.9"; EN must not render "3,9") — the render-level
+complement to Candidate 1's source tripwire. Also pinned the e2e tenant explicitly
+(`playwright.config` webServer `env: { TENANT: … ?? "ongles-maily" }`).
+
+Scoped deliberately: the full "e2e smoke per page per locale" framing below is
+NOT built — the inherited e2e suite is orphaned SS-clone cruft (see Discovered),
+so a broad page-smoke would mostly re-fail on a non-existent tenant. The
+trust-signal risk (the actual bug class) is now covered at BOTH source and render
+levels.
+
+--- original spec below ---
+
 ## Candidate 3 — Page composition band (Speculative; only if Candidate 1 proves insufficient)
 
 **Problem.** Presenters are tested below; pages' real interface (HTTP) untested
@@ -154,3 +173,40 @@ has shipped and been judged insufficient.
 | 0006 | FR/EN route pairs → per-pair factories — accepted, done |
 | 0007 | adminWrite behind pure respondToWrite core — accepted, done |
 | 0008 | settings form-contract wrapper — rejected; settings-draft.ts owns round-trip |
+
+---
+
+## Discovered 2026-07-02 — inherited e2e suite is orphaned SS-clone cruft (NEW follow-up)
+
+While delivering Candidate 3, a full `bunx playwright test` run showed **37 of 62
+e2e tests failing**, all from one root cause: this repo is a clone of the
+"SS-website stack" (git: `5a50e39 Initial Pure Nail Bar clone on SS-website
+stack`), and the inherited e2e specs assert the **"Ongles Sans Souci"** tenant —
+title, "Pourquoi nous" nav, 10 testimonials, 4.9 rating, lash slugs
+(`extension-de-cils`), `onglessanssouci.com` canonical. That tenant's config was
+never brought into this repo (registry = ongles-maily / -charlesbourg / -rivieres
+/ template; grep for "Sans Souci" in `src/config` = nothing). So the specs target
+a tenant that does not exist here.
+
+**Investigated the "pin a fixture tenant" fix:** it cannot shrink the drift — no
+existing tenant matches the SS assertions, and e2e already ran the real default
+(ongles-maily). Pinning `TENANT=ongles-maily` (now done) documents intent but the
+SS-baselined assertions still fail against maily.
+
+**The real options for a future session (not done here):**
+1. **Retarget** the 6 inherited spec files (content-render, navigation, homepage,
+   seo, contact-form, popup-api) to ongles-maily's current content — ~37
+   assertions. Largest, but makes e2e real for this site.
+2. **Build a frozen e2e fixture tenant** matching the inherited assertions and pin
+   it — robust against real-tenant content edits, but adds a synthetic tenant and
+   is comparable work.
+3. **Delete** the inherited specs and keep only repo-authored ones
+   (`trust-signal.spec.ts` + whichever already pass) — smallest, loses coverage.
+
+**Also triage (cruft vs real bug):** `contact-form` (fill timeout — selector
+drift?) and `popup-api` (/api/popups returns null — fixture/popups.json?). Do NOT
+paper these over; confirm they are inherited-fixture mismatches, not regressions.
+
+**Root fix regardless:** wire e2e into CI (currently Dokploy webhook only, no GH
+Actions — that is WHY this rotted uncaught). Even a manual `bun run test:e2e`
+gate before ship would have surfaced it.
