@@ -178,6 +178,9 @@ has shipped and been judged insufficient.
 
 ## Discovered 2026-07-02 — inherited e2e suite is orphaned SS-clone cruft (NEW follow-up)
 
+> Tracked: GitHub issue #44 — https://github.com/theduy3/ongles-website/issues/44
+
+
 While delivering Candidate 3, a full `bunx playwright test` run showed **37 of 62
 e2e tests failing**, all from one root cause: this repo is a clone of the
 "SS-website stack" (git: `5a50e39 Initial Pure Nail Bar clone on SS-website
