@@ -12,12 +12,15 @@ import { readFileSync } from "node:fs";
 // number format. That format is owned by trustSignals() (@/lib/reviews); the
 // page MUST render through it rather than reimplementing toLocaleString.
 //
-// Regression this locks: the page had inlined `toLocaleString("en-CA", …)`,
-// pinning the locale to en-CA so FR rendered "4.9" instead of "4,9" — the exact
-// divergence trustSignals() exists to prevent. These tripwires fail if:
-//   - The page reintroduces a hardcoded locale in a toLocaleString call.
-//   - The R-02 display gate stops flowing through trust.show.
-//   - The page stops routing rating display through trustSignals().
+// These per-page tripwires assert the POSITIVE facts local to /reviews:
+//   - The R-02 display gate flows through trust.show.
+//   - Rating display routes through trustSignals().
+//
+// The NEGATIVE invariant — "no page reintroduces a hardcoded-locale
+// toLocaleString" (the original en-CA "4.9" vs "4,9" regression) — is no longer
+// re-listed here. It is owned repo-wide by presenter-source.tripwire.test.ts,
+// which derives its coverage from every page.tsx, so a new page is guarded the
+// moment it exists.
 
 const reviewsSource = readFileSync(
   new URL("./page.tsx", import.meta.url),
@@ -31,12 +34,5 @@ describe("/reviews page — aggregate-rating trust signal", () => {
 
   test("display gate flows through trust.show (gate owned by trustSignals)", () => {
     expect(reviewsSource).toContain("trust.show");
-  });
-
-  test("does not hardcode a locale in toLocaleString (FR must render 4,9)", () => {
-    // The defect was `toLocaleString("en-CA", …)`. Any hardcoded language tag
-    // passed to toLocaleString reintroduces the divergence; formatting must be
-    // locale-aware via the presenter, which uses `${lang}-CA`.
-    expect(reviewsSource).not.toMatch(/toLocaleString\(\s*["'][a-z]{2}-[A-Z]{2}["']/);
   });
 });
