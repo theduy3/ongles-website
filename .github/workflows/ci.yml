@@ -8,10 +8,11 @@ name: CI
 # bun:test job resolve React 19 through npm's hoisted node_modules layout. Deploy
 # still uses bun --frozen-lockfile in Dokploy; that's a separate concern.
 #
-# NOT gated here yet — the hermetic `bun test src/` unit suite is GREEN locally
-# but fails on a clean install (bun:test + next/navigation React ESM crash, plus
-# a few getSeo legacy-shim failures). Tracked separately; add a `unit` job once
-# that clean-install breakage is fixed.
+# The unit job installs bun via the official curl script, NOT setup-bun@v2:
+# setup-bun's bun made bun:test crash resolving React 19 through next/navigation
+# ("createContext is not a function") — a failure that does NOT reproduce with a
+# curl-installed bun on the same OS. The e2e job keeps setup-bun (it drives
+# playwright, not bun:test, and is unaffected).
 #
 # NOT run here: tests/integration (needs Docker + a local Supabase — `bun run
 # test:integration`, local/manual only, per ADR 0009).
@@ -27,6 +28,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  unit:
+    name: Unit tests (bun test src/)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install bun (official script — see header note)
+        run: |
+          curl -fsSL https://bun.sh/install | bash -s "bun-v1.3.14"
+          echo "$HOME/.bun/bin" >> "$GITHUB_PATH"
+      - run: npm ci
+      - run: bun test src/
+
   e2e:
     name: E2E tests (Playwright)
     runs-on: ubuntu-latest

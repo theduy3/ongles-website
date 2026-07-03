@@ -15,14 +15,19 @@ import { storeCacheTag } from "@/lib/cache-tags";
 
 type Content = Record<string, unknown>;
 
-export const getSeo = layeredLocaleContent<SeoDictionary>({
-  base: BASE_SEO,
-  tenants: TENANT_SEO,
-  tenantId: tenant.id,
-  cacheKey: "store-seo",
-  tag: storeCacheTag("store-seo", tenant.id),
-  readSettings: readStoreSettings,
-  readDbLayer: (settings, locale) => {
+// Factory so the settings reader is injectable (CONTEXT.md: "the settings reader
+// is injected so the layering is testable without a DB"). Tests build their own
+// resolver with a fixture reader instead of mock.module-ing store-settings-store
+// — which is process-global and order-dependent in bun:test.
+export function makeGetSeo(readSettings: typeof readStoreSettings) {
+  return layeredLocaleContent<SeoDictionary>({
+    base: BASE_SEO,
+    tenants: TENANT_SEO,
+    tenantId: tenant.id,
+    cacheKey: "store-seo",
+    tag: storeCacheTag("store-seo", tenant.id),
+    readSettings,
+    readDbLayer: (settings, locale) => {
     const legacy = liftLegacySeo(settings?.content?.[locale] as Content | undefined);
     const current = (settings?.seo?.[locale] as Content | undefined) ?? {};
     if (Object.keys(legacy).length > 0) {
@@ -34,7 +39,10 @@ export const getSeo = layeredLocaleContent<SeoDictionary>({
         ).join(", ")}`,
       );
     }
-    // Legacy is the floor; explicit `seo` edits win on leaf collisions.
-    return deepMerge(legacy, current);
-  },
-});
+      // Legacy is the floor; explicit `seo` edits win on leaf collisions.
+      return deepMerge(legacy, current);
+    },
+  });
+}
+
+export const getSeo = makeGetSeo(readStoreSettings);

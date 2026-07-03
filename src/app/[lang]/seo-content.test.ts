@@ -7,9 +7,6 @@ mock.module("server-only", () => ({}));
 mock.module("next/cache", () => ({
   unstable_cache: (fn: (...args: unknown[]) => unknown) => fn,
 }));
-mock.module("react", () => ({
-  cache: (fn: (...args: unknown[]) => unknown) => fn,
-}));
 
 const { getSeo } = await import("@/app/[lang]/seo-content");
 

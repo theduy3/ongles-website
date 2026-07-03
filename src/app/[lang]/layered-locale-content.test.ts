@@ -3,7 +3,6 @@ import { describe, it, expect, mock } from "bun:test";
 mock.module("next/cache", () => ({
   unstable_cache: (fn: (...a: unknown[]) => unknown) => fn,
 }));
-mock.module("react", () => ({ cache: (fn: (...a: unknown[]) => unknown) => fn }));
 
 const { layeredLocaleContent, composeLayers } = await import(
   "@/app/[lang]/layered-locale-content"
