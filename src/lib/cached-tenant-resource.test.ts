@@ -10,7 +10,6 @@ mock.module("next/cache", () => ({
     (...a: unknown[]) =>
       fn(...a),
 }));
-mock.module("react", () => ({ cache: (fn: (...a: unknown[]) => unknown) => fn }));
 
 const { cachedTenantResource } = await import("@/lib/cached-tenant-resource");
 

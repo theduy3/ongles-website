@@ -5,7 +5,6 @@ import type { FaqItem } from "@/config/types";
 // Mock those, then dynamic-import the module so the pure mergeFaqItems is testable
 // in bun:test (same approach as seo-content.test.ts / dictionaries.test.ts).
 mock.module("server-only", () => ({}));
-mock.module("react", () => ({ cache: (fn: (...a: unknown[]) => unknown) => fn }));
 
 let mergeFaqItems: (
   base: readonly FaqItem[],

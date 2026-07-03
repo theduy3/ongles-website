@@ -19,9 +19,6 @@ mock.module("server-only", () => ({}));
 mock.module("next/cache", () => ({
   unstable_cache: (fn: (...args: unknown[]) => unknown) => fn,
 }));
-mock.module("react", () => ({
-  cache: (fn: (...args: unknown[]) => unknown) => fn,
-}));
 
 // Dynamic import AFTER mocks are registered.
 const { getDictionary } = await import("@/app/[lang]/dictionaries");
