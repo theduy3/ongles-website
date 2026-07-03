@@ -1,21 +1,16 @@
 // src/app/[lang]/seo-content.shim.test.ts
 import { describe, expect, it, mock } from "bun:test";
-// Real React, captured before the mock below (static imports resolve first).
-// mock.module is process-GLOBAL: replacing "react" with a bare { cache } stub
-// stripped createContext/useEffect/etc. for EVERY later-running test file,
-// crashing the component/next-navigation tests non-deterministically (the crash
-// only bit CI, whose file order ran this first). Preserve all of React and
-// override ONLY `cache` (the request-memoization wrapper getSeo needs neutered).
-import * as actualReact from "react";
 
+// Do NOT mock.module("react", …) here. mock.module is process-GLOBAL in
+// bun:test, so a partial React stub leaks into EVERY later-running test file and
+// strips createContext/useEffect/etc., crashing the component + next/navigation
+// tests ("createContext is not a function") — non-deterministically, since it
+// only bites when file order runs this first (it did on CI, not locally). getSeo
+// does not need React.cache stubbed: seo-content's caching seam is
+// cachedTenantResource (@/lib/cache-tags), not React.cache.
 mock.module("server-only", () => ({}));
 mock.module("next/cache", () => ({
   unstable_cache: (fn: (...a: unknown[]) => unknown) => fn,
-}));
-mock.module("react", () => ({
-  ...actualReact,
-  default: (actualReact as { default?: unknown }).default ?? actualReact,
-  cache: (fn: (...a: unknown[]) => unknown) => fn,
 }));
 
 // Store row carrying LEGACY content-namespace SEO plus one explicit new-namespace
