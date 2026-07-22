@@ -102,6 +102,7 @@ export default async function Home({ params }: LangParams) {
       <AnswerBlock
         heading={seo.meta.homeAnswerHeading}
         text={seo.meta.homeAnswerBlock}
+        compact
       />
 
       {/* Hero — two-column (text left, image + floating stats right) */}
