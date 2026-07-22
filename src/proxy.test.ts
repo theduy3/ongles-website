@@ -42,6 +42,11 @@ describe("proxy — standalone un-localized pages pass through (no locale redire
     const res = await proxy(req("/queue"));
     expect(locationOf(res)).toBeNull();
   });
+
+  it("serves /topemployee directly", async () => {
+    const res = await proxy(req("/topemployee"));
+    expect(locationOf(res)).toBeNull();
+  });
 });
 
 describe("proxy — public pages still get locale routing", () => {
