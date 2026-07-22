@@ -2,24 +2,24 @@ import { expect, it, mock } from "bun:test";
 import type { ReactElement } from "react";
 import { TopEmployeeWidget } from "@/components/TopEmployeeWidget";
 
+let runtimeReads = 0;
 mock.module("@/lib/store-config", () => ({
-  getStoreConfig: async () => ({
-    site: {
-      storeId: "OM",
-      widgetHost: "https://app.onglesmaily.com",
-    },
-  }),
+  getStoreConfig: async () => {
+    runtimeReads += 1;
+    return {
+      site: {
+        storeId: "OM",
+        widgetHost: "https://app.onglesmaily.com",
+      },
+    };
+  },
 }));
 
 const { default: TopEmployeePage } = await import("./page");
 
-it("passes the runtime store configuration to the EOM widget", async () => {
-  const element = (await TopEmployeePage()) as ReactElement<{
-    storeId: string;
-    widgetHost: string;
-  }>;
+it("renders without waiting for runtime store settings", async () => {
+  const element = (await TopEmployeePage()) as ReactElement;
 
   expect(element.type).toBe(TopEmployeeWidget);
-  expect(element.props.storeId).toBe("OM");
-  expect(element.props.widgetHost).toBe("https://app.onglesmaily.com");
+  expect(runtimeReads).toBe(0);
 });

@@ -2,36 +2,26 @@ import { describe, expect, it, mock } from "bun:test";
 
 mock.module("../globals.css", () => ({}));
 
-let faviconValue: string | undefined;
+let runtimeReads = 0;
 mock.module("@/lib/store-config", () => ({
-  getStoreConfig: async () => ({
-    site: faviconValue ? { favicon: faviconValue } : {},
-  }),
+  getStoreConfig: async () => {
+    runtimeReads += 1;
+    return { site: {} };
+  },
 }));
 
 const { generateMetadata } = await import("./layout");
 
 describe("top employee layout generateMetadata", () => {
-  it("sets icons.icon to the tenant favicon when one is configured", async () => {
-    faviconValue = "https://cdn.example/maily-fav.png";
-    const meta = await generateMetadata();
-    expect(meta.icons).toEqual({ icon: "https://cdn.example/maily-fav.png" });
-  });
-
-  it("omits icons when the tenant has no favicon", async () => {
-    faviconValue = undefined;
-    const meta = await generateMetadata();
-    expect(meta.icons).toBeUndefined();
-  });
-
-  it("keeps the page title and noindex robots", async () => {
-    faviconValue = "https://cdn.example/x.png";
+  it("returns static metadata without waiting for runtime settings", async () => {
     const meta = await generateMetadata();
     expect(meta.title).toBe("Top employee");
     expect(meta.robots).toEqual({ index: false, follow: false });
+    expect(meta.icons).toBeUndefined();
+    expect(runtimeReads).toBe(0);
   });
 
-  it("opts into dynamic rendering for runtime tenant metadata", async () => {
+  it("keeps the standalone page request-rendered", async () => {
     const mod = await import("./layout");
     expect(mod.dynamic).toBe("force-dynamic");
   });

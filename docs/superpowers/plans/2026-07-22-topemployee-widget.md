@@ -8,6 +8,12 @@
 
 **Tech Stack:** Next.js 16 App Router, React 19, TypeScript, Bun test
 
+> **Post-deployment correction (2026-07-22):** `/topemployee` is intentionally
+> fixed to the Ongles Maily embed and no longer reads Supabase-backed runtime
+> store settings. That optional read stalled the standalone response when
+> Supabase was unreachable. The current source and regression tests supersede
+> the runtime-config steps below.
+
 ## Global Constraints
 
 - The public URL is exactly `/topemployee` with no locale prefix.
