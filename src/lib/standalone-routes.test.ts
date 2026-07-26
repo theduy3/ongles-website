@@ -30,8 +30,13 @@ function standaloneRoutesOnDisk(): string[] {
     .filter((e) => {
       try {
         return readFileSync(join(appDir, e.name, "layout.tsx"), "utf8").includes("<html");
-      } catch {
-        return false; // no layout.tsx → not a standalone root
+      } catch (err) {
+        // ONLY a missing layout.tsx means "not a standalone root". Swallowing every
+        // error would let a permission or read failure hide a route from the scan, and
+        // the parity check below would then pass while protecting nothing — the exact
+        // vacuous-green hole the detection test above exists to prevent.
+        if ((err as NodeJS.ErrnoException).code === "ENOENT") return false;
+        throw err;
       }
     })
     .map((e) => `/${e.name}`)
@@ -52,8 +57,11 @@ describe("STANDALONE_PATHS parity with the app/ tree", () => {
     ]);
   });
 
-  it("registers every route that owns a standalone <html> layout", () => {
-    const missing = standaloneRoutesOnDisk().filter((route) => !STANDALONE_PATHS.has(route));
+  it("stays in sync with the app/ tree in BOTH directions", () => {
+    const onDisk = standaloneRoutesOnDisk();
+    const declared = [...STANDALONE_PATHS].sort();
+
+    const missing = onDisk.filter((route) => !STANDALONE_PATHS.has(route));
     if (missing.length > 0) {
       throw new Error(
         `Standalone route(s) ${missing.join(", ")} own an <html> layout but are not in ` +
@@ -61,6 +69,20 @@ describe("STANDALONE_PATHS parity with the app/ tree", () => {
           `locale-prefixes them and they 404. Add each path to the Set.`,
       );
     }
-    expect(missing).toEqual([]);
+
+    // The other direction matters too: a stale entry for a deleted route never fails
+    // anything on its own, so the allowlist quietly drifts from the tree it describes
+    // and stops being trustworthy as documentation of what is standalone.
+    const stale = declared.filter((route) => !onDisk.includes(route));
+    if (stale.length > 0) {
+      throw new Error(
+        `STANDALONE_PATHS lists ${stale.join(", ")}, which own no <html> layout under ` +
+          `src/app/. Remove the stale entr${stale.length === 1 ? "y" : "ies"}, or — if a ` +
+          `route is deliberately listed without a filesystem layout — carve it out here ` +
+          `explicitly so the exception is visible.`,
+      );
+    }
+
+    expect(onDisk).toEqual(declared);
   });
 });
