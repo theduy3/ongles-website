@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { unsealData } from "iron-session";
 import { locales, isLocale, matchLocale } from "@/lib/i18n";
+import { STANDALONE_PATHS } from "@/lib/standalone-routes";
 
 // Proxy is Next.js 16's renamed Middleware. Only one proxy file is supported, so
 // it handles two concerns:
@@ -10,13 +11,6 @@ import { locales, isLocale, matchLocale } from "@/lib/i18n";
 const LOCALE_COOKIE = "NEXT_LOCALE";
 const SESSION_COOKIE = "bn_admin";
 const LOGIN_PATHS = new Set(["/admin/login", "/api/admin/login"]);
-const STANDALONE_PATHS = new Set([
-  "/checkin",
-  "/queue",
-  "/clientportal",
-  "/subscription",
-  "/topemployee",
-]);
 
 // Kept self-contained (reads + unseals the cookie directly, no shared modules)
 // per the proxy guidance. Admin handlers re-check via isAuthed() too.
