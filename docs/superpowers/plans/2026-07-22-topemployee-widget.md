@@ -4,6 +4,8 @@
 > `/leaderboard`. The former `/topemployee` path redirects to `/leaderboard`;
 > no `/en` or `/fr` aliases are supported. The Ongles Maily EOM embed remains
 > `https://app.onglesmaily.com/widgets/eom-widget.js` with `data-eom-store="OM"`.
+> The remaining sections are the historical implementation plan for the
+> original route and are superseded by the current source and tests.
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
