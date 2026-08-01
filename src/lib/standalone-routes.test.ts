@@ -51,9 +51,9 @@ describe("STANDALONE_PATHS parity with the app/ tree", () => {
     expect(standaloneRoutesOnDisk()).toEqual([
       "/checkin",
       "/clientportal",
+      "/leaderboard",
       "/queue",
       "/subscription",
-      "/leaderboard",
     ]);
   });
 
