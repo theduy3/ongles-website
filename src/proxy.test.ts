@@ -43,9 +43,15 @@ describe("proxy — standalone un-localized pages pass through (no locale redire
     expect(locationOf(res)).toBeNull();
   });
 
-  it("serves /topemployee directly", async () => {
-    const res = await proxy(req("/topemployee"));
+  it("serves /leaderboard directly", async () => {
+    const res = await proxy(req("/leaderboard"));
     expect(locationOf(res)).toBeNull();
+  });
+
+  it("redirects the legacy /topemployee path to /leaderboard", async () => {
+    const res = await proxy(req("/topemployee"));
+    expect(res.status).toBe(307);
+    expect(locationOf(res)).toBe("/leaderboard");
   });
 });
 
