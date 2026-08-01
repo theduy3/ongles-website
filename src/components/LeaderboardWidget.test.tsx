@@ -9,6 +9,7 @@ describe("LeaderboardWidget", () => {
       src: string;
       store: string;
       storeAttr: string;
+      display: string;
     }>;
 
     expect(element.type).toBe(WidgetEmbed);
@@ -17,5 +18,6 @@ describe("LeaderboardWidget", () => {
     );
     expect(element.props.store).toBe("OM");
     expect(element.props.storeAttr).toBe("data-eom-store");
+    expect(element.props.display).toBe("fullscreen");
   });
 });

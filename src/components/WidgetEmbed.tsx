@@ -15,6 +15,7 @@ export function WidgetEmbed({
   src,
   store,
   storeAttr = "data-store",
+  display,
   fallbackLabel,
 }: {
   src: string;
@@ -22,6 +23,9 @@ export function WidgetEmbed({
   // Attribute the widget script reads its store id from. SalonX kiosk widgets
   // use "data-store"; the client-account widget uses "data-account-store".
   storeAttr?: string;
+  // Optional display mode consumed by widgets that have compact and fullscreen
+  // layouts (for example, the EOM leaderboard).
+  display?: string;
   // Names the widget in the error message, e.g. "check-in" or "queue".
   fallbackLabel: string;
 }) {
@@ -43,6 +47,7 @@ export function WidgetEmbed({
     script.src = src;
     script.async = true;
     script.setAttribute(storeAttr, store);
+    if (display) script.setAttribute("data-display", display);
     script.onload = () => {
       if (!cancelled) setStatus("ready");
     };
@@ -55,7 +60,7 @@ export function WidgetEmbed({
       cancelled = true;
       container.replaceChildren();
     };
-  }, [src, store, storeAttr, attempt]);
+  }, [src, store, storeAttr, display, attempt]);
 
   return (
     <div className="relative min-h-screen">

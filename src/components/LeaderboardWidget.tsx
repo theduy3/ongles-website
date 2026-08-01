@@ -17,6 +17,7 @@ export function LeaderboardWidget({
       src={`${widgetHost}/widgets/eom-widget.js`}
       store={storeId}
       storeAttr="data-eom-store"
+      display="fullscreen"
       fallbackLabel="leaderboard"
     />
   );
