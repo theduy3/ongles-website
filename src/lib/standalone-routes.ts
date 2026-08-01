@@ -13,5 +13,5 @@ export const STANDALONE_PATHS = new Set([
   "/queue",
   "/clientportal",
   "/subscription",
-  "/topemployee",
+  "/leaderboard",
 ]);

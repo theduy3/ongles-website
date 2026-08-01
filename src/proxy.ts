@@ -45,8 +45,15 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
+  // Keep existing TV bookmarks working while exposing the renamed canonical
+  // leaderboard route.
+  if (pathname === "/topemployee") {
+    return NextResponse.redirect(new URL("/leaderboard", request.url));
+  }
+
   // 1b. Standalone, un-localized widget pages (check-in, queue, client portal,
-  // subscription). These live at the app root, not under [lang]. No locale prefix.
+  // subscription, leaderboard). These live at the app root, not under [lang].
+  // No locale prefix.
   if (STANDALONE_PATHS.has(pathname)) return NextResponse.next();
 
   // 2. Locale routing for public pages.

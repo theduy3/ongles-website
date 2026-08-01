@@ -1,5 +1,10 @@
 # Top Employee Widget Implementation Plan
 
+> **Route rename (2026-07-31):** The canonical unlocalized TV URL is now
+> `/leaderboard`. The former `/topemployee` path redirects to `/leaderboard`;
+> no `/en` or `/fr` aliases are supported. The Ongles Maily EOM embed remains
+> `https://app.onglesmaily.com/widgets/eom-widget.js` with `data-eom-store="OM"`.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add a blank, standalone `/topemployee` TV page that loads the Ongles Maily employee-of-the-month widget.

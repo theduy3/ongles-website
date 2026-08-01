@@ -53,7 +53,7 @@ describe("STANDALONE_PATHS parity with the app/ tree", () => {
       "/clientportal",
       "/queue",
       "/subscription",
-      "/topemployee",
+      "/leaderboard",
     ]);
   });
 

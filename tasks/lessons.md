@@ -122,8 +122,9 @@ Notes:
 ## Routing / locale proxy (src/proxy.ts)
 
 - **Standalone TV routes keep one canonical unlocalized URL.** Do not add
-  `/en/` or `/fr/` aliases for `/topemployee`; the supported URL is exactly
-  `/topemployee`. (correction after commit 6658795)
+  `/en/` or `/fr/` aliases for `/leaderboard`; the supported URL is exactly
+  `/leaderboard`. The former `/topemployee` URL redirects there for existing
+  TV bookmarks. (correction after commit 6658795 and the 2026-07-31 rename)
 - **New standalone root-level routes (kiosk/widget pages outside `[lang]`) MUST be
   added to `STANDALONE_PATHS` in `src/proxy.ts` or they 404.** The locale proxy
   (Next.js 16 renamed middleware) redirects any path not in that allowlist to
