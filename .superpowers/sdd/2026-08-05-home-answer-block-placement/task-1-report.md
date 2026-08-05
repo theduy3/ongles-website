@@ -102,3 +102,15 @@ production files were changed.
 
 - Fix-round implementation commit: `f9c1578` (`test: tighten homepage hero assertion`).
 - The report is included in the final amended commit with the same message.
+
+## Fix round 2 — align homepage locale describe
+
+Updated the describe label to identify both covered locales.
+
+### Changed file
+
+- `e2e/homepage.spec.ts`
+
+### Commit
+
+- Parent commit hash: `454e4a89a15596d5abd77254d12da1dfc6729ff4`

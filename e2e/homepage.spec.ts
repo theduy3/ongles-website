@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 // Retargeted to the ongles-maily tenant. Phone is (418) 660-8228 →
 // tel:+14186608228; the homepage testimonial carousel shows the 6 locale-aware
 // dict placeholders (first author "Sarah M."); brand is "Ongles Maily".
-test.describe("homepage enhancements (/fr)", () => {
+test.describe("homepage enhancements (/fr and /en)", () => {
   test("call-to-book links dial the configured number (tel:)", async ({ page }) => {
     await page.goto("/fr");
     const call = page.getByRole("link", { name: /Appeler pour réserver/i }).first();
