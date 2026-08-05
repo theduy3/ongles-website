@@ -1,7 +1,7 @@
 import { tenant } from "@/config";
 import { getSupabaseAdmin, getSupabasePublic, STORE_SETTINGS_TABLE } from "@/lib/supabase";
 import { StoreSettingsSchema, type StoreSettings } from "@/lib/store-settings-schema";
-import { parseWithSchema, type StoreResult } from "@/lib/tenant-store";
+import { parseWithSchema, readPublicOrNull, type StoreResult } from "@/lib/tenant-store";
 
 // Data access for store settings stored in Supabase. One row per tenant:
 // { tenant_id (PK), doc, updated_at } where `doc` is a sparse StoreSettings
@@ -53,11 +53,15 @@ export async function readStoreSettings(): Promise<StoreSettings | null> {
 
   // IO shell — query wiring (table, tenant scoping, maybeSingle) is NOT unit-tested
   // (no fake client); e2e/prod covers it. The value DECISION is resolvePublicRead.
-  const res = await client
-    .from(STORE_SETTINGS_TABLE)
-    .select("doc")
-    .eq("tenant_id", tenant.id)
-    .maybeSingle<Row>();
+  const res = await readPublicOrNull("store-settings", () =>
+    client
+      .from(STORE_SETTINGS_TABLE)
+      .select("doc")
+      .eq("tenant_id", tenant.id)
+      .maybeSingle<Row>(),
+  );
+
+  if (!res) return null;
 
   if (res.error) console.error("[store-settings-store] read failed:", res.error.message);
   return resolvePublicRead(res, tenant.id);
