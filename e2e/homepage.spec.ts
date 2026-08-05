@@ -62,6 +62,7 @@ test.describe("homepage enhancements (/fr and /en)", () => {
       });
 
       await expect(heroH1).toHaveCount(1);
+      await expect(main.locator("h1")).toHaveCount(1);
       await expect(heroH1).toBeVisible();
       await expect(answerHeading).toHaveCount(1);
       await expect(answerHeading).toBeVisible();

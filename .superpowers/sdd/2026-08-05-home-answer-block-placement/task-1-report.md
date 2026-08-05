@@ -114,3 +114,27 @@ Updated the describe label to identify both covered locales.
 ### Commit
 
 - Parent commit hash: `454e4a89a15596d5abd77254d12da1dfc6729ff4`
+
+## Fix round 2 — assert singleton homepage H1
+
+Added an assertion that the homepage `main` contains exactly one H1 while
+retaining the localized hero H1 locator and its count and visibility checks.
+This keeps the sole H1 bound to the expected localized hero text and detects
+any extra H1 in `main`.
+
+### Changed file
+
+- `e2e/homepage.spec.ts`
+
+### Checks
+
+- `bun run test:e2e -- e2e/homepage.spec.ts -g "keeps the hero first"` — RED
+  as expected against the current pre-implementation production code at
+  `http://localhost:3100` (exit 1). The `/fr` localized hero H1 locator
+  expected 1 element but received 0 because the current page still renders the
+  answer as H1 and the hero title as H2; the test stops before `/en`.
+- `git diff --check` — PASS (exit 0).
+
+### Commit
+
+- Fix-round implementation commit: `f57a61b` (`test: assert singleton homepage h1`).
