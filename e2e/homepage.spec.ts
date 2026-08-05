@@ -77,6 +77,7 @@ test.describe("homepage enhancements (/fr and /en)", () => {
         const root = heroH1.closest("main");
         if (!root) return false;
 
+        const heroSection = heroH1.closest("section");
         const overviewH2 = Array.from(root.querySelectorAll("h2")).find((node) =>
           /Ongles Maily/i.test(node.textContent ?? ""),
         );
@@ -84,13 +85,12 @@ test.describe("homepage enhancements (/fr and /en)", () => {
         const services = root.querySelector("#services");
 
         return Boolean(
-          heroH1 &&
+          heroSection &&
             overviewSection &&
             services &&
-            (heroH1.compareDocumentPosition(overviewSection) &
-              Node.DOCUMENT_POSITION_FOLLOWING) &&
-            (overviewSection.compareDocumentPosition(services) &
-              Node.DOCUMENT_POSITION_FOLLOWING),
+            root.firstElementChild === heroSection &&
+            heroSection.nextElementSibling === overviewSection &&
+            overviewSection.nextElementSibling === services,
         );
       });
 
