@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 // Retargeted to the ongles-maily tenant. Phone is (418) 660-8228 →
 // tel:+14186608228; the homepage testimonial carousel shows the 6 locale-aware
 // dict placeholders (first author "Sarah M."); brand is "Ongles Maily".
-test.describe("homepage enhancements (/fr)", () => {
+test.describe("homepage enhancements (/fr and /en)", () => {
   test("call-to-book links dial the configured number (tel:)", async ({ page }) => {
     await page.goto("/fr");
     const call = page.getByRole("link", { name: /Appeler pour réserver/i }).first();
@@ -39,6 +39,62 @@ test.describe("homepage enhancements (/fr)", () => {
     expect(count).toBeGreaterThanOrEqual(1);
     for (let i = 0; i < count; i++) {
       await expect(calls.nth(i)).toHaveAttribute("href", /^tel:\+?\d+$/);
+    }
+  });
+
+  test("keeps the hero first and places the direct answer before services", async ({
+    page,
+  }) => {
+    for (const path of ["/fr", "/en"]) {
+      await page.goto(path);
+
+      const main = page.locator("main");
+      const heroH1 = main.getByRole("heading", {
+        level: 1,
+        name:
+          path === "/fr"
+            ? /Des soins d'ongles professionnels, faits pour Vous/i
+            : /Professional Nail Care, Made for You/i,
+      });
+      const answerHeading = main.getByRole("heading", {
+        level: 2,
+        name: /Ongles Maily/i,
+      });
+
+      await expect(heroH1).toHaveCount(1);
+      await expect(main.locator("h1")).toHaveCount(1);
+      await expect(heroH1).toBeVisible();
+      await expect(answerHeading).toHaveCount(1);
+      await expect(answerHeading).toBeVisible();
+
+      const answerCopy =
+        path === "/fr"
+          ? /outils désinfectés après chaque cliente/i
+          : /tools disinfected after every client/i;
+      await expect(main.getByText(answerCopy)).toBeVisible();
+
+      const answerBeforeServices = await heroH1.evaluate((heroH1) => {
+        const root = heroH1.closest("main");
+        if (!root) return false;
+
+        const heroSection = heroH1.closest("section");
+        const overviewH2 = Array.from(root.querySelectorAll("h2")).find((node) =>
+          /Ongles Maily/i.test(node.textContent ?? ""),
+        );
+        const overviewSection = overviewH2?.closest("section");
+        const services = root.querySelector("#services");
+
+        return Boolean(
+          heroSection &&
+            overviewSection &&
+            services &&
+            root.firstElementChild === heroSection &&
+            heroSection.nextElementSibling === overviewSection &&
+            overviewSection.nextElementSibling === services,
+        );
+      });
+
+      expect(answerBeforeServices).toBe(true);
     }
   });
 });

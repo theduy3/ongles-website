@@ -98,14 +98,7 @@ export default async function Home({ params }: LangParams) {
 
   return (
     <>
-      {/* Direct-answer block — first in main, carries the single page h1 (CONTENT-01, D-17/D-19) */}
-      <AnswerBlock
-        heading={seo.meta.homeAnswerHeading}
-        text={seo.meta.homeAnswerBlock}
-        compact
-      />
-
-      {/* Hero — two-column (text left, image + floating stats right) */}
+      {/* Hero — first visible section (two-column text left, image + floating stats right) */}
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <Reveal>
@@ -113,12 +106,12 @@ export default async function Home({ params }: LangParams) {
               <p className="text-xs uppercase tracking-[0.25em] text-gold">
                 {dict.hero.subtitle}
               </p>
-              <h2 className="mt-6 max-w-xl text-5xl leading-[1.05] text-espresso md:text-6xl">
+              <h1 className="mt-6 max-w-xl text-5xl leading-[1.05] text-espresso md:text-6xl">
                 {dict.hero.taglineLead}{" "}
                 <em className="italic text-mocha">
                   {dict.hero.taglineEmphasis}
                 </em>
-              </h2>
+              </h1>
               <p className="mt-6 max-w-md text-lg font-light leading-relaxed text-mocha">
                 {dict.hero.description}
               </p>
@@ -201,6 +194,14 @@ export default async function Home({ params }: LangParams) {
           </Reveal>
         </div>
       </section>
+
+      {/* Direct-answer block — visible local context after the hero; carries an H2. */}
+      <AnswerBlock
+        heading={seo.meta.homeAnswerHeading}
+        text={seo.meta.homeAnswerBlock}
+        compact
+        headingLevel="h2"
+      />
 
       {/* Services — 4 white cards */}
       <section id="services" className="scroll-mt-20">
