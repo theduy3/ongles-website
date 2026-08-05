@@ -1,7 +1,7 @@
 # Design: Move the Homepage Direct-Answer Block Below the Hero
 
 **Date:** 2026-08-05  
-**Status:** Approved for specification review  
+**Status:** Approved
 **Scope:** Ongles Maily homepage, French and English locales
 
 ## Context
