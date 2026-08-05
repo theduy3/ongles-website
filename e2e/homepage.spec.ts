@@ -41,4 +41,51 @@ test.describe("homepage enhancements (/fr)", () => {
       await expect(calls.nth(i)).toHaveAttribute("href", /^tel:\+?\d+$/);
     }
   });
+
+  test("keeps the hero first and places the direct answer before services", async ({
+    page,
+  }) => {
+    for (const path of ["/fr", "/en"]) {
+      await page.goto(path);
+
+      const main = page.locator("main");
+      const h1 = main.locator("h1");
+      const answerHeading = main.getByRole("heading", {
+        level: 2,
+        name: /Ongles Maily/i,
+      });
+
+      await expect(h1).toHaveCount(1);
+      await expect(h1).toBeVisible();
+      await expect(answerHeading).toHaveCount(1);
+      await expect(answerHeading).toBeVisible();
+
+      const answerCopy =
+        path === "/fr"
+          ? /outils désinfectés après chaque cliente/i
+          : /tools disinfected after every client/i;
+      await expect(main.getByText(answerCopy)).toBeVisible();
+
+      const answerBeforeServices = await main.evaluate((root) => {
+        const heroH1 = root.querySelector("h1");
+        const overviewH2 = Array.from(root.querySelectorAll("h2")).find((node) =>
+          /Ongles Maily/i.test(node.textContent ?? ""),
+        );
+        const overviewSection = overviewH2?.closest("section");
+        const services = root.querySelector("#services");
+
+        return Boolean(
+          heroH1 &&
+            overviewSection &&
+            services &&
+            (heroH1.compareDocumentPosition(overviewSection) &
+              Node.DOCUMENT_POSITION_FOLLOWING) &&
+            (overviewSection.compareDocumentPosition(services) &
+              Node.DOCUMENT_POSITION_FOLLOWING),
+        );
+      });
+
+      expect(answerBeforeServices).toBe(true);
+    }
+  });
 });
