@@ -49,14 +49,20 @@ test.describe("homepage enhancements (/fr)", () => {
       await page.goto(path);
 
       const main = page.locator("main");
-      const h1 = main.locator("h1");
+      const heroH1 = main.getByRole("heading", {
+        level: 1,
+        name:
+          path === "/fr"
+            ? /Des soins d'ongles professionnels, faits pour Vous/i
+            : /Professional Nail Care, Made for You/i,
+      });
       const answerHeading = main.getByRole("heading", {
         level: 2,
         name: /Ongles Maily/i,
       });
 
-      await expect(h1).toHaveCount(1);
-      await expect(h1).toBeVisible();
+      await expect(heroH1).toHaveCount(1);
+      await expect(heroH1).toBeVisible();
       await expect(answerHeading).toHaveCount(1);
       await expect(answerHeading).toBeVisible();
 
@@ -66,8 +72,10 @@ test.describe("homepage enhancements (/fr)", () => {
           : /tools disinfected after every client/i;
       await expect(main.getByText(answerCopy)).toBeVisible();
 
-      const answerBeforeServices = await main.evaluate((root) => {
-        const heroH1 = root.querySelector("h1");
+      const answerBeforeServices = await heroH1.evaluate((heroH1) => {
+        const root = heroH1.closest("main");
+        if (!root) return false;
+
         const overviewH2 = Array.from(root.querySelectorAll("h2")).find((node) =>
           /Ongles Maily/i.test(node.textContent ?? ""),
         );
