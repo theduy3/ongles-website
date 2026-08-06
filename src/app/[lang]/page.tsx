@@ -23,7 +23,8 @@ import { getPageSeo } from "./page-seo";
 import type { LangParams } from "@/lib/i18n";
 import { requireLocale, resolveLocale } from "./locale-guard";
 
-// Marketing service-card images — order matches serviceCards: Nail Enhancements, Fill, Manicure, Pedicure.
+// Marketing service-card images. The order matches the service cards in the
+// locale dictionaries.
 const CARD_IMAGES = [
   "/images/home/acrylic-full-set.webp",
   "/images/home/nail-art.webp",
@@ -31,7 +32,6 @@ const CARD_IMAGES = [
   "/images/home/spa-pedicure.webp",
 ];
 
-// Small inline icons for the hero CTAs.
 function ArrowIcon() {
   return (
     <svg
@@ -50,6 +50,7 @@ function ArrowIcon() {
     </svg>
   );
 }
+
 function PhoneIcon() {
   return (
     <svg
@@ -98,38 +99,45 @@ export default async function Home({ params }: LangParams) {
 
   return (
     <>
-      {/* Hero — first visible section (two-column text left, image + floating stats right) */}
-      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      {/* Hero: the copy stays first on mobile, while the visual follows quickly. */}
+      <section className="border-b border-espresso/10">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-5 py-10 sm:px-6 sm:py-14 lg:grid-cols-[minmax(0,0.94fr)_minmax(0,1.06fr)] lg:gap-16 lg:px-8 lg:py-20 xl:gap-20">
           <Reveal>
             <div>
-              <p className="text-xs uppercase tracking-[0.25em] text-gold">
+              <p className="text-[0.68rem] uppercase tracking-[0.25em] text-gold sm:text-xs">
                 {dict.hero.subtitle}
               </p>
-              <h1 className="mt-6 max-w-xl text-5xl leading-[1.05] text-espresso md:text-6xl">
+              <h1 className="mt-4 text-[clamp(2.7rem,11vw,5rem)] leading-[0.96] text-espresso lg:text-[clamp(3.5rem,5.2vw,5rem)]">
                 {dict.hero.taglineLead}{" "}
-                <em className="italic text-mocha">
+                <em className="pb-1 italic leading-[1.1] text-mocha">
                   {dict.hero.taglineEmphasis}
                 </em>
               </h1>
-              <p className="mt-6 max-w-md text-lg font-light leading-relaxed text-mocha">
+              <p className="mt-5 max-w-lg text-base font-light leading-relaxed text-mocha sm:text-lg">
                 {dict.hero.description}
               </p>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <Button href={`/${lang}${site.booking}`}>
+              <div className="mt-7 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
+                <Button
+                  href={`/${lang}${site.booking}`}
+                  className="w-full sm:w-auto"
+                >
                   {dict.cta.book}
                   <ArrowIcon />
                 </Button>
-                <Button href={site.contact.phoneHref} variant="ghost">
+                <Button
+                  href={site.contact.phoneHref}
+                  variant="ghost"
+                  className="w-full sm:w-auto"
+                >
                   <PhoneIcon />
                   {dict.cta.callNow}
                 </Button>
               </div>
-              {/* CONV-02 above-fold trust signals: price-from anchor → pricing route, R-02-gated rating */}
-              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+              {/* CONV-02: price anchor + R-02-gated rating. */}
+              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
                 <Link
                   href={pricingHref}
-                  className="text-sm font-medium uppercase tracking-wide text-espresso underline-offset-4 hover:underline"
+                  className="text-xs font-medium uppercase tracking-[0.12em] text-espresso underline-offset-4 hover:underline sm:text-sm"
                 >
                   {priceFromDisplay}
                 </Link>
@@ -138,21 +146,21 @@ export default async function Home({ params }: LangParams) {
                     className="flex items-center gap-2"
                     aria-label={trust.ariaLabel}
                   >
-                    <Stars className="text-gold" />
-                    <span className="text-sm text-mocha">
+                    <Stars className="text-gold [&>svg]:h-4 [&>svg]:w-4" />
+                    <span className="text-xs text-mocha sm:text-sm">
                       {trust.ratingDisplay} / {trust.bestRating}
                     </span>
                   </span>
                 )}
               </div>
-              <dl className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <dl className="mt-7 grid max-w-xl grid-cols-3 border-y border-espresso/15 py-4 lg:mt-9">
                 {dict.hero.badges.map((b, i) => (
                   <div
                     key={b.label}
-                    className={`flex flex-col ${i > 0 ? "border-l border-espresso/15 pl-8" : ""}`}
+                    className={`min-w-0 pr-3 ${i > 0 ? "border-l border-espresso/15 pl-3 sm:pl-5" : ""}`}
                   >
-                    <dt className="text-2xl text-espresso">{b.value}</dt>
-                    <dd className="text-xs uppercase tracking-wide text-mocha">
+                    <dt className="text-xl text-espresso sm:text-2xl">{b.value}</dt>
+                    <dd className="mt-1 max-w-[10rem] text-[0.6rem] uppercase leading-snug tracking-[0.1em] text-mocha sm:text-xs">
                       {b.label}
                     </dd>
                   </div>
@@ -162,31 +170,30 @@ export default async function Home({ params }: LangParams) {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="relative mx-auto w-full max-w-md">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-card">
+            <div className="relative mx-auto w-full max-w-[34rem] lg:max-w-none">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-card sm:aspect-[4/5]">
                 <Image
                   src="/images/hero.webp"
                   alt={dict.hero.alt}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 448px"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 52vw"
                   className="object-cover"
                 />
               </div>
-              {/* Floating stat cards */}
-              <div className="absolute -left-4 top-8 rounded-2xl bg-white px-5 py-3 shadow-card">
-                <p className="text-lg font-semibold text-espresso">
+              <div className="absolute left-3 top-3 rounded-xl bg-white px-3 py-2 shadow-card sm:-left-5 sm:top-8 sm:rounded-2xl sm:px-5 sm:py-3">
+                <p className="text-base font-semibold text-espresso sm:text-lg">
                   {dict.hero.stats[0].value}
                 </p>
-                <p className="text-xs uppercase tracking-wide text-mocha">
+                <p className="text-[0.6rem] uppercase tracking-wide text-mocha sm:text-xs">
                   {dict.hero.stats[0].label}
                 </p>
               </div>
-              <div className="absolute -right-4 bottom-8 rounded-2xl bg-white px-5 py-3 shadow-card">
-                <p className="text-lg font-semibold text-espresso">
+              <div className="absolute bottom-3 right-3 rounded-xl bg-white px-3 py-2 shadow-card sm:-right-5 sm:bottom-8 sm:rounded-2xl sm:px-5 sm:py-3">
+                <p className="text-base font-semibold text-espresso sm:text-lg">
                   {dict.hero.stats[1].value}
                 </p>
-                <p className="text-xs uppercase tracking-wide text-mocha">
+                <p className="text-[0.6rem] uppercase tracking-wide text-mocha sm:text-xs">
                   {dict.hero.stats[1].label}
                 </p>
               </div>
@@ -195,7 +202,7 @@ export default async function Home({ params }: LangParams) {
         </div>
       </section>
 
-      {/* Direct-answer block — visible local context after the hero; carries an H2. */}
+      {/* Direct-answer block: visible local context before the service catalog. */}
       <AnswerBlock
         heading={seo.meta.homeAnswerHeading}
         text={seo.meta.homeAnswerBlock}
@@ -203,86 +210,81 @@ export default async function Home({ params }: LangParams) {
         headingLevel="h2"
       />
 
-      {/* Services — 4 white cards */}
+      {/* Services: one lead service and three supporting choices. */}
       <section id="services" className="scroll-mt-20">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-          <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-24 lg:px-8">
+          <div className="max-w-2xl">
             <Reveal>
-              <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                {dict.home.servicesEyebrow}
-              </p>
-              <h2 className="mt-3 text-4xl text-espresso md:text-5xl">
+              <h2 className="max-w-xl text-4xl text-espresso sm:text-5xl">
                 {dict.home.servicesHeading}
               </h2>
-              <p className="mt-5 font-light leading-relaxed text-mocha">
+              <p className="mt-5 max-w-xl font-light leading-relaxed text-mocha">
                 {dict.home.servicesIntro}
               </p>
             </Reveal>
           </div>
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
             {dict.home.serviceCards.map((card, i) => (
               <Reveal key={card.title} delay={i * 0.08}>
-                <article className="flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-card">
-                  <div className="relative aspect-[4/3] w-full">
+                <article
+                  className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-espresso/10 bg-white shadow-card transition-transform duration-300 hover:-translate-y-1 ${i === 0 ? "md:row-span-2" : ""} ${i === 3 ? "md:col-span-2 md:grid md:grid-cols-2" : ""}`}
+                >
+                  <div
+                    className={`relative w-full overflow-hidden ${i === 3 ? "aspect-[4/3] md:aspect-auto md:min-h-[13rem]" : "aspect-[4/3]"}`}
+                  >
                     <Image
                       src={CARD_IMAGES[i]}
                       alt={card.title}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-xl text-espresso">{card.title}</h3>
+                  <div className="flex flex-1 flex-col p-5 sm:p-6">
+                    <h3 className="text-2xl text-espresso">{card.title}</h3>
                     <p className="mt-1 text-sm font-medium text-gold">
                       {card.price}
                     </p>
-                    <p className="mt-3 flex-1 text-sm font-light leading-relaxed text-mocha">
+                    <p className="mt-3 max-w-md flex-1 text-sm font-light leading-relaxed text-mocha">
                       {card.body}
                     </p>
-                    <div className="mt-5">
-                      <Button
-                        href={`/${lang}${site.booking}`}
-                        variant="outline"
-                        className="w-full"
-                      >
-                        {dict.cta.bookNow}
-                      </Button>
-                    </div>
                   </div>
                 </article>
               </Reveal>
             ))}
           </div>
+          <Reveal>
+            <div className="mt-8">
+              <Button href={`/${lang}/services`} variant="ghost">
+                {dict.cta.services}
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Why choose us */}
       <WhyChooseUs dict={dict} />
 
       {/* Gallery */}
       <section id="gallery" className="scroll-mt-20">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-          <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-24 lg:px-8">
+          <div className="max-w-2xl">
             <Reveal>
-              <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                {dict.home.galleryEyebrow}
-              </p>
-              <h2 className="mt-3 text-4xl text-espresso md:text-5xl">
+              <h2 className="text-4xl text-espresso sm:text-5xl">
                 {dict.home.galleryHeading}
               </h2>
-              <p className="mt-5 font-light leading-relaxed text-mocha">
+              <p className="mt-5 max-w-xl font-light leading-relaxed text-mocha">
                 {dict.home.galleryIntro}
               </p>
             </Reveal>
           </div>
           <Reveal delay={0.1}>
-            <div className="mt-12">
+            <div className="mt-10">
               <Gallery slides={gallerySlides} />
             </div>
           </Reveal>
           <Reveal>
-            <div className="mt-12 text-center">
+            <div className="mt-8">
               <Button href={`/${lang}/gallery`} variant="ghost">
                 {dict.cta.seeMore}
               </Button>
@@ -291,27 +293,24 @@ export default async function Home({ params }: LangParams) {
         </div>
       </section>
 
-      {/* Reviews / testimonials — white band */}
-      <section id="testimonials" className="scroll-mt-20 bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-          <div className="mx-auto max-w-2xl text-center">
+      {/* Reviews / testimonials */}
+      <section id="testimonials" className="scroll-mt-20 bg-sand">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-24 lg:px-8">
+          <div className="max-w-2xl">
             <Reveal>
-              <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                {dict.reviews.eyebrow}
-              </p>
-              <h2 className="mt-3 text-4xl text-espresso md:text-5xl">
+              <h2 className="text-4xl text-espresso sm:text-5xl">
                 {dict.reviews.headlineMain}
               </h2>
             </Reveal>
             {trust.show && (
               <Reveal delay={0.05}>
                 <div
-                  className="mt-6 flex flex-col items-center gap-2"
+                  className="mt-6 flex items-center gap-3"
                   aria-label={trust.ariaLabel}
                 >
-                  <Stars className="text-gold" />
-                  <p className="text-sm uppercase tracking-wide text-mocha">
-                    {trust.ratingDisplay} / {trust.bestRating} ·{" "}
+                  <Stars className="text-gold [&>svg]:h-5 [&>svg]:w-5" />
+                  <p className="text-sm text-mocha">
+                    {trust.ratingDisplay} / {trust.bestRating},{" "}
                     {dict.reviews.basedOn} {trust.countDisplay}{" "}
                     {dict.reviews.reviewsWord}
                   </p>
@@ -319,31 +318,34 @@ export default async function Home({ params }: LangParams) {
               </Reveal>
             )}
           </div>
-          <div className="mt-12">
+          <div className="mt-10">
             <Testimonials dict={dict} />
           </div>
         </div>
       </section>
 
-      {/* Gift cards */}
       <GiftCards dict={dict} />
 
-      {/* Booking CTA — light band */}
+      {/* Booking CTA */}
       <section id="booking" className="scroll-mt-20 bg-sand">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-24">
+        <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-6 md:py-24">
           <Reveal>
-            <h2 className="text-4xl text-espresso md:text-5xl">
+            <h2 className="text-4xl text-espresso sm:text-5xl">
               {dict.home.bookingHeading}
             </h2>
             <p className="mx-auto mt-5 max-w-xl font-light leading-relaxed text-mocha">
               {dict.home.bookingIntro}
             </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href={`/${lang}${site.booking}`}>
+            <div className="mt-10 grid grid-cols-1 justify-center gap-3 sm:flex sm:flex-row">
+              <Button href={`/${lang}${site.booking}`} className="w-full sm:w-auto">
                 {dict.cta.book}
                 <ArrowIcon />
               </Button>
-              <Button href={site.contact.phoneHref} variant="ghost">
+              <Button
+                href={site.contact.phoneHref}
+                variant="ghost"
+                className="w-full sm:w-auto"
+              >
                 <PhoneIcon />
                 {dict.cta.callNow}
               </Button>
@@ -352,7 +354,6 @@ export default async function Home({ params }: LangParams) {
         </div>
       </section>
 
-      {/* Locations */}
       <LocationsSection dict={dict} locale={lang} cards={salonCards} />
     </>
   );
