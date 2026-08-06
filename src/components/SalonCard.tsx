@@ -60,7 +60,7 @@ export function SalonCard(props: SalonCardProps) {
   const ext = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-card">
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-espresso/10 bg-white shadow-card">
       <div className="relative flex aspect-[16/9] w-full items-center justify-center bg-sand">
         {mapSrc ? (
           <iframe
@@ -106,7 +106,7 @@ export function SalonCard(props: SalonCardProps) {
             {address && (
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wide text-espresso">
-                  📍 {labels.address}
+                  {labels.address}
                 </dt>
                 <dd className="mt-0.5">
                   {address.line1}
@@ -118,7 +118,7 @@ export function SalonCard(props: SalonCardProps) {
             {hours && (
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wide text-espresso">
-                  🕐 {labels.hours}
+                  {labels.hours}
                 </dt>
                 <dd className="mt-0.5">
                   {hours.map((h) => (
@@ -132,7 +132,7 @@ export function SalonCard(props: SalonCardProps) {
             {phone && phoneHref && (
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wide text-espresso">
-                  📞 {labels.phone}
+                  {labels.phone}
                 </dt>
                 <dd className="mt-0.5">
                   <a href={phoneHref} className="hover:text-espresso">
@@ -180,7 +180,7 @@ export function buildSalonCards(
     directionsLocation: loc.name,
     landmark: loc.landmark,
     mapSrc: mapEmbedUrl(loc),
-    mapTitle: `${site.name} — ${loc.name}`,
+            mapTitle: `${site.name}, ${loc.name}`,
     address: { line1: loc.address.line1, line2: loc.address.line2 },
     hours: l.hours,
     phone: loc.phone,

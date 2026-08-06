@@ -79,7 +79,7 @@
       {
         "title": "Soins des pieds",
         "price": "à partir de 35 $",
-        "body": "Soin des pieds dans nos postes de pédicure assainis — mise en forme des ongles, soin des cuticules et résultats impeccables."
+        "body": "Soin des pieds dans nos postes de pédicure assainis, avec mise en forme des ongles, soin des cuticules et résultats impeccables."
       }
     ],
     "galleryEyebrow": "Notre travail",
@@ -95,7 +95,7 @@
   },
   "giftCards": {
     "eyebrow": "Certificats cadeaux",
-    "heading": "Le plaisir d'offrir — certificats cadeaux",
+    "heading": "Le plaisir d'offrir, certificats cadeaux",
     "note": "Les cartes-cadeaux sont non monnayables et non remboursables. • En ligne via Square ou sur place",
     "designs": [
       {
@@ -123,20 +123,20 @@
     "viewAll": "Voir l'adresse",
     "hours": [
       {
-        "label": "Lun – Mer",
-        "value": "9 h 00 – 17 h 30"
+        "label": "Lun - Mer",
+        "value": "9 h 00 - 17 h 30"
       },
       {
-        "label": "Jeu – Ven",
-        "value": "9 h 00 – 21 h 00"
+        "label": "Jeu - Ven",
+        "value": "9 h 00 - 21 h 00"
       },
       {
         "label": "Sam",
-        "value": "9 h 00 – 17 h 00"
+        "value": "9 h 00 - 17 h 00"
       },
       {
         "label": "Dim",
-        "value": "10 h 00 – 17 h 00"
+        "value": "10 h 00 - 17 h 00"
       }
     ],
     "visit": {
@@ -203,7 +203,7 @@
         "author": "Sarah M.",
         "rating": 5,
         "status": "Cliente régulière",
-        "quote": "Le meilleur salon d'ongles où je suis allée — impeccable, professionnel, et les résultats sont toujours magnifiques."
+        "quote": "Le meilleur salon d'ongles où je suis allée. Impeccable, professionnel, et les résultats sont toujours magnifiques."
       },
       {
         "author": "Michelle W.",

@@ -69,7 +69,7 @@
       {
         "title": "Fill",
         "price": "from $45",
-        "body": "Maintain your nail enhancements with a professional refill every 2–3 weeks for a fresh, flawless look."
+        "body": "Maintain your nail enhancements with a professional refill every 2-3 weeks for a fresh, flawless look."
       },
       {
         "title": "Manicure",
@@ -79,7 +79,7 @@
       {
         "title": "Pedicure",
         "price": "from $35",
-        "body": "Foot care in our sanitized pedicure stations — toenail shaping, cuticle care and polished results."
+        "body": "Foot care in our sanitized pedicure stations, with toenail shaping, cuticle care and polished results."
       }
     ],
     "galleryEyebrow": "Our Work",
@@ -95,7 +95,7 @@
   },
   "giftCards": {
     "eyebrow": "Gift Cards",
-    "heading": "Give the Gift of Beautiful Nails",
+    "heading": "Give the gift of beautiful nails",
     "note": "Online via Square or in person • Any amount",
     "designs": [
       {
@@ -123,20 +123,20 @@
     "viewAll": "View Location",
     "hours": [
       {
-        "label": "Mon – Wed",
-        "value": "9:00 AM – 5:30 PM"
+        "label": "Mon - Wed",
+        "value": "9:00 AM - 5:30 PM"
       },
       {
-        "label": "Thu – Fri",
-        "value": "9:00 AM – 9:00 PM"
+        "label": "Thu - Fri",
+        "value": "9:00 AM - 9:00 PM"
       },
       {
         "label": "Sat",
-        "value": "9:00 AM – 5:00 PM"
+        "value": "9:00 AM - 5:00 PM"
       },
       {
         "label": "Sun",
-        "value": "10:00 AM – 5:00 PM"
+        "value": "10:00 AM - 5:00 PM"
       }
     ],
     "visit": {
@@ -203,7 +203,7 @@
         "author": "Sarah M.",
         "rating": 5,
         "status": "Regular Client",
-        "quote": "Best nail salon I’ve ever visited — spotless, professional, and the results are always stunning."
+        "quote": "Best nail salon I’ve ever visited. Spotless, professional, and the results are always stunning."
       },
       {
         "author": "Michelle W.",

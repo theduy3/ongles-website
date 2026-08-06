@@ -91,6 +91,9 @@ owned by **presenters**, not inlined per page.
   bestRating, countDisplay, ariaLabel }`. Distinct from the **R-02 gate**, which governs
   structured-data honesty; the trust signal governs on-page display and simply hides when
   there are no reviews.
+- **Homepage conversion hierarchy** — the homepage should make online booking the clearest
+  next action, while phone calls and walk-ins remain visible alternatives for clients who
+  prefer them. This is a user-facing priority, not a route or tenant-data rule.
 
 ## Routing
 
