@@ -62,6 +62,8 @@ describe("SEO key constraints", () => {
 
 import frDict from "../../dictionaries/fr.json";
 import enDict from "../../dictionaries/en.json";
+import contentBaseFr from "../base/content.fr.json";
+import contentBaseEn from "../base/content.en.json";
 
 describe("mobile CTA labels", () => {
   it("keeps the CTA key structure identical in French and English", () => {
@@ -75,6 +77,19 @@ describe("mobile CTA labels", () => {
     expect(enDict.cta.callNowShort).toBe("Call Now");
     expect(enDict.cta.bookNowShort).toBe("Book Now");
     expect(enDict.cta.directionsShort).toBe("Directions");
+  });
+
+  it("keeps runtime base CTA key structure identical in French and English", () => {
+    expect(keyPaths(contentBaseFr.cta)).toEqual(keyPaths(contentBaseEn.cta));
+  });
+
+  it("defines non-empty compact labels in runtime base content", () => {
+    expect(contentBaseFr.cta.callNowShort).toBe("Appeler");
+    expect(contentBaseFr.cta.bookNowShort).toBe("Réserver");
+    expect(contentBaseFr.cta.directionsShort).toBe("Itinéraire");
+    expect(contentBaseEn.cta.callNowShort).toBe("Call Now");
+    expect(contentBaseEn.cta.bookNowShort).toBe("Book Now");
+    expect(contentBaseEn.cta.directionsShort).toBe("Directions");
   });
 });
 
