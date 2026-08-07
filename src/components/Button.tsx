@@ -28,7 +28,7 @@ export function Button({
   variant = "solid",
   className = "",
 }: Props) {
-  const classes = `inline-flex items-center justify-center gap-2 rounded-pill px-9 py-3.5 text-sm font-medium uppercase tracking-wide transition-colors ${variants[variant]} ${className}`;
+  const classes = `inline-flex whitespace-nowrap items-center justify-center gap-2 rounded-pill px-9 py-3.5 text-sm font-medium uppercase tracking-wide transition-[background-color,border-color,color,transform] duration-300 hover:-translate-y-0.5 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${variants[variant]} ${className}`;
 
   const isHttp = /^https?:\/\//.test(href);
   const isExternalScheme = /^(tel:|mailto:)/.test(href);
