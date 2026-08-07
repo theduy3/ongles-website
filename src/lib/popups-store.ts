@@ -6,7 +6,7 @@ import {
   POPUPS_TABLE,
   POPUP_IMAGES_BUCKET,
 } from "@/lib/supabase";
-import { parseWithSchema, type StoreResult } from "@/lib/tenant-store";
+import { parseWithSchema, readPublicOrNull, type StoreResult } from "@/lib/tenant-store";
 
 // Data access for popups stored in Supabase. Each row is
 // { id, doc, updated_at, tenant_id } where `doc` is the full popup object — we
@@ -33,10 +33,12 @@ export function parseRows(rows: Row[]): Popup[] {
 export async function readPopups(): Promise<Popup[] | null> {
   const client = getSupabasePublic();
   if (!client) return null;
-  const { data, error } = await client
-    .from(POPUPS_TABLE)
-    .select("id, doc")
-    .eq("tenant_id", tenant.id);
+  const res = await readPublicOrNull("popups", () =>
+    client.from(POPUPS_TABLE).select("id, doc").eq("tenant_id", tenant.id),
+  );
+  if (!res) return null;
+
+  const { data, error } = res;
   if (error) {
     console.error("[popups-store] read failed:", error.message);
     return null;

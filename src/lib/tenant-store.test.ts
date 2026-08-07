@@ -1,6 +1,6 @@
 import { describe, expect, it, spyOn } from "bun:test";
 import { z } from "zod";
-import { parseWithSchema } from "@/lib/tenant-store";
+import { parseWithSchema, readPublicOrNull } from "@/lib/tenant-store";
 
 const Schema = z.object({ id: z.string(), price: z.number() });
 
@@ -29,6 +29,22 @@ describe("parseWithSchema", () => {
       expect(() => parseWithSchema(Schema, undefined, "malformed")).not.toThrow();
     } finally {
       errorSpy.mockRestore();
+    }
+  });
+});
+
+describe("readPublicOrNull", () => {
+  it("converts a rejected public read into null for static fallback", async () => {
+    const spy = spyOn(console, "error").mockImplementation(() => {});
+    try {
+      const result = await readPublicOrNull("store-settings", async () => {
+        throw new Error("Supabase timed out");
+      });
+
+      expect(result).toBeNull();
+      expect(spy).toHaveBeenCalled();
+    } finally {
+      spy.mockRestore();
     }
   });
 });
