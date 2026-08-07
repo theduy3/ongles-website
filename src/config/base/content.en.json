@@ -16,15 +16,18 @@
   "cta": {
     "book": "Book Online",
     "callNow": "Call to Book",
+    "callNowShort": "Call Now",
     "learnMore": "Learn More",
     "services": "View All Services",
     "viewServices": "View Services",
     "send": "Send",
     "sending": "Sending…",
     "bookNow": "Book Now",
+    "bookNowShort": "Book Now",
     "buyGiftCard": "Buy a Gift Card",
     "seeMore": "See More Designs",
     "getDirections": "Get Directions",
+    "directionsShort": "Directions",
     "join": "Join"
   },
   "hero": {

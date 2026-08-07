@@ -63,6 +63,21 @@ describe("SEO key constraints", () => {
 import frDict from "../../dictionaries/fr.json";
 import enDict from "../../dictionaries/en.json";
 
+describe("mobile CTA labels", () => {
+  it("keeps the CTA key structure identical in French and English", () => {
+    expect(keyPaths(frDict.cta)).toEqual(keyPaths(enDict.cta));
+  });
+
+  it("defines non-empty compact labels in both locales", () => {
+    expect(frDict.cta.callNowShort).toBe("Appeler");
+    expect(frDict.cta.bookNowShort).toBe("Réserver");
+    expect(frDict.cta.directionsShort).toBe("Itinéraire");
+    expect(enDict.cta.callNowShort).toBe("Call Now");
+    expect(enDict.cta.bookNowShort).toBe("Book Now");
+    expect(enDict.cta.directionsShort).toBe("Directions");
+  });
+});
+
 describe("F-02: dictionaries faq.items FR/EN parity", () => {
   it("fr and en dictionaries have identical faq top-level key structure", () => {
     expect(keyPaths(frDict.faq)).toEqual(keyPaths(enDict.faq));

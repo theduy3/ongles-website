@@ -16,15 +16,18 @@
   "cta": {
     "book": "Réserver en ligne",
     "callNow": "Appeler pour réserver",
+    "callNowShort": "Appeler",
     "learnMore": "En savoir plus",
     "services": "Voir tous les services",
     "viewServices": "Voir les services",
     "send": "Envoyer",
     "sending": "Envoi en cours…",
     "bookNow": "Réservez dès maintenant!",
+    "bookNowShort": "Réserver",
     "buyGiftCard": "Acheter un certificat cadeau",
     "seeMore": "Voir plus de designs",
     "getDirections": "Obtenir l'itinéraire",
+    "directionsShort": "Itinéraire",
     "join": "S'abonner"
   },
   "hero": {
