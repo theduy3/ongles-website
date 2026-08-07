@@ -1,5 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { mapLink, bookerServiceMenu, locations } from "@/lib/locations";
+import {
+  mapDirectionsLink,
+  mapLink,
+  bookerServiceMenu,
+  locations,
+} from "@/lib/locations";
 import { site as staticSite } from "@/config";
 import type { TenantSite } from "@/config/types";
 
@@ -25,6 +30,36 @@ describe("mapLink — dependency injection", () => {
     const link = decodeURIComponent(mapLink(loc, injectedSite));
     expect(link).toContain("Z Salon");
     expect(link).not.toContain(staticSite.name);
+  });
+});
+
+describe("mapDirectionsLink — dependency injection and fallback", () => {
+  it("builds a Google Maps directions URL for the static tenant location", () => {
+    const destination =
+      staticSite.name + " " + loc.name + ", " +
+      loc.address.street + ", " + loc.address.line2;
+
+    expect(mapDirectionsLink(loc)).toBe(
+      "https://www.google.com/maps/dir/?api=1&destination=" +
+        encodeURIComponent(destination),
+    );
+  });
+
+  it("uses an injected tenant name in the destination", () => {
+    const decoded = decodeURIComponent(mapDirectionsLink(loc, injectedSite));
+    expect(decoded).toContain("Z Salon");
+    expect(decoded).not.toContain(staticSite.name);
+  });
+
+  it("falls back to the injected contact address without undefined values", () => {
+    const link = mapDirectionsLink(undefined, injectedSite);
+    expect(link).toContain(
+      "https://www.google.com/maps/dir/?api=1&destination=",
+    );
+    expect(decodeURIComponent(link)).toContain(
+      injectedSite.contact.address.street,
+    );
+    expect(link).not.toContain("undefined");
   });
 });
 

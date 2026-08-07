@@ -36,3 +36,17 @@ export function mapLink(loc: Location, s: TenantSite = site): string {
   );
 }
 
+/** Google Maps directions link for a location or the tenant's contact address. */
+export function mapDirectionsLink(
+  loc: Location | undefined,
+  s: TenantSite = site,
+): string {
+  const destination = loc
+    ? s.name + " " + loc.name + ", " +
+      loc.address.street + ", " + loc.address.line2
+    : s.name + ", " + s.contact.address.street + ", " +
+      s.contact.address.line2;
+
+  return "https://www.google.com/maps/dir/?api=1&destination=" +
+    encodeURIComponent(destination);
+}
