@@ -39,7 +39,10 @@ test.describe("floating CTA responsive behavior", () => {
     await expect(desktop).toBeVisible();
     await expect(
       desktop.getByRole("link", { name: "Book Online" }),
-    ).toBeVisible();
+    ).toHaveAttribute("href", "/en/book-online");
+    await expect(
+      desktop.getByRole("link", { name: "Call to Book" }),
+    ).toHaveAttribute("href", "tel:+14186608228");
     await expect(page.getByTestId("floating-cta-mobile")).toBeHidden();
   });
 
