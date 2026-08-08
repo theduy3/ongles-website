@@ -8,6 +8,8 @@
 
 **Tech Stack:** Next.js 16.2.6 App Router, React 19.2.4, Tailwind CSS v4, TypeScript 5, Bun test, Playwright.
 
+**Status:** Implemented and verified on 2026-08-08 in 'codex/supabase-public-read-timeout-only'.
+
 ## Global Constraints
 
 - The mobile dock is visible below the existing md breakpoint on every public locale page except the locale-prefixed booking route.
@@ -45,7 +47,7 @@
 - A location destination is the active site name, location name, street, and line2.
 - When loc is undefined, the fallback destination uses the active site's contact address.
 
-- [ ] Step 1: Write the failing helper tests.
+- [x] Step 1: Write the failing helper tests.
 
 Extend the existing locations test imports with mapDirectionsLink. Add a suite that checks the exact encoded destination and dependency injection:
 
@@ -81,13 +83,13 @@ describe("mapDirectionsLink — dependency injection and fallback", () => {
 });
 ```
 
-- [ ] Step 2: Run the focused test and confirm it fails for the missing export.
+- [x] Step 2: Run the focused test and confirm it fails for the missing export.
 
 Run: bun test src/lib/locations.test.ts
 
 Expected: FAIL because mapDirectionsLink is not exported yet.
 
-- [ ] Step 3: Implement the pure helper in src/lib/locations.ts.
+- [x] Step 3: Implement the pure helper in src/lib/locations.ts.
 
 Add the helper beside mapLink and keep the existing one-argument default-site behavior. Reuse the
 `hasCompleteDirectionsLocation` guard before reading runtime location fields so incomplete data
@@ -109,13 +111,13 @@ export function mapDirectionsLink(
 }
 ```
 
-- [ ] Step 4: Run the focused test and confirm it passes.
+- [x] Step 4: Run the focused test and confirm it passes.
 
 Run: bun test src/lib/locations.test.ts
 
 Expected: PASS, including the existing mapLink and bookerServiceMenu tests.
 
-- [ ] Step 5: Commit the helper.
+- [x] Step 5: Commit the helper.
 
 ```
 git add src/lib/locations.ts src/lib/locations.test.ts
@@ -135,7 +137,7 @@ git commit -m "feat: add tenant-aware maps directions helper"
 - Adds Dictionary["cta"].callNowShort, bookNowShort, and directionsShort.
 - Runtime layered content and the canonical Dictionary type expose the same three keys in both locales.
 
-- [ ] Step 1: Add a failing parity and value test.
+- [x] Step 1: Add a failing parity and value test.
 
 In the existing dictionary import section of src/config/seo/seo-parity.test.ts, add:
 
@@ -156,13 +158,13 @@ describe("mobile CTA labels", () => {
 });
 ```
 
-- [ ] Step 2: Run the focused parity test and confirm it fails.
+- [x] Step 2: Run the focused parity test and confirm it fails.
 
 Run: bun test src/config/seo/seo-parity.test.ts
 
 Expected: FAIL because the six new leaf keys do not exist yet.
 
-- [ ] Step 3: Add the three keys to all four locale JSON sources.
+- [x] Step 3: Add the three keys to all four locale JSON sources.
 
 Add these English entries inside each English cta object:
 
@@ -182,13 +184,13 @@ Add these French entries inside each French cta object:
 
 Do not replace existing book, callNow, bookNow, or getDirections copy; those keys serve existing desktop and page-level CTAs.
 
-- [ ] Step 4: Run the focused parity test and confirm it passes.
+- [x] Step 4: Run the focused parity test and confirm it passes.
 
 Run: bun test src/config/seo/seo-parity.test.ts
 
 Expected: PASS, including all existing SEO, FAQ, and locale parity suites.
 
-- [ ] Step 5: Commit the labels.
+- [x] Step 5: Commit the labels.
 
 ```
 git add src/config/seo/seo-parity.test.ts src/config/base/content.en.json src/config/base/content.fr.json src/dictionaries/en.json src/dictionaries/fr.json
@@ -208,7 +210,7 @@ git commit -m "feat: add localized mobile CTA labels"
 - FloatingCTA passes mapDirectionsLink(locations[0], site) and the locale-prefixed site.booking path.
 - Reuses makeCallClickHandler, makeBookClickHandler, and makeDirectionsClickHandler for both responsive variants.
 
-- [ ] Step 1: Write failing route-normalization tests.
+- [x] Step 1: Write failing route-normalization tests.
 
 Import isBookingPath from the component test and add:
 
@@ -226,13 +228,13 @@ describe("isBookingPath()", () => {
 });
 ```
 
-- [ ] Step 2: Run the focused component test and confirm it fails.
+- [x] Step 2: Run the focused component test and confirm it fails.
 
 Run: bun test src/components/FloatingCTAButtons.test.tsx
 
 Expected: FAIL because isBookingPath is not exported yet; existing event-handler tests remain the regression baseline.
 
-- [ ] Step 3: Add the path helper, client props, and directions handler wiring.
+- [x] Step 3: Add the path helper, client props, and directions handler wiring.
 
 Import usePathname from next/navigation and makeDirectionsClickHandler from ./DirectionsLink. Add the new fields to the existing props type:
 
@@ -270,7 +272,7 @@ export function isBookingPath(
 
 Inside FloatingCTAButtons, call usePathname and return null when isBookingPath(pathname, bookingPath) is true. Keep the existing call and book handler factories; call makeDirectionsClickHandler(salonLocation) for the mobile Directions anchor.
 
-- [ ] Step 4: Render the desktop and mobile variants from the same resolved props.
+- [x] Step 4: Render the desktop and mobile variants from the same resolved props.
 
 Make the client island own its positioning wrappers:
 
@@ -283,7 +285,7 @@ Make the client island own its positioning wrappers:
 
 Use the existing espresso, mocha, cream, beige, sand, and gold design tokens. Keep icon SVGs inline and mark every decorative SVG aria-hidden.
 
-- [ ] Step 5: Wire the server component in the same task.
+- [x] Step 5: Wire the server component in the same task.
 
 Update src/components/FloatingCTA.tsx to import mapDirectionsLink, remove the fixed bottom-right parent wrapper, and pass the complete prop set:
 
@@ -309,13 +311,13 @@ return (
 
 This replaces the current hard-coded /{locale}/book-online value while preserving existing desktop labels and the active tenant phone.
 
-- [ ] Step 6: Run focused tests and confirm the combined client/server contract passes.
+- [x] Step 6: Run focused tests and confirm the combined client/server contract passes.
 
 Run: bun test src/components/FloatingCTAButtons.test.tsx
 
 Expected: PASS for the route guard, existing Book and Call analytics tests, and SSR/pre-consent no-op tests.
 
-- [ ] Step 7: Commit the complete CTA implementation.
+- [x] Step 7: Commit the complete CTA implementation.
 
 ```
 git add src/components/FloatingCTA.tsx src/components/FloatingCTAButtons.tsx src/components/FloatingCTAButtons.test.tsx
@@ -331,7 +333,7 @@ git commit -m "feat: add booking-focused mobile CTA dock"
 - Browser tests select data-testid="floating-cta-mobile" and data-testid="floating-cta-desktop".
 - The mobile test viewport is 390 by 844; the desktop test viewport is 1280 by 800.
 
-- [ ] Step 1: Create e2e/floating-cta.spec.ts with the responsive behavior cases.
+- [x] Step 1: Create e2e/floating-cta.spec.ts with the responsive behavior cases.
 
 ```
 import { test, expect } from "@playwright/test";
@@ -391,13 +393,13 @@ test.describe("floating CTA responsive behavior", () => {
 });
 ```
 
-- [ ] Step 2: Run the focused browser spec.
+- [x] Step 2: Run the focused browser spec.
 
 Run: bunx playwright test e2e/floating-cta.spec.ts
 
 Expected: PASS for mobile visibility, tenant-specific hrefs, booking-route exclusion, desktop preservation, and footer clearance.
 
-- [ ] Step 3: Commit the browser coverage.
+- [x] Step 3: Commit the browser coverage.
 
 ```
 git add e2e/floating-cta.spec.ts
@@ -409,25 +411,25 @@ git commit -m "test: cover responsive floating CTA behavior"
 **Files:**
 - No source changes expected; inspect the complete diff and test results.
 
-- [ ] Step 1: Run all unit and component tests.
+- [x] Step 1: Run all unit and component tests.
 
 Run: bun test src/
 
 Expected: PASS with no locale-parity, analytics, map-helper, or route-guard regressions.
 
-- [ ] Step 2: Run lint.
+- [x] Step 2: Run lint.
 
 Run: npm run lint
 
 Expected: PASS with no React, Next.js, accessibility, or Tailwind class errors.
 
-- [ ] Step 3: Run the full production browser suite.
+- [x] Step 3: Run the full production browser suite.
 
 Run: npm run test:e2e
 
 Expected: PASS with the new floating CTA suite and all existing production-build browser tests.
 
-- [ ] Step 4: Inspect the final diff and working tree.
+- [x] Step 4: Inspect the final diff and working tree.
 
 Run:
 
@@ -439,7 +441,7 @@ git status --short
 
 Expected: only the planned CTA, helper, locale, test, and e2e files are committed; no production secrets or unrelated changes are present.
 
-- [ ] Step 5: Run the production build once more if the browser suite reused an existing server.
+- [x] Step 5: Run the production build once more if the browser suite reused an existing server.
 
 Run: npm run build
 
