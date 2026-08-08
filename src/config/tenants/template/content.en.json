@@ -4,7 +4,7 @@
     "alt": "Professional nail enhancements and manicure at Your Salon"
   },
   "home": {
-    "bookingIntro": "Book online or walk in — we welcome both. Experience the Your Salon difference."
+    "bookingIntro": "Book online or walk in. We welcome both. Experience the Your Salon difference."
   },
   "whyChooseUs": {
     "eyebrow": "The Your Salon Difference",
@@ -12,7 +12,7 @@
       {
         "icon": "✨",
         "title": "Hygiene First",
-        "body": "Dedicated disinfection stations. Every tool is disinfected after each use — your safety is our top priority."
+        "body": "Dedicated disinfection stations. Every tool is disinfected after each use. Your safety is our top priority."
       },
       {
         "icon": "🛡️",
@@ -32,14 +32,14 @@
     ]
   },
   "giftCards": {
-    "description": "Treat someone special to a professional nail care experience at Your Salon. Purchase a gift card online for any amount, delivered by email — or buy one in person at the salon."
+    "description": "Treat someone special to a professional nail care experience at Your Salon. Purchase a gift card online for any amount, delivered by email, or buy one in person at the salon."
   },
   "locations": {
-    "intro": "Your Salon is conveniently located. Walk in or book ahead — we're happy to see you.",
+    "intro": "Your Salon is conveniently located. Walk in or book ahead. We're happy to see you.",
     "visit": {
       "gettingHere": "Your Salon is easy to reach. Parking is available nearby. The venue is fully accessible and served by public transit."
     },
-    "salonsIntro": "Find Your Salon at our location. Walk in or book online — we're happy to see you."
+    "salonsIntro": "Find Your Salon at our location. Walk in or book online. We're happy to see you."
   },
   "about": {
     "heading": "About Your Salon",
@@ -54,11 +54,11 @@
     ]
   },
   "bookOnline": {
-    "intro": "Reserve your appointment at Your Salon. Choose your service and book in seconds — or simply walk in.",
+    "intro": "Reserve your appointment at Your Salon. Choose your service and book in seconds, or simply walk in.",
     "steps": [
       {
         "title": "Choose your service",
-        "body": "Nail enhancements, fills, manicures or pedicures — pick what suits you."
+        "body": "Nail enhancements, fills, manicures or pedicures. Pick what suits you."
       },
       {
         "title": "Book in seconds",
