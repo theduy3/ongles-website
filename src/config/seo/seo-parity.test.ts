@@ -62,6 +62,36 @@ describe("SEO key constraints", () => {
 
 import frDict from "../../dictionaries/fr.json";
 import enDict from "../../dictionaries/en.json";
+import contentBaseFr from "../base/content.fr.json";
+import contentBaseEn from "../base/content.en.json";
+
+describe("mobile CTA labels", () => {
+  it("keeps the CTA key structure identical in French and English", () => {
+    expect(keyPaths(frDict.cta)).toEqual(keyPaths(enDict.cta));
+  });
+
+  it("defines non-empty compact labels in both locales", () => {
+    expect(frDict.cta.callNowShort).toBe("Appeler");
+    expect(frDict.cta.bookNowShort).toBe("Réserver");
+    expect(frDict.cta.directionsShort).toBe("Itinéraire");
+    expect(enDict.cta.callNowShort).toBe("Call Now");
+    expect(enDict.cta.bookNowShort).toBe("Book Now");
+    expect(enDict.cta.directionsShort).toBe("Directions");
+  });
+
+  it("keeps runtime base CTA key structure identical in French and English", () => {
+    expect(keyPaths(contentBaseFr.cta)).toEqual(keyPaths(contentBaseEn.cta));
+  });
+
+  it("defines non-empty compact labels in runtime base content", () => {
+    expect(contentBaseFr.cta.callNowShort).toBe("Appeler");
+    expect(contentBaseFr.cta.bookNowShort).toBe("Réserver");
+    expect(contentBaseFr.cta.directionsShort).toBe("Itinéraire");
+    expect(contentBaseEn.cta.callNowShort).toBe("Call Now");
+    expect(contentBaseEn.cta.bookNowShort).toBe("Book Now");
+    expect(contentBaseEn.cta.directionsShort).toBe("Directions");
+  });
+});
 
 describe("F-02: dictionaries faq.items FR/EN parity", () => {
   it("fr and en dictionaries have identical faq top-level key structure", () => {
