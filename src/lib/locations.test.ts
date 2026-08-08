@@ -6,7 +6,7 @@ import {
   locations,
 } from "@/lib/locations";
 import { site as staticSite } from "@/config";
-import type { TenantSite } from "@/config/types";
+import type { Location, TenantSite } from "@/config/types";
 
 const loc = locations[0];
 
@@ -58,6 +58,47 @@ describe("mapDirectionsLink — dependency injection and fallback", () => {
     );
     expect(decodeURIComponent(link)).toContain(
       injectedSite.contact.address.street,
+    );
+    expect(link).not.toContain("undefined");
+  });
+
+  it("falls back when the location destination fields are blank", () => {
+    const blankLocation = {
+      ...loc,
+      name: "  ",
+      address: {
+        ...loc.address,
+        street: "",
+        line2: "\t",
+      },
+    };
+    const fallbackDestination =
+      injectedSite.name + ", " + injectedSite.contact.address.street + ", " +
+      injectedSite.contact.address.line2;
+
+    const link = mapDirectionsLink(blankLocation, injectedSite);
+
+    expect(link).toBe(
+      "https://www.google.com/maps/dir/?api=1&destination=" +
+        encodeURIComponent(fallbackDestination),
+    );
+    expect(link).not.toContain("undefined");
+  });
+
+  it("falls back when a runtime location is structurally incomplete", () => {
+    const incompleteLocation = {
+      ...loc,
+      address: undefined,
+    } as unknown as Location;
+    const fallbackDestination =
+      injectedSite.name + ", " + injectedSite.contact.address.street + ", " +
+      injectedSite.contact.address.line2;
+
+    const link = mapDirectionsLink(incompleteLocation, injectedSite);
+
+    expect(link).toBe(
+      "https://www.google.com/maps/dir/?api=1&destination=" +
+        encodeURIComponent(fallbackDestination),
     );
     expect(link).not.toContain("undefined");
   });

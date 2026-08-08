@@ -36,12 +36,26 @@ export function mapLink(loc: Location, s: TenantSite = site): string {
   );
 }
 
+function hasCompleteDirectionsLocation(
+  loc: Location | undefined,
+): loc is Location {
+  return Boolean(
+    loc &&
+    typeof loc.name === "string" &&
+    loc.name.trim() &&
+    typeof loc.address?.street === "string" &&
+    loc.address.street.trim() &&
+    typeof loc.address?.line2 === "string" &&
+    loc.address.line2.trim(),
+  );
+}
+
 /** Google Maps directions link for a location or the tenant's contact address. */
 export function mapDirectionsLink(
   loc: Location | undefined,
   s: TenantSite = site,
 ): string {
-  const destination = loc
+  const destination = hasCompleteDirectionsLocation(loc)
     ? s.name + " " + loc.name + ", " +
       loc.address.street + ", " + loc.address.line2
     : s.name + ", " + s.contact.address.street + ", " +
