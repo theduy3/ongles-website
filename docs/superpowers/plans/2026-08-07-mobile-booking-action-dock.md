@@ -89,14 +89,16 @@ Expected: FAIL because mapDirectionsLink is not exported yet.
 
 - [ ] Step 3: Implement the pure helper in src/lib/locations.ts.
 
-Add the helper beside mapLink and keep the existing one-argument default-site behavior:
+Add the helper beside mapLink and keep the existing one-argument default-site behavior. Reuse the
+`hasCompleteDirectionsLocation` guard before reading runtime location fields so incomplete data
+uses the tenant contact-address fallback:
 
 ```
 export function mapDirectionsLink(
   loc: Location | undefined,
   s: TenantSite = site,
 ): string {
-  const destination = loc
+  const destination = hasCompleteDirectionsLocation(loc)
     ? s.name + " " + loc.name + ", " +
       loc.address.street + ", " + loc.address.line2
     : s.name + ", " + s.contact.address.street + ", " +
