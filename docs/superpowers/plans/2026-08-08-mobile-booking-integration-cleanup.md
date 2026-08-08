@@ -8,6 +8,8 @@
 
 **Tech Stack:** Git, Next.js 16.2.6 App Router, React 19.2.4, TypeScript 5, Bun 1.3.14, ESLint 9, Playwright 1.60, Tailwind CSS v4.
 
+**Status:** Implemented and verified on 2026-08-08 in 'codex/supabase-public-read-timeout-only'.
+
 ## Global Constraints
 
 - Target branch is 'codex/supabase-public-read-timeout-only' at '95f3a15'; preserve its existing public Supabase read-timeout fix from '105b703'.
@@ -52,7 +54,7 @@ The following source-branch files must remain absent from the target diff: 'src/
 - Consumes: target '95f3a15', source '1fe8440', and the commit list below.
 - Produces: a verified selective-cherry-pick set that contains the mobile CTA only.
 
-- [ ] **Step 1: Confirm both worktrees are clean before making changes.**
+- [x] **Step 1: Confirm both worktrees are clean before making changes.**
 
 Run:
 
@@ -63,7 +65,7 @@ git -C /Users/theduy/Repo/ongles-website/.worktrees/mobile-booking-action-dock s
 
 Expected: the target reports 'codex/supabase-public-read-timeout-only' with only the known untracked '.codegraph/' and '.superpowers/' directories; the source reports 'codex/mobile-booking-action-dock' with no changes.
 
-- [ ] **Step 2: Verify the source branch's extra commits and their scopes.**
+- [x] **Step 2: Verify the source branch's extra commits and their scopes.**
 
 Run:
 
@@ -74,7 +76,7 @@ git -C /Users/theduy/Repo/ongles-website diff --name-status 95f3a15..codex/mobil
 
 Expected: the source contains the CTA commits '7899613', 'a87e69c', '1810f14', 'e13cb20', '886df2a', 'f7b8862', 'fe3e251', and plan commit '1fe8440', plus the excluded homepage/duplicate-timeout history. The diff includes homepage files and 'public/images/home/hygiene-detail.png', confirming that a wholesale merge is out of scope.
 
-- [ ] **Step 3: Record the exact feature commit order for cherry-picking.**
+- [x] **Step 3: Record the exact feature commit order for cherry-picking.**
 
 Use this order because each commit builds on the previous CTA contract:
 
@@ -103,7 +105,7 @@ Do not include the merge commit 'daccf1c', because it imports the unrelated home
 - Keeps 'CONSENT_KEY', 'getStoredConsent', and 'buildConsentUpdate' signatures unchanged.
 - Keeps 'ConsentBanner({ measurementId, dict }: ConsentBannerProps)' unchanged for its callers.
 
-- [ ] **Step 1: Add failing pure tests for the consent-visibility decision.**
+- [x] **Step 1: Add failing pure tests for the consent-visibility decision.**
 
 Add this suite to 'src/components/ConsentBanner.test.tsx':
 
@@ -134,7 +136,7 @@ describe("shouldShowConsent()", () => {
 
 Import 'shouldShowConsent' with the existing 'CONSENT_KEY', 'getStoredConsent', and 'buildConsentUpdate' imports.
 
-- [ ] **Step 2: Run the focused test and confirm the new contract fails.**
+- [x] **Step 2: Run the focused test and confirm the new contract fails.**
 
 Run:
 
@@ -145,7 +147,7 @@ bun test src/components/ConsentBanner.test.tsx
 
 Expected: FAIL because 'shouldShowConsent' is not exported yet; the existing helper tests remain the regression baseline.
 
-- [ ] **Step 3: Move consent visibility out of the synchronous effect.**
+- [x] **Step 3: Move consent visibility out of the synchronous effect.**
 
 In 'src/components/ConsentBanner.tsx', make these exact changes:
 
@@ -265,7 +267,7 @@ function decline() {
 
 This removes the 'fireConsentUpdate' declaration-after-use error and the synchronous 'setShow(true)' effect error while preserving SSR output, storage-failure fallback, and click behavior.
 
-- [ ] **Step 4: Run the focused tests and file-level lint.**
+- [x] **Step 4: Run the focused tests and file-level lint.**
 
 Run:
 
@@ -277,7 +279,7 @@ npx eslint src/components/ConsentBanner.tsx
 
 Expected: all ConsentBanner tests pass and ESLint reports no errors for the component.
 
-- [ ] **Step 5: Run the source regression gate and commit the isolated fix on the source branch.**
+- [x] **Step 5: Run the source regression gate and commit the isolated fix on the source branch.**
 
 Run:
 
@@ -306,7 +308,7 @@ git commit -m "fix: satisfy consent banner lint rules"
 - Consumes: the seven CTA commits, '1fe8440', and the new 'fix: satisfy consent banner lint rules' commit.
 - Produces: target branch history containing the mobile dock and lint fix but not '6cbf49' or 'ba71358'.
 
-- [ ] **Step 1: Confirm the target worktree is ready for cherry-picks.**
+- [x] **Step 1: Confirm the target worktree is ready for cherry-picks.**
 
 Run from '/Users/theduy/Repo/ongles-website':
 
@@ -318,7 +320,7 @@ git rev-parse HEAD
 
 Expected: branch 'codex/supabase-public-read-timeout-only', 'HEAD' '95f3a15ecc4e08a964c9924d18133a66697bae42', and only '.codegraph/' and '.superpowers/' shown as untracked. Do not stage those directories.
 
-- [ ] **Step 2: Cherry-pick the feature commits in dependency order.**
+- [x] **Step 2: Cherry-pick the feature commits in dependency order.**
 
 Run:
 
@@ -335,7 +337,7 @@ git cherry-pick "$LINT_COMMIT"
 
 Expected: each cherry-pick applies without importing the source branch's homepage redesign. If a conflict occurs, stop the sequence, inspect the conflict, and run 'git cherry-pick --abort' before retrying with the exact CTA commit set; do not resolve a conflict by taking an entire branch side.
 
-- [ ] **Step 3: Verify the integrated file scope before running broad tests.**
+- [x] **Step 3: Verify the integrated file scope before running broad tests.**
 
 Run:
 
@@ -365,7 +367,7 @@ src/lib/locations.ts
 
 The final diff may also contain '.gitignore' after Task 4. It must not contain 'src/app/[lang]/page.tsx', 'public/images/home/hygiene-detail.png', or the homepage component/config files listed in the Scope and File Map section.
 
-- [ ] **Step 4: Run the focused integration tests.**
+- [x] **Step 4: Run the focused integration tests.**
 
 Run:
 
@@ -385,7 +387,7 @@ Expected: the ConsentBanner, route-guard, directions, analytics no-op, and FR/EN
 - Produces: repository-root ignore rules for machine-local Codex and Superpowers state.
 - Preserves: the recoverable local database, brainstorm previews, port markers, and server state.
 
-- [ ] **Step 1: Confirm neither tooling directory is tracked.**
+- [x] **Step 1: Confirm neither tooling directory is tracked.**
 
 Run:
 
@@ -395,7 +397,7 @@ git ls-files .codegraph .superpowers
 
 Expected: no output. The directories currently contain '.codegraph/codegraph.db' and '.superpowers/brainstorm/**', all of which are local generated state.
 
-- [ ] **Step 2: Add narrow root-level ignore rules.**
+- [x] **Step 2: Add narrow root-level ignore rules.**
 
 Append this block to '.gitignore' after the existing scratch-research rules:
 
@@ -408,7 +410,7 @@ Append this block to '.gitignore' after the existing scratch-research rules:
 
 Do not add a broad rule for all hidden directories and do not delete the existing local files.
 
-- [ ] **Step 3: Verify the artifacts no longer pollute Git status.**
+- [x] **Step 3: Verify the artifacts no longer pollute Git status.**
 
 Run:
 
@@ -434,7 +436,7 @@ git commit -m "chore: ignore local agent tooling state"
 - Consumes: the integrated target branch.
 - Produces: a clean, locally verified target with the original feature plan marked complete.
 
-- [ ] **Step 1: Run all source tests with the repository's scoped command.**
+- [x] **Step 1: Run all source tests with the repository's scoped command.**
 
 Run:
 
@@ -444,7 +446,7 @@ bun test src/
 
 Expected: 689 passing tests, zero failures, and no Playwright files loaded by Bun.
 
-- [ ] **Step 2: Run the full lint gate.**
+- [x] **Step 2: Run the full lint gate.**
 
 Run:
 
@@ -454,7 +456,7 @@ npm run lint
 
 Expected: exit code 0, no generated '.worktrees/**' diagnostics, no 'ConsentBanner.tsx' errors, and only the four pre-existing unused-variable warnings listed in Task 2.
 
-- [ ] **Step 3: Run the full production browser suite.**
+- [x] **Step 3: Run the full production browser suite.**
 
 Run:
 
@@ -464,7 +466,7 @@ bunx playwright test
 
 Expected: exit code 0 with all non-skipped specs passing, including all four 'e2e/floating-cta.spec.ts' cases. The previously verified source branch produced 69 passed and 3 skipped; the target must preserve that clean result even if the exact count changes after selective integration. The Playwright web server builds the production app before running tests; allow the documented Google Fonts network fetch if the sandbox blocks it.
 
-- [ ] **Step 4: Build every live tenant sequentially.**
+- [x] **Step 4: Build every live tenant sequentially.**
 
 Run each command in order so the shared '.next/' output cannot race:
 
@@ -476,7 +478,7 @@ TENANT=ongles-rivieres bun run build
 
 Expected for each tenant: successful compilation, TypeScript completion, and generation of all 15 static pages.
 
-- [ ] **Step 5: Inspect the final diff and working tree.**
+- [x] **Step 5: Inspect the final diff and working tree.**
 
 Run:
 
@@ -488,7 +490,7 @@ git log --format='%h %s' -14
 
 Expected: no whitespace errors, no untracked tooling directories, only the selected CTA/ConsentBanner/ESLint-ignore/docs files in the target diff, and no homepage redesign commit in the target history.
 
-- [ ] **Step 6: Mark the original feature plan complete.**
+- [x] **Step 6: Mark the original feature plan complete.**
 
 After every preceding gate passes, use apply_patch on 'docs/superpowers/plans/2026-08-07-mobile-booking-action-dock.md' to:
 
