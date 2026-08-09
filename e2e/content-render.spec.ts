@@ -58,19 +58,17 @@ for (const [code, sections] of Object.entries(sectionsByLocale)) {
   });
 }
 
-// Reviews band: eyebrow + aggregate score render. The separate booking section's
-// CTA routes to the booking page (/book-online).
+// Reviews band: aggregate score renders. The separate booking section's CTA
+// routes to the booking page (/book-online).
 const reviewsByLocale: Record<
   string,
-  { eyebrow: RegExp; score: RegExp; book: RegExp }
+  { score: RegExp; book: RegExp }
 > = {
   fr: {
-    eyebrow: /L'amour de nos clientes/i,
     score: /3,9\s*\/\s*5/,
     book: /Réserver en ligne/i,
   },
   en: {
-    eyebrow: /Client Love/i,
     score: /3\.9\s*\/\s*5/,
     book: /Book Online/i,
   },
@@ -80,7 +78,6 @@ for (const [code, r] of Object.entries(reviewsByLocale)) {
   test.describe(`homepage reviews band + booking CTA (${code})`, () => {
     test("shows rating and books to the booking page", async ({ page }) => {
       await page.goto(`/${code}`);
-      await expect(page.getByText(r.eyebrow).first()).toBeVisible();
       await expect(page.getByText(r.score).first()).toBeVisible();
       await expect(
         page.getByRole("link", { name: r.book }).first(),

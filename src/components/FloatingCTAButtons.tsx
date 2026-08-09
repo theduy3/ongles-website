@@ -76,7 +76,7 @@ export function FloatingCTAButtons({
         <a
           href={bookHref}
           onClick={makeBookClickHandler(salonLocation)}
-          className="inline-flex items-center gap-2 rounded-pill bg-espresso px-6 py-3 text-xs font-semibold uppercase tracking-wide text-cream shadow-card transition-colors hover:bg-mocha"
+          className="inline-flex items-center gap-2 rounded-pill bg-espresso px-6 py-3 text-xs font-semibold uppercase tracking-wide text-cream shadow-card transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-mocha focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
         >
           <svg
             viewBox="0 0 24 24"
@@ -98,7 +98,7 @@ export function FloatingCTAButtons({
           href={phoneHref}
           aria-label={callLabel}
           onClick={makeCallClickHandler(phoneHref)}
-          className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold text-white shadow-card transition-opacity hover:opacity-90"
+          className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold text-white shadow-card transition-[opacity,transform] duration-300 hover:-translate-y-0.5 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
         >
           <svg
             viewBox="0 0 24 24"
