@@ -20,6 +20,7 @@ import {
   CONSENT_KEY,
   getStoredConsent,
   buildConsentUpdate,
+  shouldShowConsent,
 } from "./ConsentBanner";
 
 // ─── CONSENT_KEY ─────────────────────────────────────────────────────────────
@@ -84,5 +85,28 @@ describe("buildConsentUpdate() Law 25 invariant", () => {
   it("ad_storage is ALWAYS 'denied' regardless of accept/decline", () => {
     expect(buildConsentUpdate(true).ad_storage).toBe("denied");
     expect(buildConsentUpdate(false).ad_storage).toBe("denied");
+  });
+});
+
+describe("shouldShowConsent()", () => {
+  it("hides when GA4 is disabled", () => {
+    expect(shouldShowConsent("", () => null)).toBe(false);
+  });
+
+  it("hides when consent was accepted", () => {
+    expect(shouldShowConsent("G-TEST", () => "accepted")).toBe(false);
+  });
+
+  it("hides when consent was declined", () => {
+    expect(shouldShowConsent("G-TEST", () => "declined")).toBe(false);
+  });
+
+  it("shows when consent is absent or unreadable", () => {
+    expect(shouldShowConsent("G-TEST", () => null)).toBe(true);
+    expect(
+      shouldShowConsent("G-TEST", () => {
+        throw new Error("storage unavailable");
+      }),
+    ).toBe(true);
   });
 });

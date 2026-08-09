@@ -24,11 +24,11 @@
  * unit testing without a DOM renderer (bun:test).
  */
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type ConsentState = "accepted" | "declined" | null;
+export type ConsentState = "accepted" | "declined" | null;
 
 interface ConsentStrings {
   banner: string;
@@ -69,11 +69,57 @@ export function buildConsentUpdate(accepted: boolean): {
   };
 }
 
+export function shouldShowConsent(
+  measurementId: string,
+  readConsent: () => ConsentState,
+): boolean {
+  if (!measurementId) return false;
+  try {
+    return readConsent() === null;
+  } catch {
+    return true;
+  }
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 interface ConsentBannerProps {
   measurementId: string;
   dict: ConsentStrings;
+}
+
+const CONSENT_CHANGE_EVENT = "ga4-consent-change";
+
+function subscribeToConsent(callback: () => void): () => void {
+  const handleChange = () => callback();
+  window.addEventListener("storage", handleChange);
+  window.addEventListener(CONSENT_CHANGE_EVENT, handleChange);
+  return () => {
+    window.removeEventListener("storage", handleChange);
+    window.removeEventListener(CONSENT_CHANGE_EVENT, handleChange);
+  };
+}
+
+function getConsentSnapshot(measurementId: string): boolean {
+  return shouldShowConsent(measurementId, () =>
+    getStoredConsent(window.localStorage),
+  );
+}
+
+function getConsentServerSnapshot(): boolean {
+  return false;
+}
+
+function fireConsentUpdate(accepted: boolean): void {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("consent", "update", buildConsentUpdate(accepted));
+  }
+}
+
+function notifyConsentChange(): void {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event(CONSENT_CHANGE_EVENT));
+  }
 }
 
 /**
@@ -84,33 +130,30 @@ interface ConsentBannerProps {
  * Pass dict from layout.tsx dict.consent (content.*.json runtime strings).
  */
 export function ConsentBanner({ measurementId, dict }: ConsentBannerProps) {
-  const [show, setShow] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const getSnapshot = useCallback(
+    () => getConsentSnapshot(measurementId),
+    [measurementId],
+  );
+  const needsConsent = useSyncExternalStore(
+    subscribeToConsent,
+    getSnapshot,
+    getConsentServerSnapshot,
+  );
+  const show = needsConsent && !dismissed;
 
   useEffect(() => {
     // Only run consent logic when GA4 is configured for this tenant.
     if (!measurementId) return;
 
     try {
-      const stored = getStoredConsent(localStorage);
-      if (stored === "accepted") {
-        // Re-hydrate stored consent on every page load so GA4 receives the grant.
+      if (getStoredConsent(window.localStorage) === "accepted") {
         fireConsentUpdate(true);
-      } else if (!stored) {
-        // No stored choice → show the banner for the first time.
-        setShow(true);
       }
-      // stored === 'declined' → do nothing (analytics stays denied, banner stays hidden)
     } catch {
-      // localStorage unavailable (private browsing, storage blocked) → show banner.
-      setShow(true);
+      // The snapshot already treats unavailable storage as pending consent.
     }
   }, [measurementId]);
-
-  function fireConsentUpdate(accepted: boolean) {
-    if (typeof window !== "undefined" && typeof window.gtag === "function") {
-      window.gtag("consent", "update", buildConsentUpdate(accepted));
-    }
-  }
 
   function accept() {
     try {
@@ -119,7 +162,8 @@ export function ConsentBanner({ measurementId, dict }: ConsentBannerProps) {
       /* storage blocked — fire update anyway for this session */
     }
     fireConsentUpdate(true);
-    setShow(false);
+    notifyConsentChange();
+    setDismissed(true);
   }
 
   function decline() {
@@ -129,7 +173,8 @@ export function ConsentBanner({ measurementId, dict }: ConsentBannerProps) {
       /* storage blocked — consent denied by default */
     }
     // Do NOT fire a consent update — analytics_storage stays 'denied' (default).
-    setShow(false);
+    notifyConsentChange();
+    setDismissed(true);
   }
 
   if (!show) return null;

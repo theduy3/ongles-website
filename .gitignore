@@ -57,3 +57,7 @@ clone-hero-check.png
 
 # scratch research
 /.tmp-research/
+
+# local agent/tooling state
+/.codegraph/
+/.superpowers/
