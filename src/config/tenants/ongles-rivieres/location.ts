@@ -31,5 +31,8 @@ export const location: Location = {
   ],
   // Geo coords confirmed by owner 2026-06-17 (Centre Les Rivières, Trois-Rivières).
   geo: { lat: 46.359, lng: -72.573 },
+  // Google Maps CID — pins the embed to the real "Ongles Rivières" listing
+  // (name+address search resolved to a different business). From the share link.
+  mapsCid: "14363095012083523862",
   bookerSlug: "",
 };

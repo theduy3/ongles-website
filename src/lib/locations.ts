@@ -24,13 +24,19 @@ function mapSearchLink(query: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
-/** Google Maps embed src for a Maily location's full address. */
+/** Google Maps embed src for a location — CID-pinned when available. */
 export function mapEmbedUrl(loc: Location): string {
+  if (loc.mapsCid) {
+    return `https://www.google.com/maps?cid=${loc.mapsCid}&output=embed`;
+  }
   return mapEmbedSrc(`${loc.address.street}, ${loc.address.line2}`);
 }
 
 /** Google Maps "open in Maps" link for the location pin. */
 export function mapLink(loc: Location, s: TenantSite = site): string {
+  if (loc.mapsCid) {
+    return `https://www.google.com/maps?cid=${loc.mapsCid}`;
+  }
   return mapSearchLink(
     `${s.name} ${loc.name}, ${loc.address.street}, ${loc.address.line2}`,
   );

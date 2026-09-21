@@ -54,6 +54,9 @@ export type Location = {
   // schema.org OpeningHoursSpecification blocks (two-letter day codes, 24h).
   hoursSpec: { days: string[]; opens: string; closes: string }[];
   geo: { lat: number; lng: number };
+  // Google Maps CID (decimal) — pins embeds/links to the exact business listing
+  // instead of an ambiguous name+address search. From the place's share URL.
+  mapsCid?: string;
   // Booker location slug → service-menu booking URL.
   bookerSlug: string;
 };
