@@ -1,0 +1,5 @@
+{
+  "fetchedAt": null,
+  "aggregate": { "ratingValue": 0, "reviewCount": 0 },
+  "reviews": []
+}

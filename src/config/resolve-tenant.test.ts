@@ -14,8 +14,8 @@ test("throws loudly on an unknown tenant id", () => {
   expect(() => resolveTenant("nope")).toThrow(/Unknown TENANT/);
 });
 
-test("registry contains all three live tenants + template", () => {
+test("registry contains all four live tenants + template", () => {
   expect(Object.keys(TENANT_REGISTRY).sort()).toEqual(
-    ["ongles-charlesbourg", "ongles-maily", "ongles-rivieres", "template"].sort(),
+    ["ongles-charlesbourg", "ongles-cite", "ongles-maily", "ongles-rivieres", "template"].sort(),
   );
 });

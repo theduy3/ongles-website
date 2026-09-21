@@ -201,6 +201,7 @@ export function buildSalonCards(
     "ongles-maily": "maily",
     "ongles-charlesbourg": "charlesbourg",
     "ongles-rivieres": "rivieres",
+    "ongles-cite": "cite",
   };
   const excludeId = selfSisterId[activeTenantId];
 

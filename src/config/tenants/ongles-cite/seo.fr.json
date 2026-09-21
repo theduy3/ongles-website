@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "homeTitle": "Ongles et Spa Québec — Salon de manucure à Place de la Cité, Sainte-Foy",
+    "homeDescription": "Salon d'ongles à Place de la Cité, Sainte-Foy, Québec. Pose d'ongles, remplissage, soins des mains et des pieds. Hygiène irréprochable, 15 ans+. Sans rendez-vous.",
+    "servicesTitle": "Services d'ongles à Sainte-Foy, Québec | Ongles et Spa Québec",
+    "servicesDescription": "Pose d'ongles, remplissage, manucure et pédicure chez Ongles et Spa Québec, Place de la Cité, Sainte-Foy. Trois postes de désinfection, outils désinfectés après chaque utilisation.",
+    "aboutTitle": "À propos de notre salon à Sainte-Foy | Ongles et Spa Québec",
+    "aboutDescription": "Ongles et Spa Québec est un salon d'ongles axé sur l'hygiène à Place de la Cité, Sainte-Foy. Plus de 15 ans d'expérience, ambiance chaleureuse et familiale. Vous êtes notre famille.",
+    "bookOnlineTitle": "Réserver un rendez-vous à Sainte-Foy | Ongles et Spa Québec",
+    "bookOnlineDescription": "Réservez votre rendez-vous chez Ongles et Spa Québec, Place de la Cité, Sainte-Foy. Réservez en ligne ou venez sans rendez-vous — les deux sont bienvenus.",
+    "contactTitle": "Contact et itinéraire, Sainte-Foy | Ongles et Spa Québec",
+    "contactDescription": "Communiquez avec Ongles et Spa Québec à Place de la Cité, Sainte-Foy. Questions sur les services ou les réservations — envoyez-nous un message.",
+    "faqTitle": "FAQ — Salon d'ongles à Sainte-Foy | Ongles et Spa Québec",
+    "faqDescription": "Heures, réservations, services, hygiène et plus — réponses aux questions fréquentes sur Ongles et Spa Québec, Place de la Cité.",
+    "reviewsTitle": "Avis clients — Salon d'ongles Sainte-Foy | Ongles et Spa Québec",
+    "reviewsDescription": "Découvrez pourquoi nos clientes adorent Ongles et Spa Québec — pose d'ongles, remplissage, manucure et pédicure à Place de la Cité, Sainte-Foy.",
+    "galleryTitle": "Galerie nail art, Sainte-Foy | Ongles et Spa Québec",
+    "galleryDescription": "Parcourez nos derniers nail art, manucures et poses d'ongles chez Ongles et Spa Québec, Place de la Cité.",
+    "locationsTitle": "Nous trouver — Place de la Cité | Ongles et Spa Québec",
+    "locationsDescription": "Trouvez Ongles et Spa Québec à Place de la Cité — 2600 boulevard Laurier, Québec, QC G1V 4T3, arrondissement Sainte-Foy.",
+    "termsTitle": "Conditions générales — Ongles et Spa Québec",
+    "termsDescription": "Politiques du salon Ongles et Spa Québec : rendez-vous, annulations, dépôts, certificats cadeaux, santé et sécurité et plus encore.",
+    "privacyTitle": "Politique de confidentialité — Ongles et Spa Québec",
+    "privacyDescription": "Comment Ongles et Spa Québec collecte, utilise et protège vos renseignements personnels.",
+    "homeAnswerBlock": "Ongles et Spa Québec est un salon d'ongles à Place de la Cité, dans l'arrondissement Sainte-Foy à Québec. Il propose la pose d'ongles, le remplissage, la manucure et la pédicure, avec une hygiène rigoureuse et un accueil avec ou sans rendez-vous.",
+    "homeAnswerHeading": "Ongles et Spa Québec, salon d'ongles à Place de la Cité",
+    "servicesAnswerBlock": "Ongles et Spa Québec offre la pose d'ongles (set complet), le remplissage, les soins des mains et les soins des pieds. Le prix varie selon le service et les finitions; la pose débute à un tarif abordable et le remplissage coûte moins qu'une nouvelle pose.",
+    "servicesAnswerHeading": "Services d'ongles chez Ongles et Spa Québec"
+  },
+  "services": {
+    "pose-ongles": {
+      "metaTitle": "Pose d'ongles chez Ongles et Spa Québec | Place de la Cité, Québec",
+      "metaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles et Spa Québec, Place de la Cité. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
+      "schemaDescription": "Pose d'ongles complète avec ou sans rallonges chez Ongles et Spa Québec, Place de la Cité. Nail art, plusieurs couleurs, hygiène irréprochable. À partir de 60 $.",
+      "heroAlt": "Belle pose d'ongles complète chez Ongles et Spa Québec, Place de la Cité",
+      "answerBlock": "La pose d'ongles est l'application d'un set complet, avec ou sans rallonges, façonné et coloré à votre goût. À Place de la Cité, le service comprend la mise en forme et la finition, à un tarif abordable.",
+      "answerHeading": "Pose d'ongles à Place de la Cité"
+    },
+    "remplissage": {
+      "metaTitle": "Remplissage chez Ongles et Spa Québec | Place de la Cité, Québec",
+      "metaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles et Spa Québec, Place de la Cité. Gardez votre pose fraîche et solide. À partir de 45 $.",
+      "schemaDescription": "Remplissage professionnel toutes les 2 à 3 semaines chez Ongles et Spa Québec, Place de la Cité. Gardez votre pose fraîche et solide. À partir de 45 $.",
+      "heroAlt": "Remplissage d'ongles professionnel en cours chez Ongles et Spa Québec, Place de la Cité",
+      "answerBlock": "Le remplissage entretient une pose en comblant la repousse à la base de l'ongle, en général toutes les 2 à 3 semaines. Chez Ongles et Spa Québec, il revient moins cher qu'une nouvelle pose et garde vos ongles solides.",
+      "answerHeading": "Remplissage d'ongles"
+    },
+    "soins-mains": {
+      "metaTitle": "Soins des mains chez Ongles et Spa Québec | Place de la Cité, Québec",
+      "metaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles et Spa Québec, Place de la Cité, Sainte-Foy. À partir de 30 $.",
+      "schemaDescription": "Manucure professionnelle avec vernis inclus, soin des cuticules et mise en forme chez Ongles et Spa Québec, Place de la Cité, Sainte-Foy. À partir de 30 $.",
+      "heroAlt": "Manucure professionnelle avec vernis chez Ongles et Spa Québec, Place de la Cité",
+      "answerBlock": "La manucure comprend la mise en forme des ongles, le soin des cuticules et un vernis régulier ou gel. Au salon de Sainte-Foy, c'est un service rapide et abordable pour des mains soignées.",
+      "answerHeading": "Manucure et soins des mains"
+    },
+    "soins-pieds": {
+      "metaTitle": "Soins des pieds chez Ongles et Spa Québec | Place de la Cité, Québec",
+      "metaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles et Spa Québec, Place de la Cité, Sainte-Foy. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
+      "schemaDescription": "Pédicure professionnelle dans des postes assainis chez Ongles et Spa Québec, Place de la Cité, Sainte-Foy. Soin des ongles d'orteils, cuticules et vernis inclus. À partir de 35 $.",
+      "heroAlt": "Pédicure professionnelle dans un poste assaini chez Ongles et Spa Québec, Place de la Cité",
+      "answerBlock": "La pédicure se déroule dans un poste assaini et comprend le soin des ongles d'orteils, des cuticules et la pose de vernis. Chez Ongles et Spa Québec, l'hygiène est une priorité pour des pieds propres et reposés.",
+      "answerHeading": "Pédicure et soins des pieds"
+    }
+  },
+  "org": {
+    "description": "Salon d'ongles à Place de la Cité, Sainte-Foy, Québec. Pose d'ongles, remplissage, soins des mains et des pieds. Hygiène irréprochable, 15 ans+. Sans rendez-vous."
+  },
+  "gallery": {
+    "nail-art-1": {
+      "alt": "Design de nail art peint à la main chez Ongles et Spa Québec"
+    },
+    "nail-art-2": {
+      "alt": "Nail art élaboré avec motifs détaillés chez Ongles et Spa Québec"
+    },
+    "nail-art-3": {
+      "alt": "Design tendance chez Ongles et Spa Québec, Place de la Cité"
+    },
+    "nail-art-4": {
+      "alt": "Nail art créatif et ornements chez Ongles et Spa Québec"
+    },
+    "gel-mani": {
+      "alt": "Manucure professionnelle chez Ongles et Spa Québec"
+    },
+    "spa-pedi": {
+      "alt": "Résultat de pédicure chez Ongles et Spa Québec, Place de la Cité"
+    }
+  },
+  "locations": {
+    "answerBlock": "Ongles et Spa Québec est situé à Place de la Cité, 2600 boulevard Laurier, à Sainte-Foy, avec un grand stationnement gratuit. Réservez en ligne ou téléphonez au (418) 653-8881; les visites sans rendez-vous sont les bienvenues selon la disponibilité.",
+    "answerHeading": "Nous trouver et réserver"
+  },
+  "pages": {
+    "pricing": {
+      "answerHeading": "Combien coûtent nos services ?",
+      "answerBlock": "Chez Ongles et Spa Québec, à Place de la Cité dans l'arrondissement Sainte-Foy, les prix s'échelonnent de 30 $ pour les soins des mains à 75 $ pour une pose d'ongles complète. Consultez la liste complète ci-dessous pour connaître le tarif de chaque service — transparence garantie.",
+      "metaTitle": "Tarifs — Ongles et Spa Québec | Place de la Cité, Sainte-Foy",
+      "metaDescription": "Prix de la pose d'ongles, du remplissage, de la manucure et de la pédicure chez Ongles et Spa Québec à Place de la Cité. À partir de 30 $."
+    },
+    "comparison": {
+      "pose-vs-remplissage": {
+        "answerHeading": "Pose ou remplissage d'ongles à Sainte-Foy : quelle option choisir ?",
+        "answerBlock": "Vous commencez avec des ongles courts ou vous venez de retirer votre ancienne pose ? Optez pour la pose complète. Si votre pose actuelle est en bon état et que trois à quatre semaines se sont écoulées depuis votre dernière visite, le remplissage est tout ce dont vous avez besoin.",
+        "body": "Chez Ongles et Spa Québec, à Place de la Cité sur le boulevard Laurier, nos techniciennes accompagnent chaque semaine des clientes de tout l'ouest de Québec : résidentes de Sainte-Foy, de Sillery, de Cap-Rouge, de Saint-Augustin-de-Desmaures et des environs. Comprendre la différence entre la pose complète et le remplissage est la première étape pour planifier vos visites intelligemment. La pose complète s'impose lorsque vous n'avez jamais porté d'ongles en gel ou en acrylique, lorsque votre ancienne pose a été retirée, ou lorsque votre pose actuelle est trop vieille ou trop abîmée pour être simplement retouchée. La technicienne prépare l'ongle naturel, pose un tip si vous souhaitez une extension, puis applique le produit choisi — gel ou acrylique — avant de façonner, poncer et finaliser la couleur ou le design. Ce service prend entre 90 et 120 minutes. Le remplissage, parfois appelé refill, s'effectue après trois à quatre semaines de croissance naturelle. La repousse crée un espace entre le produit existant et la peau. La technicienne comble cet espace, redéfinit la courbure de chaque ongle et rafraîchit le vernis. Un remplissage dure environ 60 à 90 minutes. Dépasser cinq semaines sans remplissage augmente le risque de soulèvement et peut endommager l'ongle naturel. Nos techniciennes de Place de la Cité évalueront vos ongles à votre arrivée et vous orienteront vers le bon service. Les visites sans rendez-vous sont les bienvenues tous les jours.",
+        "metaTitle": "Pose vs remplissage d'ongles à Sainte-Foy | Ongles et Spa Québec Place de la Cité",
+        "metaDescription": "Pose complète ou remplissage chez Ongles et Spa Québec ? Découvrez les différences et conseils de nos techniciennes à Place de la Cité, Sainte-Foy."
+      },
+      "manucure-vs-pedicure": {
+        "answerHeading": "Manucure ou pédicure à Sainte-Foy : quel soin vous convient ?",
+        "answerBlock": "La manucure est dédiée à vos mains, cuticules et ongles, avec massage et vernis. La pédicure prend soin de vos pieds et ongles d'orteils, avec un bain relaxant, un gommage des talons et un massage. Les deux services sont réalisés chaque jour à Place de la Cité et peuvent facilement être combinés.",
+        "body": "À Sainte-Foy, au cœur de Place de la Cité, nos techniciennes d'Ongles et Spa Québec prennent soin de vos mains et de vos pieds avec la même rigueur et la même attention aux détails. Voici un guide complet pour choisir entre la manucure et la pédicure — ou décider de combiner les deux. La manucure commence par un trempage de vos mains dans une eau chaude et parfumée pour assouplir la peau. La technicienne repousse ou retire délicatement les cuticules, puis lime et façonne chaque ongle selon la forme souhaitée. Un massage avec une lotion hydratante apaise la peau avant l'application du vernis. Résultat : des mains douces, des ongles impeccables et un vernis propre. La manucure prend environ 45 minutes. La pédicure suit un protocole similaire, enrichi d'un bain de pieds prolongé très apprécié en fin de journée. Un gommage des talons retire les callosités accumulées, un baume est appliqué en massage sur les pieds et le bas des jambes, puis le vernis est posé. Ce soin prend environ 60 minutes et est particulièrement populaire à l'approche de l'été et du port des sandales. Pour choisir entre les deux, pensez à votre prochain événement. Une réunion professionnelle, un mariage, ou simplement l'envie d'avoir de belles mains ? La manucure est prioritaire. Des pieds fatigués après une longue journée debout ? La pédicure vous apportera un soulagement et une beauté immédiats. Beaucoup de nos clientes de Sainte-Foy, de Sillery et de Cap-Rouge combinent les deux services lors d'un seul rendez-vous. N'hésitez pas à nous demander une formule personnalisée.",
+        "metaTitle": "Manucure vs pédicure à Sainte-Foy | Ongles et Spa Québec Place de la Cité",
+        "metaDescription": "Manucure ou pédicure chez Ongles et Spa Québec ? Comparez les deux soins et trouvez celui qui vous convient à Place de la Cité, Sainte-Foy."
+      },
+      "gel-vs-acrylique": {
+        "answerHeading": "Gel ou acrylique à Sainte-Foy : quel produit choisir ?",
+        "answerBlock": "Chez Ongles et Spa Québec, les deux techniques sont proposées : le gel séduit par son fini naturel et brillant, l'acrylique s'impose par sa solidité remarquable. Nos techniciennes de Place de la Cité maîtrisent les deux systèmes et vous guideront vers le choix le mieux adapté à vos ongles et à votre quotidien.",
+        "body": "La question gel ou acrylique est l'une des plus fréquentes que nous entendons chez Ongles et Spa Québec. Les deux produits donnent de magnifiques résultats et durent entre trois et quatre semaines. La différence tient à leur formule, leur texture et ce qu'ils offrent à votre style de vie. Le gel est un produit souple qui durcit sous une lampe UV ou LED. Après la pose, il donne un fini lisse, légèrement flexible et très brillant. Le gel est apprécié pour son aspect discret, proche de l'ongle naturel. Il est souvent recommandé aux clientes qui débutent avec les poses longue durée ou qui préfèrent un look épuré et naturel. Le remplissage en gel s'effectue environ toutes les trois semaines. L'acrylique résulte du mélange d'une poudre et d'un liquide qui durcissent à l'air libre. La matière obtenue est plus ferme que le gel, ce qui la rend particulièrement résistante aux chocs du quotidien. C'est le choix de prédilection des personnes actives, sportives ou qui utilisent souvent leurs mains dans des tâches physiques. L'acrylique est aussi plus facile à sculpter pour les extensions longues et les formes originales. Il se retire par trempage et nécessite un remplissage toutes les trois à quatre semaines. Dans notre salon de Sainte-Foy, les outils sont désinfectés ou remplacés après chaque cliente, conformément aux normes d'hygiène les plus strictes. Venez consulter nos techniciennes à Place de la Cité pour un avis personnalisé selon l'état de vos ongles naturels.",
+        "metaTitle": "Gel vs acrylique à Sainte-Foy | Ongles et Spa Québec Place de la Cité",
+        "metaDescription": "Gel ou acrylique chez Ongles et Spa Québec ? Comparez durabilité, fini et entretien pour choisir votre pose idéale à Place de la Cité."
+      },
+      "meilleur-pour": {
+        "answerHeading": "Quel soin d'ongles vous convient le mieux à Sainte-Foy ?",
+        "answerBlock": "Pour une durabilité de trois à quatre semaines résistant aux activités quotidiennes, la pose en gel ou en acrylique est le meilleur choix. Pour un entretien régulier de vos ongles naturels, la manucure toutes les deux semaines est idéale. Pour une occasion spéciale ou une célébration, optez pour une pose complète avec design sur mesure.",
+        "body": "Chez Ongles et Spa Québec, à Place de la Cité sur le boulevard Laurier, nous accueillons chaque semaine des clientes aux besoins très diversifiés : femmes d'affaires qui veulent des mains impeccables en réunion, mamans qui cherchent un moment de détente, jeunes clientes qui découvrent la pose d'ongles pour la première fois. Voici notre guide pratique pour choisir le soin le mieux adapté à votre situation. Pour la durabilité au quotidien, la pose en gel ou en acrylique est imbattable. Ces deux systèmes tiennent sans écailler pendant trois à quatre semaines, même avec une vie bien remplie. L'acrylique est particulièrement robuste pour les clientes qui font un usage intensif de leurs mains. Le gel séduit par son fini brillant et naturel, parfait pour un look élégant au travail. Pour les occasions spéciales — mariages, soirées, cérémonies, shootings photos, remises de diplômes — une pose complète avec nail art personnalisé est notre recommandation. Nos techniciennes créent des designs sur mesure : fleurs, dégradés, cristaux, art délicat au pinceau fin. Prévoyez entre une heure trente et deux heures pour un rendez-vous nail art complet. Pour l'entretien régulier des ongles courts, la manucure classique toutes les deux semaines est idéale. La pédicure toutes les trois à quatre semaines, particulièrement en été, entretient la beauté et le confort de vos pieds. Les clientes de Sainte-Foy, de Sillery, de Cap-Rouge et de Saint-Augustin-de-Desmaures viennent régulièrement profiter de nos services. Les visites sans rendez-vous sont les bienvenues tous les jours à Place de la Cité.",
+        "metaTitle": "Quel soin d'ongles choisir à Sainte-Foy ? Guide | Ongles et Spa Québec",
+        "metaDescription": "Gel, acrylique, manucure ou pédicure chez Ongles et Spa Québec ? Trouvez le soin idéal selon votre style de vie à Place de la Cité, Sainte-Foy."
+      }
+    },
+    "nearMe": {
+      "answerHeading": "Salon d'ongles à Sainte-Foy — Ongles et Spa Québec à Place de la Cité",
+      "answerBlock": "Ongles et Spa Québec est le salon d'ongles de l'arrondissement Sainte-Foy, installé à Place de la Cité, au 2600 boulevard Laurier. Le boulevard Laurier est l'artère commerciale la plus achalandée de l'ouest de Québec, à quelques minutes de l'Université Laval et tout près du pont de Québec. Ce salon dessert la population de l'ouest de la ville : résidentes de Sainte-Foy, de Sillery, de Cap-Rouge, de Saint-Augustin-de-Desmaures et des secteurs voisins qui se rendent au centre commercial pour leurs emplettes. Chez Ongles et Spa Québec, vous trouverez les mêmes services de qualité : pose d'ongles complète, remplissage, soins des mains et soins des pieds, dans un salon qui accorde une importance capitale à l'hygiène. Chaque outil est stérilisé après usage et chaque poste de travail est nettoyé entre les clientes. Place de la Cité offre un stationnement gratuit et est bien desservie par les parcours Métrobus du RTC sur le boulevard Laurier. Réservez en ligne ou appelez-nous pour fixer un rendez-vous; les clientes sans rendez-vous sont accueillies selon les places disponibles. Nous vous attendons au cœur de Sainte-Foy.",
+      "boroughName": "Sainte-Foy",
+      "body": "Place de la Cité est située sur le boulevard Laurier, à proximité du chemin Sainte-Foy et de l'Université Laval. Stationnement gratuit sur place. Le salon est accessible par les parcours Métrobus du RTC qui desservent le boulevard Laurier.",
+      "metaTitle": "Salon d'ongles à Sainte-Foy — Ongles et Spa Québec | Place de la Cité",
+      "metaDescription": "Salon d'ongles à Sainte-Foy : pose d'ongles, remplissage, manucure et pédicure chez Ongles et Spa Québec, Place de la Cité, boulevard Laurier. Sans rendez-vous acceptés."
+    }
+  }
+}

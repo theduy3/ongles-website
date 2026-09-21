@@ -10,8 +10,8 @@ is copied to the VPS manually.
 
 ## `ongles-apex-redirect.yml`
 
-Apex → www `301` redirects + LE certs for the three ongles tenants
-(`onglesmaily.com`, `onglescharlesbourg.com`, `onglesrivieres.com`).
+Apex → www `301` redirects + LE certs for the four ongles tenants
+(`onglesmaily.com`, `onglescharlesbourg.com`, `onglesrivieres.com`, `onglesspaquebec.com`).
 
 Dokploy only registers the `www.` host per tenant, leaving the bare apex with no
 router (TLS handshake fails). This file adds, per tenant:
@@ -38,7 +38,7 @@ scp infra/traefik/ongles-apex-redirect.yml \
 Verify:
 
 ```bash
-for h in onglesmaily.com onglescharlesbourg.com onglesrivieres.com; do
+for h in onglesmaily.com onglescharlesbourg.com onglesrivieres.com onglesspaquebec.com; do
   curl -s -o /dev/null -w "$h %{http_code} -> %{redirect_url}\n" "https://$h/"
 done   # expect: 301 -> https://www.<h>/
 ```

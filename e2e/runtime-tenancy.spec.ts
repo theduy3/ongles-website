@@ -12,6 +12,7 @@ const HERO_BY_TENANT: Record<string, RegExp> = {
   "ongles-maily": /Carrefour Beauport/,
   "ongles-charlesbourg": /Carrefour Charlesbourg/,
   "ongles-rivieres": /Centre Les Rivières/,
+  "ongles-cite": /Place de la Cité/,
 };
 
 test("active tenant renders its own hero", async ({ page }) => {

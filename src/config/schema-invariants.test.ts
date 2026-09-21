@@ -422,6 +422,10 @@ import charlesbourgSeoFrStub from "@/config/tenants/ongles-charlesbourg/seo.fr.j
 import charlesbourgSeoEnStub from "@/config/tenants/ongles-charlesbourg/seo.en.json";
 import rivieresSeoFrStub from "@/config/tenants/ongles-rivieres/seo.fr.json";
 import rivieresSeoEnStub from "@/config/tenants/ongles-rivieres/seo.en.json";
+import citeFaqFrStub from "@/config/tenants/ongles-cite/faq.fr.json";
+import citeFaqEnStub from "@/config/tenants/ongles-cite/faq.en.json";
+import citeSeoFrStub from "@/config/tenants/ongles-cite/seo.fr.json";
+import citeSeoEnStub from "@/config/tenants/ongles-cite/seo.en.json";
 
 type FaqLocaleStub = { items: { q?: string; a?: string }[] };
 type SeoLocaleStub = {
@@ -434,12 +438,14 @@ const LIVE_FAQ: Record<string, Record<"fr" | "en", FaqLocaleStub>> = {
   "ongles-maily": { fr: mailyFaqFrStub as FaqLocaleStub, en: mailyFaqEnStub as FaqLocaleStub },
   "ongles-charlesbourg": { fr: charlesbourgFaqFrStub as FaqLocaleStub, en: charlesbourgFaqEnStub as FaqLocaleStub },
   "ongles-rivieres": { fr: rivieresFaqFrStub as FaqLocaleStub, en: rivieresFaqEnStub as FaqLocaleStub },
+  "ongles-cite": { fr: citeFaqFrStub as FaqLocaleStub, en: citeFaqEnStub as FaqLocaleStub },
 };
 
 const LIVE_SEO: Record<string, Record<"fr" | "en", SeoLocaleStub>> = {
   "ongles-maily": { fr: mailySeoFrStub as unknown as SeoLocaleStub, en: mailySeoEnStub as unknown as SeoLocaleStub },
   "ongles-charlesbourg": { fr: charlesbourgSeoFrStub as unknown as SeoLocaleStub, en: charlesbourgSeoEnStub as unknown as SeoLocaleStub },
   "ongles-rivieres": { fr: rivieresSeoFrStub as unknown as SeoLocaleStub, en: rivieresSeoEnStub as unknown as SeoLocaleStub },
+  "ongles-cite": { fr: citeSeoFrStub as unknown as SeoLocaleStub, en: citeSeoEnStub as unknown as SeoLocaleStub },
 };
 
 const BASE_FAQ = { fr: frDict.faq.items, en: enDict.faq.items } as const;

@@ -53,6 +53,21 @@ _Last verified against config: phase 05-05._
 
 **Hours:** Mon–Wed 09:30–17:30 · Thu–Fri 09:00–21:00 · Sat 09:00–17:00 · Sun 10:00–17:00
 
+## Ongles et Spa Québec
+
+| Field | Value |
+|-------|-------|
+| Name | Ongles et Spa Québec |
+| Street | 2600 boulevard Laurier |
+| City / Region / Postal | Québec, QC G1V 4T3 |
+| Country | CA |
+| Phone | (418) 653-8881 |
+| Landmark | Place de la Cité |
+| Canonical URL | https://www.onglesspaquebec.com |
+| GA4 property | _none yet_ |
+
+**Hours:** Mon–Fri 10:00–18:00 · Sat 09:00–17:00 · Sun 10:00–17:00
+
 ---
 
 ### Why NAP consistency matters

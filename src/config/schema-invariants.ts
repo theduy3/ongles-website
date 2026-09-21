@@ -370,6 +370,7 @@ const TENANT_BOROUGH_ROUTE: Record<string, string> = {
   "ongles-maily": "/beauport",
   "ongles-charlesbourg": "/charlesbourg",
   "ongles-rivieres": "/trois-rivieres",
+  "ongles-cite": "/sainte-foy",
 };
 
 export function checkRoutePresence(): SchemaInvariantError[] {
