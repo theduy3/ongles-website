@@ -4,6 +4,8 @@ import { servicePath, servicePathsByLocale } from "@/lib/services";
 import { COMPARISONS, comparisonPathsByLocale } from "@/lib/comparisons";
 import { pricingPathsByLocale } from "@/lib/routes";
 import { getStoreConfig } from "@/lib/store-config";
+export const dynamic = "force-dynamic";
+
 
 // Single-locale sitemap (en). The header nav is now anchor links into the home
 // page, so indexable routes come from site.routes + the service slugs + home.

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { getStoreConfig } from "@/lib/store-config";
 import { defaultLocale } from "@/lib/i18n";
+export const dynamic = "force-dynamic";
+
 
 // PWA / install manifest. Colours match the LIVE rendered theme in globals.css
 // (grayscale palette: page bg #ffffff, header/footer #141414).

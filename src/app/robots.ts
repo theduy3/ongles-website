@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getStoreConfig } from "@/lib/store-config";
+export const dynamic = "force-dynamic";
+
 
 // Allow all crawlers; point them at the sitemap. host disambiguates the
 // preferred origin. The API route is excluded from indexing.

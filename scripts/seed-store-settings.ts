@@ -5,9 +5,12 @@
  * Supabase admin-override layer so `/admin/settings` opens pre-populated and
  * an operator can see and edit the live values (instead of blank fields).
  *
- *   bun run scripts/seed-store-settings.ts            # dry-run: build + validate + print, NO writes
- *   bun run scripts/seed-store-settings.ts --write    # upsert one row per live tenant
+ *   bun run scripts/seed-store-settings.ts                       # dry-run all tenants
+ *   bun run scripts/seed-store-settings.ts --tenant ongles-cite # dry-run one tenant
+ *   bun run scripts/seed-store-settings.ts --write --tenant ongles-cite
  *
+ * Writes require an explicit tenant. This prevents one tenant's setup from
+ * replacing operator-managed overrides for every sibling tenant.
  * --write needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in the environment
  * (bun auto-loads .env / .env.local). Without them the admin client is null
  * and the script exits cleanly without touching the database.
@@ -258,10 +261,23 @@ function summarize(tenantId: string, doc: StoreSettings): string {
 
 async function main() {
   const write = process.argv.includes("--write");
+  const tenantArg = process.argv.indexOf("--tenant");
+  const tenantId = tenantArg >= 0 ? process.argv[tenantArg + 1] : undefined;
+  if (tenantArg >= 0 && (!tenantId || !SEED_TENANTS.includes(tenantId as (typeof SEED_TENANTS)[number]))) {
+    console.error(`Invalid --tenant. Choose one of: ${SEED_TENANTS.join(", ")}`);
+    process.exitCode = 1;
+    return;
+  }
+  if (write && !tenantId) {
+    console.error("--write requires --tenant <tenant-id>; refusing to replace every tenant row.");
+    process.exitCode = 1;
+    return;
+  }
+  const selectedTenants = tenantId ? [tenantId] : SEED_TENANTS;
   console.log(`\nSeed store_settings — ${write ? "WRITE (upsert to Supabase)" : "DRY-RUN (no writes)"}\n`);
 
   const docs = new Map<string, StoreSettings>();
-  for (const id of SEED_TENANTS) {
+  for (const id of selectedTenants) {
     try {
       const doc = buildDoc(id);
       docs.set(id, doc);
@@ -274,7 +290,7 @@ async function main() {
   }
 
   if (!write) {
-    console.log(`\nDry-run only. Re-run with --write to upsert these ${docs.size} rows.\n`);
+    console.log(`\nDry-run only. To write one row, add --write --tenant <tenant-id>.\n`);
     return;
   }
 
