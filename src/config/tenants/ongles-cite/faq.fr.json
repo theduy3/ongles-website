@@ -1,0 +1,56 @@
+{
+  "items": [
+    {
+      "q": "Où est situé Ongles et Spa Québec?",
+      "a": "Ongles et Spa Québec se trouve à Place de la Cité, 2600 boulevard Laurier, Québec, QC G1V 4T3, dans l'arrondissement Sainte-Foy. Le salon est accessible directement depuis le centre commercial."
+    },
+    {
+      "q": "Quelles sont vos heures d'ouverture?",
+      "a": "Nous sommes ouverts du lundi au vendredi de 10 h à 18 h, le samedi de 9 h à 17 h et le dimanche de 10 h à 17 h."
+    },
+    {
+      "q": "Comment prendre un rendez-vous?",
+      "a": "Réservez en ligne à partir de notre page Réserver en ligne, ou téléphonez au (418) 653-8881. Les visites sans rendez-vous sont acceptées selon les disponibilités."
+    },
+    {
+      "q": "Y a-t-il un stationnement?",
+      "a": "Oui. Place de la Cité offre un grand stationnement gratuit, à quelques pas de l'entrée du salon."
+    },
+    {
+      "q": "Comment s'y rendre en transport en commun?",
+      "a": "Place de la Cité est desservie par le réseau d'autobus du RTC, dont les parcours Métrobus sur le boulevard Laurier. Descendez à l'arrêt du centre commercial, puis dirigez-vous vers le salon à l'intérieur."
+    },
+    {
+      "q": "Faut-il prévoir de l'attente la fin de semaine?",
+      "a": "Les fins de semaine sont plus achalandées, particulièrement le samedi. Les sans rendez-vous sont bienvenus selon la disponibilité, mais une réservation vous assure votre plage horaire."
+    },
+    {
+      "q": "Dois-je verser un dépôt?",
+      "a": "La plupart des services courants ne nécessitent aucun dépôt. Pour les rendez-vous de groupe ou les services prolongés, un dépôt peut être demandé; nous vous en aviserons lors de la réservation."
+    },
+    {
+      "q": "Quelle est votre politique d'annulation?",
+      "a": "Vous pouvez reporter ou annuler votre rendez-vous. Un préavis de quelques heures nous aide à offrir la plage à une autre cliente; un appel suffit."
+    },
+    {
+      "q": "Combien coûte une pose complète?",
+      "a": "Le prix varie selon le service et les finitions choisies. La pose débute à un tarif abordable et le remplissage coûte moins qu'une nouvelle pose. Consultez la page Services pour les prix à jour."
+    },
+    {
+      "q": "Le nail art entraîne-t-il des frais supplémentaires?",
+      "a": "Les couleurs unies sont incluses. Les designs de nail art élaborés peuvent comporter un supplément selon le temps et la complexité; demandez un estimé avant de débuter."
+    },
+    {
+      "q": "Puis-je choisir ma technicienne?",
+      "a": "Oui. Faites part de votre préférence à la réservation et nous tâcherons de vous jumeler à la même technicienne, selon les disponibilités."
+    },
+    {
+      "q": "Offrez-vous le vernis gel pour la manucure?",
+      "a": "Oui. La manucure est offerte avec un vernis régulier ou un vernis gel longue tenue. Indiquez votre choix et nous vous proposerons l'option la plus adaptée."
+    },
+    {
+      "q": "Quels services offrez-vous?",
+      "a": "Nous offrons la pose d'ongles (set complet), le remplissage, les soins des mains et les soins des pieds. Tous les détails se trouvent sur notre page Services."
+    }
+  ]
+}

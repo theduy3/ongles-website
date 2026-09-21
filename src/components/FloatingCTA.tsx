@@ -1,12 +1,11 @@
 import { getStoreConfig } from "@/lib/store-config";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
+import { mapDirectionsLink } from "@/lib/locations";
 import { FloatingCTAButtons } from "./FloatingCTAButtons";
 
-// Fixed bottom-right quick actions: a "Book Online" pill (→ the on-page booking
-// wizard at /book-online) and a circular phone button (→ primary location).
-// Stays async Server Component to resolve getStoreConfig(); interactivity is
-// handled by the thin FloatingCTAButtons client island (Pitfall 3 split).
+// Resolve tenant and locale-aware CTA destinations on the server; responsive
+// positioning, route visibility, and analytics live in the client island.
 export async function FloatingCTA({
   dict,
   locale,
@@ -15,17 +14,21 @@ export async function FloatingCTA({
   locale: Locale;
 }) {
   const { site, locations } = await getStoreConfig();
-  // Use the primary location name for the GA4 salon_location param.
+  const bookingPath = "/" + locale + site.booking;
   const salonLocation = locations[0]?.name ?? site.name;
+
   return (
-    <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
-      <FloatingCTAButtons
-        bookHref={`/${locale}/book-online`}
-        phoneHref={site.contact.phoneHref}
-        bookLabel={dict.cta.book}
-        callLabel={dict.cta.callNow}
-        salonLocation={salonLocation}
-      />
-    </div>
+    <FloatingCTAButtons
+      bookHref={bookingPath}
+      phoneHref={site.contact.phoneHref}
+      directionsHref={mapDirectionsLink(locations[0], site)}
+      bookLabel={dict.cta.book}
+      callLabel={dict.cta.callNow}
+      mobileBookLabel={dict.cta.bookNowShort}
+      mobileCallLabel={dict.cta.callNowShort}
+      mobileDirectionsLabel={dict.cta.directionsShort}
+      bookingPath={bookingPath}
+      salonLocation={salonLocation}
+    />
   );
 }

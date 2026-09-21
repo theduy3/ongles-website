@@ -4,7 +4,7 @@
     "alt": "Belle pose d'ongles et manucure chez Ongles Rivières, Centre Les Rivières"
   },
   "home": {
-    "bookingIntro": "Réservez en ligne ou venez sans rendez-vous — les deux sont bienvenus. Vivez l'expérience Ongles Rivières au Centre Les Rivières."
+    "bookingIntro": "Réservez en ligne ou venez sans rendez-vous. Les deux sont bienvenus. Vivez l'expérience Ongles Rivières au Centre Les Rivières."
   },
   "whyChooseUs": {
     "eyebrow": "La différence Ongles Rivières",
@@ -12,7 +12,7 @@
       {
         "icon": "✨",
         "title": "L'hygiène avant tout",
-        "body": "Trois postes de désinfection dédiés. Chaque outil est désinfecté après chaque utilisation — votre sécurité est notre priorité absolue."
+        "body": "Trois postes de désinfection dédiés. Chaque outil est désinfecté après chaque utilisation. Votre sécurité est notre priorité absolue."
       },
       {
         "icon": "🛡️",
@@ -27,15 +27,15 @@
       {
         "icon": "🌿",
         "title": "Ambiance familiale",
-        "body": "Chez Ongles Rivières, vous êtes notre famille. Venez avec ou sans rendez-vous — vous êtes toujours les bienvenus."
+        "body": "Chez Ongles Rivières, vous êtes notre famille. Venez avec ou sans rendez-vous. Vous êtes toujours les bienvenus."
       }
     ]
   },
   "giftCards": {
-    "description": "Pour une occasion spéciale ou simplement pour faire plaisir? Nos certificats cadeaux de manucure et pédicure sont disponibles à l'achat en ligne via Square pour tout montant, livrés par courriel — ou achetez-les directement au salon."
+    "description": "Pour une occasion spéciale ou simplement pour faire plaisir? Nos certificats cadeaux de manucure et pédicure sont disponibles en ligne via Square pour tout montant, livrés par courriel, ou directement au salon."
   },
   "locations": {
-    "intro": "Ongles Rivières est situé au Centre Les Rivières, Québec. Venez sans rendez-vous ou réservez à l'avance — nous serons heureux de vous accueillir.",
+    "intro": "Ongles Rivières est situé au Centre Les Rivières, Québec. Venez sans rendez-vous ou réservez à l'avance. Nous serons heureux de vous accueillir.",
     "visit": {
       "gettingHere": "Ongles Rivières se trouve à l'intérieur du Centre Les Rivières, accessible par les entrées 4 ou 5. Le centre commercial offre plus de 1 500 places de stationnement gratuites, juste devant les portes. Le site est entièrement accessible et desservi par le RTC : le parcours 55 s'arrête à l'arrêt du Carrefour, et le Terminus Rivières est tout près."
     },
@@ -54,11 +54,11 @@
     ]
   },
   "bookOnline": {
-    "intro": "Réservez votre rendez-vous chez Ongles Rivières, Centre Les Rivières. Choisissez votre service et réservez en quelques secondes — ou venez simplement sans rendez-vous.",
+    "intro": "Réservez votre rendez-vous chez Ongles Rivières, Centre Les Rivières. Choisissez votre service et réservez en quelques secondes, ou venez simplement sans rendez-vous.",
     "steps": [
       {
         "title": "Choisissez votre service",
-        "body": "Pose d'ongles, remplissage, soins des mains ou des pieds — sélectionnez ce qui vous convient."
+        "body": "Pose d'ongles, remplissage, soins des mains ou des pieds. Sélectionnez ce qui vous convient."
       },
       {
         "title": "Réservez en quelques secondes",

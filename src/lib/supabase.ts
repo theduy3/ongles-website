@@ -7,6 +7,11 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 // Both are created lazily and return null when their env is missing so the app
 // degrades gracefully (build, local dev, and e2e fall back to popups.json).
 
+// Public reads feed SSR and the client-side popup request. Bound them so a
+// stalled Supabase connection cannot hold a page or API response indefinitely;
+// the public store adapters turn the resulting error into their static fallback.
+export const SUPABASE_PUBLIC_TIMEOUT_MS = 2_000;
+
 const url = process.env.SUPABASE_URL;
 const anonKey = process.env.SUPABASE_ANON_KEY;
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -22,12 +27,19 @@ const publicKey = tenantJwt ?? anonKey;
 // Server-only clients: never persist a session or refresh tokens.
 const clientOptions = { auth: { persistSession: false, autoRefreshToken: false } } as const;
 
+export function getPublicClientOptions() {
+  return {
+    ...clientOptions,
+    db: { timeout: SUPABASE_PUBLIC_TIMEOUT_MS },
+  } as const;
+}
+
 let publicClient: SupabaseClient | null | undefined;
 let adminClient: SupabaseClient | null | undefined;
 
 export function getSupabasePublic(): SupabaseClient | null {
   if (publicClient !== undefined) return publicClient;
-  publicClient = url && publicKey ? createClient(url, publicKey, clientOptions) : null;
+  publicClient = url && publicKey ? createClient(url, publicKey, getPublicClientOptions()) : null;
   return publicClient;
 }
 

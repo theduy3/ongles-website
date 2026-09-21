@@ -4,7 +4,7 @@
     "alt": "Beautiful nail enhancements and manicure at Ongles Charlesbourg, Carrefour Charlesbourg"
   },
   "home": {
-    "bookingIntro": "Book online or walk in — we welcome both. Experience the Ongles Charlesbourg difference at Carrefour Charlesbourg."
+    "bookingIntro": "Book online or walk in. We welcome both. Experience the Ongles Charlesbourg difference at Carrefour Charlesbourg."
   },
   "whyChooseUs": {
     "eyebrow": "The Ongles Charlesbourg Difference",
@@ -12,7 +12,7 @@
       {
         "icon": "✨",
         "title": "Hygiene First",
-        "body": "Three dedicated disinfection stations. Every tool is disinfected after each use — your safety is our top priority."
+        "body": "Three dedicated disinfection stations. Every tool is disinfected after each use. Your safety is our top priority."
       },
       {
         "icon": "🛡️",
@@ -32,14 +32,14 @@
     ]
   },
   "giftCards": {
-    "description": "Treat someone special to a professional nail care experience at Ongles Charlesbourg. Purchase a gift card online via Square for any amount, delivered by email — or buy one in person at the salon."
+    "description": "Treat someone special to a professional nail care experience at Ongles Charlesbourg. Purchase a gift card online via Square for any amount, delivered by email, or buy one in person at the salon."
   },
   "locations": {
-    "intro": "Ongles Charlesbourg is located at Carrefour Charlesbourg, Québec City. Walk in or book ahead — we're happy to see you.",
+    "intro": "Ongles Charlesbourg is located at Carrefour Charlesbourg, Québec City. Walk in or book ahead. We're happy to see you.",
     "visit": {
       "gettingHere": "Ongles Charlesbourg is located inside Carrefour Charlesbourg, reachable through Entrances 4 or 5. The shopping centre offers more than 1,500 free parking spaces, right by the doors. The venue is fully accessible and served by RTC transit: bus route 55 stops at the du Carrefour stop, and Terminus Charlesbourg is right nearby."
     },
-    "salonsIntro": "Find Ongles Charlesbourg at Carrefour Charlesbourg, plus our salons across Québec. Walk in or book online — we're happy to see you."
+    "salonsIntro": "Find Ongles Charlesbourg at Carrefour Charlesbourg, plus our salons across Québec. Walk in or book online. We're happy to see you."
   },
   "about": {
     "heading": "About Ongles Charlesbourg",
@@ -54,11 +54,11 @@
     ]
   },
   "bookOnline": {
-    "intro": "Reserve your appointment at Ongles Charlesbourg, Carrefour Charlesbourg. Choose your service and book in seconds — or simply walk in.",
+    "intro": "Reserve your appointment at Ongles Charlesbourg, Carrefour Charlesbourg. Choose your service and book in seconds, or simply walk in.",
     "steps": [
       {
         "title": "Choose your service",
-        "body": "Nail enhancements, fills, manicures or pedicures — pick what suits you."
+        "body": "Nail enhancements, fills, manicures or pedicures. Pick what suits you."
       },
       {
         "title": "Book in seconds",

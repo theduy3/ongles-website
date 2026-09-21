@@ -11,6 +11,25 @@ export type StoreResult<T> =
   | { ok: false; reason: "not_configured" }
   | { ok: false; reason: "failed"; detail: string };
 
+/**
+ * Convert an unexpected public data-read rejection into the null value that
+ * callers use to select static fallback content. Supabase normally returns a
+ * response envelope for query failures, but transport failures and aborts can
+ * reject before that envelope exists.
+ */
+export async function readPublicOrNull<T>(
+  label: string,
+  read: () => T | PromiseLike<T>,
+): Promise<T | null> {
+  try {
+    return await read();
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    console.error(`[tenant-store] public read failed (${label}):`, detail);
+    return null;
+  }
+}
+
 // Validates `raw` through `schema`. On success returns the parsed data; on
 // failure logs the first issue (tagged with `label` — a row id, a tenant id,
 // whatever identifies which doc failed) and returns null. Never throws, so

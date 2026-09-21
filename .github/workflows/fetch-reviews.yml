@@ -22,11 +22,13 @@ name: Fetch Google reviews
 #   GBP_LOCATION_ONGLES_MAILY           (My Business v4 numeric location id)
 #   GBP_LOCATION_ONGLES_CHARLESBOURG
 #   GBP_LOCATION_ONGLES_RIVIERES
+#   GBP_LOCATION_ONGLES_CITE
 # Optional — only if a salon lives under a DIFFERENT Google account than the
 # shared default; otherwise omit and the shared account is used:
 #   GBP_ACCOUNT_ONGLES_MAILY
 #   GBP_ACCOUNT_ONGLES_CHARLESBOURG
 #   GBP_ACCOUNT_ONGLES_RIVIERES
+#   GBP_ACCOUNT_ONGLES_CITE
 #
 # A tenant whose location secret is unset is SKIPPED with a warning (it keeps its
 # committed JSON), so the workflow is safe to enable before every salon is wired.
@@ -66,9 +68,11 @@ jobs:
           ACC_MAILY: ${{ secrets.GBP_ACCOUNT_ONGLES_MAILY }}
           ACC_CHARLESBOURG: ${{ secrets.GBP_ACCOUNT_ONGLES_CHARLESBOURG }}
           ACC_RIVIERES: ${{ secrets.GBP_ACCOUNT_ONGLES_RIVIERES }}
+          ACC_CITE: ${{ secrets.GBP_ACCOUNT_ONGLES_CITE }}
           LOC_MAILY: ${{ secrets.GBP_LOCATION_ONGLES_MAILY }}
           LOC_CHARLESBOURG: ${{ secrets.GBP_LOCATION_ONGLES_CHARLESBOURG }}
           LOC_RIVIERES: ${{ secrets.GBP_LOCATION_ONGLES_RIVIERES }}
+          LOC_CITE: ${{ secrets.GBP_LOCATION_ONGLES_CITE }}
         run: |
           set -euo pipefail
 
@@ -92,6 +96,7 @@ jobs:
           run_one ongles-maily        "$ACC_MAILY"        "$LOC_MAILY"
           run_one ongles-charlesbourg "$ACC_CHARLESBOURG" "$LOC_CHARLESBOURG"
           run_one ongles-rivieres     "$ACC_RIVIERES"     "$LOC_RIVIERES"
+          run_one ongles-cite         "$ACC_CITE"         "$LOC_CITE"
 
       - name: Commit & push if reviews changed
         run: |

@@ -39,12 +39,15 @@ import charlesbourgFr from "@/config/tenants/ongles-charlesbourg/seo.fr.json";
 import charlesbourgEn from "@/config/tenants/ongles-charlesbourg/seo.en.json";
 import rivieresFr from "@/config/tenants/ongles-rivieres/seo.fr.json";
 import rivieresEn from "@/config/tenants/ongles-rivieres/seo.en.json";
+import citeFr from "@/config/tenants/ongles-cite/seo.fr.json";
+import citeEn from "@/config/tenants/ongles-cite/seo.en.json";
 
 // Tenants whose admin form we seed. `template` is an empty scaffold — skip it.
 const SEED_TENANTS = [
   "ongles-maily",
   "ongles-charlesbourg",
   "ongles-rivieres",
+  "ongles-cite",
 ] as const;
 
 type LocaleSeo = { fr: Record<string, unknown>; en: Record<string, unknown> };
@@ -53,6 +56,7 @@ const TENANT_SEO: Record<string, LocaleSeo> = {
   "ongles-maily": { fr: mailyFr as Record<string, unknown>, en: mailyEn as Record<string, unknown> },
   "ongles-charlesbourg": { fr: charlesbourgFr as Record<string, unknown>, en: charlesbourgEn as Record<string, unknown> },
   "ongles-rivieres": { fr: rivieresFr as Record<string, unknown>, en: rivieresEn as Record<string, unknown> },
+  "ongles-cite": { fr: citeFr as Record<string, unknown>, en: citeEn as Record<string, unknown> },
 };
 
 const BASE_SEO: LocaleSeo = {

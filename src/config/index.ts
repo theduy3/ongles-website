@@ -10,12 +10,14 @@
 import { onglesMaily } from "./tenants/ongles-maily";
 import { onglesCharlesbourg } from "./tenants/ongles-charlesbourg";
 import { onglesRivieres } from "./tenants/ongles-rivieres";
+import { onglesCite } from "./tenants/ongles-cite";
 import { template } from "./tenants/template";
 
 export const TENANT_REGISTRY = {
   "ongles-maily": onglesMaily,
   "ongles-charlesbourg": onglesCharlesbourg,
   "ongles-rivieres": onglesRivieres,
+  "ongles-cite": onglesCite,
   template,
 } as const;
 

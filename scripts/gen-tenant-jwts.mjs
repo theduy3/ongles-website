@@ -24,7 +24,7 @@ if (!secret) {
 }
 
 // Keep this list in sync with the tenant registry (src/config/index.ts).
-const TENANTS = ["ongles-maily", "ongles-charlesbourg", "ongles-rivieres"];
+const TENANTS = ["ongles-maily", "ongles-charlesbourg", "ongles-rivieres", "ongles-cite"];
 
 // Long-lived: these are deploy-time credentials, rotated only when the JWT
 // secret rotates. 10 years.

@@ -113,15 +113,15 @@ export function Testimonials({ dict }: { dict: Dictionary }) {
     <div>
       <ul
         ref={trackRef}
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((t, i) => (
           <li
             key={i}
-            className="flex w-[300px] shrink-0 snap-start flex-col rounded-xl bg-white p-6 text-left shadow-card sm:w-[360px]"
+            className="flex w-[300px] shrink-0 snap-start flex-col rounded-2xl border border-espresso/10 bg-cream p-6 text-left shadow-card sm:w-[360px]"
           >
             <Stars count={t.rating} />
-            <p className="mt-4 flex-1 font-light leading-relaxed text-mocha">
+            <p className="mt-4 line-clamp-3 flex-1 font-light leading-relaxed text-mocha">
               &ldquo;{t.quote}&rdquo;
             </p>
             <div className="mt-6 flex items-center gap-3">

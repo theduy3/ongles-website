@@ -22,14 +22,11 @@ export async function GiftCards({
   const g = dict.giftCards;
   return (
     <section id="giftcards" className="scroll-mt-20">
-      <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-24 lg:px-8">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
           <Reveal>
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                {g.eyebrow}
-              </p>
-              <h2 className="mt-3 text-4xl text-espresso md:text-5xl">
+              <h2 className="max-w-lg text-4xl text-espresso sm:text-5xl">
                 {g.heading}
               </h2>
               <p className="mt-5 max-w-md font-light leading-relaxed text-mocha">
@@ -40,17 +37,17 @@ export async function GiftCards({
                   {dict.cta.buyGiftCard}
                 </Button>
               </div>
-              <p className="mt-4 text-xs uppercase tracking-wide text-tan">
+              <p className="mt-4 max-w-md text-xs leading-relaxed text-tan">
                 {g.note}
               </p>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5">
               {g.designs.map((d, i) => (
                 <div
                   key={d.title}
-                  className={`flex aspect-[8/5] flex-col justify-between rounded-2xl p-5 shadow-card ${TILE_STYLES[i % TILE_STYLES.length]} ${i % 2 === 1 ? "translate-y-6" : ""}`}
+                  className={`flex aspect-[8/5] flex-col justify-between rounded-2xl p-4 shadow-card sm:p-5 ${TILE_STYLES[i % TILE_STYLES.length]} ${i % 2 === 1 ? "translate-y-4 sm:translate-y-6" : ""}`}
                 >
                   <span className="font-[var(--font-jost)] text-xs uppercase tracking-[0.2em] opacity-80">
                     {site.name}

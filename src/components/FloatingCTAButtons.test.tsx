@@ -20,9 +20,22 @@ import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 
 // We test the exported click handlers from the island directly.
 import {
+  isBookingPath,
   makeBookClickHandler,
   makeCallClickHandler,
 } from "./FloatingCTAButtons";
+
+describe("isBookingPath()", () => {
+  it("matches the booking route with or without a trailing slash", () => {
+    expect(isBookingPath("/en/book-online", "/en/book-online")).toBe(true);
+    expect(isBookingPath("/en/book-online/", "/en/book-online")).toBe(true);
+  });
+
+  it("does not hide neighboring routes or a null pathname", () => {
+    expect(isBookingPath("/en/contact", "/en/book-online")).toBe(false);
+    expect(isBookingPath(null, "/en/book-online")).toBe(false);
+  });
+});
 
 // ─── Spy helpers ───────────────────────────────────────────────────────────────
 

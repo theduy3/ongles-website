@@ -9,9 +9,9 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
   const { site } = await getStoreConfig();
   return {
     name: site.name,
-    short_name: "Ongles Maily",
+    short_name: site.name,
     description:
-      "Ongles Maily — salon d'ongles au Carrefour Beauport, Québec. Pose d'ongles, manucure et pédicure.",
+      `${site.name} — salon d'ongles situé à ${site.contact.landmark}, ${site.contact.address.city}. Pose d'ongles, manucure et pédicure.`,
     start_url: `/${defaultLocale}`,
     display: "standalone",
     background_color: "#ffffff",

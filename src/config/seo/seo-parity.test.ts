@@ -16,6 +16,8 @@ import charlesbourgEn from "../tenants/ongles-charlesbourg/seo.en.json";
 import charlesbourgFr from "../tenants/ongles-charlesbourg/seo.fr.json";
 import rivieresEn from "../tenants/ongles-rivieres/seo.en.json";
 import rivieresFr from "../tenants/ongles-rivieres/seo.fr.json";
+import citeEn from "../tenants/ongles-cite/seo.en.json";
+import citeFr from "../tenants/ongles-cite/seo.fr.json";
 
 const SERVICE_IDS = ["pose-ongles", "remplissage", "soins-mains", "soins-pieds"];
 
@@ -32,6 +34,7 @@ const pairs: Array<[string, object, object]> = [
   ["ongles-maily", mailyFr, mailyEn],
   ["ongles-charlesbourg", charlesbourgFr, charlesbourgEn],
   ["ongles-rivieres", rivieresFr, rivieresEn],
+  ["ongles-cite", citeFr, citeEn],
 ];
 
 describe("SEO fr/en parity", () => {
@@ -62,6 +65,36 @@ describe("SEO key constraints", () => {
 
 import frDict from "../../dictionaries/fr.json";
 import enDict from "../../dictionaries/en.json";
+import contentBaseFr from "../base/content.fr.json";
+import contentBaseEn from "../base/content.en.json";
+
+describe("mobile CTA labels", () => {
+  it("keeps the CTA key structure identical in French and English", () => {
+    expect(keyPaths(frDict.cta)).toEqual(keyPaths(enDict.cta));
+  });
+
+  it("defines non-empty compact labels in both locales", () => {
+    expect(frDict.cta.callNowShort).toBe("Appeler");
+    expect(frDict.cta.bookNowShort).toBe("Réserver");
+    expect(frDict.cta.directionsShort).toBe("Itinéraire");
+    expect(enDict.cta.callNowShort).toBe("Call Now");
+    expect(enDict.cta.bookNowShort).toBe("Book Now");
+    expect(enDict.cta.directionsShort).toBe("Directions");
+  });
+
+  it("keeps runtime base CTA key structure identical in French and English", () => {
+    expect(keyPaths(contentBaseFr.cta)).toEqual(keyPaths(contentBaseEn.cta));
+  });
+
+  it("defines non-empty compact labels in runtime base content", () => {
+    expect(contentBaseFr.cta.callNowShort).toBe("Appeler");
+    expect(contentBaseFr.cta.bookNowShort).toBe("Réserver");
+    expect(contentBaseFr.cta.directionsShort).toBe("Itinéraire");
+    expect(contentBaseEn.cta.callNowShort).toBe("Call Now");
+    expect(contentBaseEn.cta.bookNowShort).toBe("Book Now");
+    expect(contentBaseEn.cta.directionsShort).toBe("Directions");
+  });
+});
 
 describe("F-02: dictionaries faq.items FR/EN parity", () => {
   it("fr and en dictionaries have identical faq top-level key structure", () => {
@@ -105,6 +138,8 @@ import charlesbourgFaqFr from "../tenants/ongles-charlesbourg/faq.fr.json";
 import charlesbourgFaqEn from "../tenants/ongles-charlesbourg/faq.en.json";
 import rivieresFaqFr from "../tenants/ongles-rivieres/faq.fr.json";
 import rivieresFaqEn from "../tenants/ongles-rivieres/faq.en.json";
+import citeFaqFr from "../tenants/ongles-cite/faq.fr.json";
+import citeFaqEn from "../tenants/ongles-cite/faq.en.json";
 
 type SeoDoc = {
   meta: Record<string, string>;
@@ -117,12 +152,14 @@ const seoTenantPairs: Array<[string, SeoDoc, SeoDoc]> = [
   ["ongles-maily", mailyFr as unknown as SeoDoc, mailyEn as unknown as SeoDoc],
   ["ongles-charlesbourg", charlesbourgFr as unknown as SeoDoc, charlesbourgEn as unknown as SeoDoc],
   ["ongles-rivieres", rivieresFr as unknown as SeoDoc, rivieresEn as unknown as SeoDoc],
+  ["ongles-cite", citeFr as unknown as SeoDoc, citeEn as unknown as SeoDoc],
 ];
 
 const faqTenantPairs: Array<[string, FaqDoc, FaqDoc]> = [
   ["ongles-maily", mailyFaqFr as FaqDoc, mailyFaqEn as FaqDoc],
   ["ongles-charlesbourg", charlesbourgFaqFr as FaqDoc, charlesbourgFaqEn as FaqDoc],
   ["ongles-rivieres", rivieresFaqFr as FaqDoc, rivieresFaqEn as FaqDoc],
+  ["ongles-cite", citeFaqFr as FaqDoc, citeFaqEn as FaqDoc],
 ];
 
 describe("F-02 extension: seo answerBlock/answerHeading key parity FR/EN per tenant", () => {
@@ -194,12 +231,13 @@ const COMPARISON_SLUGS = [
   "meilleur-pour",
 ] as const;
 
-// All files checked: base + 3 tenants.
+// All files checked: base + 4 tenants.
 const allPairs: Array<[string, SeoDocWithPages, SeoDocWithPages]> = [
   ["base", baseFr as unknown as SeoDocWithPages, baseEn as unknown as SeoDocWithPages],
   ["ongles-maily", mailyFr as unknown as SeoDocWithPages, mailyEn as unknown as SeoDocWithPages],
   ["ongles-charlesbourg", charlesbourgFr as unknown as SeoDocWithPages, charlesbourgEn as unknown as SeoDocWithPages],
   ["ongles-rivieres", rivieresFr as unknown as SeoDocWithPages, rivieresEn as unknown as SeoDocWithPages],
+  ["ongles-cite", citeFr as unknown as SeoDocWithPages, citeEn as unknown as SeoDocWithPages],
 ];
 
 describe("Phase 4: pages.pricing keys — typeof string in fr+en (base + 3 tenants)", () => {

@@ -89,16 +89,13 @@ export function LocationsSection({
 
   return (
     <section id="location" className="scroll-mt-20 bg-white">
-      <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-24 lg:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.2em] text-gold">
-              {l.eyebrow}
-            </p>
-            <h2 className="mt-3 text-4xl text-espresso md:text-5xl">
+            <h2 className="text-4xl text-espresso sm:text-5xl">
               {l.salonsHeading}
             </h2>
-            <p className="mt-5 font-light leading-relaxed text-mocha">
+            <p className="mt-5 max-w-xl font-light leading-relaxed text-mocha">
               {l.salonsIntro}
             </p>
           </div>

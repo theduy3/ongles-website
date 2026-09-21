@@ -28,13 +28,12 @@ export async function Footer({ dict, locale }: { dict: Dictionary; locale: Local
 
   return (
     <footer className="bg-espresso text-cream">
-      <div className="mx-auto max-w-6xl px-6 pt-20 pb-8">
+      <div className="mx-auto max-w-7xl px-5 pt-20 pb-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <p className="font-[var(--font-jost)] text-2xl">
-              <span className="font-normal">Ongles </span>
-              <span className="font-semibold">Maily</span>
+            <p className="font-[var(--font-jost)] text-2xl font-semibold">
+              {site.name}
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">
               {dict.hero.subtitle}
@@ -104,11 +103,7 @@ export async function Footer({ dict, locale }: { dict: Dictionary; locale: Local
               {dict.nav.privacy}
             </Link>
           </nav>
-          <p>
-            {locale === "fr"
-              ? "Conçu avec ♡ à Québec"
-              : "Designed with ♡ in Québec"}
-          </p>
+          <p>{locale === "fr" ? "Une équipe d'ici" : "A local team"}</p>
         </div>
       </div>
     </footer>

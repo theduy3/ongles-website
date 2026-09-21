@@ -4,7 +4,7 @@
     "alt": "Pose d'ongles et manucure professionnelles chez Your Salon"
   },
   "home": {
-    "bookingIntro": "Réservez en ligne ou venez sans rendez-vous — les deux sont bienvenus. Vivez l'expérience Your Salon."
+    "bookingIntro": "Réservez en ligne ou venez sans rendez-vous. Les deux sont bienvenus. Vivez l'expérience Your Salon."
   },
   "whyChooseUs": {
     "eyebrow": "La différence Your Salon",
@@ -12,7 +12,7 @@
       {
         "icon": "✨",
         "title": "L'hygiène avant tout",
-        "body": "Postes de désinfection dédiés. Chaque outil est désinfecté après chaque utilisation — votre sécurité est notre priorité absolue."
+        "body": "Postes de désinfection dédiés. Chaque outil est désinfecté après chaque utilisation. Votre sécurité est notre priorité absolue."
       },
       {
         "icon": "🛡️",
@@ -27,15 +27,15 @@
       {
         "icon": "🌿",
         "title": "Ambiance familiale",
-        "body": "Chez Your Salon, vous êtes notre famille. Venez avec ou sans rendez-vous — vous êtes toujours les bienvenus."
+        "body": "Chez Your Salon, vous êtes notre famille. Venez avec ou sans rendez-vous. Vous êtes toujours les bienvenus."
       }
     ]
   },
   "giftCards": {
-    "description": "Pour une occasion spéciale ou simplement pour faire plaisir? Nos certificats cadeaux sont disponibles à l'achat en ligne pour tout montant, livrés par courriel — ou achetez-les directement au salon."
+    "description": "Pour une occasion spéciale ou simplement pour faire plaisir? Nos certificats cadeaux sont disponibles en ligne pour tout montant, livrés par courriel, ou directement au salon."
   },
   "locations": {
-    "intro": "Your Salon est idéalement situé. Venez sans rendez-vous ou réservez à l'avance — nous serons heureux de vous accueillir.",
+    "intro": "Your Salon est idéalement situé. Venez sans rendez-vous ou réservez à l'avance. Nous serons heureux de vous accueillir.",
     "visit": {
       "gettingHere": "Your Salon est facile d'accès. Le stationnement est disponible à proximité. Le site est entièrement accessible et desservi par les transports en commun."
     },
@@ -54,11 +54,11 @@
     ]
   },
   "bookOnline": {
-    "intro": "Réservez votre rendez-vous chez Your Salon. Choisissez votre service et réservez en quelques secondes — ou venez simplement sans rendez-vous.",
+    "intro": "Réservez votre rendez-vous chez Your Salon. Choisissez votre service et réservez en quelques secondes, ou venez simplement sans rendez-vous.",
     "steps": [
       {
         "title": "Choisissez votre service",
-        "body": "Pose d'ongles, remplissage, soins des mains ou des pieds — sélectionnez ce qui vous convient."
+        "body": "Pose d'ongles, remplissage, soins des mains ou des pieds. Sélectionnez ce qui vous convient."
       },
       {
         "title": "Réservez en quelques secondes",

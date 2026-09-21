@@ -9,7 +9,13 @@ import { locales, localeLabel, type Locale } from "@/lib/i18n";
 // full list. Selecting a locale links to the same path in that locale and stores
 // the choice in the NEXT_LOCALE cookie so the proxy honours it on later visits
 // (manual choice overrides device language).
-export function LocaleSwitch({ locale }: { locale: Locale }) {
+export function LocaleSwitch({
+  locale,
+  tone = "dark",
+}: {
+  locale: Locale;
+  tone?: "light" | "dark";
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -46,7 +52,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Change language"
-        className="flex items-center gap-1.5 font-semibold text-cream transition-colors hover:text-tan"
+        className={`flex items-center gap-1.5 font-semibold transition-colors ${tone === "light" ? "text-espresso hover:text-mocha" : "text-cream hover:text-tan"}`}
       >
         {localeLabel[locale]}
         <svg

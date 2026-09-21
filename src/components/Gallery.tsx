@@ -7,29 +7,36 @@ export type GallerySlide = {
   caption: string;
 };
 
-// Featured-large nail-art grid: the first tile spans 2×2, the rest fill around
-// it. Square cover images with a caption that fades in on hover. Server component.
+// The first image anchors the grid. Captions stay outside the image so the
+// gallery remains legible and useful on touch screens without hover.
 export function Gallery({ slides }: { slides: GallerySlide[] }) {
   if (slides.length === 0) return null;
+
   return (
-    <ul className="grid auto-rows-[160px] grid-cols-2 gap-4 sm:auto-rows-[200px] md:grid-cols-4">
+    <ul className="grid grid-cols-2 gap-x-4 gap-y-7 md:grid-cols-4 md:gap-x-5 md:gap-y-8">
       {slides.map((slide, i) => (
         <li
           key={slide.id}
-          className={`group relative overflow-hidden rounded-xl bg-white shadow-card ${
-            i === 0 ? "col-span-2 row-span-2" : ""
-          }`}
+          className={`group ${i === 0 ? "col-span-2 row-span-2" : ""}`}
         >
-          <Image
-            src={slide.file}
-            alt={slide.alt}
-            fill
-            sizes={i === 0 ? "(max-width:768px) 100vw, 50vw" : "(max-width:768px) 50vw, 25vw"}
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-espresso/70 to-transparent p-4 text-sm font-medium text-cream opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            {slide.caption}
-          </span>
+          <figure className="flex h-full flex-col gap-3">
+            <div
+              className={`relative w-full overflow-hidden rounded-2xl bg-white shadow-card ${i === 0 ? "aspect-square" : "aspect-[4/3]"}`}
+            >
+              <Image
+                src={slide.file}
+                alt={slide.alt}
+                fill
+                sizes={
+                  i === 0
+                    ? "(max-width: 768px) 100vw, 50vw"
+                    : "(max-width: 768px) 50vw, 25vw"
+                }
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </div>
+            <figcaption className="text-sm text-mocha">{slide.caption}</figcaption>
+          </figure>
         </li>
       ))}
     </ul>
