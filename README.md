@@ -1,6 +1,6 @@
-# Pure Nail Bar — Website
+# Ongles — multi-tenant nail salon websites
 
-Next.js 16 multilingual (EN/FR) booking & information site for **Pure Nail Bar**, luxury nail care in Vancouver, BC.
+Next.js 16 multilingual (EN/FR) booking & information sites for **Ongles**-branded nail salons (multi-tenant; one repo, N branded builds).
 
 ## Stack
 
@@ -9,7 +9,7 @@ Next.js 16 multilingual (EN/FR) booking & information site for **Pure Nail Bar**
 - **Data/Auth:** Supabase, iron-session
 - **Animation:** framer-motion
 - **Testing:** Playwright (E2E)
-- **Booking:** Booker platform (go.booker.com/brand/purenailbar)
+- **Booking:** Booker (or equivalent) is configured per tenant under `site.booker` in `src/config/tenants/<id>/site.ts`
 
 ## Getting Started
 
@@ -77,8 +77,6 @@ HTML/JS snippets (analytics tags, pixels, chat widgets, embeds) without a rebuil
 - **Widget host:** the SalonX booking/check-in/queue widget origin is configurable in the
   **Brand** section — change it to re-point all three widgets without a rebuild.
 
-> Note: this README's heading/intro still reflect an older template and are unrelated
-> to the multi-tenant setup above.
 
 ## Scripts
 

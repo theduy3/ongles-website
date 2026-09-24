@@ -1,6 +1,6 @@
 {
   "name": "ongles-website",
-  "description": "Pure Nail Bar — luxury nail care in Vancouver",
+  "description": "Multi-tenant Ongles nail salon websites (Next.js)",
   "version": "0.1.0",
   "private": true,
   "scripts": {

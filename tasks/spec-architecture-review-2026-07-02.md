@@ -183,7 +183,7 @@ has shipped and been judged insufficient.
 
 While delivering Candidate 3, a full `bunx playwright test` run showed **37 of 62
 e2e tests failing**, all from one root cause: this repo is a clone of the
-"SS-website stack" (git: `5a50e39 Initial Pure Nail Bar clone on SS-website
+"SS-website stack" (git: `5a50e39 Initial clone on SS-website
 stack`), and the inherited e2e specs assert the **"Ongles Sans Souci"** tenant —
 title, "Pourquoi nous" nav, 10 testimonials, 4.9 rating, lash slugs
 (`extension-de-cils`), `onglessanssouci.com` canonical. That tenant's config was
