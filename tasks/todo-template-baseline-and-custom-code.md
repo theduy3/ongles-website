@@ -1101,7 +1101,7 @@ git commit -m "feat: neutral template tenant as clone source for new sites"
 
 - [ ] **Step 1: Rename the package**
 
-In `package.json`: `"name": "purenailbar"` → `"name": "ongles-website"`.
+In `package.json`: rename the legacy package `name` → `"name": "ongles-website"`.
 
 - [ ] **Step 2: Document template + custom code in README**
 

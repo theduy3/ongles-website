@@ -17,8 +17,8 @@ Two gaps remain against the "default template + admin-driven customization" goal
 
 1. **No neutral baseline.** The only tenants are 3 real salons (`ongles-maily`,
    `ongles-charlesbourg`, `ongles-rivieres`); default `TENANT` is a real client. There's
-   no generic placeholder tenant to clone for a new site. Also `package.json` name is the
-   stale `"purenailbar"`.
+   no generic placeholder tenant to clone for a new site. Also `package.json` name is
+   a stale legacy package name (since renamed).
 2. **No admin control over embedded code.** Third-party widget code is hardcoded:
    `BookingWidget`/`CheckinWidget`/`QueueWidget` point at the fixed host
    `https://app.onglesmaily.com/widgets/*.js`; `storeId` is config-driven but the host is
@@ -55,7 +55,7 @@ with `TENANT=template`). Adding `template` to the CI matrix in `.github/workflow
 is **optional** (skip — template isn't a real domain).
 
 ### A3. Cleanup
-- `package.json`: `"name": "purenailbar"` → `"ongles-website"`.
+- `package.json`: rename legacy package `name` → `"ongles-website"`.
 - `README.md`: document the `template` tenant as the onboarding clone source and the new
   custom-code admin section.
 
