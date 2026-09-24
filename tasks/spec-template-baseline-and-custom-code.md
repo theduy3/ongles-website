@@ -17,7 +17,7 @@ Two gaps remain against the "default template + admin-driven customization" goal
 
 1. **No neutral baseline.** The only tenants are 3 real salons (`ongles-maily`,
    `ongles-charlesbourg`, `ongles-rivieres`); default `TENANT` is a real client. There's
-   no generic placeholder tenant to clone for a new site. Also `package.json` name is the
+   no generic placeholder tenant to clone for a new site. Also `package.json` name is
    a stale legacy package name (since renamed).
 2. **No admin control over embedded code.** Third-party widget code is hardcoded:
    `BookingWidget`/`CheckinWidget`/`QueueWidget` point at the fixed host
