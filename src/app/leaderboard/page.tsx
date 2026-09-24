@@ -1,8 +1,11 @@
 import { LeaderboardWidget } from "@/components/LeaderboardWidget";
+import { getStoreConfig } from "@/lib/store-config";
 
 // Standalone, un-localized employee-of-the-month leaderboard for a TV/monitor.
-// The embed is fixed to Ongles Maily, so rendering must not depend on the
-// optional Supabase settings layer being reachable.
-export default function LeaderboardPage() {
-  return <LeaderboardWidget />;
+// The minimal noindex shell comes from layout.tsx.
+export default async function LeaderboardPage() {
+  const { site } = await getStoreConfig();
+  return (
+    <LeaderboardWidget storeId={site.storeId} widgetHost={site.widgetHost} />
+  );
 }

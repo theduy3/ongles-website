@@ -8,8 +8,8 @@ mock.module("@/lib/store-config", () => ({
     runtimeReads += 1;
     return {
       site: {
-        storeId: "OM",
-        widgetHost: "https://app.onglesmaily.com",
+        storeId: "OQ",
+        widgetHost: "https://app.onglesquebec.com",
       },
     };
   },
@@ -17,9 +17,13 @@ mock.module("@/lib/store-config", () => ({
 
 const { default: LeaderboardPage } = await import("./page");
 
-it("renders without waiting for runtime store settings", async () => {
+it("passes storeId/widgetHost from getStoreConfig", async () => {
   const element = (await LeaderboardPage()) as ReactElement;
 
   expect(element.type).toBe(LeaderboardWidget);
-  expect(runtimeReads).toBe(0);
+  expect(runtimeReads).toBe(1);
+  expect((element.props as { storeId?: string }).storeId).toBe("OQ");
+  expect((element.props as { widgetHost?: string }).widgetHost).toBe(
+    "https://app.onglesquebec.com",
+  );
 });
