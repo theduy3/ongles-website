@@ -41,15 +41,15 @@ describe("buildSalonCards — every tenant shows all salons", () => {
         expect([...names].sort()).toEqual([...expected].sort());
       });
 
-      // T2 — own store card is first and books via the internal /book-online page;
-      // the other salons keep external links.
-      it("own card is internal /book-online, others external", () => {
+      // T2 — own store card is first; every card books via the internal
+      // /book-online page (no external /reservation/ redirects).
+      it("own card is first and all Book Now links are internal /book-online", () => {
         const c = cards();
         expect(c[0].name).toBe(own);
-        expect(c[0].bookHref).toBe("/en/book-online");
-        const others = c.filter((x) => x.name !== own);
-        expect(others).toHaveLength(expected.size - 1);
-        for (const o of others) expect(o.bookHref).toMatch(/^https:\/\//);
+        expect(c).toHaveLength(expected.size);
+        for (const card of c) {
+          expect(card.bookHref).toBe("/en/book-online");
+        }
       });
 
       // T3 — no coming-soon (Quebec) card regressions.

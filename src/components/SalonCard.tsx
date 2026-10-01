@@ -186,7 +186,7 @@ export function buildSalonCards(
     phone: loc.phone,
     phoneHref: loc.phoneHref,
     // Own-store booking → internal /book-online page (renders this tenant's
-    // SalonX widget). Sister cards below keep their external reservation URLs.
+    // SalonX widget). Sister cards below use the same internal booking path.
     bookHref: `/${lang}${site.booking}`,
     bookLabel: l.bookNow,
     labels,
@@ -219,7 +219,7 @@ export function buildSalonCards(
       hours: s.hours?.[lang],
       phone: s.phone,
       phoneHref: s.phoneHref,
-      bookHref: s.booking,
+      bookHref: `/${lang}${site.booking}`,
       bookLabel: l.bookNow,
       comingSoon: s.comingSoon,
       comingSoonLabel: l.comingSoon,
