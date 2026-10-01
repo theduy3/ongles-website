@@ -15,6 +15,9 @@ export type SisterSalon = {
   address?: { line1: string; line2: string; query: string };
   phone?: string;
   phoneHref?: string;
+  // Own-domain booking page — sister tenants run this same codebase, so the
+  // path is /book-online on each brand's domain.
+  booking?: string;
   // Pre-formatted per-locale hours (the salons keep different schedules).
   hours?: { fr: DayHours[]; en: DayHours[] };
   comingSoon?: boolean;
@@ -36,6 +39,7 @@ export const sisterSalons: readonly SisterSalon[] = [
     },
     phone: "(418) 660-8228",
     phoneHref: "tel:+14186608228",
+    booking: "https://onglesmaily.com/book-online",
     hours: {
       fr: [
         { label: "Lun – Mer", value: "9 h 00 – 17 h 30" },
@@ -64,6 +68,7 @@ export const sisterSalons: readonly SisterSalon[] = [
     },
     phone: "(581) 981-8228",
     phoneHref: "tel:+15819818228",
+    booking: "https://www.onglescharlesbourg.com/book-online",
     // Same schedule as Ongles Maily, except Thu–Fri close at 8 PM (not 9 PM).
     hours: {
       fr: [
@@ -93,6 +98,7 @@ export const sisterSalons: readonly SisterSalon[] = [
     },
     phone: "(819) 378-8228",
     phoneHref: "tel:+18193788228",
+    booking: "https://www.onglesrivieres.com/book-online",
     hours: {
       fr: [
         { label: "Lun – Mer", value: "9 h 30 – 17 h 30" },
@@ -121,6 +127,7 @@ export const sisterSalons: readonly SisterSalon[] = [
     },
     phone: "(418) 653-8881",
     phoneHref: "tel:+14186538881",
+    booking: "https://www.onglesspaquebec.com/book-online",
     // Weekday open corrected to 9 AM per operator (2026-10-01).
     hours: {
       fr: [

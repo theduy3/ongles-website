@@ -41,14 +41,16 @@ describe("buildSalonCards — every tenant shows all salons", () => {
         expect([...names].sort()).toEqual([...expected].sort());
       });
 
-      // T2 — own store card is first; every card books via the internal
-      // /book-online page (no external /reservation/ redirects).
-      it("own card is first and all Book Now links are internal /book-online", () => {
+      // T2 — own store card is first and books via the internal /book-online
+      // page; sister cards book on each brand's own domain /book-online.
+      it("own card is internal /book-online, sisters book on their own domain", () => {
         const c = cards();
         expect(c[0].name).toBe(own);
-        expect(c).toHaveLength(expected.size);
-        for (const card of c) {
-          expect(card.bookHref).toBe("/en/book-online");
+        expect(c[0].bookHref).toBe("/en/book-online");
+        const others = c.filter((x) => x.name !== own);
+        expect(others).toHaveLength(expected.size - 1);
+        for (const o of others) {
+          expect(o.bookHref).toMatch(/^https:\/\/[^/]+\/book-online$/);
         }
       });
 
