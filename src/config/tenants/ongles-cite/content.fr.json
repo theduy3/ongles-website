@@ -36,7 +36,7 @@
   },
   "locations": {
     "hours": [
-      { "label": "Lun – Ven", "value": "10 h 00 – 18 h 00" },
+      { "label": "Lun – Ven", "value": "9 h 00 – 18 h 00" },
       { "label": "Sam", "value": "9 h 00 – 17 h 00" },
       { "label": "Dim", "value": "10 h 00 – 17 h 00" }
     ],
@@ -114,7 +114,7 @@
       },
       {
         "q": "Quelles sont vos heures d'ouverture?",
-        "a": "Lundi–vendredi 10 h à 18 h, samedi 9 h à 17 h, dimanche 10 h à 17 h."
+        "a": "Lundi–vendredi 9 h à 18 h, samedi 9 h à 17 h, dimanche 10 h à 17 h."
       },
       {
         "q": "Acceptez-vous les clients sans rendez-vous ou uniquement sur rendez-vous?",
