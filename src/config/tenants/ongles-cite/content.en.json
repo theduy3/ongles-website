@@ -36,7 +36,7 @@
   },
   "locations": {
     "hours": [
-      { "label": "Mon – Fri", "value": "10:00 AM – 6:00 PM" },
+      { "label": "Mon – Fri", "value": "9:00 AM – 6:00 PM" },
       { "label": "Sat", "value": "9:00 AM – 5:00 PM" },
       { "label": "Sun", "value": "10:00 AM – 5:00 PM" }
     ],
@@ -114,7 +114,7 @@
       },
       {
         "q": "What are your hours?",
-        "a": "Monday–Friday 10:00–18:00, Saturday 9:00–17:00, Sunday 10:00–17:00."
+        "a": "Monday–Friday 9:00–18:00, Saturday 9:00–17:00, Sunday 10:00–17:00."
       },
       {
         "q": "Do you take walk-ins or is it appointment only?",

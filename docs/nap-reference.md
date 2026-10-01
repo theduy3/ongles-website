@@ -66,7 +66,7 @@ _Last verified against config: phase 05-05._
 | Canonical URL | https://www.onglesspaquebec.com |
 | GA4 property | _none yet_ |
 
-**Hours:** Mon–Fri 10:00–18:00 · Sat 09:00–17:00 · Sun 10:00–17:00
+**Hours:** Mon–Fri 09:00–18:00 · Sat 09:00–17:00 · Sun 10:00–17:00
 
 ---
 

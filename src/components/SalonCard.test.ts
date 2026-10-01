@@ -10,7 +10,12 @@ import { onglesCharlesbourg } from "@/config/tenants/ongles-charlesbourg";
 import { onglesRivieres } from "@/config/tenants/ongles-rivieres";
 import { onglesCite } from "@/config/tenants/ongles-cite";
 
-const ALL = ["Ongles Maily", "Ongles Charlesbourg", "Ongles Rivières"] as const;
+const ALL = [
+  "Ongles Maily",
+  "Ongles Charlesbourg",
+  "Ongles Rivières",
+  "Ongles et Spa Québec",
+] as const;
 
 const TENANTS = [
   { id: "ongles-maily", cfg: onglesMaily, own: "Ongles Maily" },
@@ -23,9 +28,8 @@ describe("buildSalonCards — every tenant shows all salons", () => {
   for (const { id, cfg, own } of TENANTS) {
     const cards = () =>
       buildSalonCards(en, "en", cfg.site, [cfg.location], id);
-    // Own card + every sister brand. For tenants whose own brand is also a
-    // sister entry the set dedupes to 3; ongles-cite has no sister card yet,
-    // so it renders its own card plus all 3 sisters = 4.
+    // Own card + every sister brand. Each tenant's own brand also exists as a
+    // sister entry, so the set dedupes to 4 cards per tenant.
     const expected = new Set([own, ...ALL]);
 
     describe(id, () => {

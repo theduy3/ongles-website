@@ -112,4 +112,32 @@ export const sisterSalons: readonly SisterSalon[] = [
       ],
     },
   },
+  {
+    id: "cite",
+    brand: "Ongles et Spa Québec",
+    landmark: "Place de la Cité",
+    website: "https://www.onglesspaquebec.com",
+    address: {
+      line1: "2600 boulevard Laurier",
+      line2: "Québec, QC G1V 4T3",
+      query:
+        "Ongles et Spa Québec, 2600 boulevard Laurier, Québec, QC G1V 4T3",
+    },
+    phone: "(418) 653-8881",
+    phoneHref: "tel:+14186538881",
+    booking: "https://www.onglesspaquebec.com/reservation/",
+    // Weekday open corrected to 9 AM per operator (2026-10-01).
+    hours: {
+      fr: [
+        { label: "Lun – Ven", value: "9 h 00 – 18 h 00" },
+        { label: "Sam", value: "9 h 00 – 17 h 00" },
+        { label: "Dim", value: "10 h 00 – 17 h 00" },
+      ],
+      en: [
+        { label: "Mon – Fri", value: "9:00 AM – 6:00 PM" },
+        { label: "Sat", value: "9:00 AM – 5:00 PM" },
+        { label: "Sun", value: "10:00 AM – 5:00 PM" },
+      ],
+    },
+  },
 ];

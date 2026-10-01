@@ -18,12 +18,12 @@ export const location: Location = {
   phone: "(418) 653-8881",
   phoneHref: "tel:+14186538881",
   hours: [
-    { label: "Lun – Ven", value: "10 h 00 – 18 h 00" },
+    { label: "Lun – Ven", value: "9 h 00 – 18 h 00" },
     { label: "Sam", value: "9 h 00 – 17 h 00" },
     { label: "Dim", value: "10 h 00 – 17 h 00" },
   ],
   hoursSpec: [
-    { days: ["Mo", "Tu", "We", "Th", "Fr"], opens: "10:00", closes: "18:00" },
+    { days: ["Mo", "Tu", "We", "Th", "Fr"], opens: "09:00", closes: "18:00" },
     { days: ["Sa"], opens: "09:00", closes: "17:00" },
     { days: ["Su"], opens: "10:00", closes: "17:00" },
   ],

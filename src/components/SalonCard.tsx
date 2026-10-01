@@ -193,10 +193,7 @@ export function buildSalonCards(
   }));
 
   // Cross-promo lists the OTHER salons — never the active tenant itself. Map the
-  // active tenant id to its sister-salon id (ongles-maily has no sister entry, so
-  // nothing is excluded on the Maily site).
-  // TODO: when sibling domains go live, also surface Ongles Maily as a cross-promo
-  // candidate (sisterSalons has no Maily entry today).
+  // active tenant id to its sister-salon id so the filter below drops the match.
   const selfSisterId: Record<string, string> = {
     "ongles-maily": "maily",
     "ongles-charlesbourg": "charlesbourg",
