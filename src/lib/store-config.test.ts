@@ -1,6 +1,19 @@
-import { describe, expect, it } from "bun:test";
-import { getStoreConfig, mergeServicesById } from "@/lib/store-config";
+import { describe, expect, it, mock } from "bun:test";
 import { site as staticSite, services as staticServices } from "@/config";
+
+// unstable_cache is stubbed as a passthrough that forwards args to the resolver
+// (its behavior inside a real Next.js runtime for a cache miss) — same stub
+// convention as cached-tenant-resource.test.ts. Required: without it, Next's
+// unstable_cache throws "incrementalCache missing" outside a request runtime,
+// and whether this file passed depended on bun's test-file load order.
+mock.module("next/cache", () => ({
+  unstable_cache:
+    (fn: (...a: unknown[]) => unknown) =>
+    (...a: unknown[]) =>
+      fn(...a),
+}));
+
+const { getStoreConfig, mergeServicesById } = await import("@/lib/store-config");
 
 describe("getStoreConfig (no DB in test env)", () => {
   it("returns static site.name when no DB override exists", async () => {
