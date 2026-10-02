@@ -219,7 +219,8 @@ export function buildSalonCards(
       hours: s.hours?.[lang],
       phone: s.phone,
       phoneHref: s.phoneHref,
-      bookHref: s.booking,
+      // Sister tenants run this same codebase → /book-online on their domain.
+      bookHref: s.website ? `${s.website}/book-online` : undefined,
       bookLabel: l.bookNow,
       comingSoon: s.comingSoon,
       comingSoonLabel: l.comingSoon,
