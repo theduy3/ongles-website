@@ -72,3 +72,16 @@ describe("proxy — public pages still get locale routing", () => {
     expect(locationOf(res)).toBeNull();
   });
 });
+
+describe("proxy — extensionless icon/metadata routes pass through", () => {
+  // Regression: generated icons serve at extensionless URLs (/icon, not
+  // /icon.png), which the dot-based matcher can't exclude — without the
+  // ROOT_METADATA_PATHS bail they 307 to /fr/icon and favicons 404 sitewide.
+  it.each(["/icon", "/apple-icon", "/pwa-icon"])(
+    "serves %s directly",
+    async (path: string) => {
+      const res = await proxy(req(path));
+      expect(locationOf(res)).toBeNull();
+    },
+  );
+});
