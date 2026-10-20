@@ -19,7 +19,7 @@ describe("subscription layout generateMetadata — per-tenant favicon", () => {
     expect(meta.icons).toEqual({ icon: "https://cdn.example/charlesbourg-fav.png" });
   });
 
-  it("omits icons when the tenant has no favicon (falls back to icon.png)", async () => {
+  it("omits icons when the tenant has no favicon (falls back to the generated tenant icon)", async () => {
     faviconValue = undefined;
     const meta = await generateMetadata();
     expect(meta.icons).toBeUndefined();

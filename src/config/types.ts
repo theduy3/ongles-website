@@ -78,7 +78,7 @@ export type TenantSite = {
   // (see Header.tsx Logo).
   logo?: string;
   // Optional favicon image URL. Merged from the Supabase override; when absent
-  // the site uses the static app/icon.png default.
+  // the site renders the generated per-tenant app/icon.tsx monogram.
   favicon?: string;
   // SalonX widget store code (booking / check-in / queue widgets).
   storeId: string;
