@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
+import { standaloneManifestHref } from "@/lib/standalone-manifest";
 
 // Keep this standalone route request-rendered without depending on the
 // Supabase-backed runtime settings layer.
@@ -9,6 +10,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Leaderboard",
     robots: { index: false, follow: false },
+    manifest: standaloneManifestHref("/leaderboard"),
   };
 }
 

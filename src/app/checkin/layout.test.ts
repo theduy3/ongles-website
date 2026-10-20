@@ -30,6 +30,7 @@ describe("checkin layout generateMetadata — per-tenant favicon", () => {
     const meta = await generateMetadata();
     expect(meta.title).toBe("Check in");
     expect(meta.robots).toEqual({ index: false, follow: false });
+    expect(meta.manifest).toBe("/standalone-manifest/checkin");
   });
 
   // Must render dynamically — see admin/layout.test.ts for the full rationale:
