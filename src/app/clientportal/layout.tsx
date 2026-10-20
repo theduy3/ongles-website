@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { getStoreConfig } from "@/lib/store-config";
+import { standaloneManifestHref } from "@/lib/standalone-manifest";
 
 // Standalone root layout for the un-localized /clientportal page (sibling to
 // [lang], admin and checkin). Intentionally minimal — no Header/Footer/popups —
@@ -18,6 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Client Portal",
     robots: { index: false, follow: false },
+    manifest: standaloneManifestHref("/clientportal"),
     ...(site.favicon ? { icons: { icon: site.favicon } } : {}),
   };
 }

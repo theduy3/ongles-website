@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { getStoreConfig } from "@/lib/store-config";
+import { standaloneManifestHref } from "@/lib/standalone-manifest";
 
 // Standalone root layout for the un-localized /subscription page (sibling to
 // [lang], admin, checkin and clientportal). Intentionally minimal — no
@@ -18,6 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Subscription",
     robots: { index: false, follow: false },
+    manifest: standaloneManifestHref("/subscription"),
     ...(site.favicon ? { icons: { icon: site.favicon } } : {}),
   };
 }

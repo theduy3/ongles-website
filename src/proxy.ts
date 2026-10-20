@@ -60,6 +60,9 @@ export async function proxy(request: NextRequest) {
   // skips paths containing a dot, so /icon, /apple-icon and /pwa-icon must bail
   // here — otherwise they 307 to /fr/icon and 404, breaking favicons sitewide.
   if (ROOT_METADATA_PATHS.has(pathname)) return NextResponse.next();
+  // Kiosk web-app manifests. Extensionless, so the dot matcher will not skip
+  // them; a locale redirect would make iOS fetch the marketing manifest instead.
+  if (pathname.startsWith("/standalone-manifest/")) return NextResponse.next();
 
 
   // 2. Locale routing for public pages.

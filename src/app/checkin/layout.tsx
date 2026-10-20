@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { getStoreConfig } from "@/lib/store-config";
+import { standaloneManifestHref } from "@/lib/standalone-manifest";
 
 // Standalone root layout for the un-localized /checkin kiosk page (sibling to
 // [lang] and admin). Intentionally minimal — no Header/Footer/popups — and kept
@@ -17,6 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Check in",
     robots: { index: false, follow: false },
+    manifest: standaloneManifestHref("/checkin"),
     ...(site.favicon ? { icons: { icon: site.favicon } } : {}),
   };
 }
