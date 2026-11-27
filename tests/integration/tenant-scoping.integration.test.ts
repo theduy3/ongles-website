@@ -3,7 +3,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 import { PopupSchema, type Popup } from "@/lib/popup";
 import { StoreSettingsSchema } from "@/lib/store-settings-schema";
-import { listPopups, upsertPopup, deletePopup } from "@/lib/popups-store";
+import { listPopups, readPopups, upsertPopup, deletePopup } from "@/lib/popups-store";
 import { getStoreSettings, upsertStoreSettings } from "@/lib/store-settings-store";
 import { tenant } from "@/config";
 import { POPUPS_TABLE, STORE_SETTINGS_TABLE } from "@/lib/supabase";
@@ -38,6 +38,8 @@ const OTHER = ACTIVE === "ongles-charlesbourg" ? "ongles-maily" : "ongles-charle
 // Fixed, namespaced ids so cleanup can't touch real rows.
 const A_POPUP = "itest-popup-a";
 const B_POPUP = "itest-popup-b";
+// One id inserted under BOTH tenants — the composite-key regression case.
+const SHARED_POPUP = "itest-popup-shared";
 
 // A raw service-role client — bypasses RLS — used ONLY to seed and to verify
 // ground truth independently of the code under test. Never the thing being
@@ -52,7 +54,7 @@ function validPopup(id: string): Popup {
 
 async function wipe() {
   if (!raw) return;
-  await raw.from(POPUPS_TABLE).delete().in("id", [A_POPUP, B_POPUP]);
+  await raw.from(POPUPS_TABLE).delete().in("id", [A_POPUP, B_POPUP, SHARED_POPUP]);
   await raw.from(STORE_SETTINGS_TABLE).delete().in("tenant_id", [ACTIVE, OTHER]);
 }
 
@@ -62,8 +64,8 @@ suite("store IO shell — tenant_id scoping (integration)", () => {
   beforeEach(async () => {
     if (!raw) return;
     await wipe();
-    // One popup per tenant. `id` is a global primary key, so B_POPUP genuinely
-    // belongs to OTHER — an A-scoped delete of it must find nothing.
+    // One popup per tenant, distinct ids. B_POPUP belongs to OTHER, so an
+    // A-scoped delete of it must find nothing.
     await raw.from(POPUPS_TABLE).insert([
       { id: A_POPUP, doc: validPopup(A_POPUP), tenant_id: ACTIVE },
       { id: B_POPUP, doc: validPopup(B_POPUP), tenant_id: OTHER },
@@ -118,12 +120,48 @@ suite("store IO shell — tenant_id scoping (integration)", () => {
     expect(ids).not.toContain(B_POPUP);
   });
 
-  // The public read path (readPopups → anon client) is NOT covered here: after
-  // the tenant-aware RLS migration, an anon client without a SUPABASE_TENANT_JWT
-  // claim is filtered by RLS before our `.eq` runs (locally it sees nothing). In
-  // prod each container carries a tenant-scoped JWT, so RLS — not the untested
-  // shell — isolates that path. ADR 0003 records this: the untested surface is
-  // the admin, RLS-BYPASSING (service-role) path, which is what this suite pins.
+  // readPopups is the request-time path behind GET /api/popups. It uses the
+  // service-role client (anon no longer passes RLS — see the 20261127000000
+  // migration), so its isolation is exactly the .eq("tenant_id") this suite pins.
+  test("readPopups returns only the active tenant's popups", async () => {
+    const popups = await readPopups();
+    expect(popups).not.toBeNull();
+    const ids = (popups ?? []).map((p) => p.id);
+    expect(ids).toContain(A_POPUP);
+    expect(ids).not.toContain(B_POPUP);
+  });
+
+  // Regression for the 2026-11-27 incident: publishing one campaign id to a
+  // second tenant overwrote the first tenant's row, because the upsert conflict
+  // target was the global id primary key. The key is now (id, tenant_id).
+  test("the same popup id survives in two tenants at once (composite key)", async () => {
+    await raw!.from(POPUPS_TABLE).insert({
+      id: SHARED_POPUP,
+      doc: validPopup(SHARED_POPUP),
+      tenant_id: OTHER,
+    });
+
+    const ours = { ...validPopup(SHARED_POPUP), priority: 99 };
+    const result = await upsertPopup(ours);
+    expect(result.ok).toBe(true);
+
+    const { data } = await raw!
+      .from(POPUPS_TABLE)
+      .select("tenant_id, doc")
+      .eq("id", SHARED_POPUP);
+    expect(data).toHaveLength(2);
+    const byTenant = Object.fromEntries(data!.map((r) => [r.tenant_id, r.doc as Popup]));
+    expect(byTenant[ACTIVE].priority).toBe(99);
+    expect(byTenant[OTHER].priority).toBe(0);
+
+    // Republishing to the active tenant must not touch the other tenant's row.
+    await upsertPopup({ ...ours, priority: 100 });
+    const { data: after } = await raw!
+      .from(POPUPS_TABLE)
+      .select("tenant_id, doc")
+      .eq("id", SHARED_POPUP);
+    expect(after).toHaveLength(2);
+  });
 
   test("upsertPopup stamps the active tenant (write cannot leak to another site)", async () => {
     const fresh = validPopup(A_POPUP);

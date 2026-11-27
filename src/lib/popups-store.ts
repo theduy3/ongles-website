@@ -2,7 +2,6 @@ import { PopupSchema, type Popup } from "@/lib/popup";
 import { tenant } from "@/config";
 import {
   getSupabaseAdmin,
-  getSupabasePublic,
   POPUPS_TABLE,
   POPUP_IMAGES_BUCKET,
 } from "@/lib/supabase";
@@ -30,8 +29,11 @@ export function parseRows(rows: Row[]): Popup[] {
 
 // Public read used by GET /api/popups. Returns null when Supabase is not
 // configured or the query fails, so the caller can fall back to popups.json.
+// Runs server-side only, so it uses the service-role client: tenant isolation
+// comes from the .eq("tenant_id") below, exactly like the admin paths — not
+// from RLS, which anon no longer passes (see 20261127000000 migration).
 export async function readPopups(): Promise<Popup[] | null> {
-  const client = getSupabasePublic();
+  const client = getSupabaseAdmin();
   if (!client) return null;
   const res = await readPublicOrNull("popups", () =>
     client.from(POPUPS_TABLE).select("id, doc").eq("tenant_id", tenant.id),
@@ -61,17 +63,21 @@ export async function listPopups(): Promise<StoreResult<Popup[]>> {
 
 // Admin: create or replace a popup. `popup` must already be PopupSchema-valid.
 // The row is stamped with the active tenant so it cannot leak to another site.
+// The conflict target is the composite (id, tenant_id) primary key: the same
+// campaign id may exist once per tenant, and republishing to one tenant must
+// never overwrite another tenant's row.
 export async function upsertPopup(popup: Popup): Promise<StoreResult<Popup>> {
   const client = getSupabaseAdmin();
   if (!client) return { ok: false, reason: "not_configured" };
-  const { error } = await client
-    .from(POPUPS_TABLE)
-    .upsert({
+  const { error } = await client.from(POPUPS_TABLE).upsert(
+    {
       id: popup.id,
       doc: popup,
       tenant_id: tenant.id,
       updated_at: new Date().toISOString(),
-    });
+    },
+    { onConflict: "id,tenant_id" },
+  );
   if (error) return { ok: false, reason: "failed", detail: error.message };
   return { ok: true, data: popup };
 }

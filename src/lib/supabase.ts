@@ -1,8 +1,11 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 // Two clients with different trust levels:
-//   - public: anon key, used for the public popup read (RLS allows SELECT only).
-//   - admin:  service-role key, server-only, bypasses RLS for writes + uploads.
+//   - public: anon key. Currently UNUSED at runtime — all reads moved to the
+//     service-role client (see 20261127000000 migration). Kept as the seam for
+//     per-tenant-JWT browser-direct reads if those are ever introduced.
+//   - admin:  service-role key, server-only, bypasses RLS for reads, writes,
+//     and uploads. Tenant isolation is application-level (.eq("tenant_id")).
 //
 // Both are created lazily and return null when their env is missing so the app
 // degrades gracefully (build, local dev, and e2e fall back to popups.json).
