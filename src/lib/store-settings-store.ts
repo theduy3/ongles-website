@@ -1,5 +1,5 @@
 import { tenant } from "@/config";
-import { getSupabaseAdmin, getSupabasePublic, STORE_SETTINGS_TABLE } from "@/lib/supabase";
+import { getSupabaseAdmin, STORE_SETTINGS_TABLE } from "@/lib/supabase";
 import { StoreSettingsSchema, type StoreSettings } from "@/lib/store-settings-schema";
 import { parseWithSchema, readPublicOrNull, type StoreResult } from "@/lib/tenant-store";
 
@@ -8,8 +8,8 @@ import { parseWithSchema, readPublicOrNull, type StoreResult } from "@/lib/tenan
 // override object validated through StoreSettingsSchema on read.
 //
 // Every query is scoped to the ACTIVE tenant (tenant.id) via .eq("tenant_id").
-// The public client is used for reads (anon key, RLS SELECT-only).
-// The admin client is used for reads/writes that require RLS bypass.
+// All reads and writes use the service-role client: they run server-side only,
+// and anon no longer passes RLS (see 20261127000000 migration).
 
 type Row = { doc: unknown };
 
@@ -48,7 +48,7 @@ export function resolveAdminRead(
 // not configured, the query fails, there is no row, or the doc fails to parse.
 // Callers fall through to the static tenant config on null.
 export async function readStoreSettings(): Promise<StoreSettings | null> {
-  const client = getSupabasePublic();
+  const client = getSupabaseAdmin();
   if (!client) return null;
 
   // IO shell — query wiring (table, tenant scoping, maybeSingle) is NOT unit-tested
